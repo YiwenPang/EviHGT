@@ -4,6 +4,8 @@ The development figures summarize runs from the original research implementation
 
 The main comparison measures ranking of observed positives against unlabeled candidates on development panels from five overlapping folds of repeat R0.
 
+The [HGTDR-contra adapter](../experiments/hgtdr_contra/) provides the code and synthetic tests for a separate contraindication-trained HGTDR run. The figures below report the recorded comparison with HGTDR support scores.
+
 ## Implemented development protocol
 
 The development protocol uses pair-level splits, removes evaluation targets from graph and training inputs, and scores the support and contra channels separately.

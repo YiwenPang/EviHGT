@@ -42,7 +42,7 @@ Keep raw data, derived restricted inputs, checkpoints and predictions local unde
 
 ## Software verification
 
-All 46 included tests passed in the source directory and after relocation under an isolated Python invocation. Tests use synthetic fixtures and cover corpus schemas and hashes, label exclusions, direct/reverse target removal, fixed conditional records, feature masks, model gradients and ablations, metrics, console output and error handling.
+The 46 tests in the initial release passed in the source directory and after relocation under an isolated Python invocation. Tests use synthetic fixtures and cover corpus schemas and hashes, label exclusions, direct/reverse target removal, fixed conditional records, feature masks, model gradients and ablations, metrics, console output and error handling.
 
 The comparisons with the research implementation recorded:
 
