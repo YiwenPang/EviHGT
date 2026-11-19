@@ -4,8 +4,9 @@ import csv
 import hashlib
 import json
 import math
+import sys
 from collections import Counter, defaultdict
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from statistics import mean
 
 FOLDS = {f"R0F{i}" for i in range(5)}
@@ -21,6 +22,34 @@ def checked_file(root, relative, expected_digest):
     if hashlib.sha256(contents).hexdigest() != expected_digest:
         raise ValueError(f"File digest differs: {relative}")
     return contents
+
+
+def artifact_locations(root, index_path):
+    if index_path is None:
+        matches = sorted((root / "outputs").glob("*/*/analysis_*/metrics_audit.json"))
+        if len(matches) == 1:
+            index_path = matches[0]
+    if index_path is not None:
+        entries = json.loads(index_path.read_bytes())["records"]
+    else:
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        from replay import historical_sources
+
+        with historical_sources() as history:
+            ledger = history / "audit" / "r0_fold_audit.csv"
+            with ledger.open(encoding="utf-8", newline="") as stream:
+                entries = list(csv.DictReader(stream))
+    locations = {}
+    for entry in entries:
+        key = (entry["method"], entry["cell"], entry["head"])
+        if key in locations:
+            raise ValueError(f"Duplicate local audit entry: {key}")
+        paths = {}
+        for field in ("metrics_path", "complete_path"):
+            parts = PurePosixPath(entry[field].replace("\\", "/")).parts
+            paths[field] = Path(*parts[parts.index("outputs"):])
+        locations[key] = paths
+    return locations
 
 
 def verify_artifacts(root, row):
@@ -52,8 +81,12 @@ def verify_artifacts(root, row):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--research-root", type=Path, help="original workspace containing the bound results")
+    parser.add_argument("--artifact-index", type=Path, help="local R0 metrics audit with artifact locations")
     args = parser.parse_args()
     root = args.research_root.resolve() if args.research_root else None
+    if args.artifact_index and root is None:
+        parser.error("--artifact-index requires --research-root")
+    locations = artifact_locations(root, args.artifact_index) if root else {}
     expected = {(method, cell, head) for method in METHODS for cell in FOLDS
                 for head in ("support", "contra") if (method, head) != ("HGTDR_ADAPTED", "contra")}
     seen = set()
@@ -67,7 +100,7 @@ def main():
             panels[key[1:]].add(tuple(row[col] for col in
                 ("P", "U", "pairs", "evaluable_diseases", "candidate_identity_sha256")))
             if root:
-                verify_artifacts(root, row)
+                verify_artifacts(root, {**row, **locations[key]})
     if seen != expected or any(len(identities) != 1 for identities in panels.values()):
         raise ValueError("Incomplete roster or inconsistent within-fold candidate identities")
     print(f"Verified {len(seen)} method/fold/head entries across {len(panels)} common panels.")

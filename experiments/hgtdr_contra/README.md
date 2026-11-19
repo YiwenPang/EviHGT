@@ -6,7 +6,7 @@ The training recipe uses AdamW with an initial learning rate of 0.003 and cosine
 
 ## Training
 
-The entry point uses the audited EviHGT research workspace with its Phase98 modules, the original R0 fold manifests, and the hash-checked native graph caches and features. It also requires the local HGTDR reconstruction used by that workspace and its CUDA environment. The HGTDR architecture is described in the [original paper](https://doi.org/10.1093/bioinformatics/btae349).
+The entry point uses the audited EviHGT research workspace with its ranking and sampling modules, the original R0 fold manifests, and the hash-checked native graph caches and features. It also requires the local HGTDR reconstruction used by that workspace and its CUDA environment. The HGTDR architecture is described in the [original paper](https://doi.org/10.1093/bioinformatics/btae349).
 
 From this repository, use the interpreter configured for the research workspace.
 
@@ -14,7 +14,7 @@ From this repository, use the interpreter configured for the research workspace.
 python -m experiments.hgtdr_contra.run run --research-root /path/to/research-workspace
 ```
 
-Use `--output` to choose a separate output directory under the research workspace's `outputs` directory. The runner saves training state at completed epochs and records the selected weights and contra panel metrics for each fold. Keep source and derived data, pair-level predictions, logs, and weights in the local workspace.
+Use `--output` to choose a separate output directory under the research workspace's `outputs` directory. The runner saves training state at completed epochs and records the selected weights and contra panel metrics for each fold. Each checkpoint records the adapter source hashes and the identities of its fold inputs. Use this checkout to resume a run started with this adapter. The November 2026 run used the research checkout's `src/evi_hgt_hgtdr_contra/` package. Its `protocol.json` records the SHA-256 of all five original adapter files. Keep source and derived data, pair-level predictions, logs, and weights in the local workspace.
 
 ## Tests
 

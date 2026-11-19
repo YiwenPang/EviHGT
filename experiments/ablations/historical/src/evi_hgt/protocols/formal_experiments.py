@@ -206,7 +206,7 @@ def validate_formal_experiment_manifest(
         original.pop("formal_training_protocol_digest", None)
         matrix_ids.append(compute_formal_run_id(original))
     if hashlib.sha256("\n".join(matrix_ids).encode("utf-8")).hexdigest() != LEGACY_FORMAL_RUN_ID_SEQUENCE_SHA256:
-        raise FormalManifestError("formal run ID sequence drifted from Phase 7.3.3.1")
+        raise FormalManifestError("formal run ID sequence drifted from variant catalog")
     expected_sequence = (LOWER_LR_RUN_ID_SEQUENCE_SHA256 if refined else
                          FORMAL_RUN_ID_SEQUENCE_SHA256 if extended else
                          PRACTICAL_ORIGINAL_RUN_ID_SEQUENCE_SHA256 if practical else

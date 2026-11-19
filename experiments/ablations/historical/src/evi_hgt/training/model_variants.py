@@ -60,7 +60,7 @@ def build_model_variant(
             and allow_full_without_path_for_compatibility_test
         ):
             raise ValueError(
-                f"{spec.variant_id.value} requires the frozen Phase 6 path config"
+                f"{spec.variant_id.value} requires the frozen path encoder path config"
             )
     if selected_path_config is not None:
         if selected_path_config.core_hidden_dim != core_config.hidden_dim:

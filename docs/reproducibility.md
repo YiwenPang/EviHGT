@@ -11,6 +11,8 @@ The portable runner executes a specified corpus, schedule and configuration. See
 5. Validate the corpus with `python main.py --mode validate`. Check evidence and relation semantics against the source audits.
 6. Save the exact YAML configuration. Record device, precision and dependency versions with the run.
 
+The [experiment index](../experiments/) links the published results to their study-specific code, local inputs and verification commands. For a run whose receipts record its original source layout, see [source replay](../experiments/README.md#replaying-a-recorded-run).
+
 ## Training and ablations
 
 `main.py` runs the supplied three-cycle FULL plan. `ablation.py` runs explicitly selected variants serially. All variants consume the same corpus and plan and use the same initialization seed. The common nominal parameter schema is retained even when a branch is bypassed; report effective computation as well as nominal parameter count.

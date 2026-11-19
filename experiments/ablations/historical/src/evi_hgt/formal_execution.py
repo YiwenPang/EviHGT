@@ -1,4 +1,4 @@
-"""Run-scoped Phase 8 planning and protected formal-training orchestration."""
+"""Run-scoped formal study planning and protected formal-training orchestration."""
 
 from __future__ import annotations
 
@@ -194,17 +194,17 @@ def phase8_authorization_payload(config: Mapping[str, Any]) -> dict[str, Any]:
     authorized = phase8["execution_authorized"]
     cli_override = phase8["cli_override_permitted"]
     if not isinstance(authorized, bool) or not isinstance(cli_override, bool):
-        raise TypeError("Phase 8 authorization fields must be booleans")
+        raise TypeError("formal study authorization fields must be booleans")
     if cli_override:
-        raise RuntimeError("Phase 8 authorization must not be CLI-overridable")
+        raise RuntimeError("formal study authorization must not be CLI-overridable")
     authorized_run_ids = phase8.get("authorized_run_ids")
     if not isinstance(authorized_run_ids, list) or (authorized and not authorized_run_ids):
-        raise TypeError("enabled Phase 8 authorization requires a non-empty run-ID list")
+        raise TypeError("enabled formal study authorization requires a non-empty run-ID list")
     if len(authorized_run_ids) != len(set(authorized_run_ids)):
-        raise ValueError("Phase 8 authorization contains duplicate run IDs")
+        raise ValueError("formal study authorization contains duplicate run IDs")
     for run_id in authorized_run_ids:
         if not isinstance(run_id, str):
-            raise TypeError("Phase 8 authorized run IDs must be strings")
+            raise TypeError("formal study authorized run IDs must be strings")
         _validate_sha256(run_id, name="authorized_run_id")
     return {
         "phase8_execution_authorized": authorized,
@@ -219,7 +219,7 @@ def phase8_authorization_payload(config: Mapping[str, Any]) -> dict[str, Any]:
 def enforce_phase8_execution_authorization(
     config: Mapping[str, Any], *, mode: str
 ) -> None:
-    """Fail before any formal state mutation unless Phase 8 is authorized."""
+    """Fail before any formal state mutation unless formal study is authorized."""
 
     if mode not in _FORMAL_MODES:
         raise ValueError(f"not a formal execution mode: {mode}")

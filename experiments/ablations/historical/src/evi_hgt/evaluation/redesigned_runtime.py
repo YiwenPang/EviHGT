@@ -121,8 +121,8 @@ def visible_stage(name):
 
 
 def load_group(root,plan,cells,index,supervision,frame,*,cold_visibility=None):
-    from scripts.phase8_validation_diagnostics import load_replay_context
-    from scripts.phase8_validation_runtime import build_diagnostic_components
+    from scripts.formal_study_validation_diagnostics import load_replay_context
+    from scripts.formal_study_validation_runtime import build_diagnostic_components
     from evi_hgt.training.formal_checkpoint import formal_checkpoint_identity_from_execution, inspect_formal_checkpoint_file
     from evi_hgt.training.batcher import Phase3QueryBatchAssembler
     from evi_hgt.training.candidate_universe import CandidateUniverse
@@ -176,8 +176,8 @@ def _execute(root,plan,manifest,frozen,auth,*,resume):
     # Authorized entry is durably committed before any model/data runtime load.
     import polars as pl
     import torch
-    from scripts.phase8_validation_diagnostics import no_optimizer_allowed
-    from scripts.phase841_indexed_fact_columns import IndexedFactColumns
+    from scripts.formal_study_validation_diagnostics import no_optimizer_allowed
+    from scripts.indexed_evaluation_indexed_fact_columns import IndexedFactColumns
     from evi_hgt.training.input_index import StaticInputIndex
     from evi_hgt.training.formal_driver import _assemble_production_query
     from evi_hgt.training.supervision import make_unlabeled_query_supervision

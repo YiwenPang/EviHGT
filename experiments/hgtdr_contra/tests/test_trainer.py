@@ -5,8 +5,7 @@ import pytest
 import torch
 from torch import nn
 
-from evi_hgt.phase9 import hgtdr_adapter as hg
-from experiments.hgtdr_contra.trainer import build_trainer
+from experiments.hgtdr_contra.trainer import build_trainer, hg
 
 
 class ToyModel(nn.Module):

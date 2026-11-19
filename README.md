@@ -51,7 +51,7 @@ python ablation.py --variants NO_D1 NO_PATH
 
 ## Development results
 
-[Experiment source and audit records](experiments/) cover the historical comparison drivers, ablations, cold-start evaluation and native baseline adaptations.
+Browse the [baseline comparisons](experiments/comparisons/), [ablations](experiments/ablations/) and [cold-start experiments](experiments/cold_start/). The [experiment index](experiments/) also links to the HGTDR contraindication study and the fold-by-fold audit.
 
 The table summarizes repeat R0 across five overlapping folds. Metrics were averaged across eligible folds for each disease, then across 1,697 support diseases or 314 contraindication-related diseases. HGTDR supplies only support scores in this comparison.
 

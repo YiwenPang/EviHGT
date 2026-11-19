@@ -5,7 +5,7 @@
     "release_sha256": "5c330d1f7bd07b73a7b3bfce8f821aa6417d2765740cc9cc1fa6b7340523e248"
   },
   {
-    "path": "src/evi_hgt/phase85_part3a_r3/selection.py",
+    "path": "src/evi_hgt/checkpoint_selection/selection.py",
     "research_sha256": "49a46e19d5762da77b98d937cc02d43c515c1c34cb0125362a27254bfe9a9e74",
     "release_sha256": "49a46e19d5762da77b98d937cc02d43c515c1c34cb0125362a27254bfe9a9e74"
   },

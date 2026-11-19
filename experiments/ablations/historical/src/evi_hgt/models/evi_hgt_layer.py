@@ -112,7 +112,7 @@ class EviHGTAttention(nn.Module):
         transformed = torch.einsum(
             "ehd,shdf->eshf", source_values, self.logic_transforms
         )
-        # Phase 8.2.6A: only the direct four-transform mixture loses dynamic
+        # confirmatory ablation: only the direct four-transform mixture loses dynamic
         # conditioning. Do not mutate LogicState or the independent NA gate.
         if not self.use_logic_mass_conditioning:
             masses = torch.full_like(masses, 0.25)

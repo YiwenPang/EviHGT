@@ -1,4 +1,4 @@
-"""End-to-end Phase 4 EviHGT core without prediction heads or path module."""
+"""End-to-end graph encoder EviHGT core without prediction heads or path module."""
 
 from __future__ import annotations
 

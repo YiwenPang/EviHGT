@@ -1,4 +1,4 @@
-"""Validated configuration for the Phase 4 EviHGT core."""
+"""Validated configuration for the graph encoder EviHGT core."""
 
 from __future__ import annotations
 

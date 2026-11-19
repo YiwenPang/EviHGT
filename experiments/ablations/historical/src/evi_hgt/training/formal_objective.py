@@ -1,4 +1,4 @@
-"""Production class-prior-free formal ranking objective for Phase 7.2."""
+"""Production class-prior-free formal ranking objective for learning protocol."""
 
 from __future__ import annotations
 

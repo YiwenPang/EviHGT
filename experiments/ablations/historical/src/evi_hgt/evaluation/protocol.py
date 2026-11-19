@@ -1,4 +1,4 @@
-"""Frozen Phase 7.3.1 evaluation semantics without metric computation."""
+"""Frozen evaluation protocol evaluation semantics without metric computation."""
 
 from __future__ import annotations
 
@@ -89,7 +89,7 @@ class RankingScoreDecision:
         if not self.sigmoid_scores_are_monotone_display_only:
             raise ValueError("sigmoid scores are display-only monotone transforms")
         if self.scores_are_calibrated_probabilities:
-            raise ValueError("Phase 7.3.1 scores are not calibrated probabilities")
+            raise ValueError("evaluation protocol scores are not calibrated probabilities")
         if self.logic_masses_are_observed_labels:
             raise ValueError("latent logic masses are not observed labels")
 
@@ -120,7 +120,7 @@ class MetricValidityRecord:
 
 
 def metric_validity_matrix() -> tuple[MetricValidityRecord, ...]:
-    """Return the complete fail-closed Phase 7.3.1 metric decision matrix."""
+    """Return the complete fail-closed evaluation protocol metric decision matrix."""
 
     primary = tuple(
         MetricValidityRecord(
@@ -341,7 +341,7 @@ class EvaluationProtocolBinding:
 
 @dataclass(frozen=True, slots=True)
 class DeterministicValidationPUManifest:
-    """Fixed validation P/U identities for the Phase 7.2 objective."""
+    """Fixed validation P/U identities for the learning protocol objective."""
 
     split_kind: str
     channel: str

@@ -3,7 +3,6 @@ from types import SimpleNamespace
 
 import pytest
 
-from evi_hgt.phase85_v2.common import digest
 from experiments.hgtdr_contra.data import load_contra_fold, project_contra_candidates
 
 
@@ -29,7 +28,8 @@ def fixture(tmp_path):
         frozen={('D7', 'S1')},
         blocked={('D0', 'S1'), ('D1', 'S2'), ('D2', 'S1'), ('D7', 'S1')},
         contract=SimpleNamespace(bindings={'membership_digests': {
-            'validation': digest(validation), 'auxiliary_validation': digest(contra),
+            'validation': 'e9daa3d8ddf2e56cefaf1aca87d686dd229360a678da88fdd84a6d3b6a6e9568',
+            'auxiliary_validation': '647c7e6bb1b0e4097b7e35c4818b383bf2d2f65b4d570405d74c12c1fc753f7c',
         }}),
     )
     return data, validation, contra

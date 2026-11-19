@@ -1,4 +1,4 @@
-"""Frozen Phase 8 model-selection and early-stopping protocol helpers.
+"""Frozen formal study model-selection and early-stopping protocol helpers.
 
 This module is pure protocol logic.  It does not load a model, create an
 optimizer, read test labels, or write a checkpoint.

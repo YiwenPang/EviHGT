@@ -1,4 +1,4 @@
-"""Integrated production epoch and deterministic-validation driver for Phase 8."""
+"""Integrated production epoch and deterministic-validation driver for formal study."""
 
 from __future__ import annotations
 

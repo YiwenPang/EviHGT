@@ -12,16 +12,16 @@ The complete comparison uses three development folds for loss selection and two 
 | R0F1 | 20,541 | Both losses, FULL vs. content zero, FULL vs. constant quality |
 | R1F0 | 20,700 | Both losses, FULL vs. content zero, FULL vs. constant quality |
 
-Read the [loss definitions](development/src/evi_hgt_dev95/losses.py), [first-fold driver](development/src/evi_hgt_dev95/runner.py), [two-fold driver](development/src/evi_hgt_dev96/runner.py) and [paired schedule](development/src/evi_hgt_dev96/sampling.py). The [ablation driver](development/src/evi_hgt_dev97/runner.py) reuses the half-softplus update and checks nine sampling fields against FULL at every logical step. Its [model hooks](development/src/evi_hgt_dev97/model.py) use the [original intervention code](development/src/evi_hgt/phase9/model.py).
+Read the [loss definitions](development/src/evi_hgt_loss_comparison/losses.py), [first-fold driver](development/src/evi_hgt_loss_comparison/runner.py), [two-fold driver](development/src/evi_hgt_paired_losses/runner.py) and [paired schedule](development/src/evi_hgt_paired_losses/sampling.py). The [ablation driver](development/src/evi_hgt_evidence_ablation/runner.py) reuses the half-softplus update and checks nine sampling fields against FULL at every logical step. Its [model hooks](development/src/evi_hgt_evidence_ablation/model.py) use the [original intervention code](development/src/evi_hgt/ranking_protocol/model.py).
 
 - **Content zero** sets the pooled evidence content and provenance vectors to zero. The remaining input fields and model structure are retained. Effective gradient flow changes. AP differences vary by fold and output channel.
 - **Constant quality** sets the four evidence masses to 0.25 at eligible positions and retains the availability mask. Relative to this variant, FULL increased contraindication AP by 0.92 and 0.09 percentage points in R0F1 and R1F0. Support AP was about 0.11 points lower in each fold.
 
-These comparisons use the fixed three-cycle endpoint on the inner development panels. The R1F0 sigmoid run repeated 116 logged updates after a checkpoint recovery. Matching uses the logical update number and checks the sample identities of repeated records. Physical compute differed. The recovery excerpts show the original [replay accounting and worker](development/scripts/phase96/recovery_v1/recovery_excerpts.py) and the [continuation and reporting code](development/scripts/phase97/recovery_v1/recovery_excerpts.py). The latter reused one completed intervention and finished the three remaining arms.
+These comparisons use the fixed three-cycle endpoint on the inner development panels. The R1F0 sigmoid run repeated 116 logged updates after a checkpoint recovery. Matching uses the logical update number and checks the sample identities of repeated records. Physical compute differed. The recovery excerpts show the original [replay accounting and worker](development/scripts/paired_losses/recovery/recovery_excerpts.py) and the [continuation and reporting code](development/scripts/evidence_ablation/recovery/recovery_excerpts.py). The latter reused one completed intervention and finished the three remaining arms.
 
 ## Historical six-variant study
 
-The [training driver](historical/src/evi_hgt/training/formal_driver.py), [variant catalog](historical/src/evi_hgt/models/variants.py) and [supplemental variant](historical/src/evi_hgt/protocols/confirmatory_ablation.py) describe FULL, the project's relation-only BASE_HGT, and four ablations. The [candidate protocol](historical/src/evi_hgt/evaluation/evaluable_protocol.py), [scoring driver](historical/src/evi_hgt/evaluation/overnight_runtime.py) and [post-completion analysis](historical/scripts/phase843_analyze.py) show how all four evaluation stages were constructed and scored.
+The [training driver](historical/src/evi_hgt/training/formal_driver.py), [variant catalog](historical/src/evi_hgt/models/variants.py) and [supplemental variant](historical/src/evi_hgt/protocols/confirmatory_ablation.py) describe FULL, the project's relation-only BASE_HGT, and four ablations. The [candidate protocol](historical/src/evi_hgt/evaluation/evaluable_protocol.py), [scoring driver](historical/src/evi_hgt/evaluation/overnight_runtime.py) and [post-completion analysis](historical/scripts/analyze_results.py) show how all four evaluation stages were constructed and scored.
 
 Stage A compared support scores on the same frozen set of 47,769 candidate pairs for all six methods. Of 1,354 diseases, 1,109 had both a recorded positive and an unlabeled candidate. Tied scores receive half credit for ROC-AUC and are grouped by threshold for AP. Top-K ties use ascending canonical drug ID. A five-rate validation sweep for FULL selected a learning rate of 0.00005. This rate was then used for all arms. The sweep gave FULL additional tuning opportunities. Each arm used its own best validation checkpoint under the same rule. BASE selected step 9,380 and the other five arms selected step 18,760. Architecture and parameter counts differed.
 
@@ -45,9 +45,17 @@ The historical analysis includes synthetic cases for tied rankings, skipped quer
 
 ```sh
 cd historical
-python -m pytest -q -o pythonpath=src tests/test_phase843_analysis.py
+python -m pytest -q -o pythonpath=src tests/test_results_analysis.py
 ```
 
-[SHA256.json](SHA256.json) lists the original workspace path relative to the project root, the original SHA-256 digest, the digest of the published file with LF line endings, and the corresponding execution or analysis receipt. The two recovery files contain named excerpts. One supervisor's module docstring was shortened for publication. The manifest identifies those edits. The scientific functions in the excerpts retain their original source text.
+From the repository root, run the protocol regression tests with the following command. They use a synthetic three-cycle example to check the schedule digest, conditional sampling bindings, random seeds and selected candidates against values from the original implementation. They also check the three fold-specific initialization seeds and the fusion-layer checkpoint keys.
 
-The historical training commands resolve local manifests, graph and feature stores, checkpoints, and additional original research modules. The mirror covers the experiment drivers, scientific interventions and scoring code. Exact training replay requires the original workspace layout and inputs. The site-specific process monitors, desktop launchers, licensed data and individual candidate scores remain local.
+```sh
+python -m pytest -q experiments/ablations/tests/test_protocol_ids.py
+```
+
+[SHA256.json](SHA256.json) records the published, earlier release and original research checksums for each file. Two recovery modules contain excerpts. The historical study's original file layout, receipt mappings and exact source bindings are available in the [replay archive](../README.md).
+
+The [protocol identifiers](development/src/ablation_protocol_ids.py) preserve the exact strings used in the original random seeds, schedule hashes, feature metadata and model parameter names. The [artifact identifiers](development/src/ablation_artifacts.py) and [record identifiers](development/src/ablation_records.py) name the corresponding diagnostic panels, checkpoints, manifests and run receipts. Public directory and script names describe the experiment each implements.
+
+The named modules expose the scientific implementation for review. The historical records bind file paths, field names and exact source digests. To run one of the research training, registration or evaluation scripts against its original workspace, pass `--research-root PATH` alongside the script's original arguments. The launcher finds the corresponding research script in the pinned archive, checks its SHA-256 and executes it with the current Python interpreter in the research workspace. The original dependency, selection and authorization checks apply there. The public synthetic analysis tests and published source checks run locally.

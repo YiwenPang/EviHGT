@@ -13,7 +13,9 @@ import time
 import polars as pl
 
 sys.dont_write_bytecode = True
-from locations import CACHE, D1_FEATURES, FROZEN, WORKSPACE, check_frozen
+from locations import (
+    CACHE, CANONICAL_GRAPH, D1_FEATURES, DEVELOPMENT_INPUTS, FROZEN, WORKSPACE, check_frozen,
+)
 CASES = ('cold_drug', 'cold_disease', 'double_cold', 'first_approval_year_cohort')
 PARTS = ('train', 'validation', 'test')
 SEED = 42
@@ -131,8 +133,8 @@ def prepare(case):
     final = CACHE / case
     if final.exists():
         raise FileExistsError(final)
-    base = WORKSPACE / 'data/processed/phase85_part2'
-    node_path = WORKSPACE / 'data/processed/phase3/v1/nodes/node_index.parquet'
+    base = WORKSPACE / DEVELOPMENT_INPUTS
+    node_path = WORKSPACE / CANONICAL_GRAPH / 'nodes/node_index.parquet'
     inventory = {}
     def read_source(path, expected=None):
         digest = file_sha(path)

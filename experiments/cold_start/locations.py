@@ -13,7 +13,13 @@ D1_FEATURES = Path(os.environ.get(
     "EVIHGT_D1_FEATURES",
     WORKSPACE.parent / "HGTDR/data/processed/competition_pilot_v1/features",
 )).expanduser().resolve()
-CACHE = WORKSPACE / "data/cache/phase98/cold_start_20261118"
+# Relative paths in the manifests issued by the research workspace.
+CANONICAL_GRAPH = Path("data/processed/phase3/v1")
+DEVELOPMENT_INPUTS = Path("data/processed/phase85_part2")
+DISEASE_GENE_INPUTS = Path("data/processed/phase85_part2b")
+GRAPH_ACCEPTANCE = Path("outputs/phase85_part2b/graph_acceptance.json")
+CASE_CACHE = Path("data/cache/phase98/cold_start_20261118")
+CACHE = WORKSPACE / CASE_CACHE
 EXPERIMENT = WORKSPACE / "outputs/phase9/phase98/cold_start_20261118"
 
 

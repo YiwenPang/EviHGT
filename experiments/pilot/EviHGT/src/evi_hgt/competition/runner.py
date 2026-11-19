@@ -27,7 +27,7 @@ def validate_completion(output_dir, protocol_digest=None):
 def audit_results(output_dir, config):
     """Independently recompute metrics; neither missing pairs nor child-selected scores pass silently."""
     import polars as pl
-    from evi_hgt.phase85_part2b.runtime import inner_metrics
+    from evi_hgt.inner_validation.runtime import inner_metrics
     root = Path(output_dir)
     receipt = validate_completion(root, config['protocol_digest'])
     if receipt.get('bindings', {}).get('protocol_digest') != config['protocol_digest']:

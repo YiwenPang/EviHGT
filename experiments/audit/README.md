@@ -1,6 +1,6 @@
 # R0 comparison audit
 
-The [fold ledger](r0_fold_audit.csv) records all 55 method/fold/output results behind the original six-method comparison. It includes aggregate counts, the SHA-256 of sorted (drug, disease, P/U role) triples, the number of evaluable diseases, and three fold-level metrics. Each row identifies the original metric and completion files by relative path and checksum. HGTDR R0F0 used an earlier cache whose metric header omitted the panel checksum. Its digest in the ledger was recomputed from the saved candidates at selected epoch 222.
+The [fold ledger](r0_fold_audit.csv) records all 55 method/fold/output results behind the original six-method comparison. It includes aggregate counts, the SHA-256 of sorted (drug, disease, P/U role) triples, the number of evaluable diseases, and three fold-level metrics. Each row identifies the original metric and completion files by checksum. HGTDR R0F0 used an earlier cache whose metric header omitted the panel checksum. Its digest in the ledger was recomputed from the saved candidates at selected epoch 222.
 
 Run the public consistency check from the repository root.
 
@@ -14,6 +14,8 @@ With the original local results tree, the following command also checks the arti
 python experiments/audit/verify_r0.py --research-root /path/to/original/EviHGT
 ```
 
+The verifier uses the local R0 metrics audit when it can identify a single copy. You can specify that file with `--artifact-index PATH`. If the index is missing or ambiguous, a Git clone containing the archived source revision can recover the original artifact locations from the recorded ledger. In all cases the published file checksums and panel identities apply.
+
 ## How to interpret the comparison
 
 - Within each fold, scoring uses the same candidates for each available output. A positive is a recorded relation of the appropriate type. U denotes a sampled unlabeled pair. The source filters direct, reverse and equivalent target facts. Upstream exposure of the pretrained encoders to target information remains unverified.
@@ -22,4 +24,4 @@ python experiments/audit/verify_r0.py --research-root /path/to/original/EviHGT
 - Popularity scores the training-positive frequency of each drug separately for each output. It leads contra AUC and NDCG@10, and matched HGT-D1 leads contra AP under the main aggregation. Fold-first averaging also puts Popularity first on contra AP. Candidate composition and repeated disease coverage matter for interpreting this task.
 - The main results average each disease across its eligible folds and then weight diseases equally. The 55 rows here are fold summaries. Recomputing the main table uses the disease-level observations. The five folds overlap and support descriptive comparisons.
 
-[Reported main table](../../README.md#development-results) · [Source for the comparison](../comparisons/)
+[Reported main table](../../README.md#development-results) 路 [Source for the comparison](../comparisons/)

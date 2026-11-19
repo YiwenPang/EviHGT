@@ -1,4 +1,4 @@
-"""Query-conditioned Phase 6 path scoring, pooling, and residual fusion."""
+"""Query-conditioned path encoder path scoring, pooling, and residual fusion."""
 
 from __future__ import annotations
 
@@ -95,7 +95,7 @@ class PathReasoner(nn.Module):
                 path_available=available,
             )
         if edge_context is None:
-            raise ValueError("non-empty path reasoning requires Phase 4 edge context")
+            raise ValueError("non-empty path reasoning requires graph encoder edge context")
         encoded: PathEncoderOutput = self.path_encoder(
             paths, node_embeddings, edge_context
         )
@@ -164,4 +164,3 @@ class GatedResidualPathFusion(nn.Module):
             path_gate=gate,
             path_delta=delta,
         )
-

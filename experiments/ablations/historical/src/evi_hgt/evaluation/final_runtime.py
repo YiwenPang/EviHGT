@@ -18,7 +18,7 @@ from evi_hgt.evaluation.final_protocol import candidate_stream,validate_plan
 
 
 def preflight(root):
-    from scripts import phase842_final_freeze as freeze
+    from scripts import holdout_evaluation_final_freeze as freeze
     require(Path(root).resolve()==freeze.ROOT,'final scope must use its bound project root')
     freeze.preflight()
     f=read_json(Path(root)/freeze.OUT/'freeze.json');record,manifests,plan=freeze.load_draft()
@@ -136,8 +136,8 @@ def _execute(root,plan,layer1,manifests,f,auth,safety,*,resume):
     # All runtime imports occur after the new authorization and immutable entry.
     import polars as pl
     import torch
-    from scripts.phase8_validation_diagnostics import no_optimizer_allowed
-    from scripts.phase841_indexed_fact_columns import IndexedFactColumns
+    from scripts.formal_study_validation_diagnostics import no_optimizer_allowed
+    from scripts.indexed_evaluation_indexed_fact_columns import IndexedFactColumns
     from evi_hgt.training.input_index import StaticInputIndex
     from evi_hgt.training.formal_driver import _assemble_production_query
     from evi_hgt.training.supervision import make_unlabeled_query_supervision

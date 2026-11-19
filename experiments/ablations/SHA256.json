@@ -1,104 +1,59 @@
 {
-  "schema": 1,
-  "receipts": {
-    "DEV95": {
-      "source": "outputs/phase9/phase95/DEV95_EXECUTION_MANIFEST.json",
-      "sha256": "1e3d849c49852d00661500640fd130f54943288bf7d7d0a2b61221c4558478a4"
-    },
-    "DEV96": {
-      "source": "outputs/phase9/phase96/DEV96_EXECUTION_MANIFEST.json",
-      "sha256": "5e2abf325a9412bd03f0c33a3d12ef7cafd5be2422753a8618b2ac121b43ed81"
-    },
-    "DEV97": {
-      "source": "outputs/phase9/phase97/DEV97_EXECUTION_MANIFEST.json",
-      "sha256": "fd072c4fe1ccb9e95c58a3dc222ff8c0be686fb81ac32fdc3874ccde1c573322"
-    },
-    "DEV96_recovery": {
-      "source": "outputs/phase9/phase96/recovery_v1/RECOVERY_EXECUTION_MANIFEST.json",
-      "sha256": "24b6dd3f0b61a779dbe0c8e1c7c01d36e442541750bb74841b6e33ba157ff094"
-    },
-    "DEV97_recovery": {
-      "source": "outputs/phase9/phase97/recovery_v1/RECOVERY_EXECUTION_MANIFEST.json",
-      "sha256": "5d48776837152a1ac7080cd5ad006c280eb4987aa46a4e2f3225ce13d86ecbdb"
-    },
-    "historical_plan": {
-      "source": "outputs/phase842_evaluable/execution_plan.json",
-      "sha256": "595d6d07edb13385d219bffd997db3d8e1711af8790791f8653aefcbfb1c3868"
-    },
-    "historical_freeze": {
-      "source": "outputs/phase842_evaluable/freeze.json",
-      "sha256": "c925be7ffd50dc9c537f096df5be26b5695adfe6ce78ae8a79f7c3080da44165"
-    },
-    "historical_final_freeze": {
-      "source": "outputs/phase842_final/freeze.json",
-      "sha256": "d4a8d67d41df1192dbaf8bb54a1fcbbbc9c3de8f3cd5ab40c0cb03d70bda316e"
-    },
-    "historical_delivery": {
-      "source": "outputs/phase843_results/DELIVERY_VERIFICATION.json",
-      "sha256": "d8b1fa4787293637ba2fa2847d2b2159ab1af005b2e21017d31cee6df09b07a4"
-    },
-    "historical_execution_binding": {
-      "source": "outputs/phase8_4_2/execution_binding.json",
-      "sha256": "ccaba8da20942526e476198fd2530ad5eda3cb5d7ad7f3beefa7736b57d1694a"
-    },
-    "historical_u32_freeze": {
-      "source": "outputs/phase842_u32/freeze.json",
-      "sha256": "05c3453bdfb93db42a58cc454ef0a0c0453585a23d767b19d5310dc6b7df66c9"
-    }
-  },
+  "schema": 2,
+  "archive_commit": "5251bd6ad157a169c23e42d0cc8d59d20f621fbd",
   "files": [
     {
-      "file": "development/outputs/phase85_part3b10/stable_core.py",
-      "source": "outputs/phase85_part3b10/stable_core.py",
-      "source_sha256": "81f930325aa9de0370c6b12416bfaa6398d6c691ffe5f6e71712d0a178360b4b",
-      "lf_sha256": "81f930325aa9de0370c6b12416bfaa6398d6c691ffe5f6e71712d0a178360b4b",
+      "file": "development/outputs/stable_loss_core/stable_core.py",
+      "published_sha256": "81f930325aa9de0370c6b12416bfaa6398d6c691ffe5f6e71712d0a178360b4b",
+      "research_sha256": "81f930325aa9de0370c6b12416bfaa6398d6c691ffe5f6e71712d0a178360b4b",
+      "prior_release_lf_sha256": "81f930325aa9de0370c6b12416bfaa6398d6c691ffe5f6e71712d0a178360b4b",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/outputs/phase85_part3b11/stable_training_loss.py",
-      "source": "outputs/phase85_part3b11/stable_training_loss.py",
-      "source_sha256": "297cbab9b9b7c8f9367cac3c3a9dc44fea29679b878f5eb54b8d5ca12f37b451",
-      "lf_sha256": "297cbab9b9b7c8f9367cac3c3a9dc44fea29679b878f5eb54b8d5ca12f37b451",
+      "file": "development/outputs/stable_loss_training/stable_training_loss.py",
+      "published_sha256": "297cbab9b9b7c8f9367cac3c3a9dc44fea29679b878f5eb54b8d5ca12f37b451",
+      "research_sha256": "297cbab9b9b7c8f9367cac3c3a9dc44fea29679b878f5eb54b8d5ca12f37b451",
+      "prior_release_lf_sha256": "297cbab9b9b7c8f9367cac3c3a9dc44fea29679b878f5eb54b8d5ca12f37b451",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/scripts/phase95/register.py",
-      "source": "scripts/phase95/register.py",
-      "source_sha256": "59cfeff4b9b004fe0413be43579f8e6639aea51ff2db7c8d86fdbfd4244e94a5",
-      "lf_sha256": "59cfeff4b9b004fe0413be43579f8e6639aea51ff2db7c8d86fdbfd4244e94a5",
+      "file": "development/scripts/loss_comparison/register.py",
+      "published_sha256": "3fd94d01dd26a8cb2c7ede11a8bad3ebe38c2028a76390fb92f21bef5472a036",
+      "research_sha256": "59cfeff4b9b004fe0413be43579f8e6639aea51ff2db7c8d86fdbfd4244e94a5",
+      "prior_release_lf_sha256": "59cfeff4b9b004fe0413be43579f8e6639aea51ff2db7c8d86fdbfd4244e94a5",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/scripts/phase95/run_dev95.py",
-      "source": "scripts/phase95/run_dev95.py",
-      "source_sha256": "404541032716217c1ab4ab3867ed34e75d58a82963429db8e76a6ee8e0e70da7",
-      "lf_sha256": "56d69b3f2b716001e39f1bc2b91dbf64b7d49b482cb9e84fc80f207ea40b6edf",
+      "file": "development/scripts/loss_comparison/run.py",
+      "published_sha256": "fc38f25a3e3f12bcfb77fc6f8129e7ec8e7e49eee87ccce8863d4f5039da69bd",
+      "research_sha256": "404541032716217c1ab4ab3867ed34e75d58a82963429db8e76a6ee8e0e70da7",
+      "prior_release_lf_sha256": "56d69b3f2b716001e39f1bc2b91dbf64b7d49b482cb9e84fc80f207ea40b6edf",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ],
-      "publication_edit": "Module docstring shortened; executable statements unchanged."
+      "prior_release_edit": "Module docstring shortened; executable statements unchanged."
     },
     {
-      "file": "development/scripts/phase96/recovery_v1/recovery_excerpts.py",
-      "source": "scripts/phase96/recovery_v1/recovery.py",
-      "source_sha256": "ab67ab3c25c1bbed9d4c9ce171760b0b9ee85c820d535e76f4815617095fc43e",
-      "lf_sha256": "68fd7c3cdb4ce6294d0fb7b799cd707b8bc5ce285ae2d802773f8a4474f6af9d",
+      "file": "development/scripts/paired_losses/recovery/recovery_excerpts.py",
+      "published_sha256": "5ef0eecdf7aee3eb747fe546db757ca767513fb839b5ac52ce01ad94cfc4fbe1",
+      "research_sha256": "ab67ab3c25c1bbed9d4c9ce171760b0b9ee85c820d535e76f4815617095fc43e",
+      "prior_release_lf_sha256": "68fd7c3cdb4ce6294d0fb7b799cd707b8bc5ce285ae2d802773f8a4474f6af9d",
       "receipts": [
-        "DEV96_recovery"
+        "PAIRED_LOSSES_recovery"
       ],
       "selected_functions": [
         "boundary_accounting",
@@ -108,32 +63,32 @@
       ]
     },
     {
-      "file": "development/scripts/phase96/register.py",
-      "source": "scripts/phase96/register.py",
-      "source_sha256": "6eba15cac7eb1fe9b7447f31a3982b5c72ac5f585c6708f5fa351b3f272412fa",
-      "lf_sha256": "6eba15cac7eb1fe9b7447f31a3982b5c72ac5f585c6708f5fa351b3f272412fa",
+      "file": "development/scripts/paired_losses/register.py",
+      "published_sha256": "60ab3cf97b4d8b1587b6547a4d883f3159562391147cbdbf3440921e32abef05",
+      "research_sha256": "6eba15cac7eb1fe9b7447f31a3982b5c72ac5f585c6708f5fa351b3f272412fa",
+      "prior_release_lf_sha256": "6eba15cac7eb1fe9b7447f31a3982b5c72ac5f585c6708f5fa351b3f272412fa",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/scripts/phase96/run_dev96.py",
-      "source": "scripts/phase96/run_dev96.py",
-      "source_sha256": "804b495f38ae1d106063e31ab8dbdbe4fa352da0d7fd6bcd2bd0abee879e8125",
-      "lf_sha256": "804b495f38ae1d106063e31ab8dbdbe4fa352da0d7fd6bcd2bd0abee879e8125",
+      "file": "development/scripts/paired_losses/run.py",
+      "published_sha256": "36bda015c7c7f7caced42dd8243fba1f7051c02b2a6495a317353585723e67d6",
+      "research_sha256": "804b495f38ae1d106063e31ab8dbdbe4fa352da0d7fd6bcd2bd0abee879e8125",
+      "prior_release_lf_sha256": "804b495f38ae1d106063e31ab8dbdbe4fa352da0d7fd6bcd2bd0abee879e8125",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/scripts/phase97/recovery_v1/recovery_excerpts.py",
-      "source": "scripts/phase97/recovery_v1/recovery.py",
-      "source_sha256": "456f5dbf9c31babe77375f18676e355de091e77477508341f2ae3d3a28678cc3",
-      "lf_sha256": "f7b74f1715ea53b208cb7c1f711b2a25df020590ffc37bfb050f673353e4ab52",
+      "file": "development/scripts/evidence_ablation/recovery/recovery_excerpts.py",
+      "published_sha256": "1adf2f4726f2e4e376462e54b4784fa108fc7fb8c8b6a5827792bee81e6211b0",
+      "research_sha256": "456f5dbf9c31babe77375f18676e355de091e77477508341f2ae3d3a28678cc3",
+      "prior_release_lf_sha256": "f7b74f1715ea53b208cb7c1f711b2a25df020590ffc37bfb050f673353e4ab52",
       "receipts": [
-        "DEV97_recovery"
+        "EVIDENCE_ABLATION_recovery"
       ],
       "selected_functions": [
         "run_authorized_remaining",
@@ -144,781 +99,799 @@
       ]
     },
     {
-      "file": "development/scripts/phase97/register.py",
-      "source": "scripts/phase97/register.py",
-      "source_sha256": "ae958e3630f1ed95eca84b05be21778b6d57d58e98ebb927cb869b22487e910d",
-      "lf_sha256": "ae958e3630f1ed95eca84b05be21778b6d57d58e98ebb927cb869b22487e910d",
+      "file": "development/scripts/evidence_ablation/register.py",
+      "published_sha256": "69c6306b610c42ab339ef447c16b59c968763840bc6b8b7f54a0a86c7fbff03c",
+      "research_sha256": "ae958e3630f1ed95eca84b05be21778b6d57d58e98ebb927cb869b22487e910d",
+      "prior_release_lf_sha256": "ae958e3630f1ed95eca84b05be21778b6d57d58e98ebb927cb869b22487e910d",
       "receipts": [
-        "DEV97"
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/scripts/phase97/run_dev97.py",
-      "source": "scripts/phase97/run_dev97.py",
-      "source_sha256": "f10b48e3fbc0e50666cd65e07f00f89d86713cd8a3b27046c101ca4ede1deca0",
-      "lf_sha256": "f10b48e3fbc0e50666cd65e07f00f89d86713cd8a3b27046c101ca4ede1deca0",
+      "file": "development/scripts/evidence_ablation/run.py",
+      "published_sha256": "38a29f7cff8cb724e17e898ae99d7e7460c351725fba801aa2a82b0e46fb802d",
+      "research_sha256": "f10b48e3fbc0e50666cd65e07f00f89d86713cd8a3b27046c101ca4ede1deca0",
+      "prior_release_lf_sha256": "f10b48e3fbc0e50666cd65e07f00f89d86713cd8a3b27046c101ca4ede1deca0",
       "receipts": [
-        "DEV97"
+        "EVIDENCE_ABLATION"
       ]
     },
     {
       "file": "development/src/evi_hgt/models/four_valued_logic.py",
-      "source": "src/evi_hgt/models/four_valued_logic.py",
-      "source_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
-      "lf_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
+      "published_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
+      "research_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
+      "prior_release_lf_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt/phase85_part2b/runtime.py",
-      "source": "src/evi_hgt/phase85_part2b/runtime.py",
-      "source_sha256": "27e389bf97539378c3740b24ecd5de0b3007f24b53169751b0f52a4f23d55a42",
-      "lf_sha256": "27e389bf97539378c3740b24ecd5de0b3007f24b53169751b0f52a4f23d55a42",
+      "file": "development/src/evi_hgt/inner_validation/runtime.py",
+      "published_sha256": "be442bba696741110358460a0d94404f9d831bac951bd12fde1ec2af9eb26361",
+      "research_sha256": "27e389bf97539378c3740b24ecd5de0b3007f24b53169751b0f52a4f23d55a42",
+      "prior_release_lf_sha256": "27e389bf97539378c3740b24ecd5de0b3007f24b53169751b0f52a4f23d55a42",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt/phase85_part3a_r2/conditional.py",
-      "source": "src/evi_hgt/phase85_part3a_r2/conditional.py",
-      "source_sha256": "c0d6ed51ad2819f74dd5399d0739e9d879dee9a9ffa758613e60f18c5b36a8d7",
-      "lf_sha256": "c0d6ed51ad2819f74dd5399d0739e9d879dee9a9ffa758613e60f18c5b36a8d7",
+      "file": "development/src/evi_hgt/conditional_sampling/conditional.py",
+      "published_sha256": "a122aacff547525e7daae2d32871a9454b71801384a161c9d046f1f03ec235f8",
+      "research_sha256": "c0d6ed51ad2819f74dd5399d0739e9d879dee9a9ffa758613e60f18c5b36a8d7",
+      "prior_release_lf_sha256": "c0d6ed51ad2819f74dd5399d0739e9d879dee9a9ffa758613e60f18c5b36a8d7",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt/phase85_part3b1/model.py",
-      "source": "src/evi_hgt/phase85_part3b1/model.py",
-      "source_sha256": "692d686a1bc400bee9742e2b9cdea4f254fac34695c94620c8003b907f9871ed",
-      "lf_sha256": "692d686a1bc400bee9742e2b9cdea4f254fac34695c94620c8003b907f9871ed",
+      "file": "development/src/evi_hgt/query_model/model.py",
+      "published_sha256": "956becca536c4035dc239f584d27c9c012a04ac61611eacc71b247d0b444924c",
+      "research_sha256": "692d686a1bc400bee9742e2b9cdea4f254fac34695c94620c8003b907f9871ed",
+      "prior_release_lf_sha256": "692d686a1bc400bee9742e2b9cdea4f254fac34695c94620c8003b907f9871ed",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt/phase9/identity.py",
-      "source": "src/evi_hgt/phase9/identity.py",
-      "source_sha256": "c77b3133978affce2a07e5f4c5a1b35c0cce7615ef5bee51d7b70bae3f97d3c1",
-      "lf_sha256": "c77b3133978affce2a07e5f4c5a1b35c0cce7615ef5bee51d7b70bae3f97d3c1",
+      "file": "development/src/evi_hgt/ranking_protocol/identity.py",
+      "published_sha256": "c77b3133978affce2a07e5f4c5a1b35c0cce7615ef5bee51d7b70bae3f97d3c1",
+      "research_sha256": "c77b3133978affce2a07e5f4c5a1b35c0cce7615ef5bee51d7b70bae3f97d3c1",
+      "prior_release_lf_sha256": "c77b3133978affce2a07e5f4c5a1b35c0cce7615ef5bee51d7b70bae3f97d3c1",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt/phase9/model.py",
-      "source": "src/evi_hgt/phase9/model.py",
-      "source_sha256": "792dc93e6d5e9962db3710a6468effc67f6003daa525f6cde7ea2cdaff3a0bef",
-      "lf_sha256": "792dc93e6d5e9962db3710a6468effc67f6003daa525f6cde7ea2cdaff3a0bef",
+      "file": "development/src/evi_hgt/ranking_protocol/model.py",
+      "published_sha256": "08c365f391fba7976ea98a1ab82ab76b9c7cf4a2a7f08f67f2cc8495a69d7063",
+      "research_sha256": "792dc93e6d5e9962db3710a6468effc67f6003daa525f6cde7ea2cdaff3a0bef",
+      "prior_release_lf_sha256": "792dc93e6d5e9962db3710a6468effc67f6003daa525f6cde7ea2cdaff3a0bef",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
       "file": "development/src/evi_hgt/training/formal_objective.py",
-      "source": "src/evi_hgt/training/formal_objective.py",
-      "source_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
-      "lf_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
+      "published_sha256": "939fcc612b2467dda491b1037cea90ffc84eeee0b069e889e88357351269c49c",
+      "research_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
+      "prior_release_lf_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev94/common.py",
-      "source": "src/evi_hgt_dev94/common.py",
-      "source_sha256": "63045772984a949b32b4c49bae5f92baddea44a7a6e6b3b832e707ef815b327f",
-      "lf_sha256": "63045772984a949b32b4c49bae5f92baddea44a7a6e6b3b832e707ef815b327f",
+      "file": "development/src/evi_hgt_feature_baseline/common.py",
+      "published_sha256": "6adaf5fb78e5ddb47e89335a54df7243011e018f9c3537bf07b51a2a58174ce2",
+      "research_sha256": "63045772984a949b32b4c49bae5f92baddea44a7a6e6b3b832e707ef815b327f",
+      "prior_release_lf_sha256": "63045772984a949b32b4c49bae5f92baddea44a7a6e6b3b832e707ef815b327f",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev94/data.py",
-      "source": "src/evi_hgt_dev94/data.py",
-      "source_sha256": "d2898d74243f731014a50f60a3fd14a7ebadba352f9e1805aafbe39f3dd0c753",
-      "lf_sha256": "d2898d74243f731014a50f60a3fd14a7ebadba352f9e1805aafbe39f3dd0c753",
+      "file": "development/src/evi_hgt_feature_baseline/data.py",
+      "published_sha256": "de54e4a33c156e4fc567311ffec4945b0cfa9db98c6afe8aaccf117b47b2cebe",
+      "research_sha256": "d2898d74243f731014a50f60a3fd14a7ebadba352f9e1805aafbe39f3dd0c753",
+      "prior_release_lf_sha256": "d2898d74243f731014a50f60a3fd14a7ebadba352f9e1805aafbe39f3dd0c753",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev94/evaluation.py",
-      "source": "src/evi_hgt_dev94/evaluation.py",
-      "source_sha256": "a4e9b99bf75ab10b4d94dc0f1309a7fd56e52cf5458a8face572545aca22bf5f",
-      "lf_sha256": "a4e9b99bf75ab10b4d94dc0f1309a7fd56e52cf5458a8face572545aca22bf5f",
+      "file": "development/src/evi_hgt_feature_baseline/evaluation.py",
+      "published_sha256": "998c181914d66d6b5b558cb60f6cd515d1217e9b17a8ea8fd2a1056e66f6c064",
+      "research_sha256": "a4e9b99bf75ab10b4d94dc0f1309a7fd56e52cf5458a8face572545aca22bf5f",
+      "prior_release_lf_sha256": "a4e9b99bf75ab10b4d94dc0f1309a7fd56e52cf5458a8face572545aca22bf5f",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev94/model.py",
-      "source": "src/evi_hgt_dev94/model.py",
-      "source_sha256": "099663f186815b64371e0c5123d074f97a7b96661ddbef7e6a11d6bce2fd528d",
-      "lf_sha256": "099663f186815b64371e0c5123d074f97a7b96661ddbef7e6a11d6bce2fd528d",
+      "file": "development/src/evi_hgt_feature_baseline/model.py",
+      "published_sha256": "efdf5ebd1bac8987c3fe735b7dff094a4d5f5d9783b93dbb3046aa09ce0beb4e",
+      "research_sha256": "099663f186815b64371e0c5123d074f97a7b96661ddbef7e6a11d6bce2fd528d",
+      "prior_release_lf_sha256": "099663f186815b64371e0c5123d074f97a7b96661ddbef7e6a11d6bce2fd528d",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev94/pretrained.py",
-      "source": "src/evi_hgt_dev94/pretrained.py",
-      "source_sha256": "cefd6bd1326a6482cc1295f92dfc11045abbc58eeddac17e0f3d9d7ef43236ac",
-      "lf_sha256": "cefd6bd1326a6482cc1295f92dfc11045abbc58eeddac17e0f3d9d7ef43236ac",
+      "file": "development/src/evi_hgt_feature_baseline/pretrained.py",
+      "published_sha256": "d83bff4cd873968e776c6bf62ba73e8e1c198cf52322c0d1962a64b57ba8602f",
+      "research_sha256": "cefd6bd1326a6482cc1295f92dfc11045abbc58eeddac17e0f3d9d7ef43236ac",
+      "prior_release_lf_sha256": "cefd6bd1326a6482cc1295f92dfc11045abbc58eeddac17e0f3d9d7ef43236ac",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev94/training.py",
-      "source": "src/evi_hgt_dev94/training.py",
-      "source_sha256": "6688b96a60b46bc5fcbee380783aee11a7b17b35af80e4fdec3cc878e63c6351",
-      "lf_sha256": "6688b96a60b46bc5fcbee380783aee11a7b17b35af80e4fdec3cc878e63c6351",
+      "file": "development/src/evi_hgt_feature_baseline/training.py",
+      "published_sha256": "f4c6a460f7af9138b44581d021d66ba0f2ad8ab17fdf3938a3351d94581e3e7f",
+      "research_sha256": "6688b96a60b46bc5fcbee380783aee11a7b17b35af80e4fdec3cc878e63c6351",
+      "prior_release_lf_sha256": "6688b96a60b46bc5fcbee380783aee11a7b17b35af80e4fdec3cc878e63c6351",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev95/__init__.py",
-      "source": "src/evi_hgt_dev95/__init__.py",
-      "source_sha256": "5f666aee4f49dc10b9f7a768ba4edfbf42130b2bb8eec3f663438c030ce66bfd",
-      "lf_sha256": "5f666aee4f49dc10b9f7a768ba4edfbf42130b2bb8eec3f663438c030ce66bfd",
+      "file": "development/src/evi_hgt_loss_comparison/__init__.py",
+      "published_sha256": "c3d76f2e63ee4ab9f08c8d37530e28d15e6665cf50ed01fec6c078ad4eea9827",
+      "research_sha256": "5f666aee4f49dc10b9f7a768ba4edfbf42130b2bb8eec3f663438c030ce66bfd",
+      "prior_release_lf_sha256": "5f666aee4f49dc10b9f7a768ba4edfbf42130b2bb8eec3f663438c030ce66bfd",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev95/checkpoint.py",
-      "source": "src/evi_hgt_dev95/checkpoint.py",
-      "source_sha256": "5cb484c63a8201def191b9e4b4b9bf7c92e3ea0f656985d20e8ce34b86e8d872",
-      "lf_sha256": "5cb484c63a8201def191b9e4b4b9bf7c92e3ea0f656985d20e8ce34b86e8d872",
+      "file": "development/src/evi_hgt_loss_comparison/checkpoint.py",
+      "published_sha256": "c5fe89c04d456a6a965a476b4d2f10cdce4f466868a631237ffaf6b32bf973d5",
+      "research_sha256": "5cb484c63a8201def191b9e4b4b9bf7c92e3ea0f656985d20e8ce34b86e8d872",
+      "prior_release_lf_sha256": "5cb484c63a8201def191b9e4b4b9bf7c92e3ea0f656985d20e8ce34b86e8d872",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev95/data.py",
-      "source": "src/evi_hgt_dev95/data.py",
-      "source_sha256": "6758d1a39ed2db8c9252dfaebca5af2f499985796a5fecdceaffb87ee21d3f44",
-      "lf_sha256": "6758d1a39ed2db8c9252dfaebca5af2f499985796a5fecdceaffb87ee21d3f44",
+      "file": "development/src/evi_hgt_loss_comparison/data.py",
+      "published_sha256": "40ade465a6b3883f4aa49e65793e40b346c1ffa1c09328fd9f86e74464dce5a2",
+      "research_sha256": "6758d1a39ed2db8c9252dfaebca5af2f499985796a5fecdceaffb87ee21d3f44",
+      "prior_release_lf_sha256": "6758d1a39ed2db8c9252dfaebca5af2f499985796a5fecdceaffb87ee21d3f44",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev95/diagnostics.py",
-      "source": "src/evi_hgt_dev95/diagnostics.py",
-      "source_sha256": "853e558cc3a247684001664559b8cc0fc4e7fe63528e939022d456e2e4591167",
-      "lf_sha256": "853e558cc3a247684001664559b8cc0fc4e7fe63528e939022d456e2e4591167",
+      "file": "development/src/evi_hgt_loss_comparison/diagnostics.py",
+      "published_sha256": "675689fc580d455bd38353b64a4e5aa223b7fa5bd64bdaa9c35023216f484a69",
+      "research_sha256": "853e558cc3a247684001664559b8cc0fc4e7fe63528e939022d456e2e4591167",
+      "prior_release_lf_sha256": "853e558cc3a247684001664559b8cc0fc4e7fe63528e939022d456e2e4591167",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev95/evaluation.py",
-      "source": "src/evi_hgt_dev95/evaluation.py",
-      "source_sha256": "05c99437908105942317f50262352078788405e38495adf689e555c7837f3160",
-      "lf_sha256": "05c99437908105942317f50262352078788405e38495adf689e555c7837f3160",
+      "file": "development/src/evi_hgt_loss_comparison/evaluation.py",
+      "published_sha256": "dfb3490967b541bfcf6cc8ba7688999791a08de5554439241ed0c3a8bb0ab736",
+      "research_sha256": "05c99437908105942317f50262352078788405e38495adf689e555c7837f3160",
+      "prior_release_lf_sha256": "05c99437908105942317f50262352078788405e38495adf689e555c7837f3160",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev95/losses.py",
-      "source": "src/evi_hgt_dev95/losses.py",
-      "source_sha256": "f81a2e3dcc31e2d137e1415488dc66465d4f2b9554d252739ef167ebe7da3669",
-      "lf_sha256": "f81a2e3dcc31e2d137e1415488dc66465d4f2b9554d252739ef167ebe7da3669",
+      "file": "development/src/evi_hgt_loss_comparison/losses.py",
+      "published_sha256": "2f21cb9b0f57de73817a78fa33e33c4fa46f68c1ae9530a41c5e2b6d46ea197a",
+      "research_sha256": "f81a2e3dcc31e2d137e1415488dc66465d4f2b9554d252739ef167ebe7da3669",
+      "prior_release_lf_sha256": "f81a2e3dcc31e2d137e1415488dc66465d4f2b9554d252739ef167ebe7da3669",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev95/protocol.py",
-      "source": "src/evi_hgt_dev95/protocol.py",
-      "source_sha256": "aac658612f31baa918bb9a60f749723003a614bb439500e42a6abbea68d2e29c",
-      "lf_sha256": "aac658612f31baa918bb9a60f749723003a614bb439500e42a6abbea68d2e29c",
+      "file": "development/src/evi_hgt_loss_comparison/protocol.py",
+      "published_sha256": "d9c7c37b6948c59f0da0a7e6350143819f11f67cc87bfb5b28d92d14e7a3902d",
+      "research_sha256": "aac658612f31baa918bb9a60f749723003a614bb439500e42a6abbea68d2e29c",
+      "prior_release_lf_sha256": "aac658612f31baa918bb9a60f749723003a614bb439500e42a6abbea68d2e29c",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev95/reporting.py",
-      "source": "src/evi_hgt_dev95/reporting.py",
-      "source_sha256": "276f9ab4cfe846d7cba4ae9a3547ba5de0cc8b5ae868bf966e49922644c01e90",
-      "lf_sha256": "276f9ab4cfe846d7cba4ae9a3547ba5de0cc8b5ae868bf966e49922644c01e90",
+      "file": "development/src/evi_hgt_loss_comparison/reporting.py",
+      "published_sha256": "80fe49c6c4d2b8f3941e22ff922f1be5216e2c8f939aacf944fbac09f58a60c7",
+      "research_sha256": "276f9ab4cfe846d7cba4ae9a3547ba5de0cc8b5ae868bf966e49922644c01e90",
+      "prior_release_lf_sha256": "276f9ab4cfe846d7cba4ae9a3547ba5de0cc8b5ae868bf966e49922644c01e90",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev95/runner.py",
-      "source": "src/evi_hgt_dev95/runner.py",
-      "source_sha256": "4344cc826de748845ca988b7a6012fa9a5c967400dff08914fac0f8f32fee9c9",
-      "lf_sha256": "4344cc826de748845ca988b7a6012fa9a5c967400dff08914fac0f8f32fee9c9",
+      "file": "development/src/evi_hgt_loss_comparison/runner.py",
+      "published_sha256": "fd0df0337cedf7bbecdb0f4d97490c5d682ee7a0e8e2168262896fbe219e1732",
+      "research_sha256": "4344cc826de748845ca988b7a6012fa9a5c967400dff08914fac0f8f32fee9c9",
+      "prior_release_lf_sha256": "4344cc826de748845ca988b7a6012fa9a5c967400dff08914fac0f8f32fee9c9",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev95/training.py",
-      "source": "src/evi_hgt_dev95/training.py",
-      "source_sha256": "509d1fd1dfba6baf93028c5319555a6f408f7ff88ec2e11113a07b2b5582aaf9",
-      "lf_sha256": "509d1fd1dfba6baf93028c5319555a6f408f7ff88ec2e11113a07b2b5582aaf9",
+      "file": "development/src/evi_hgt_loss_comparison/training.py",
+      "published_sha256": "399f862cb2083355aee899d9db1416be637ab7b57e4c797e64e5b4717b373dc1",
+      "research_sha256": "509d1fd1dfba6baf93028c5319555a6f408f7ff88ec2e11113a07b2b5582aaf9",
+      "prior_release_lf_sha256": "509d1fd1dfba6baf93028c5319555a6f408f7ff88ec2e11113a07b2b5582aaf9",
       "receipts": [
-        "DEV95",
-        "DEV96",
-        "DEV97"
+        "LOSS_COMPARISON",
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev96/__init__.py",
-      "source": "src/evi_hgt_dev96/__init__.py",
-      "source_sha256": "c376c02f11b52ef43930423391a1b775791afbae15bc501b5c85710918f7b3fc",
-      "lf_sha256": "c376c02f11b52ef43930423391a1b775791afbae15bc501b5c85710918f7b3fc",
+      "file": "development/src/evi_hgt_paired_losses/__init__.py",
+      "published_sha256": "f891f35de1c7db3cbb1d17da5136983f01ca41585b831d1797726494dda2bd5f",
+      "research_sha256": "c376c02f11b52ef43930423391a1b775791afbae15bc501b5c85710918f7b3fc",
+      "prior_release_lf_sha256": "c376c02f11b52ef43930423391a1b775791afbae15bc501b5c85710918f7b3fc",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev96/checkpoint.py",
-      "source": "src/evi_hgt_dev96/checkpoint.py",
-      "source_sha256": "ff63db18b040b1006d66a28fe56ae80cd2dc90e070893cc8020e36548957dc09",
-      "lf_sha256": "ff63db18b040b1006d66a28fe56ae80cd2dc90e070893cc8020e36548957dc09",
+      "file": "development/src/evi_hgt_paired_losses/checkpoint.py",
+      "published_sha256": "0fc5b53391c5ada14b07ffdff48d33831f251671c776961a72a29c5e0fa8626f",
+      "research_sha256": "ff63db18b040b1006d66a28fe56ae80cd2dc90e070893cc8020e36548957dc09",
+      "prior_release_lf_sha256": "ff63db18b040b1006d66a28fe56ae80cd2dc90e070893cc8020e36548957dc09",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev96/data.py",
-      "source": "src/evi_hgt_dev96/data.py",
-      "source_sha256": "21625550a0724ebf55304f1a463645c568bce7b8225346a2ec5ed943b8f25ead",
-      "lf_sha256": "21625550a0724ebf55304f1a463645c568bce7b8225346a2ec5ed943b8f25ead",
+      "file": "development/src/evi_hgt_paired_losses/data.py",
+      "published_sha256": "83a26fa00e1668e6f702aa49402821d98001516ae9082c751f001bce9059f2cd",
+      "research_sha256": "21625550a0724ebf55304f1a463645c568bce7b8225346a2ec5ed943b8f25ead",
+      "prior_release_lf_sha256": "21625550a0724ebf55304f1a463645c568bce7b8225346a2ec5ed943b8f25ead",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev96/diagnostics.py",
-      "source": "src/evi_hgt_dev96/diagnostics.py",
-      "source_sha256": "a72807c75fd3b77e0663046cedffaa4fdc69ad027d625e0bc97076a80da8227f",
-      "lf_sha256": "a72807c75fd3b77e0663046cedffaa4fdc69ad027d625e0bc97076a80da8227f",
+      "file": "development/src/evi_hgt_paired_losses/diagnostics.py",
+      "published_sha256": "a0dfddf7427773440d24cac1b5c366fcbee392485522e7b70573bc28c44076da",
+      "research_sha256": "a72807c75fd3b77e0663046cedffaa4fdc69ad027d625e0bc97076a80da8227f",
+      "prior_release_lf_sha256": "a72807c75fd3b77e0663046cedffaa4fdc69ad027d625e0bc97076a80da8227f",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev96/evaluation.py",
-      "source": "src/evi_hgt_dev96/evaluation.py",
-      "source_sha256": "6460e05222f32c18da071fec6ebce55fb9b35df2f51e83e7dae86b45e2438108",
-      "lf_sha256": "6460e05222f32c18da071fec6ebce55fb9b35df2f51e83e7dae86b45e2438108",
+      "file": "development/src/evi_hgt_paired_losses/evaluation.py",
+      "published_sha256": "0b8c5fdbd6b8ad7d12374bc49152de2b653972703deba9f64f74f60af1df6aca",
+      "research_sha256": "6460e05222f32c18da071fec6ebce55fb9b35df2f51e83e7dae86b45e2438108",
+      "prior_release_lf_sha256": "6460e05222f32c18da071fec6ebce55fb9b35df2f51e83e7dae86b45e2438108",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev96/model.py",
-      "source": "src/evi_hgt_dev96/model.py",
-      "source_sha256": "4348be989b5e1595b21a8c4b69a30a874074eb7b0a7decea22ee1acbe6f73f7f",
-      "lf_sha256": "4348be989b5e1595b21a8c4b69a30a874074eb7b0a7decea22ee1acbe6f73f7f",
+      "file": "development/src/evi_hgt_paired_losses/model.py",
+      "published_sha256": "8a5de5cb42498fb47dc6a25c78454d80c85005ee29efdf18a0e031a018f2f616",
+      "research_sha256": "4348be989b5e1595b21a8c4b69a30a874074eb7b0a7decea22ee1acbe6f73f7f",
+      "prior_release_lf_sha256": "4348be989b5e1595b21a8c4b69a30a874074eb7b0a7decea22ee1acbe6f73f7f",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev96/protocol.py",
-      "source": "src/evi_hgt_dev96/protocol.py",
-      "source_sha256": "c851e81dd123059704a41f8fae6f00723f29ca0c08df6e59965d411adc75e7d9",
-      "lf_sha256": "c851e81dd123059704a41f8fae6f00723f29ca0c08df6e59965d411adc75e7d9",
+      "file": "development/src/evi_hgt_paired_losses/protocol.py",
+      "published_sha256": "b1242045dfa65de9fefd93000efcdc3b08b9e72a90e52a076133d7555b79afbc",
+      "research_sha256": "c851e81dd123059704a41f8fae6f00723f29ca0c08df6e59965d411adc75e7d9",
+      "prior_release_lf_sha256": "c851e81dd123059704a41f8fae6f00723f29ca0c08df6e59965d411adc75e7d9",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev96/reporting.py",
-      "source": "src/evi_hgt_dev96/reporting.py",
-      "source_sha256": "02e7c12ecc3b007ecfd04659c76818ec0fc91665b86666733094013abc4404e5",
-      "lf_sha256": "02e7c12ecc3b007ecfd04659c76818ec0fc91665b86666733094013abc4404e5",
+      "file": "development/src/evi_hgt_paired_losses/reporting.py",
+      "published_sha256": "c1278ffd8631d1a9fb9ad646baf0c95c291707c513c5b98dfe94229a36b43742",
+      "research_sha256": "02e7c12ecc3b007ecfd04659c76818ec0fc91665b86666733094013abc4404e5",
+      "prior_release_lf_sha256": "02e7c12ecc3b007ecfd04659c76818ec0fc91665b86666733094013abc4404e5",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev96/runner.py",
-      "source": "src/evi_hgt_dev96/runner.py",
-      "source_sha256": "a9bb04bed3dcccc0ecb6a7c4fdba12080e3067064f6c8c1e0f64517bf0f4e836",
-      "lf_sha256": "a9bb04bed3dcccc0ecb6a7c4fdba12080e3067064f6c8c1e0f64517bf0f4e836",
+      "file": "development/src/evi_hgt_paired_losses/runner.py",
+      "published_sha256": "7f9d71843185b06ba2de3e3631ee2009073b46d7e0f53c0450c7ca46a3121253",
+      "research_sha256": "a9bb04bed3dcccc0ecb6a7c4fdba12080e3067064f6c8c1e0f64517bf0f4e836",
+      "prior_release_lf_sha256": "a9bb04bed3dcccc0ecb6a7c4fdba12080e3067064f6c8c1e0f64517bf0f4e836",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev96/sampling.py",
-      "source": "src/evi_hgt_dev96/sampling.py",
-      "source_sha256": "a2d30869145a8a243c255c48b9f5cef7f8ff150099f046a9cd5d2daf4d4b54df",
-      "lf_sha256": "a2d30869145a8a243c255c48b9f5cef7f8ff150099f046a9cd5d2daf4d4b54df",
+      "file": "development/src/evi_hgt_paired_losses/sampling.py",
+      "published_sha256": "0d844bb3301d35eba38c58ad9e3de911ca75caa2f5e8a50fa81c989d2d74d990",
+      "research_sha256": "a2d30869145a8a243c255c48b9f5cef7f8ff150099f046a9cd5d2daf4d4b54df",
+      "prior_release_lf_sha256": "a2d30869145a8a243c255c48b9f5cef7f8ff150099f046a9cd5d2daf4d4b54df",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev96/training.py",
-      "source": "src/evi_hgt_dev96/training.py",
-      "source_sha256": "6772582cf3661afefa650cd7a5687c9163e8aaff23f8059afbc2b02565d807c9",
-      "lf_sha256": "6772582cf3661afefa650cd7a5687c9163e8aaff23f8059afbc2b02565d807c9",
+      "file": "development/src/evi_hgt_paired_losses/training.py",
+      "published_sha256": "b712a545e30468762332f8b0d7f4bb97f3e07306925f782ba2319b718607d084",
+      "research_sha256": "6772582cf3661afefa650cd7a5687c9163e8aaff23f8059afbc2b02565d807c9",
+      "prior_release_lf_sha256": "6772582cf3661afefa650cd7a5687c9163e8aaff23f8059afbc2b02565d807c9",
       "receipts": [
-        "DEV96",
-        "DEV97"
+        "PAIRED_LOSSES",
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev97/__init__.py",
-      "source": "src/evi_hgt_dev97/__init__.py",
-      "source_sha256": "b9c070dafa848e64784a1677eee3a1acdac4d632424c6d95791131b86ef61b00",
-      "lf_sha256": "b9c070dafa848e64784a1677eee3a1acdac4d632424c6d95791131b86ef61b00",
+      "file": "development/src/evi_hgt_evidence_ablation/__init__.py",
+      "published_sha256": "32a994fbcdbf534d455c8ce634e00066f643de304c3e3ed4c9a1629dca1ddb31",
+      "research_sha256": "b9c070dafa848e64784a1677eee3a1acdac4d632424c6d95791131b86ef61b00",
+      "prior_release_lf_sha256": "b9c070dafa848e64784a1677eee3a1acdac4d632424c6d95791131b86ef61b00",
       "receipts": [
-        "DEV97"
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev97/checkpoint.py",
-      "source": "src/evi_hgt_dev97/checkpoint.py",
-      "source_sha256": "f93cbc776ee41fea03d4858ced5b3a03250a631dcf2977ba0fe1295f6818adc0",
-      "lf_sha256": "f93cbc776ee41fea03d4858ced5b3a03250a631dcf2977ba0fe1295f6818adc0",
+      "file": "development/src/evi_hgt_evidence_ablation/checkpoint.py",
+      "published_sha256": "f7100e4a1522b4b5b19d296c483cd6e820c1a5769218117866398317c053f742",
+      "research_sha256": "f93cbc776ee41fea03d4858ced5b3a03250a631dcf2977ba0fe1295f6818adc0",
+      "prior_release_lf_sha256": "f93cbc776ee41fea03d4858ced5b3a03250a631dcf2977ba0fe1295f6818adc0",
       "receipts": [
-        "DEV97"
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev97/evaluation.py",
-      "source": "src/evi_hgt_dev97/evaluation.py",
-      "source_sha256": "3b81eda81245e543d528f70e48c0ca0815995e188a05ad7d8ed49fe41b2d153e",
-      "lf_sha256": "3b81eda81245e543d528f70e48c0ca0815995e188a05ad7d8ed49fe41b2d153e",
+      "file": "development/src/evi_hgt_evidence_ablation/evaluation.py",
+      "published_sha256": "3109ef6795466f0c8ca8946da8e42c833f2cebba4368052e84c09818adbda678",
+      "research_sha256": "3b81eda81245e543d528f70e48c0ca0815995e188a05ad7d8ed49fe41b2d153e",
+      "prior_release_lf_sha256": "3b81eda81245e543d528f70e48c0ca0815995e188a05ad7d8ed49fe41b2d153e",
       "receipts": [
-        "DEV97"
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev97/model.py",
-      "source": "src/evi_hgt_dev97/model.py",
-      "source_sha256": "660a56d12b7df3e2db39bd8203d4aa7cfe9180c44b440135529fdfef2ea820dc",
-      "lf_sha256": "660a56d12b7df3e2db39bd8203d4aa7cfe9180c44b440135529fdfef2ea820dc",
+      "file": "development/src/evi_hgt_evidence_ablation/model.py",
+      "published_sha256": "e60677062e628f550849ab0ae6c21b67fb2dcd46a1d2a0f22922fbf89dd97ec3",
+      "research_sha256": "660a56d12b7df3e2db39bd8203d4aa7cfe9180c44b440135529fdfef2ea820dc",
+      "prior_release_lf_sha256": "660a56d12b7df3e2db39bd8203d4aa7cfe9180c44b440135529fdfef2ea820dc",
       "receipts": [
-        "DEV97"
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev97/protocol.py",
-      "source": "src/evi_hgt_dev97/protocol.py",
-      "source_sha256": "2ecbfd3d003f6a558133febd6d76e1b32ab22767ed0bf4327039ff47f821a560",
-      "lf_sha256": "2ecbfd3d003f6a558133febd6d76e1b32ab22767ed0bf4327039ff47f821a560",
+      "file": "development/src/evi_hgt_evidence_ablation/protocol.py",
+      "published_sha256": "b07d4f862222a075ffd491c580d228be423e8ecc2070ae1b640d93714e8a2daa",
+      "research_sha256": "2ecbfd3d003f6a558133febd6d76e1b32ab22767ed0bf4327039ff47f821a560",
+      "prior_release_lf_sha256": "2ecbfd3d003f6a558133febd6d76e1b32ab22767ed0bf4327039ff47f821a560",
       "receipts": [
-        "DEV97"
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev97/reporting.py",
-      "source": "src/evi_hgt_dev97/reporting.py",
-      "source_sha256": "e532da248eba961cb2a2f7bed3220401dd665f49992138135ddd5bbcaeb19527",
-      "lf_sha256": "e532da248eba961cb2a2f7bed3220401dd665f49992138135ddd5bbcaeb19527",
+      "file": "development/src/evi_hgt_evidence_ablation/reporting.py",
+      "published_sha256": "29aa5b98f6d52d00a8733c673f26ee1dc82dcd9f40d25c96153ff6b18df8fd3d",
+      "research_sha256": "e532da248eba961cb2a2f7bed3220401dd665f49992138135ddd5bbcaeb19527",
+      "prior_release_lf_sha256": "e532da248eba961cb2a2f7bed3220401dd665f49992138135ddd5bbcaeb19527",
       "receipts": [
-        "DEV97"
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev97/runner.py",
-      "source": "src/evi_hgt_dev97/runner.py",
-      "source_sha256": "ffe3cc5c9fbea9565a97cb0ca0bb7142cb9c86eca708fd72db8e84a2214f2f43",
-      "lf_sha256": "ffe3cc5c9fbea9565a97cb0ca0bb7142cb9c86eca708fd72db8e84a2214f2f43",
+      "file": "development/src/evi_hgt_evidence_ablation/runner.py",
+      "published_sha256": "efd23db4764b51ae95eaf797a091637955fca1aa8a7ffd4686bc125422bd0d3c",
+      "research_sha256": "ffe3cc5c9fbea9565a97cb0ca0bb7142cb9c86eca708fd72db8e84a2214f2f43",
+      "prior_release_lf_sha256": "ffe3cc5c9fbea9565a97cb0ca0bb7142cb9c86eca708fd72db8e84a2214f2f43",
       "receipts": [
-        "DEV97"
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "development/src/evi_hgt_dev97/sampling.py",
-      "source": "src/evi_hgt_dev97/sampling.py",
-      "source_sha256": "4996f75f20bb4a756819499b23989a4beb48dad80c855fc049315ef57284851c",
-      "lf_sha256": "4996f75f20bb4a756819499b23989a4beb48dad80c855fc049315ef57284851c",
+      "file": "development/src/evi_hgt_evidence_ablation/sampling.py",
+      "published_sha256": "45ec878dd38677d93d0451f3509ac58a00fe2f28226320f2a00db75015d638fc",
+      "research_sha256": "4996f75f20bb4a756819499b23989a4beb48dad80c855fc049315ef57284851c",
+      "prior_release_lf_sha256": "4996f75f20bb4a756819499b23989a4beb48dad80c855fc049315ef57284851c",
       "receipts": [
-        "DEV97"
+        "EVIDENCE_ABLATION"
       ]
     },
     {
-      "file": "historical/scripts/phase842_evaluable_freeze.py",
-      "source": "scripts/phase842_evaluable_freeze.py",
-      "source_sha256": "af3d223691ca1ffa3f073b0f85cb9ebe75a1aa204d97609de3d8a07041769ae2",
-      "lf_sha256": "af3d223691ca1ffa3f073b0f85cb9ebe75a1aa204d97609de3d8a07041769ae2",
-      "receipts": [
-        "historical_freeze"
-      ]
-    },
-    {
-      "file": "historical/scripts/phase842_overnight_execution.py",
-      "source": "scripts/phase842_overnight_execution.py",
-      "source_sha256": "93a36bfd6dde76b970885f5ce036dda721591bd969c1553f0a78ceb8adb11f3e",
-      "lf_sha256": "93a36bfd6dde76b970885f5ce036dda721591bd969c1553f0a78ceb8adb11f3e",
+      "file": "historical/scripts/freeze_panels.py",
+      "published_sha256": "d3cfa8bdb2a1c2d63294a7bae4b192b391616c14ae03cae6a1f8848cfe4467c7",
+      "research_sha256": "af3d223691ca1ffa3f073b0f85cb9ebe75a1aa204d97609de3d8a07041769ae2",
+      "prior_release_lf_sha256": "af3d223691ca1ffa3f073b0f85cb9ebe75a1aa204d97609de3d8a07041769ae2",
       "receipts": [
         "historical_freeze"
       ]
     },
     {
-      "file": "historical/scripts/phase843_analyze.py",
-      "source": "scripts/phase843_analyze.py",
-      "source_sha256": "53e6e500cf9bcb939165ab128b973c9544bcf119160b531314f7d383d674fb40",
-      "lf_sha256": "53e6e500cf9bcb939165ab128b973c9544bcf119160b531314f7d383d674fb40",
+      "file": "historical/scripts/evaluate_holdout.py",
+      "published_sha256": "74347479983b6c2bb0b0c2480dd6dde334ddbddfefb7ba270e171d31ebb46a27",
+      "research_sha256": "93a36bfd6dde76b970885f5ce036dda721591bd969c1553f0a78ceb8adb11f3e",
+      "prior_release_lf_sha256": "93a36bfd6dde76b970885f5ce036dda721591bd969c1553f0a78ceb8adb11f3e",
+      "receipts": [
+        "historical_freeze"
+      ]
+    },
+    {
+      "file": "historical/scripts/analyze_results.py",
+      "published_sha256": "f1c4536875d537386d644a13bc7437f3fdea71137bf3288b310725f84e243fb9",
+      "research_sha256": "53e6e500cf9bcb939165ab128b973c9544bcf119160b531314f7d383d674fb40",
+      "prior_release_lf_sha256": "53e6e500cf9bcb939165ab128b973c9544bcf119160b531314f7d383d674fb40",
       "receipts": [
         "historical_delivery"
       ]
     },
     {
       "file": "historical/src/evi_hgt/__init__.py",
-      "source": "src/evi_hgt/__init__.py",
-      "source_sha256": "34662fbaf50eebcf1faf75c66520383c084e8ab00ce4ce25c8887ccd705822a7",
-      "lf_sha256": "34662fbaf50eebcf1faf75c66520383c084e8ab00ce4ce25c8887ccd705822a7",
+      "published_sha256": "34662fbaf50eebcf1faf75c66520383c084e8ab00ce4ce25c8887ccd705822a7",
+      "research_sha256": "34662fbaf50eebcf1faf75c66520383c084e8ab00ce4ce25c8887ccd705822a7",
+      "prior_release_lf_sha256": "34662fbaf50eebcf1faf75c66520383c084e8ab00ce4ce25c8887ccd705822a7",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/data/cold_visibility.py",
-      "source": "src/evi_hgt/data/cold_visibility.py",
-      "source_sha256": "d38ece83dfc23dd83518f31ae5ca6dfd25260946fbd545db87e61813354c4c23",
-      "lf_sha256": "1c03e5451bee9938e427316e7f7a7d946df04f972efc6e1da12b77a040ef1c69",
+      "published_sha256": "1c03e5451bee9938e427316e7f7a7d946df04f972efc6e1da12b77a040ef1c69",
+      "research_sha256": "d38ece83dfc23dd83518f31ae5ca6dfd25260946fbd545db87e61813354c4c23",
+      "prior_release_lf_sha256": "1c03e5451bee9938e427316e7f7a7d946df04f972efc6e1da12b77a040ef1c69",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/candidates.py",
-      "source": "src/evi_hgt/evaluation/candidates.py",
-      "source_sha256": "13b74b6120d8e3150d33576575c45a44fe1e6dc33d88f5d6b5aa37e58393e792",
-      "lf_sha256": "13b74b6120d8e3150d33576575c45a44fe1e6dc33d88f5d6b5aa37e58393e792",
+      "published_sha256": "13b74b6120d8e3150d33576575c45a44fe1e6dc33d88f5d6b5aa37e58393e792",
+      "research_sha256": "13b74b6120d8e3150d33576575c45a44fe1e6dc33d88f5d6b5aa37e58393e792",
+      "prior_release_lf_sha256": "13b74b6120d8e3150d33576575c45a44fe1e6dc33d88f5d6b5aa37e58393e792",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/emergency_u32.py",
-      "source": "src/evi_hgt/evaluation/emergency_u32.py",
-      "source_sha256": "0c322717615e6c683d5f3f2652f8d481cb42f0fd0171360171f53abb2a64749d",
-      "lf_sha256": "0c322717615e6c683d5f3f2652f8d481cb42f0fd0171360171f53abb2a64749d",
+      "published_sha256": "0c322717615e6c683d5f3f2652f8d481cb42f0fd0171360171f53abb2a64749d",
+      "research_sha256": "0c322717615e6c683d5f3f2652f8d481cb42f0fd0171360171f53abb2a64749d",
+      "prior_release_lf_sha256": "0c322717615e6c683d5f3f2652f8d481cb42f0fd0171360171f53abb2a64749d",
       "receipts": [
         "historical_u32_freeze"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/evaluable_protocol.py",
-      "source": "src/evi_hgt/evaluation/evaluable_protocol.py",
-      "source_sha256": "485a78122bb210733477b92abec3fa4e022d30cce16bedc78a8a5b6e6b0cc7a5",
-      "lf_sha256": "485a78122bb210733477b92abec3fa4e022d30cce16bedc78a8a5b6e6b0cc7a5",
+      "published_sha256": "485a78122bb210733477b92abec3fa4e022d30cce16bedc78a8a5b6e6b0cc7a5",
+      "research_sha256": "485a78122bb210733477b92abec3fa4e022d30cce16bedc78a8a5b6e6b0cc7a5",
+      "prior_release_lf_sha256": "485a78122bb210733477b92abec3fa4e022d30cce16bedc78a8a5b6e6b0cc7a5",
       "receipts": [
         "historical_freeze"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/execution_safety.py",
-      "source": "src/evi_hgt/evaluation/execution_safety.py",
-      "source_sha256": "97b6cd731408cdbdc6931bd345b72d12ad8a5a59b0a7d3cc0c12876cae74158f",
-      "lf_sha256": "97b6cd731408cdbdc6931bd345b72d12ad8a5a59b0a7d3cc0c12876cae74158f",
+      "published_sha256": "97b6cd731408cdbdc6931bd345b72d12ad8a5a59b0a7d3cc0c12876cae74158f",
+      "research_sha256": "97b6cd731408cdbdc6931bd345b72d12ad8a5a59b0a7d3cc0c12876cae74158f",
+      "prior_release_lf_sha256": "97b6cd731408cdbdc6931bd345b72d12ad8a5a59b0a7d3cc0c12876cae74158f",
       "receipts": [
         "historical_execution_binding"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/final_protocol.py",
-      "source": "src/evi_hgt/evaluation/final_protocol.py",
-      "source_sha256": "427bd7f8ff16db0a256585165201044a4b07f841f3d88dcc2b2617db37748bc1",
-      "lf_sha256": "427bd7f8ff16db0a256585165201044a4b07f841f3d88dcc2b2617db37748bc1",
+      "published_sha256": "427bd7f8ff16db0a256585165201044a4b07f841f3d88dcc2b2617db37748bc1",
+      "research_sha256": "427bd7f8ff16db0a256585165201044a4b07f841f3d88dcc2b2617db37748bc1",
+      "prior_release_lf_sha256": "427bd7f8ff16db0a256585165201044a4b07f841f3d88dcc2b2617db37748bc1",
       "receipts": [
         "historical_final_freeze"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/final_runtime.py",
-      "source": "src/evi_hgt/evaluation/final_runtime.py",
-      "source_sha256": "d7cb26d12b7459d3e27b932b758358dc31138d6b58a5a35226f6fdc61805d79c",
-      "lf_sha256": "d7cb26d12b7459d3e27b932b758358dc31138d6b58a5a35226f6fdc61805d79c",
+      "published_sha256": "93f5e003b9f27a7ee0e21cbdd7a5e06f5c368b06adf514de5696b34a0183d95e",
+      "research_sha256": "d7cb26d12b7459d3e27b932b758358dc31138d6b58a5a35226f6fdc61805d79c",
+      "prior_release_lf_sha256": "d7cb26d12b7459d3e27b932b758358dc31138d6b58a5a35226f6fdc61805d79c",
       "receipts": [
         "historical_final_freeze"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/formal_redesign.py",
-      "source": "src/evi_hgt/evaluation/formal_redesign.py",
-      "source_sha256": "370c4b4ed512928cfe1476bd779e49df2cccbafc02ae5593f004b1aa91f54923",
-      "lf_sha256": "370c4b4ed512928cfe1476bd779e49df2cccbafc02ae5593f004b1aa91f54923",
+      "published_sha256": "370c4b4ed512928cfe1476bd779e49df2cccbafc02ae5593f004b1aa91f54923",
+      "research_sha256": "370c4b4ed512928cfe1476bd779e49df2cccbafc02ae5593f004b1aa91f54923",
+      "prior_release_lf_sha256": "370c4b4ed512928cfe1476bd779e49df2cccbafc02ae5593f004b1aa91f54923",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/formal_runtime.py",
-      "source": "src/evi_hgt/evaluation/formal_runtime.py",
-      "source_sha256": "a7991027373815b3787cf07c4e074abd7356e453030ca4633e9ec77d2b61390a",
-      "lf_sha256": "a7991027373815b3787cf07c4e074abd7356e453030ca4633e9ec77d2b61390a",
+      "published_sha256": "fbfd5ed2f4b0c7bc80c43010749297c87a6e8f4a94e0fb500b9c3f51fd6d38b7",
+      "research_sha256": "a7991027373815b3787cf07c4e074abd7356e453030ca4633e9ec77d2b61390a",
+      "prior_release_lf_sha256": "a7991027373815b3787cf07c4e074abd7356e453030ca4633e9ec77d2b61390a",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/indexed_adapter.py",
-      "source": "src/evi_hgt/evaluation/indexed_adapter.py",
-      "source_sha256": "0d55890aa630f3b69cbf1801d3cb977233821510cf79e1ca0f8225e88687a5c2",
-      "lf_sha256": "0d55890aa630f3b69cbf1801d3cb977233821510cf79e1ca0f8225e88687a5c2",
+      "published_sha256": "0d55890aa630f3b69cbf1801d3cb977233821510cf79e1ca0f8225e88687a5c2",
+      "research_sha256": "0d55890aa630f3b69cbf1801d3cb977233821510cf79e1ca0f8225e88687a5c2",
+      "prior_release_lf_sha256": "0d55890aa630f3b69cbf1801d3cb977233821510cf79e1ca0f8225e88687a5c2",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/overnight_runtime.py",
-      "source": "src/evi_hgt/evaluation/overnight_runtime.py",
-      "source_sha256": "f2cc68c67b66ad4d74c17a46453a9fd4f34ab103e40067a4ab0fadf80bab38fe",
-      "lf_sha256": "f2cc68c67b66ad4d74c17a46453a9fd4f34ab103e40067a4ab0fadf80bab38fe",
+      "published_sha256": "7c64a24c40affff61a4a03b6c92cb62709ef8e5651957267c27fb2347d5c0cb7",
+      "research_sha256": "f2cc68c67b66ad4d74c17a46453a9fd4f34ab103e40067a4ab0fadf80bab38fe",
+      "prior_release_lf_sha256": "f2cc68c67b66ad4d74c17a46453a9fd4f34ab103e40067a4ab0fadf80bab38fe",
       "receipts": [
         "historical_freeze"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/protocol.py",
-      "source": "src/evi_hgt/evaluation/protocol.py",
-      "source_sha256": "6417e2bc3922b700809e3f4a4273d25ef98369f5ac70cfed0233eaccca337c65",
-      "lf_sha256": "6417e2bc3922b700809e3f4a4273d25ef98369f5ac70cfed0233eaccca337c65",
+      "published_sha256": "ba69a63c8680d430f1e67c6727c4c8689de0160703efa08f706f6465dd0775e3",
+      "research_sha256": "6417e2bc3922b700809e3f4a4273d25ef98369f5ac70cfed0233eaccca337c65",
+      "prior_release_lf_sha256": "6417e2bc3922b700809e3f4a4273d25ef98369f5ac70cfed0233eaccca337c65",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/ranking.py",
-      "source": "src/evi_hgt/evaluation/ranking.py",
-      "source_sha256": "ef1a92ba77319c4a825a043d5505932bea32104740f5547856c3292055b16924",
-      "lf_sha256": "ef1a92ba77319c4a825a043d5505932bea32104740f5547856c3292055b16924",
+      "published_sha256": "ef1a92ba77319c4a825a043d5505932bea32104740f5547856c3292055b16924",
+      "research_sha256": "ef1a92ba77319c4a825a043d5505932bea32104740f5547856c3292055b16924",
+      "prior_release_lf_sha256": "ef1a92ba77319c4a825a043d5505932bea32104740f5547856c3292055b16924",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/redesigned_runtime.py",
-      "source": "src/evi_hgt/evaluation/redesigned_runtime.py",
-      "source_sha256": "231cc8a25777524905bfd21feee7ec35373f1f8814c0bb6dcc5b5c5c0b54d612",
-      "lf_sha256": "231cc8a25777524905bfd21feee7ec35373f1f8814c0bb6dcc5b5c5c0b54d612",
+      "published_sha256": "6e805a1a72ffbcbae3b4568c55f6f5be331e416a2a91134472e01f1c120798b4",
+      "research_sha256": "231cc8a25777524905bfd21feee7ec35373f1f8814c0bb6dcc5b5c5c0b54d612",
+      "prior_release_lf_sha256": "231cc8a25777524905bfd21feee7ec35373f1f8814c0bb6dcc5b5c5c0b54d612",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/shared_scoring.py",
-      "source": "src/evi_hgt/evaluation/shared_scoring.py",
-      "source_sha256": "b77a7cb6fbf9deab48e24a3e34276901b7d18d43ce2953c22ac39d5da7fd8053",
-      "lf_sha256": "b77a7cb6fbf9deab48e24a3e34276901b7d18d43ce2953c22ac39d5da7fd8053",
+      "published_sha256": "b77a7cb6fbf9deab48e24a3e34276901b7d18d43ce2953c22ac39d5da7fd8053",
+      "research_sha256": "b77a7cb6fbf9deab48e24a3e34276901b7d18d43ce2953c22ac39d5da7fd8053",
+      "prior_release_lf_sha256": "b77a7cb6fbf9deab48e24a3e34276901b7d18d43ce2953c22ac39d5da7fd8053",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/evaluation/validation_diagnostics.py",
-      "source": "src/evi_hgt/evaluation/validation_diagnostics.py",
-      "source_sha256": "74179172b6c0d01783885074cd890b6c14ee86ff4ef6eedeca6c6c73a6357681",
-      "lf_sha256": "74179172b6c0d01783885074cd890b6c14ee86ff4ef6eedeca6c6c73a6357681",
+      "published_sha256": "74179172b6c0d01783885074cd890b6c14ee86ff4ef6eedeca6c6c73a6357681",
+      "research_sha256": "74179172b6c0d01783885074cd890b6c14ee86ff4ef6eedeca6c6c73a6357681",
+      "prior_release_lf_sha256": "74179172b6c0d01783885074cd890b6c14ee86ff4ef6eedeca6c6c73a6357681",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/formal_execution.py",
-      "source": "src/evi_hgt/formal_execution.py",
-      "source_sha256": "b22b96fd396227bf3c95367bf6c297e1ff32201d601f176e70e7ae83e377f43b",
-      "lf_sha256": "5ee3f2a9547ab424be9da8840da741795fab303af54035cb3352ffa9174a7ca0",
+      "published_sha256": "32205a1ed0805cad30e19f61cf1e1af6c820bbcfe8b07fec91faeeb64cd34004",
+      "research_sha256": "b22b96fd396227bf3c95367bf6c297e1ff32201d601f176e70e7ae83e377f43b",
+      "prior_release_lf_sha256": "5ee3f2a9547ab424be9da8840da741795fab303af54035cb3352ffa9174a7ca0",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/models/config.py",
-      "source": "src/evi_hgt/models/config.py",
-      "source_sha256": "b0a0c026e8de598b4b5826324b531d69867ce86fff75d1745e8fe0522cdbddd1",
-      "lf_sha256": "b0a0c026e8de598b4b5826324b531d69867ce86fff75d1745e8fe0522cdbddd1",
+      "published_sha256": "b366c96670b731ebe47fd114801ca9b1c857ce7d1c5f818564ee7aa153ae24b6",
+      "research_sha256": "b0a0c026e8de598b4b5826324b531d69867ce86fff75d1745e8fe0522cdbddd1",
+      "prior_release_lf_sha256": "b0a0c026e8de598b4b5826324b531d69867ce86fff75d1745e8fe0522cdbddd1",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/models/edge_context.py",
-      "source": "src/evi_hgt/models/edge_context.py",
-      "source_sha256": "082cf6306891ba80f13b5fc880af6539bf09b32e3a8334ad2fd28055f2fa54ca",
-      "lf_sha256": "082cf6306891ba80f13b5fc880af6539bf09b32e3a8334ad2fd28055f2fa54ca",
+      "published_sha256": "082cf6306891ba80f13b5fc880af6539bf09b32e3a8334ad2fd28055f2fa54ca",
+      "research_sha256": "082cf6306891ba80f13b5fc880af6539bf09b32e3a8334ad2fd28055f2fa54ca",
+      "prior_release_lf_sha256": "082cf6306891ba80f13b5fc880af6539bf09b32e3a8334ad2fd28055f2fa54ca",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/models/evi_hgt.py",
-      "source": "src/evi_hgt/models/evi_hgt.py",
-      "source_sha256": "095f15d97b95a2c2fb697788deb91b4c81a7b5340d2dd145ce42d490d8e5bbd6",
-      "lf_sha256": "095f15d97b95a2c2fb697788deb91b4c81a7b5340d2dd145ce42d490d8e5bbd6",
+      "published_sha256": "d01ae2ed22d843318c6d240c5eb9c81b5bdb775b878ce9160f8ce6c78f5ac8cd",
+      "research_sha256": "095f15d97b95a2c2fb697788deb91b4c81a7b5340d2dd145ce42d490d8e5bbd6",
+      "prior_release_lf_sha256": "095f15d97b95a2c2fb697788deb91b4c81a7b5340d2dd145ce42d490d8e5bbd6",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/models/evi_hgt_layer.py",
-      "source": "src/evi_hgt/models/evi_hgt_layer.py",
-      "source_sha256": "836f22a645ea6cfcbba4e00486a180e8a8e34713d8b0d64d17434117ac10c705",
-      "lf_sha256": "836f22a645ea6cfcbba4e00486a180e8a8e34713d8b0d64d17434117ac10c705",
+      "published_sha256": "8a68ea7f3dd1a7fef6971d435f1e2567d4a67583434dc54042976b236f96227a",
+      "research_sha256": "836f22a645ea6cfcbba4e00486a180e8a8e34713d8b0d64d17434117ac10c705",
+      "prior_release_lf_sha256": "836f22a645ea6cfcbba4e00486a180e8a8e34713d8b0d64d17434117ac10c705",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/models/four_valued_logic.py",
-      "source": "src/evi_hgt/models/four_valued_logic.py",
-      "source_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
-      "lf_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
+      "published_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
+      "research_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
+      "prior_release_lf_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/models/path_encoder.py",
-      "source": "src/evi_hgt/models/path_encoder.py",
-      "source_sha256": "d667182a99058bbd76498b54505b27ed47fb494516cbd694d011dd1b3300c092",
-      "lf_sha256": "d667182a99058bbd76498b54505b27ed47fb494516cbd694d011dd1b3300c092",
+      "published_sha256": "dc7e4f6ed9c9757cd156b6c6991785c7dc9a5772ca97f787854571fdf26b00c3",
+      "research_sha256": "d667182a99058bbd76498b54505b27ed47fb494516cbd694d011dd1b3300c092",
+      "prior_release_lf_sha256": "d667182a99058bbd76498b54505b27ed47fb494516cbd694d011dd1b3300c092",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/models/path_reasoning.py",
-      "source": "src/evi_hgt/models/path_reasoning.py",
-      "source_sha256": "d08134463fca369b800a0866400d8283085e7ca105fa96d6cc3d44d82c15c53e",
-      "lf_sha256": "d08134463fca369b800a0866400d8283085e7ca105fa96d6cc3d44d82c15c53e",
+      "published_sha256": "58ab6bffb884e46644324c07c2c8bd615d712e50fa4d3f6c9da6064b6611e9cd",
+      "research_sha256": "d08134463fca369b800a0866400d8283085e7ca105fa96d6cc3d44d82c15c53e",
+      "prior_release_lf_sha256": "d08134463fca369b800a0866400d8283085e7ca105fa96d6cc3d44d82c15c53e",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/models/variants.py",
-      "source": "src/evi_hgt/models/variants.py",
-      "source_sha256": "d131d94a0dfff1035a0d29ef71a95952e3f1c0027086c0c8965c083e6120b416",
-      "lf_sha256": "d131d94a0dfff1035a0d29ef71a95952e3f1c0027086c0c8965c083e6120b416",
+      "published_sha256": "a974cc350c70cace1f942de5fadbc858fafa0a06206f5afc87e69c034154eacc",
+      "research_sha256": "d131d94a0dfff1035a0d29ef71a95952e3f1c0027086c0c8965c083e6120b416",
+      "prior_release_lf_sha256": "d131d94a0dfff1035a0d29ef71a95952e3f1c0027086c0c8965c083e6120b416",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/protocols/confirmatory_ablation.py",
-      "source": "src/evi_hgt/protocols/confirmatory_ablation.py",
-      "source_sha256": "a843d6cd4d8b902c023d2f852f91acd0ffeb3dd9814156c5f25e74fa8ff21db6",
-      "lf_sha256": "a843d6cd4d8b902c023d2f852f91acd0ffeb3dd9814156c5f25e74fa8ff21db6",
+      "published_sha256": "73d6d0546846d6be42867e2845a163d3be1376f02449869c109445b0425e2853",
+      "research_sha256": "a843d6cd4d8b902c023d2f852f91acd0ffeb3dd9814156c5f25e74fa8ff21db6",
+      "prior_release_lf_sha256": "a843d6cd4d8b902c023d2f852f91acd0ffeb3dd9814156c5f25e74fa8ff21db6",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/protocols/formal_experiments.py",
-      "source": "src/evi_hgt/protocols/formal_experiments.py",
-      "source_sha256": "00101190879cf774436bcc7de4b503fc09ae5dc4c7347c2afee44482f0192827",
-      "lf_sha256": "00101190879cf774436bcc7de4b503fc09ae5dc4c7347c2afee44482f0192827",
+      "published_sha256": "41dea4722897ec003d2d152969494fea6b96b355256c35dca96a5c21375f71a3",
+      "research_sha256": "00101190879cf774436bcc7de4b503fc09ae5dc4c7347c2afee44482f0192827",
+      "prior_release_lf_sha256": "00101190879cf774436bcc7de4b503fc09ae5dc4c7347c2afee44482f0192827",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/training/formal_driver.py",
-      "source": "src/evi_hgt/training/formal_driver.py",
-      "source_sha256": "7ff3d92eb9f1a92595d1b89d1e1a1f22ed4708bdc0bfe23a3e695bd907f80ad9",
-      "lf_sha256": "b9edf8b508a9ae7cbfb3ce9806c9291a6001b4b9d7bb38ec91f0a6e7eab01077",
+      "published_sha256": "123c6c8362e1f47efdaa78a6362a652e502d098e549280d90e74eea79121dd8a",
+      "research_sha256": "7ff3d92eb9f1a92595d1b89d1e1a1f22ed4708bdc0bfe23a3e695bd907f80ad9",
+      "prior_release_lf_sha256": "b9edf8b508a9ae7cbfb3ce9806c9291a6001b4b9d7bb38ec91f0a6e7eab01077",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/training/formal_objective.py",
-      "source": "src/evi_hgt/training/formal_objective.py",
-      "source_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
-      "lf_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
+      "published_sha256": "939fcc612b2467dda491b1037cea90ffc84eeee0b069e889e88357351269c49c",
+      "research_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
+      "prior_release_lf_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/training/model_selection.py",
-      "source": "src/evi_hgt/training/model_selection.py",
-      "source_sha256": "618d174aa0e490d2b2e66fc78535e1388009e61e1d7c87f5161d71d5c55262cc",
-      "lf_sha256": "618d174aa0e490d2b2e66fc78535e1388009e61e1d7c87f5161d71d5c55262cc",
+      "published_sha256": "351dcaf2397cfa464e15c52f308c38415a921b08d263e04dc35707dddd1e51dc",
+      "research_sha256": "618d174aa0e490d2b2e66fc78535e1388009e61e1d7c87f5161d71d5c55262cc",
+      "prior_release_lf_sha256": "618d174aa0e490d2b2e66fc78535e1388009e61e1d7c87f5161d71d5c55262cc",
       "receipts": [
         "historical_plan"
       ]
     },
     {
       "file": "historical/src/evi_hgt/training/model_variants.py",
-      "source": "src/evi_hgt/training/model_variants.py",
-      "source_sha256": "71b6853c391fdf3d564fe0804294de8967d5e6d6ec69afcdec81974184cf79c3",
-      "lf_sha256": "71b6853c391fdf3d564fe0804294de8967d5e6d6ec69afcdec81974184cf79c3",
+      "published_sha256": "427e2b3d0ab5d20a673c7fcb5c6b1d2aca873768a4d011416d62856c307a7958",
+      "research_sha256": "71b6853c391fdf3d564fe0804294de8967d5e6d6ec69afcdec81974184cf79c3",
+      "prior_release_lf_sha256": "71b6853c391fdf3d564fe0804294de8967d5e6d6ec69afcdec81974184cf79c3",
       "receipts": [
         "historical_plan"
       ]
     },
     {
-      "file": "historical/tests/test_phase843_analysis.py",
-      "source": "tests/test_phase843_analysis.py",
-      "source_sha256": "a7dc888f2202cb888e02429378757119ebed8d25283c48d8ea4d60291e3282c4",
-      "lf_sha256": "a7dc888f2202cb888e02429378757119ebed8d25283c48d8ea4d60291e3282c4",
+      "file": "historical/tests/test_results_analysis.py",
+      "published_sha256": "9941b1fb8afa78c5ae9aea27d84fff4e77c8f2e7b851b9e7c7850e633490df83",
+      "research_sha256": "a7dc888f2202cb888e02429378757119ebed8d25283c48d8ea4d60291e3282c4",
+      "prior_release_lf_sha256": "a7dc888f2202cb888e02429378757119ebed8d25283c48d8ea4d60291e3282c4",
       "receipts": [
         "historical_delivery"
       ]
     }
-  ]
+  ],
+  "receipts": {
+    "LOSS_COMPARISON": "1e3d849c49852d00661500640fd130f54943288bf7d7d0a2b61221c4558478a4",
+    "PAIRED_LOSSES": "5e2abf325a9412bd03f0c33a3d12ef7cafd5be2422753a8618b2ac121b43ed81",
+    "EVIDENCE_ABLATION": "fd072c4fe1ccb9e95c58a3dc222ff8c0be686fb81ac32fdc3874ccde1c573322",
+    "PAIRED_LOSSES_recovery": "24b6dd3f0b61a779dbe0c8e1c7c01d36e442541750bb74841b6e33ba157ff094",
+    "EVIDENCE_ABLATION_recovery": "5d48776837152a1ac7080cd5ad006c280eb4987aa46a4e2f3225ce13d86ecbdb",
+    "historical_plan": "595d6d07edb13385d219bffd997db3d8e1711af8790791f8653aefcbfb1c3868",
+    "historical_freeze": "c925be7ffd50dc9c537f096df5be26b5695adfe6ce78ae8a79f7c3080da44165",
+    "historical_final_freeze": "d4a8d67d41df1192dbaf8bb54a1fcbbbc9c3de8f3cd5ab40c0cb03d70bda316e",
+    "historical_delivery": "d8b1fa4787293637ba2fa2847d2b2159ab1af005b2e21017d31cee6df09b07a4",
+    "historical_execution_binding": "ccaba8da20942526e476198fd2530ad5eda3cb5d7ad7f3beefa7736b57d1694a",
+    "historical_u32_freeze": "05c3453bdfb93db42a58cc454ef0a0c0453585a23d767b19d5310dc6b7df66c9"
+  },
+  "public_helpers": {
+    "development/src/ablation_artifacts.py": "8966dfbfd22521dba6e83faa791840b907736c59263449c077938ac7c7549295",
+    "development/src/ablation_protocol_ids.py": "88495ee5f75c5ab6a1ebf4fac8356b938a2854569c13d4e81595a152e3d2b425",
+    "development/src/ablation_records.py": "7dbadf449adcdb65f4343e4f4147a05363c8eeb308b2b45d52d4de25989cde73"
+  }
 }

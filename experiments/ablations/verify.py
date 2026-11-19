@@ -1,85 +1,73 @@
-"""Check mirrored source or the sampling identities in the original development logs."""
+"""Check published ablation source or verify the original study records."""
+
 import argparse
-import hashlib
+from collections import Counter
+from hashlib import sha256
 import json
 from pathlib import Path
+import subprocess
+import sys
 
 
 DIRECTORY = Path(__file__).resolve().parent
-PAIRING_FIELDS = (
-    "training_member_sha256", "record_sha256", "sampling_sha256", "stage",
-    "queries", "original_queries", "conditional_extra_U_queries", "support_pairs", "contra_pairs",
-)
-LOSS_ARMS = ("E0_D1_SIGMOID_CONTROL", "E1_D1_SOFTPLUS_RANKING")
 
 
-def sha(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def verify_sources(research_root):
+def verify_public_sources():
     manifest = json.loads((DIRECTORY / "SHA256.json").read_text(encoding="utf-8"))
-    for record in manifest["files"]:
-        source = DIRECTORY / record["file"]
-        if sha(source) != record["lf_sha256"]:
-            raise ValueError(f"Public source differs: {record['file']}")
-        if research_root and sha(research_root / record["source"]) != record["source_sha256"]:
-            raise ValueError(f"Research source differs: {record['source']}")
-    if research_root:
-        for name, receipt in manifest["receipts"].items():
-            if sha(research_root / receipt["source"]) != receipt["sha256"]:
-                raise ValueError(f"Historical receipt differs: {name}")
-    print(f"Verified {len(manifest['files'])} source files.")
+    expected = [(item["file"], item["published_sha256"]) for item in manifest["files"]]
+    expected.extend(manifest["public_helpers"].items())
+    entries = [name for name, _ in expected]
+    files = {
+        path.relative_to(DIRECTORY).as_posix()
+        for study in ("development", "historical")
+        for path in (DIRECTORY / study).rglob("*.py")
+    }
+    if len(entries) != len(set(entries)) or set(entries) != files:
+        raise ValueError("Published ablation source inventory differs from the manifest")
+    for name, checksum in expected:
+        data = (DIRECTORY / name).read_bytes().replace(b"\r\n", b"\n")
+        if sha256(data).hexdigest() != checksum:
+            raise ValueError(f"Public source differs: {name}")
+    print(f"Verified {len(manifest['files'])} published study sources and "
+          f"{len(manifest['public_helpers'])} supporting files.", flush=True)
+    return manifest
 
 
-def read_steps(path, arm, total):
-    steps = {}
-    replays = 0
-    with path.open(encoding="utf-8") as stream:
-        for line in stream:
-            row = json.loads(line)
-            step = row["optimizer_step"]
-            if row["mode"] != "DEVELOPMENT" or row["arm"] != arm or row["planned_optimizer_steps"] != total:
-                raise ValueError(f"{path}: unexpected arm, budget or run mode at step {step}")
-            pairing = tuple(row[field] for field in PAIRING_FIELDS)
-            if step in steps:
-                if steps[step] != pairing:
-                    raise ValueError(f"{path}: replay sample mismatch at step {step}")
-                replays += 1
-            steps[step] = pairing
-    if sorted(steps) != list(range(1, total + 1)):
-        raise ValueError(f"{path}: incomplete logical step sequence")
-    return steps, replays
-
-
-def verify_pairing(research_root):
-    base = research_root / "outputs" / "phase9"
-    for cell, total in (("R0F0", 20568), ("R0F1", 20541), ("R1F0", 20700)):
-        loss_root = base / "phase95" if cell == "R0F0" else base / "phase96" / cell
-        arms = [(arm, loss_root) for arm in LOSS_ARMS]
-        if cell != "R0F0":
-            arms.extend((arm, base / "phase97" / cell) for arm in ("A_EP_ZERO", "A_QUALITY_CONST"))
-        reference = None
-        for arm, directory in arms:
-            rows, replays = read_steps(directory / arm / "updates.jsonl", arm, total)
-            if reference is None:
-                reference = rows
-            elif rows != reference:
-                mismatch = next(step for step in sorted(reference) if rows[step] != reference[step])
-                raise ValueError(f"{cell}/{arm}: sampling differs at step {mismatch}")
-            print(f"{cell}/{arm}: {len(rows)} matched logical updates, {replays} logged replays")
+def verify_archive_references(manifest, archive):
+    published = Counter(
+        (row["prior_release_lf_sha256"], row["research_sha256"],
+         tuple(sorted(manifest["receipts"][name] for name in row["receipts"])))
+        for row in manifest["files"]
+    )
+    previous = Counter(
+        (row["lf_sha256"], row["source_sha256"],
+         tuple(sorted(archive["receipts"][name]["sha256"] for name in row["receipts"])))
+        for row in archive["files"]
+    )
+    if published != previous:
+        raise ValueError("Historical source or receipt references differ from the archive")
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    checks = parser.add_subparsers(dest="check", required=True)
-    checks.add_parser("sources").add_argument("--research-root", type=Path)
-    checks.add_parser("pairing").add_argument("--research-root", required=True, type=Path)
+    commands = parser.add_subparsers(dest="check", required=True)
+    commands.add_parser("sources").add_argument("--research-root", type=Path)
+    commands.add_parser("pairing").add_argument("--research-root", required=True, type=Path)
     args = parser.parse_args()
-    if args.check == "sources":
-        verify_sources(args.research_root)
-    else:
-        verify_pairing(args.research_root)
+    manifest = verify_public_sources()
+    if args.research_root:
+        sys.path.insert(0, str(DIRECTORY.parent))
+        from replay import historical_sources
+
+        with historical_sources() as history:
+            verifier = history / "ablations" / "verify.py"
+            archive = json.loads(verifier.with_name("SHA256.json").read_text(encoding="utf-8"))
+            verify_archive_references(manifest, archive)
+            subprocess.run(
+                [sys.executable, str(verifier), args.check,
+                 "--research-root", str(args.research_root.resolve())],
+                check=True,
+            )
 
 
 if __name__ == "__main__":

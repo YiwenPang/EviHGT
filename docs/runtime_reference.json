@@ -1,6 +1,7 @@
 {
   "scope": "Historical FULL event component times; excludes initialization, validation, export, idle time, and uninstrumented overhead.",
   "portable_benchmark": false,
+  "events_source_root": "Paths are relative to the original research directory containing the FULL training runs.",
   "completed_directories": 12,
   "timed_cells": 12,
   "four_timer_hours_min": 8.876680949860823,
@@ -23,7 +24,8 @@
       "checkpoint_commit_seconds": 36.59539709999444,
       "peak_allocated_gib": 2.285775661468506,
       "peak_reserved_gib": 2.4609375,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R0F2/events.jsonl"
+      "events_source": "FULL/R0F2/events.jsonl",
+      "events_sha256": "9066aadcb3d99a3ffda19ca646f521586816411782870d861bbdf9391fb5b96c"
     },
     {
       "cell": "R0F3",
@@ -41,7 +43,8 @@
       "checkpoint_commit_seconds": 46.14666190011485,
       "peak_allocated_gib": 2.285775661468506,
       "peak_reserved_gib": 2.4609375,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R0F3/events.jsonl"
+      "events_source": "FULL/R0F3/events.jsonl",
+      "events_sha256": "80817af5587b22a75001bc9dfd648d1f74ea3ff53637ff8f37866ef90c537cda"
     },
     {
       "cell": "R0F4",
@@ -59,7 +62,8 @@
       "checkpoint_commit_seconds": 52.40919300004316,
       "peak_allocated_gib": 2.285775661468506,
       "peak_reserved_gib": 2.48046875,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R0F4/events.jsonl"
+      "events_source": "FULL/R0F4/events.jsonl",
+      "events_sha256": "9057734170d29e4f98bc85b52466837d1d278ca4159683029262b5093f980bb0"
     },
     {
       "cell": "R1F1",
@@ -77,7 +81,8 @@
       "checkpoint_commit_seconds": 59.91475719999289,
       "peak_allocated_gib": 2.285775661468506,
       "peak_reserved_gib": 2.48046875,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R1F1/events.jsonl"
+      "events_source": "FULL/R1F1/events.jsonl",
+      "events_sha256": "075a8f8e69c865f5f5cc539ef85efef66286980dabebeaac6846b61d979a5a98"
     },
     {
       "cell": "R1F2",
@@ -95,7 +100,8 @@
       "checkpoint_commit_seconds": 66.41668340010801,
       "peak_allocated_gib": 2.285775661468506,
       "peak_reserved_gib": 2.48046875,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R1F2/events.jsonl"
+      "events_source": "FULL/R1F2/events.jsonl",
+      "events_sha256": "517a433050125ff29a96d9304b27ce6222481e0655611ba33691b20a29499451"
     },
     {
       "cell": "R1F3",
@@ -113,7 +119,8 @@
       "checkpoint_commit_seconds": 77.76696269976674,
       "peak_allocated_gib": 2.285775661468506,
       "peak_reserved_gib": 2.48046875,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R1F3/events.jsonl"
+      "events_source": "FULL/R1F3/events.jsonl",
+      "events_sha256": "f6062ac463da06d2a3e505f8602d2ffce2f929381c7f5dd38e43181b8ffaad80"
     },
     {
       "cell": "R1F4",
@@ -131,7 +138,8 @@
       "checkpoint_commit_seconds": 81.83436369994888,
       "peak_allocated_gib": 2.2864198684692383,
       "peak_reserved_gib": 2.48046875,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R1F4/events.jsonl"
+      "events_source": "FULL/R1F4/events.jsonl",
+      "events_sha256": "ac6399299abb22f9b9b9c0b4ab4f866982b9c6a2d30322545645d605f44bb621"
     },
     {
       "cell": "R2F0",
@@ -149,7 +157,8 @@
       "checkpoint_commit_seconds": 91.74194219999481,
       "peak_allocated_gib": 2.2901244163513184,
       "peak_reserved_gib": 2.48046875,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R2F0/events.jsonl"
+      "events_source": "FULL/R2F0/events.jsonl",
+      "events_sha256": "20cc10b7d7be9212af8a3641e2452574d304dec7a5c37005e3c79b37cf3df15c"
     },
     {
       "cell": "R2F1",
@@ -167,7 +176,8 @@
       "checkpoint_commit_seconds": 99.30323810013942,
       "peak_allocated_gib": 2.2901244163513184,
       "peak_reserved_gib": 2.48046875,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R2F1/events.jsonl"
+      "events_source": "FULL/R2F1/events.jsonl",
+      "events_sha256": "20455b652c2f1a8ea699f1c1085029407693adfd39a213d0b5c437ead6a195bc"
     },
     {
       "cell": "R2F2",
@@ -185,7 +195,8 @@
       "checkpoint_commit_seconds": 92.89796309988014,
       "peak_allocated_gib": 2.2901244163513184,
       "peak_reserved_gib": 2.48046875,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R2F2/events.jsonl"
+      "events_source": "FULL/R2F2/events.jsonl",
+      "events_sha256": "282900c68498267570dd698015b0722419a56cab88bf4561c37204e37cadfa29"
     },
     {
       "cell": "R2F3",
@@ -203,7 +214,8 @@
       "checkpoint_commit_seconds": 117.53304509946611,
       "peak_allocated_gib": 2.2901244163513184,
       "peak_reserved_gib": 2.48046875,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R2F3/events.jsonl"
+      "events_source": "FULL/R2F3/events.jsonl",
+      "events_sha256": "9aaa29862123e6f0d56c54270c0957ef8a746b6d14d8e50fef2e54d282de7edc"
     },
     {
       "cell": "R2F4",
@@ -221,7 +233,8 @@
       "checkpoint_commit_seconds": 107.78110400063451,
       "peak_allocated_gib": 2.2901244163513184,
       "peak_reserved_gib": 2.48046875,
-      "events_source": "outputs/phase9/phase98/runs/FULL/R2F4/events.jsonl"
+      "events_source": "FULL/R2F4/events.jsonl",
+      "events_sha256": "4e8e8c23ccb4a4fa25d7167a3a7c4e91ce38c8cc527ac2cbb113f633b1a6c2e0"
     }
   ]
 }

@@ -22,7 +22,7 @@ Each case uses seed 42, the frozen FULL configuration and three training cycles.
 - [prepare_case.py](prepare_case.py) builds the split, legal unlabeled candidates and fixed training schedule. [approval_cohort.py](approval_cohort.py) defines the year boundaries.
 - [graph_builder.py](graph_builder.py) materializes the masked facts, evidence and adjacency.
 - [run_case.py](run_case.py) checks memberships, trains, verifies the checkpoint and scores the held-out queries. [run_queue.py](run_queue.py) launches the four cases serially.
-- [source_sha256.json](source_sha256.json) records the SHA-256 of each script or test as used in the research directory and of the public copy with LF line endings. The source directory was `outputs/phase9/phase98/cold_start_20261118/`.
+- [source_sha256.json](source_sha256.json) records the SHA-256 of each script or test as used in the research directory and of the public copy with LF line endings.
 
 The published adapters replace workstation-specific paths with [locations.py](locations.py), separate the location of source scripts from runtime outputs and use the system temporary directory for the synthetic smoke run. The original queue verified its entire frozen 130-file distribution, including documentation and figures. The public check pins all 51 Python runtime sources, both configurations and the synthetic data fixture. It accepts the original or published source spelling with LF-normalized SHA-256. Python syntax trees with docstrings removed and parsed YAML contents matched across the frozen and public versions of these files. The accepted digests are in [runtime_sha256.json](runtime_sha256.json).
 
@@ -41,9 +41,9 @@ The first command checks entity assignment, sample exclusions, graph masking, me
 
 Use a separate research workspace with the original, hash-bound derived inputs and their manifests. The paths in the source inventories must resolve in that workspace. Preparation reads the following inputs.
 
-- The canonical node index, fact/evidence components, target map and graph CSR files under `data/processed/phase3/v1/`.
-- The development and U manifests, positive memberships, observed and forbidden pairs, and static features under `data/processed/phase85_part2/`.
-- The certified disease–gene graph and evidence adapter under `data/processed/phase85_part2b/`, with `outputs/phase85_part2b/graph_acceptance.json`.
+- The canonical node index, fact and evidence tables, target map and graph CSR files.
+- The development and U manifests, positive memberships, observed and forbidden pairs, and static features.
+- The certified disease–gene graph, its evidence adapter and its graph acceptance receipt.
 - The frozen D1 feature package and, for the fourth case, the OptimusKG 2.0 drug node parquet with its structured first-approval-year field. [Input contract](../../docs/data.md)
 
 From a checkout of this repository, set the paths for the local research workspace and D1 features. The following example uses PowerShell.
@@ -62,4 +62,4 @@ python -B experiments/cold_start/run_case.py --case cold_drug --mode validate
 python -B experiments/cold_start/run_case.py --case cold_drug --mode train
 ```
 
-Prepared inputs are stored under `data/cache/phase98/cold_start_20261118/`. Per-case training and evaluation receipts are written under `outputs/phase9/phase98/cold_start_20261118/runs/` in the research workspace. Licensed graph records, membership files, features, predictions and checkpoints are local run inputs or outputs.
+The workspace layout in [locations.py](locations.py) gives the paths recorded in the original manifests. Prepared inputs occupy one directory per case under `CACHE`. Training and evaluation receipts use the same case names under `EXPERIMENT/runs`. Licensed graph records, membership files, features, predictions and checkpoints are local run inputs or outputs.

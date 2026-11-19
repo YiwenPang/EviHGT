@@ -1,4 +1,4 @@
-"""Frozen config-driven model variants for Phase 7.3.3.1."""
+"""Frozen config-driven model variants for variant catalog."""
 
 from __future__ import annotations
 

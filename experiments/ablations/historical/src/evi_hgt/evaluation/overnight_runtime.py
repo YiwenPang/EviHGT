@@ -21,7 +21,7 @@ from evi_hgt.evaluation.final_runtime import safety_plan
 
 
 def preflight(root):
-    from scripts import phase842_evaluable_freeze as freeze
+    from scripts import freeze_panels as freeze
     require(Path(root).resolve()==freeze.ROOT,'evaluable scope requires its bound project root')
     return freeze.preflight()
 
@@ -301,8 +301,8 @@ def _execute(root,plan,layer1,manifests,f,auth,safety,*,resume):
     # Imports that can construct models occur only after all authorization/freeze gates.
     import polars as pl
     import torch
-    from scripts.phase8_validation_diagnostics import no_optimizer_allowed
-    from scripts.phase841_indexed_fact_columns import IndexedFactColumns
+    from scripts.formal_study_validation_diagnostics import no_optimizer_allowed
+    from scripts.indexed_evaluation_indexed_fact_columns import IndexedFactColumns
     from evi_hgt.training.input_index import StaticInputIndex
     from evi_hgt.training.formal_driver import _assemble_production_query
     from evi_hgt.training.supervision import make_unlabeled_query_supervision

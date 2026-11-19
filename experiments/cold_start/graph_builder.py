@@ -11,10 +11,14 @@ import numpy as np
 import polars as pl
 import pyarrow.parquet as pq
 
+if __package__:
+    from . import locations
+else:
+    import locations
+
 
 _ID = "canonical_fact_id"
 _ENDPOINTS = ("source_node_type", "source_node_id", "target_node_type", "target_node_id")
-_CASE_CACHE = Path("data/cache/phase98/cold_start_20261118")
 
 
 def _sha(path: Path) -> str:
@@ -147,7 +151,7 @@ def build_graph(workspace: Path, dest: Path, heldout_drugs: set[str],
                 heldout_diseases: set[str], blocked_pairs: set[tuple[str, str]]) -> dict:
     """Return graph fields to merge into a portable manifest at case dest."""
     workspace, dest = Path(workspace).resolve(), Path(dest).resolve()
-    cache = (workspace / _CASE_CACHE).resolve()
+    cache = (workspace / locations.CASE_CACHE).resolve()
     if not cache.is_relative_to(workspace) or not dest.is_relative_to(cache) or dest == cache:
         raise ValueError("Cold-start graph output must be below the new experiment cache")
     if not heldout_drugs and not heldout_diseases:
@@ -161,15 +165,15 @@ def build_graph(workspace: Path, dest: Path, heldout_drugs: set[str],
     stage = dest / ("graph.attempt_" + uuid.uuid4().hex)
     stage.mkdir()
 
-    phase3 = workspace / "data/processed/phase3/v1"
-    base85 = workspace / "data/processed/phase85_part2"
-    parent = workspace / "data/processed/phase85_part2b"
+    canonical = workspace / locations.CANONICAL_GRAPH
+    development = workspace / locations.DEVELOPMENT_INPUTS
+    parent = workspace / locations.DISEASE_GENE_INPUTS
     clean_dir = parent / "LEAKAGE_SAFE_OT_DISEASE_GENE_V1"
     pilot_dir = parent / "pilot_adapter_v1"
     clean = _verified_json(clean_dir / "manifest.json")
-    accept = _verified_json(workspace / "outputs/phase85_part2b/graph_acceptance.json")
+    accept = _verified_json(workspace / locations.GRAPH_ACCEPTANCE)
     pilot = _verified_json(pilot_dir / "manifest.json")
-    dev = _verified_json(base85 / "development_manifest.json")
+    dev = _verified_json(development / "development_manifest.json")
     if (accept["graph_provenance"] != "PASS" or accept["topology"] != "PASS"
             or accept["clean_graph_digest"] != clean["digest"]
             or pilot["contaminated_DG_evidence_imported"] is not False
@@ -179,7 +183,7 @@ def build_graph(workspace: Path, dest: Path, heldout_drugs: set[str],
     source_hashes = {Path(p).resolve(): h
                      for group in (clean["files"], pilot["inputs"], pilot["outputs"])
                      for p, h in group.items()}
-    source_hashes[base85 / "legal_source_rows.parquet"] = dev["files"]["legal_source_rows.parquet"]
+    source_hashes[development / "legal_source_rows.parquet"] = dev["files"]["legal_source_rows.parquet"]
     source_checks = {}
     files = {}
 
@@ -210,28 +214,28 @@ def build_graph(workspace: Path, dest: Path, heldout_drugs: set[str],
             raise ValueError(f"Copied graph source changed during materialization: {source}")
         return relative
 
-    node_source = verified(phase3 / "nodes/node_index.parquet")
+    node_source = verified(canonical / "nodes/node_index.parquet")
     nodes = pl.read_parquet(node_source, columns=["global_node_id", "node_type", "node_id"])
     cold_nodes = nodes.filter(((pl.col("node_type") == "DRG") & _member("node_id", heldout_drugs))
                              | ((pl.col("node_type") == "DIS") & _member("node_id", heldout_diseases)))
     if cold_nodes.height != len(heldout_drugs)+len(heldout_diseases):
         raise ValueError("Unknown or duplicate held-out canonical endpoints")
     node_path = copy("nodes.parquet", node_source)
-    edge_path = copy("edge_catalog.json", phase3 / "graph/csr/edge_type_catalog.json")
-    target_source = verified(phase3 / "views/query_target_fact_map.parquet")
+    edge_path = copy("edge_catalog.json", canonical / "graph/csr/edge_type_catalog.json")
+    target_source = verified(canonical / "views/query_target_fact_map.parquet")
     target_map = pl.read_parquet(target_source, columns=["drug_id", "disease_id", _ID])
     blocked = _pair_frame(blocked_pairs)
     forbidden = target_map.join(blocked, on=["drug_id", "disease_id"], how="semi").get_column(_ID).unique().sort()
     forbidden_path = write("forbidden_facts.parquet", pl.DataFrame({_ID: forbidden}).write_parquet)
-    legal = pl.read_parquet(verified(base85 / "legal_source_rows.parquet"), columns=["drug_id","disease_id"])
+    legal = pl.read_parquet(verified(development / "legal_source_rows.parquet"), columns=["drug_id","disease_id"])
     legal = legal.rename({"drug_id": "_drug", "disease_id": "_disease"})
     fact_files, evidence_files, retained_id_parts = [], [], []
     components, evidence_sources = {}, {}
 
-    for original in sorted((phase3 / "canonical_facts").glob("*.parquet")):
+    for original in sorted((canonical / "canonical_facts").glob("*.parquet")):
         component = original.stem
         facts_source = clean_dir / "canonical_facts.parquet" if component == "disease_gene" else original
-        evidence_source = (pilot_dir if component == "disease_gene" else phase3) / "evidence_records" / original.name
+        evidence_source = (pilot_dir if component == "disease_gene" else canonical) / "evidence_records" / original.name
         facts_source, evidence_source = verified(facts_source), verified(evidence_source)
         fact_count = pq.ParquetFile(facts_source).metadata.num_rows
         evidence_count = pq.ParquetFile(evidence_source).metadata.num_rows
@@ -252,9 +256,9 @@ def build_graph(workspace: Path, dest: Path, heldout_drugs: set[str],
             direct = _with_direct_pair(direct).select(_ID, pl.col("_drug").alias("drug_id"),
                                                        pl.col("_disease").alias("disease_id"))
             if direct.join(blocked, on=["drug_id", "disease_id"], how="semi").height:
-                raise ValueError("Blocked drug–disease endpoints survived the canonical fact mask")
+                raise ValueError("Blocked drug鈥揹isease endpoints survived the canonical fact mask")
             if direct.join(target_map, on=[_ID, "drug_id", "disease_id"], how="anti").height:
-                raise ValueError("Unregistered direct or reverse drug–disease fact")
+                raise ValueError("Unregistered direct or reverse drug鈥揹isease fact")
         name = f"canonical_facts/{original.name}"
         evidence_name = f"evidence_records/{original.name}"
         if len(ids) == fact_count:
@@ -298,7 +302,7 @@ def build_graph(workspace: Path, dest: Path, heldout_drugs: set[str],
         components[component]["evidence_after"] = ep_rows
     if not evidence_seen.all():
         raise ValueError("At least one admitted canonical fact is missing evidence after masking")
-    masked = mask_csr({key: np.load(verified(phase3 / "graph/csr" / f"{key}.npy"),
+    masked = mask_csr({key: np.load(verified(canonical / "graph/csr" / f"{key}.npy"),
                                     mmap_mode="r", allow_pickle=False)
                        for key in ("indptr", "indices", "fact_ids")},
                       admitted_ids, cold_nodes["global_node_id"].to_numpy())

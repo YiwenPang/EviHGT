@@ -90,7 +90,7 @@ Matched-model curves summarize all 307,881 updates in contiguous bins of at most
 
 ## Recorded runtime windows
 
-The figure separates baseline file-time windows from 12 EviHGT training and post-training windows. Timing definitions, hardware and run settings vary across methods. The [runtime reference](runtime_reference.json) records the instrumented optimizer-loop component times and the paths of the original research logs.
+The figure separates baseline file-time windows from 12 EviHGT training and post-training windows. Timing definitions, hardware and run settings vary across methods. The [runtime reference](runtime_reference.json) records the instrumented optimizer-loop component times and the relative paths and SHA-256 checksums of the original research logs.
 
 ![Recorded runtime windows](figures/experiments/fig11_runtime.png)
 
@@ -138,7 +138,7 @@ The 1,300 recorded support validation observations cover every HGTDR epoch in F1
 
 ## Historical holdout evaluation
 
-Phase 8.4.3 evaluated an earlier EviHGT implementation trained with seed 42. Stage A compared six model configurations on shared support panels with up to 32 unlabeled candidates per disease. Of 1,354 diseases, 1,109 had observed positives and contributed to the metrics. Stage B evaluated the full model on six preselected diseases using all eligible drug candidates. The paired intervals describe variation over resampled diseases for the fixed runs.
+The six-variant holdout study evaluated an earlier EviHGT implementation trained with seed 42. Stage A compared six model configurations on shared support panels with up to 32 unlabeled candidates per disease. Of 1,354 diseases, 1,109 had observed positives and contributed to the metrics. Stage B evaluated the full model on six preselected diseases using all eligible drug candidates. The paired intervals describe variation over resampled diseases for the fixed runs.
 
 The historical cold-drug and cold-disease panels used up to 64 unlabeled candidates per query and had 1,078 and 210 evaluable queries, respectively. Many queries had constant scores. Curve legends report mean query-wise ROC-AUC or AP. The plotted curves use interpolation on a common grid.
 

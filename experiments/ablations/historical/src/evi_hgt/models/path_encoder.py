@@ -1,4 +1,4 @@
-"""Packed Phase 6 path tokenization, Transformer encoding, and step pooling."""
+"""Packed path encoder path tokenization, Transformer encoding, and step pooling."""
 
 from __future__ import annotations
 
@@ -45,7 +45,7 @@ class PathEncoderOutput:
 
 
 class PathEncoder(nn.Module):
-    """Encode real bounded path steps using Phase 4 node and fact contexts."""
+    """Encode real bounded path steps using graph encoder node and fact contexts."""
 
     def __init__(self, config: PathEncoderConfig) -> None:
         super().__init__()
@@ -79,9 +79,9 @@ class PathEncoder(nn.Module):
         edge_context: Tensor,
     ) -> PathEncoderOutput:
         if node_embeddings.ndim != 2 or node_embeddings.shape[1] != self.config.core_hidden_dim:
-            raise ValueError("node embeddings have the wrong Phase 4 hidden dimension")
+            raise ValueError("node embeddings have the wrong graph encoder hidden dimension")
         if edge_context.ndim != 2 or edge_context.shape[1] != self.config.core_hidden_dim:
-            raise ValueError("edge context has the wrong Phase 4 hidden dimension")
+            raise ValueError("edge context has the wrong graph encoder hidden dimension")
         if paths.max_length != self.config.max_length:
             raise ValueError("packed path max_length does not match path encoder config")
         paths.validate(num_nodes=node_embeddings.shape[0], num_facts=edge_context.shape[0])
@@ -125,4 +125,3 @@ class PathEncoder(nn.Module):
             step_states=states,
             step_weights=weights,
         )
-

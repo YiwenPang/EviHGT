@@ -80,7 +80,7 @@ def _commit_first_access_ledger(path, ledger):
 
 
 def _phase840_formal_run_identity(first_access_path, expected_binding):
-    """Bind a future full execution to the irreversible Phase 8.4.0 entry."""
+    """Bind a future full execution to the irreversible first evaluation entry."""
     ledger=read_json(first_access_path)
     if (ledger.get('formal_test_count')!=1 or ledger.get('formal_test_accessed') is not True
             or not ledger.get('formal_run_id')):
@@ -434,7 +434,7 @@ def run_formal_evaluation(root, *, authorization_path, plan_path=None, resume=Fa
 
 
 def _run_formal_evaluation_locked(root, *, authorization_path, plan_path=None, resume=False):
-    """The ONLY real-data entry. Phase 8.3.1 must never pass authorization."""
+    """The ONLY real-data entry. scoring preparation must never pass authorization."""
     if authorization_path is None:
         raise PermissionError('Explicit first formal test authorization is required')
     root=Path(root).resolve()
@@ -511,8 +511,8 @@ def _run_formal_evaluation_locked(root, *, authorization_path, plan_path=None, r
     torch.use_deterministic_algorithms(True)
     import gc
     import platform
-    from scripts.phase8_validation_diagnostics import load_replay_context, no_optimizer_allowed
-    from scripts.phase8_validation_runtime import build_diagnostic_components
+    from scripts.formal_study_validation_diagnostics import load_replay_context, no_optimizer_allowed
+    from scripts.formal_study_validation_runtime import build_diagnostic_components
     from evi_hgt.training.formal_checkpoint import formal_checkpoint_identity_from_execution, inspect_formal_checkpoint_file
     from evi_hgt.training.formal_driver import _assemble_production_query
     from evi_hgt.training.supervision import make_unlabeled_query_supervision

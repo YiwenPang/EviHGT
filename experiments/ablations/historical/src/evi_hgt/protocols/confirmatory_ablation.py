@@ -1,4 +1,4 @@
-"""Single explicitly post-freeze, pre-test Phase 8.2.6A supplemental cell."""
+"""Single explicitly post-freeze, pre-test confirmatory ablation supplemental cell."""
 from copy import deepcopy
 from datetime import datetime
 import json

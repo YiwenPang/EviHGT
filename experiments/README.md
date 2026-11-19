@@ -1,13 +1,23 @@
-# Experiment implementations
+# Experiment code
 
-| Study | Code and scope |
+| Paper experiment | What to inspect |
 | --- | --- |
-| Six-method development comparison | [Five-fold R0 comparison](comparisons/) covers the matched HGT and pair MLP, training-frequency baseline, and native baseline adaptation. The original HGTDR entry evaluated therapeutic support. |
-| Domain baselines | [Native adapters](native_adapters/) document the local HGTDR and TxGNN interfaces. [HGTDR-contra](hgtdr_contra/) separately fits the single-output HGTDR model on recorded contraindications. |
-| Evidence and training objective ablations | [Ablations](ablations/) covers the paired evidence interventions, loss comparison and earlier six-arm study. |
-| Held-out entities | [Cold start](cold_start/) includes the separate drug, disease, double-cold and first-approval-year cohort protocols. Each case evaluates one FULL run. |
-| Earlier baseline comparison | [October pilot](pilot/) contains the one-fold, one-seed support comparison and its scoring protocol. |
-| Historical tuning | [Learning-rate selection](tuning/) includes the five completed FULL runs, their validation objectives and the selection and reporting code. |
-| Audit of the reported comparison | [Five-fold audit](audit/) contains one aggregate row per method, fold and output, the identities of the common candidate panels, and a read-only verifier. |
+| [Baseline comparisons](comparisons/) | Five-fold R0 comparison of six methods, including the training-frequency (Popularity) baseline. The [fold ledger](audit/) records the candidates and scores used for each method and output. |
+| [Ablations](ablations/) | Paired comparisons of training losses and evidence interventions, plus the earlier six-variant holdout study. The study guide links to each loss, sampling schedule and model intervention. |
+| [Cold start](cold_start/) | Split construction, leakage checks, training and scoring for the drug, disease, double-cold and first-approval-year cohorts. |
 
-The [result figures](../docs/experiments.md) identify which study produced each plot. The [portable runner](../docs/reproducibility.md) provides a separate interface for training on a prepared corpus. Each study directory identifies the archived code, any changes made for publication, and the local inputs needed to repeat the original run. The original folds and their licensed inputs, per-pair predictions and model weights stay in the research workspace.
+The original five-fold HGTDR comparison evaluated therapeutic support. The [HGTDR-contra study](hgtdr_contra/) fitted a separate model on recorded contraindications. The [native adapters](native_adapters/) document how HGTDR and TxGNN were integrated.
+
+The [single-fold pilot](pilot/) records the earlier shared support comparison. The [learning-rate study](tuning/) records the five completed FULL settings and how the validation objective determined the selected rate.
+
+[Figures and study results](../docs/experiments.md) · [Portable training and evaluation](../docs/reproducibility.md)
+
+## Replaying a recorded run
+
+Historical run receipts bind the exact paths and checksums of the sources used at the time. From a Git clone containing the archived revision, the following command restores the earlier public source tree into a new directory.
+
+```sh
+python experiments/replay.py --output ../evihgt-replay-source
+```
+
+The replay contains public source files. Each study guide lists the local inputs needed for a full rerun, including licensed records, frozen splits, features and checkpoints where applicable.

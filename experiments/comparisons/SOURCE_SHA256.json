@@ -1,51 +1,231 @@
 {
-  "source_closure": "outputs/phase9/phase98/part3/submission_cv5_20261109/SOURCE_CLOSURE.json",
+  "original_git_commit": "5251bd6ad157a169c23e42d0cc8d59d20f621fbd",
   "source_closure_sha256": "37eb112a872a800220aac6fa62554e52b43f45ee74d0e4eca81d9fb8f5cd4b0a",
   "files": {
-    "scripts/phase98/prepare_corpora.py": "8e741f892a849a93dfcd15b641d3de5a83a2f82ada5e336d528ca00f68082398",
-    "scripts/phase98/prepare_plans.py": "92667b7cb4edf0255fe70d23c714c4633c2c5836e845d425784e47bd89714561",
-    "scripts/phase98/prepare_popularity.py": "d3073844bd4970c94018dcca8681cf62604445b15d7b041462f1a1d66c823b68",
-    "scripts/phase98/runtime.py": "2a51bbd25b1f9507700bc913bf7e7b6462eb46bf69ee38ac6b12c7998e51f8d1",
-    "scripts/phase98/verify_reuse.py": "c3de1f65e8ca5940f27f56b3181fa1fa9adb68c90dd1fbf721dd6c1068a7403d",
-    "src/evi_hgt_phase98/__init__.py": "4ad3a46e72636f6433497be93e7e24cb2a2c209f2aa1364c37c52e1021e70f56",
-    "src/evi_hgt_phase98/authorization.py": "23ddc74fbb60caf426582e234ca742f85bb6e915782e20aba3fd500a59f079c0",
-    "src/evi_hgt_phase98/checkpoint.py": "e802b043aa4f5345388b92c3a1193f3ef0a9cefd5605c464a65981f8f95bf299",
-    "src/evi_hgt_phase98/common.py": "2a825aac24d272914d4fe99d65fdb2a84d715baf65f2c583a8512a4256afe0d0",
-    "src/evi_hgt_phase98/console.py": "7b4fbdf17f38e13c184b93b3cea13d52bf0f39999ecd82591ac2f67f1f87cacc",
-    "src/evi_hgt_phase98/corpus.py": "d07e9b77a5d7767e45e63d270e2d5524233afdf6546a614af4bf9df56771ad31",
-    "src/evi_hgt_phase98/data.py": "9a23bc06ca51625c5a796a7b2ee1927b6b5ae6f88cf97099e1e8297f50744054",
-    "src/evi_hgt_phase98/evaluation_cache.py": "0f9edd9055ff401973939c09b190ff6627319f7a93299e88de8a74bab23621bb",
-    "src/evi_hgt_phase98/full.py": "799e8301d3bb11e57f689656ef20033c725f86fe075dcf3c047da7b316965029",
-    "src/evi_hgt_phase98/input_contract.py": "c7d1921b9f208a078c9c51c256ed55668f4fdff3248afbb9564433250279ae05",
-    "src/evi_hgt_phase98/input_preparation.py": "43c5d3e1e59cd7709e88c75841764711d46010ad2282560d064e0baaaca501e8",
-    "src/evi_hgt_phase98/metrics.py": "4dbd828645b7182567e2710384843e23c758dcdcb316a0060d1bdc25b715437b",
-    "src/evi_hgt_phase98/models.py": "977b5f76b2a9df721716fa03f4ba88266423cba15a4dfd2139817183b7cbb92d",
-    "src/evi_hgt_phase98/native.py": "54db85eb50b2f23b93de5d1fe520be62b7862d2b6d63e608a2944607b1e4f034",
-    "src/evi_hgt_phase98/native_checkpoint.py": "0872dfeed23839e7efec6ab5ec4476eb936dea0eb7fe783a2a194ef758bb4544",
-    "src/evi_hgt_phase98/native_numerical_policy.py": "989ed4a369a86a3028ca4c744f972fb27d3ffc32ea6e0b95cb5b5c43bb420ba8",
-    "src/evi_hgt_phase98/native_observation.py": "e79d6b5f1037a91023c39198f65d3edac154a0897f26c787607784c2d4427078",
-    "src/evi_hgt_phase98/native_runtime.py": "96589a5bcc743f3ff2b2bad08bdd984416be1f46f2f79e5219e478140b60ab4a",
-    "src/evi_hgt_phase98/native_worker.py": "b595c46789369c0222dea09e6c4daa338046709c25f88de3e7432e71afae4745",
-    "src/evi_hgt_phase98/numerical_policy.py": "3e234332447b72f0c521f2164cd3c9ea399b38850f056d2f966b425a60c7c9c4",
-    "src/evi_hgt_phase98/observation_io24.py": "788b0fbb8890165b95a18ad1331b79b46fa8d4ccc78e7dd155f572a03831bd1e",
-    "src/evi_hgt_phase98/popularity.py": "a857fb756cd60a78fb2787ddb83759a53dbefe7782a82a9d9bd5137f76fa2aa4",
-    "src/evi_hgt_phase98/popularity_preparation.py": "5a2d574455041ff49009393d721529de9a5616e610f46e3dadcbe9eb00f590be",
-    "src/evi_hgt_phase98/recovery_diagnostics.py": "1c789f39c8a5f7a48348f9e4aabd9871a545975f2b0e371f637955a3f4287654",
-    "src/evi_hgt_phase98/resource_guard.py": "7f25c4963a071bf5979ac86bd7b72f35f85848be26476152a8f4cee291a34db1",
-    "src/evi_hgt_phase98/reuse.py": "f40155d32c5643df440742c1cb6fe2dfdc2717fbf00e244dc1204777875dbe1a",
-    "src/evi_hgt_phase98/runtime.py": "65d165ba6f83fbe76ccc6362125d58c9d333ba004469a4f6d492168d37ed68b0",
-    "src/evi_hgt_phase98/runtime_budget.py": "0cffbb13bf2b5f3e847d607a0ff3b633dc9642f49306a62e7febd2e63c9ad4e7",
-    "src/evi_hgt_phase98/runtime_console.py": "279bd1f09742653834974fce735ea8a85f059ad84ea4a0688140050c1733a8f6",
-    "src/evi_hgt_phase98/runtime_evaluation.py": "99cd22e86a39bbba4dfb543c9b0aa4aeb230dd39e484bd025f8d6970e2c41bf9",
-    "src/evi_hgt_phase98/sampling.py": "7ef97d6ace4382988c5b016901bfc4046a7fbb19c7524577e64ea68f97df050b",
-    "src/evi_hgt_phase98/sampling_reader.py": "fff24e210915a3ec04a5671c2e691d0e05ed5359aca14f090e7800afb1f2ce0c",
-    "src/evi_hgt_phase98/scoring.py": "e8b633c61cf4e98a782c2603200e2f3a8386a615030b022f8ce7e3d258e44a05",
-    "src/evi_hgt_phase98/startup.py": "afd4d6bd9853bbdfda3c3f6f73549048688c122e19b3aefa660d953ac205eb7c",
-    "src/evi_hgt_phase98/submission_authorization.py": "5161e8283e23f58afb8163125726c0345a0207575c8c748bf1cb4835484493d1",
-    "src/evi_hgt_phase98/training.py": "4ce017b544e2fa535b8b711013e7f5fdb404d6407a25d0849b899f5f1b656c1d",
-    "src/evi_hgt_phase98/tx_auxiliary_state.py": "91ff0619b55c3e230f1bcc35ac0343f3ea53aca85e9f2aed6d46ff8f0b01ce26",
-    "src/evi_hgt_phase98/tx_policy23.py": "8673ffbc2545a0344b6d8d435429ef53dcc28e4fe5ceb7f0f1565a4c976ccdcc",
-    "tests/phase98/test_metrics.py": "0c7c7114dd8f3b4ae702e036672bd98ec1f19094ee8f67dd313685bd44ee2407",
-    "tests/phase98/test_popularity.py": "96e71128dad5fb16839fc2af07a3e843e5d9af8a6eba907c40575c8c4de3450e"
+    "scripts/ranking_comparison/prepare_corpora.py": {
+      "published_sha256": "ce16e38df625b51436776f5f654e1f66a478044bbf22d0853098e04ffa8915d8",
+      "original_sha256": "8e741f892a849a93dfcd15b641d3de5a83a2f82ada5e336d528ca00f68082398",
+      "original_git_blob": "7ef40421cb8e634875abf9cebec51a28ee3e904b"
+    },
+    "scripts/ranking_comparison/prepare_plans.py": {
+      "published_sha256": "cb792ba203a6ad18daa83d45b61666838a796ebf899549622980bea416493b00",
+      "original_sha256": "92667b7cb4edf0255fe70d23c714c4633c2c5836e845d425784e47bd89714561",
+      "original_git_blob": "fe006c94f83ad77211170f70d76cce4198e0cf51"
+    },
+    "scripts/ranking_comparison/prepare_popularity.py": {
+      "published_sha256": "d7d947f0add5ca0957debfb2d29a2bceebae447b77f41403bc8a08fd165e762e",
+      "original_sha256": "d3073844bd4970c94018dcca8681cf62604445b15d7b041462f1a1d66c823b68",
+      "original_git_blob": "998061c8f2e9a8b5ad48186ebfc398c75adbe5be"
+    },
+    "scripts/ranking_comparison/runtime.py": {
+      "published_sha256": "fb6cf263ec11538ab905a32d68b9fbd3cfdb853f93c09a56932ed47ce376d531",
+      "original_sha256": "2a51bbd25b1f9507700bc913bf7e7b6462eb46bf69ee38ac6b12c7998e51f8d1",
+      "original_git_blob": "1fab53bb76afd93202682e6a73c7fb38aaded88c"
+    },
+    "scripts/ranking_comparison/verify_reuse.py": {
+      "published_sha256": "5260066cf78d44994d0d58a594c9e61cd57d0ab1d1e0d70a6adb56021a3eaa90",
+      "original_sha256": "c3de1f65e8ca5940f27f56b3181fa1fa9adb68c90dd1fbf721dd6c1068a7403d",
+      "original_git_blob": "145613a706acfdd05f33fbaa2dccf8c580fb0536"
+    },
+    "src/evi_hgt_ranking_comparison/__init__.py": {
+      "published_sha256": "6a8ef013ff31932e3faaff653b13ee58e9117eac6abaf1b3a57dfef153b7b037",
+      "original_sha256": "4ad3a46e72636f6433497be93e7e24cb2a2c209f2aa1364c37c52e1021e70f56",
+      "original_git_blob": "344932c7e84e856a4dbb38dd2634117ee63662dd"
+    },
+    "src/evi_hgt_ranking_comparison/authorization.py": {
+      "published_sha256": "12ae72db970bdd2595766439c091346987b99de2664340b16cad0ce5d80eb289",
+      "original_sha256": "23ddc74fbb60caf426582e234ca742f85bb6e915782e20aba3fd500a59f079c0",
+      "original_git_blob": "c2149fa450d8b6eeca733fd189787fca84092427"
+    },
+    "src/evi_hgt_ranking_comparison/checkpoint.py": {
+      "published_sha256": "f6ae79468ad5bd8bb88d8aa2df0c90eac5d0c8a6a924a104ec05f59e8823217c",
+      "original_sha256": "e802b043aa4f5345388b92c3a1193f3ef0a9cefd5605c464a65981f8f95bf299",
+      "original_git_blob": "73ce73e65f24ea63a984d618021ce377ae1d93b5"
+    },
+    "src/evi_hgt_ranking_comparison/common.py": {
+      "published_sha256": "5265aaba7ca4ec096db76d1416efa274f024b19d5662b57cd867c8d0343296d2",
+      "original_sha256": "2a825aac24d272914d4fe99d65fdb2a84d715baf65f2c583a8512a4256afe0d0",
+      "original_git_blob": "a94b1da7a4eb60f1783e788ed28b7222f3c4045d"
+    },
+    "src/evi_hgt_ranking_comparison/console.py": {
+      "published_sha256": "8a382b7d4f906d6f065b90109d33e6a15b6ec12adb135461674ba6174151271e",
+      "original_sha256": "7b4fbdf17f38e13c184b93b3cea13d52bf0f39999ecd82591ac2f67f1f87cacc",
+      "original_git_blob": "b8af816a69a430f504cada79b73fc11fa6e9fc62"
+    },
+    "src/evi_hgt_ranking_comparison/corpus.py": {
+      "published_sha256": "c8ee9858146a0d05fd4a09639c2f04caffa33c643deabace8bd61cada494d820",
+      "original_sha256": "d07e9b77a5d7767e45e63d270e2d5524233afdf6546a614af4bf9df56771ad31",
+      "original_git_blob": "c46c1036bb443027f855fa351f4c3890267879cd"
+    },
+    "src/evi_hgt_ranking_comparison/data.py": {
+      "published_sha256": "0edee0883cc91ada98fda8b90ce2ea648d86c7514f3650d31b06de4bac170aea",
+      "original_sha256": "9a23bc06ca51625c5a796a7b2ee1927b6b5ae6f88cf97099e1e8297f50744054",
+      "original_git_blob": "58016d2c1ca969bc03505c1bf5e364a80da7a17f"
+    },
+    "src/evi_hgt_ranking_comparison/evaluation_cache.py": {
+      "published_sha256": "a5505b96fb2d74774f8cfada33e991eeb02013920bd3e28ba99cf696dd5478c5",
+      "original_sha256": "0f9edd9055ff401973939c09b190ff6627319f7a93299e88de8a74bab23621bb",
+      "original_git_blob": "6cd19d639d81011f0c20b0c0b1e0e7970a2dec2d"
+    },
+    "src/evi_hgt_ranking_comparison/full.py": {
+      "published_sha256": "c08fb71aec59a193e426eabc951197f4fb1487fd52a1212e82f163db6bf144c1",
+      "original_sha256": "799e8301d3bb11e57f689656ef20033c725f86fe075dcf3c047da7b316965029",
+      "original_git_blob": "25c103192afd26e56e26aced312a6f9354f421eb"
+    },
+    "src/evi_hgt_ranking_comparison/input_contract.py": {
+      "published_sha256": "2ad9a1451f7ef2daaf3dbb2d076536d4fd194c6f5bc22d8efe2a12f44459cc85",
+      "original_sha256": "c7d1921b9f208a078c9c51c256ed55668f4fdff3248afbb9564433250279ae05",
+      "original_git_blob": "5782426976ffa09ddbdb7d5ddc9d32556a1eb7fd"
+    },
+    "src/evi_hgt_ranking_comparison/input_preparation.py": {
+      "published_sha256": "e135646b230afc20c6659676bcbc4318a3839dd6dd944ddfe400581ff0981ffd",
+      "original_sha256": "43c5d3e1e59cd7709e88c75841764711d46010ad2282560d064e0baaaca501e8",
+      "original_git_blob": "04df5e8b266cd85a61602a7e10e99a42cd6df962"
+    },
+    "src/evi_hgt_ranking_comparison/metrics.py": {
+      "published_sha256": "d0d8e39548b9b36dcd4e045c5686aa9f1c23bc2b74e68c8ce6e5b9c8923f0241",
+      "original_sha256": "4dbd828645b7182567e2710384843e23c758dcdcb316a0060d1bdc25b715437b",
+      "original_git_blob": "6511a24fd966b2993426bf7538daad247a949a61"
+    },
+    "src/evi_hgt_ranking_comparison/models.py": {
+      "published_sha256": "3ab6eeb2609964364a95b6b2f67223fbfe93518a44a47bf4abaff8000e8cad9c",
+      "original_sha256": "977b5f76b2a9df721716fa03f4ba88266423cba15a4dfd2139817183b7cbb92d",
+      "original_git_blob": "8480ac80e8c0f4ca019941cfb6ebd25578ed957e"
+    },
+    "src/evi_hgt_ranking_comparison/native.py": {
+      "published_sha256": "ea479552c590a75fb449f52321847ecd7f57bc43fb9ada9ad476c20a951a0356",
+      "original_sha256": "54db85eb50b2f23b93de5d1fe520be62b7862d2b6d63e608a2944607b1e4f034",
+      "original_git_blob": "a51c5a532cd9c2b2ac01d2402979cbcb3b4c3ba6"
+    },
+    "src/evi_hgt_ranking_comparison/native_checkpoint.py": {
+      "published_sha256": "a6781bbb2c830f4f3e316d015735776b3e552fae4a25f6206601ccd48b31c84a",
+      "original_sha256": "0872dfeed23839e7efec6ab5ec4476eb936dea0eb7fe783a2a194ef758bb4544",
+      "original_git_blob": "2e60a8660ab276a09109b83104b929f45ec85cca"
+    },
+    "src/evi_hgt_ranking_comparison/native_numerical_policy.py": {
+      "published_sha256": "f2c36b33355e7d7a8bedad6abdd4d6750a29be8a51e1e93c3e49d9f36ddbe2b7",
+      "original_sha256": "989ed4a369a86a3028ca4c744f972fb27d3ffc32ea6e0b95cb5b5c43bb420ba8",
+      "original_git_blob": "d1652873d1662a6e92e3afd3faccd33d4171d90d"
+    },
+    "src/evi_hgt_ranking_comparison/native_observation.py": {
+      "published_sha256": "66fae556f2ed176ed532570f16cc46b2897550f9f1ba72d330dffc4efd5862b1",
+      "original_sha256": "e79d6b5f1037a91023c39198f65d3edac154a0897f26c787607784c2d4427078",
+      "original_git_blob": "ca47739dc86e26a14cabca8d7cfb921cfe39aaac"
+    },
+    "src/evi_hgt_ranking_comparison/native_runtime.py": {
+      "published_sha256": "935ff4e2416abb173f2ede3a83c270ee0e019626d3669b406cd06387b237fde0",
+      "original_sha256": "96589a5bcc743f3ff2b2bad08bdd984416be1f46f2f79e5219e478140b60ab4a",
+      "original_git_blob": "a46da5f875dced0095f5321b2ea9986eac72284a"
+    },
+    "src/evi_hgt_ranking_comparison/native_worker.py": {
+      "published_sha256": "befb8c6c134627aa8b36041bcc33d951898e12f0e3bb1aa9263ffa19b1e97ecc",
+      "original_sha256": "b595c46789369c0222dea09e6c4daa338046709c25f88de3e7432e71afae4745",
+      "original_git_blob": "68b8b6344ae00520837ac67b25944fd2b4336a91"
+    },
+    "src/evi_hgt_ranking_comparison/numerical_policy.py": {
+      "published_sha256": "98e5653a9eeec99de267e0da695e8e541405026dfe4afbed191ad8675badf89b",
+      "original_sha256": "3e234332447b72f0c521f2164cd3c9ea399b38850f056d2f966b425a60c7c9c4",
+      "original_git_blob": "e28e2722c841af4d4daab22981e65ff9e0fc6f0a"
+    },
+    "src/evi_hgt_ranking_comparison/observation_io.py": {
+      "published_sha256": "788b0fbb8890165b95a18ad1331b79b46fa8d4ccc78e7dd155f572a03831bd1e",
+      "original_sha256": "788b0fbb8890165b95a18ad1331b79b46fa8d4ccc78e7dd155f572a03831bd1e",
+      "original_git_blob": "92eadd5162f23747cab9b7531fb009ca0b834337"
+    },
+    "src/evi_hgt_ranking_comparison/popularity.py": {
+      "published_sha256": "0fc6819504525de824fbd302d97bc604a5ddd03955eb3c863247bf03682e9a23",
+      "original_sha256": "a857fb756cd60a78fb2787ddb83759a53dbefe7782a82a9d9bd5137f76fa2aa4",
+      "original_git_blob": "9d44f39b36e3e8553d3e9eaa5bf4057b47e126cd"
+    },
+    "src/evi_hgt_ranking_comparison/popularity_preparation.py": {
+      "published_sha256": "8eeb8375e1511ad6235c705dc7e99a07f81bddd1f8f3ded959a4f116e2c74c66",
+      "original_sha256": "5a2d574455041ff49009393d721529de9a5616e610f46e3dadcbe9eb00f590be",
+      "original_git_blob": "8a66eeab365d30f3240a2677939ddc69ca793831"
+    },
+    "src/evi_hgt_ranking_comparison/recovery_diagnostics.py": {
+      "published_sha256": "74e50a3e8d4bf79369b42cf21e6c4d20e8eae39d30e75fe2d3551428c45107aa",
+      "original_sha256": "1c789f39c8a5f7a48348f9e4aabd9871a545975f2b0e371f637955a3f4287654",
+      "original_git_blob": "b6f04c45183695e8cca26c9f94cce9e678ece949"
+    },
+    "src/evi_hgt_ranking_comparison/resource_guard.py": {
+      "published_sha256": "a310e77ae32eeced924bc91b2478ec04b3e8c650e701af485d232865aad3c606",
+      "original_sha256": "7f25c4963a071bf5979ac86bd7b72f35f85848be26476152a8f4cee291a34db1",
+      "original_git_blob": "38f62cf6362db18b76148083079f8ccd0e7e9308"
+    },
+    "src/evi_hgt_ranking_comparison/reuse.py": {
+      "published_sha256": "4b5f02f006d7a0db9c0d9a43f4525c8fe8a6401271d3f6c789e3f37e6eb88388",
+      "original_sha256": "f40155d32c5643df440742c1cb6fe2dfdc2717fbf00e244dc1204777875dbe1a",
+      "original_git_blob": "78c59b8c5c0fa0fab1e09fe3a2019d9c24fbe706"
+    },
+    "src/evi_hgt_ranking_comparison/runtime.py": {
+      "published_sha256": "c5138895b4f08aa220467a152fa11e101de9da8e73f3ed45ee5194d91ed87492",
+      "original_sha256": "65d165ba6f83fbe76ccc6362125d58c9d333ba004469a4f6d492168d37ed68b0",
+      "original_git_blob": "7abc0b2cc42760f5bf8b399e0c1464081759e6cb"
+    },
+    "src/evi_hgt_ranking_comparison/runtime_budget.py": {
+      "published_sha256": "ae1004e5677c8701f8f9b0e562a888774c2dff963a2fe9dcd0586153d54ba20c",
+      "original_sha256": "0cffbb13bf2b5f3e847d607a0ff3b633dc9642f49306a62e7febd2e63c9ad4e7",
+      "original_git_blob": "ec99d64d538741b10b1b6870c1da2ba2a5ffaffb"
+    },
+    "src/evi_hgt_ranking_comparison/runtime_console.py": {
+      "published_sha256": "4c1a88b6cf371911138fb5916108d98099667cca033a858b88de1f882c8746ed",
+      "original_sha256": "279bd1f09742653834974fce735ea8a85f059ad84ea4a0688140050c1733a8f6",
+      "original_git_blob": "667b32a70dc6e75c7e54c3e04c15e84e8a7e3c7a"
+    },
+    "src/evi_hgt_ranking_comparison/runtime_evaluation.py": {
+      "published_sha256": "4bcbea2b15a74bb708807cb56e42af9a30837bbba61eec714b93e79565488e50",
+      "original_sha256": "99cd22e86a39bbba4dfb543c9b0aa4aeb230dd39e484bd025f8d6970e2c41bf9",
+      "original_git_blob": "fec9374ad77d053090b42e35289866230869d57c"
+    },
+    "src/evi_hgt_ranking_comparison/sampling.py": {
+      "published_sha256": "b3d0f9276428e72c7e2085198d1f2b1de7a51185a228442009c6b6ab737068f4",
+      "original_sha256": "7ef97d6ace4382988c5b016901bfc4046a7fbb19c7524577e64ea68f97df050b",
+      "original_git_blob": "3e40dfd4d2b2bf22ba170c31f23ce97db8bf3693"
+    },
+    "src/evi_hgt_ranking_comparison/sampling_reader.py": {
+      "published_sha256": "92c31049829a7eaa030a58003ed99eb82e41746409d4c38bb9c641a8cb1b3b9d",
+      "original_sha256": "fff24e210915a3ec04a5671c2e691d0e05ed5359aca14f090e7800afb1f2ce0c",
+      "original_git_blob": "b6bb3209cf0bfd5b8089bc413ef89c90bacd0a0a"
+    },
+    "src/evi_hgt_ranking_comparison/scoring.py": {
+      "published_sha256": "1bacc2f52350c20da18998d3d4b4107235c7f78374524a5ff9899dd40a6901bc",
+      "original_sha256": "e8b633c61cf4e98a782c2603200e2f3a8386a615030b022f8ce7e3d258e44a05",
+      "original_git_blob": "dd405e39bd413b92102c0defc38c80d8f56c7e15"
+    },
+    "src/evi_hgt_ranking_comparison/startup.py": {
+      "published_sha256": "afd4d6bd9853bbdfda3c3f6f73549048688c122e19b3aefa660d953ac205eb7c",
+      "original_sha256": "afd4d6bd9853bbdfda3c3f6f73549048688c122e19b3aefa660d953ac205eb7c",
+      "original_git_blob": "41b2b281f16437b72db6f9346ca25cef10c08fca"
+    },
+    "src/evi_hgt_ranking_comparison/submission_authorization.py": {
+      "published_sha256": "6e8ae2d384b3aff22319be9943ba900d67e3be41c388597ab4daa6c4a462703f",
+      "original_sha256": "5161e8283e23f58afb8163125726c0345a0207575c8c748bf1cb4835484493d1",
+      "original_git_blob": "95de03c6819b51988f35fd3b46282610a016573f"
+    },
+    "src/evi_hgt_ranking_comparison/training.py": {
+      "published_sha256": "518c9c0d0426810731f260114889ed8238ec70ff8c6d2bc1ff10b585bead6e6a",
+      "original_sha256": "4ce017b544e2fa535b8b711013e7f5fdb404d6407a25d0849b899f5f1b656c1d",
+      "original_git_blob": "29b1246a7e1b63a208a2025a6d904421c7709577"
+    },
+    "src/evi_hgt_ranking_comparison/tx_auxiliary_state.py": {
+      "published_sha256": "3c3b41c112098325ad952ef9209e977e041fdb77a8bcc673ccca46937f453012",
+      "original_sha256": "91ff0619b55c3e230f1bcc35ac0343f3ea53aca85e9f2aed6d46ff8f0b01ce26",
+      "original_git_blob": "036453a6c8ed0c80b8019704ccadae60fbd2af66"
+    },
+    "src/evi_hgt_ranking_comparison/tx_numerical_policy.py": {
+      "published_sha256": "d13846183d2f15f2f8f9014c289c2370f7b64d43494ff0b82a75c5c6dd2f6122",
+      "original_sha256": "8673ffbc2545a0344b6d8d435429ef53dcc28e4fe5ceb7f0f1565a4c976ccdcc",
+      "original_git_blob": "041033a5de4d762fc8e2cb334a66a391d0e03a3d"
+    },
+    "tests/ranking_comparison/test_metrics.py": {
+      "published_sha256": "7af330f69a0fcf42b4926018896ff28adb1dad800f76d3ce0d58bcaf57df2c6d",
+      "original_sha256": "0c7c7114dd8f3b4ae702e036672bd98ec1f19094ee8f67dd313685bd44ee2407",
+      "original_git_blob": "14ece7588b1db969a63a725dd79512c2fe7a5e26"
+    },
+    "tests/ranking_comparison/test_popularity.py": {
+      "published_sha256": "ab2d632a161b3c1c08c4d750d8dde9baa74ec50a44c9cc19a3bd80390b35af49",
+      "original_sha256": "96e71128dad5fb16839fc2af07a3e843e5d9af8a6eba907c40575c8c4de3450e",
+      "original_git_blob": "9adfd29bf7dbb0213ded2ba50714de7c619431e1"
+    }
   }
 }
