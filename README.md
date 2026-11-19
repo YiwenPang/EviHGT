@@ -25,14 +25,23 @@ The default configuration uses CUDA with BF16. For a CPU/FP32 run, use `configs/
 
 Training requires a local corpus with normalized facts and evidence, leakage-filtered graph indexes, node features and availability masks, a three-cycle sample schedule, and development evaluation panels. Use [the data guide](docs/data.md) to import normalized artifacts with `prepare_data.py` or export them from an audited EviHGT workspace with `export_data.py`. The data guide identifies the OptimusKG, DrugBank, ChemBERTa and BioBERT sources and the inputs each step needs. Keep source records and derived data in the ignored `data/` directory and use your own authorized DrugBank copy.
 
-Once the corpus is ready, validate it and train with the same configuration.
+### Train the full model
 
 ```sh
-python main.py --mode validate
 python main.py
 ```
 
-For CPU, add `--config configs/cpu.yaml` to both commands. In PyCharm, select the same interpreter and set the desired arguments on the `main.py` run configuration. Runs write configuration, logs, development metrics and checkpoints to `outputs/`. See the [reproducibility guide](docs/reproducibility.md) for output files, checkpoints and evaluation scope.
+Training checks the inputs first, then runs the three-cycle plan in the prepared corpus. The default settings are in `configs/default.yaml`. Training writes logs, development metrics and checkpoints to `outputs/`. See the [reproducibility guide](docs/reproducibility.md) for output files, checkpoints and evaluation scope.
+
+### Check the inputs before training (optional)
+
+```sh
+python main.py --mode validate
+```
+
+Use this command after preparing or changing the corpus. It checks the configuration and loads the prepared inputs, writes a validation report to `outputs/`, and exits before initializing the model.
+
+For CPU, add `--config configs/cpu.yaml` to either command. In PyCharm, select the same interpreter and set the desired arguments on the `main.py` run configuration.
 
 Run specific ablations by name, for example:
 
