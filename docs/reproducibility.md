@@ -11,7 +11,7 @@ The portable runner executes a specified corpus, schedule and configuration. See
 5. Validate the corpus with `python main.py --mode validate`. Check evidence and relation semantics against the source audits.
 6. Save the exact YAML configuration. Record device, precision and dependency versions with the run.
 
-The [experiment index](../experiments/) links the published results to their study-specific code, local inputs and verification commands. For a run whose receipts record its original source layout, see [source replay](../experiments/README.md#replaying-a-recorded-run).
+The [experiment index](../experiments/) links the published results to their study-specific code, local inputs and verification commands. For a run whose receipts record its original source layout, see [how to restore the archived sources](../experiments/README.md#restore-the-archived-source-layout).
 
 ## Training and ablations
 

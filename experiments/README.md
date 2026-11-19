@@ -1,18 +1,35 @@
 # Experiment code
 
-| Paper experiment | What to inspect |
-| --- | --- |
-| [Baseline comparisons](comparisons/) | Five-fold R0 comparison of six methods, including the training-frequency (Popularity) baseline. The [fold ledger](audit/) records the candidates and scores used for each method and output. |
-| [Ablations](ablations/) | Paired comparisons of training losses and evidence interventions, plus the earlier six-variant holdout study. The study guide links to each loss, sampling schedule and model intervention. |
-| [Cold start](cold_start/) | Split construction, leakage checks, training and scoring for the drug, disease, double-cold and first-approval-year cohorts. |
+## Run the public checks
 
-The original five-fold HGTDR comparison evaluated therapeutic support. The [HGTDR-contra study](hgtdr_contra/) fitted a separate model on recorded contraindications. The [native adapters](native_adapters/) document how HGTDR and TxGNN were integrated.
+From the repository root, run the following after the [one-time CPU installation](../README.md#try-the-public-checks).
+
+```sh
+python experiments/run_checks.py
+```
+
+The command runs 96 tests on the public code, checks the five-fold ledger and the ablation source hashes, then trains and scores a small synthetic cold-start case. All fixtures are local or generated during the run. To inspect the output of just the cold-start example, run `python -B experiments/cold_start/synthetic/test_frozen_test_score.py`. It prints the temporary directory containing the checkpoint and `test/metrics.json`.
+
+With just Python, `python experiments/audit/verify_r0.py` checks the published fold ledger and `python experiments/ablations/verify.py sources` checks the published ablation files against their recorded hashes.
+
+## Inputs for the paper experiments
+
+| Study | What was evaluated | Inputs needed to repeat the run |
+| --- | --- | --- |
+| [Baseline comparisons](comparisons/) | Six methods on five R0 folds, including the training-frequency (Popularity) baseline. The [fold ledger](audit/) records each method and output. | Matching research checkout, fold manifests, legal training graphs, features and sampling plans. HGTDR and TxGNN also need their native environments. The reused HGTDR fold needs its selected checkpoint. |
+| [Ablations](ablations/) | Paired comparisons of training losses and evidence interventions, plus the earlier six-variant holdout study. | Matching research checkout, frozen schedules, graphs, features and evaluation panels. The pairing audit reads the original update logs. The holdout analysis reads saved predictions and run records. |
+| [Cold start](cold_start/) | Drug, disease, double-cold and first-approval-year cohorts. | Prepared research graph and evidence, split and exclusion manifests, and frozen drug and disease features. The approval-year case also needs the drug first-approval-year field. |
+| [HGTDR-contra](hgtdr_contra/) | HGTDR fitted on recorded contraindications. The original five-fold HGTDR comparison evaluated therapeutic support. | Original R0 folds, features and graph caches, matching research modules, and the local HGTDR reconstruction with CUDA. |
+
+The original licensed records, prepared folds, per-pair predictions and trained weights are held outside this repository. To train the portable EviHGT model on your own normalized data, follow the [data guide](../docs/data.md).
+
+To recompute the main comparison table without retraining, the [comparison summary script](comparisons/summarize_r0.py) needs the original per-disease result files, their audit index and the recorded HGTDR score cache. The [native adapters](native_adapters/) document how HGTDR and TxGNN were integrated.
 
 The [single-fold pilot](pilot/) records the earlier shared support comparison. The [learning-rate study](tuning/) records the five completed FULL settings and how the validation objective determined the selected rate.
 
 [Figures and study results](../docs/experiments.md) · [Portable training and evaluation](../docs/reproducibility.md)
 
-## Replaying a recorded run
+## Restore the archived source layout
 
 Historical run receipts bind the exact paths and checksums of the sources used at the time. From a Git clone containing the archived revision, the following command restores the earlier public source tree into a new directory.
 
@@ -20,4 +37,4 @@ Historical run receipts bind the exact paths and checksums of the sources used a
 python experiments/replay.py --output ../evihgt-replay-source
 ```
 
-The replay contains public source files. Each study guide lists the local inputs needed for a full rerun, including licensed records, frozen splits, features and checkpoints where applicable.
+This command restores the public source files. Model training and scoring are separate steps that use the inputs listed above.

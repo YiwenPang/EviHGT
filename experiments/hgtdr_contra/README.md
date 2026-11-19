@@ -18,14 +18,14 @@ Use `--output` to choose a separate output directory under the research workspac
 
 ## Tests
 
-The public CPU tests use synthetic candidates and cover frozen candidate order, scoring, checkpoint selection, and disease-first aggregation.
+The public CPU tests use synthetic candidates and checkpoints to check frozen candidate order, scoring, checkpoint selection and recovery, and disease-first aggregation. Run them from the repository root.
 
 ```sh
-python -m pytest tests/test_hgtdr_contra.py -q
+python -m pytest -q tests/test_hgtdr_contra.py experiments/hgtdr_contra/tests/test_run.py
 ```
 
-The additional synthetic tests for data binding, training and checkpoint recovery use the research workspace's Python modules.
+The nine additional tests of data binding and native training require the research workspace's Python modules. Supply its source path to run them.
 
 ```sh
-python -m pytest -o pythonpath=/path/to/research-workspace/src experiments/hgtdr_contra/tests -q
+python -m pytest -q -o pythonpath=/path/to/research-workspace/src experiments/hgtdr_contra/tests/test_data.py experiments/hgtdr_contra/tests/test_trainer.py
 ```

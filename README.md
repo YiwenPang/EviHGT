@@ -2,6 +2,8 @@
 
 EviHGT is an evidence-aware heterogeneous graph Transformer for drug–disease association ranking. Given a drug–disease query, it builds a subgraph from OptimusKG and structured DrugBank records, encodes the evidence and its provenance, and scores treatment support and contraindication-related associations in separate heads.
 
+[Try the public checks on CPU](#try-the-public-checks) · [Inputs for the paper experiments](experiments/README.md#inputs-for-the-paper-experiments)
+
 ## Architecture
 
 ![EviHGT architecture](docs/figures/architecture.png)
@@ -9,6 +11,30 @@ EviHGT is an evidence-aware heterogeneous graph Transformer for drug–disease a
 [Overview (SVG)](docs/figures/architecture.svg) · [Layer and path details (SVG)](docs/figures/architecture_details.svg) · [Editable Visio source](docs/figures/architecture.vsdx)
 
 The full model combines provenance-aware evidence pooling, four-valued fact representations (True, False, Both and Unknown), query-conditioned graph layers, and bounded path encoding. It can use frozen chemical and disease-name embeddings as node features. When fact logic is available, the four direct logic transforms are averaged with equal weights. Learned fact masses enter the edge context. [Model equations and ablations](docs/model.md)
+
+## Try the public checks
+
+With Git and Python 3.11 or later, you can check the published five-fold comparison immediately. Run these commands in a terminal.
+
+```sh
+git clone https://github.com/YiwenPang/EviHGT.git
+cd EviHGT
+python experiments/audit/verify_r0.py
+```
+
+This uses only the Python standard library. Expect `Verified 55 method/fold/head entries across 10 common panels.` The check reads the published ledger and verifies that the methods share the recorded candidate counts and panel identity within each fold and output.
+
+To try the model and the experiment code, create a virtual environment with `python -m venv .venv`. Activate it with `.\.venv\Scripts\Activate.ps1` in Windows PowerShell or `. .venv/bin/activate` in a POSIX shell. For a CPU installation on Windows or Linux, run the following from the repository root.
+
+```sh
+python -m pip install "torch>=2.6,<3" --index-url https://download.pytorch.org/whl/cpu
+python -m pip install -r requirements-dev.txt
+python experiments/run_checks.py
+```
+
+Once the dependencies are installed, the last command runs the public checks offline on CPU. It exercises the comparison metrics, Popularity baseline, ablations, HGTDR-contra scoring and checkpoints, and cold-start splits. It also trains EviHGT for three updates on a tiny synthetic graph and scores held-out candidates with both prediction heads. A successful run ends with `All public experiment checks passed.`
+
+The paper's reported scores come from the original research inputs. Reproducing them requires the matching data, splits and study-specific artifacts. The [experiment guide](experiments/README.md#inputs-for-the-paper-experiments) lists what each study needs.
 
 ## Installation
 
@@ -68,11 +94,6 @@ EviHGT scores above the input- and budget-matched HGT-D1 and PairMLP-D1 on all t
 
 ## Tests
 
-`tests/` uses small synthetic graphs and schedules to check data validation, leakage exclusions, model gradients, ablation switches, ranking metrics, and checkpoint recovery. Run the suite on CPU without downloading research data.
-
-```sh
-python -m pip install -r requirements-dev.txt
-python -B -m pytest tests -q --basetemp outputs/pytest
-```
+To run just the portable model and data tests after installing the test dependencies, use `python -m pytest tests -q --basetemp outputs/pytest`. The [public checks](#try-the-public-checks) also exercise the study-specific code.
 
 [CI workflow](.github/workflows/tests.yml) · [Python API](docs/python_api.md) · [Troubleshooting](docs/troubleshooting.md) · [Model card](docs/model_card.md) · [Contributing](CONTRIBUTING.md) · [Citation](CITATION.md)
