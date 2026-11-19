@@ -1,0 +1,59 @@
+diff --git a/txgnn/utils.py b/txgnn/utils.py
+index d7ac278..623c8ee 100644
+--- a/txgnn/utils.py
++++ b/txgnn/utils.py
+@@ -153,5 +153,5 @@ def random_fold(df, fold_seed, frac):
+         train = train_val[~train_val.index.isin(val.index)]
+-        df_train = df_train.append(train)
+-        df_valid = df_valid.append(val)
+-        df_test = df_test.append(test)        
++        df_train = pd.concat([df_train, train])
++        df_valid = pd.concat([df_valid, val])
++        df_test = pd.concat([df_test, test])
+         
+@@ -219,5 +219,5 @@ def complex_disease_fold(df, fold_seed, frac):
+         train = train_val[~train_val.index.isin(val.index)]
+-        df_train = df_train.append(train)
+-        df_valid = df_valid.append(val)
+-        df_test = df_test.append(test) 
++        df_train = pd.concat([df_train, train])
++        df_valid = pd.concat([df_valid, val])
++        df_test = pd.concat([df_test, test])
+     
+@@ -273,5 +273,5 @@ def few_edeges_to_kg_fold(df, fold_seed, frac):
+         train = train_val[~train_val.index.isin(val.index)]
+-        df_train = df_train.append(train)
+-        df_valid = df_valid.append(val)
+-        df_test = df_test.append(test) 
++        df_train = pd.concat([df_train, train])
++        df_valid = pd.concat([df_valid, val])
++        df_test = pd.concat([df_test, test])
+     
+@@ -321,5 +321,5 @@ def few_edeges_to_indications_fold(df, fold_seed, frac):
+         train = train_val[~train_val.index.isin(val.index)]
+-        df_train = df_train.append(train)
+-        df_valid = df_valid.append(val)
+-        df_test = df_test.append(test) 
++        df_train = pd.concat([df_train, train])
++        df_valid = pd.concat([df_valid, val])
++        df_test = pd.concat([df_test, test])
+     
+@@ -371,5 +371,5 @@ def create_fold_cv(df, split_num, num_splits):
+         train = train_val[~train_val.index.isin(val.index)]
+-        df_train = df_train.append(train)
+-        df_valid = df_valid.append(val)
+-        df_test = df_test.append(test) 
++        df_train = pd.concat([df_train, train])
++        df_valid = pd.concat([df_valid, val])
++        df_test = pd.concat([df_test, test])
+     
+@@ -901,3 +901,3 @@ def reverse_rel_generation(df, df_valid, unique_rel):
+             temp["relation"] = 'rev_' + i[1]
+-        df_valid = df_valid.append(temp)
++        df_valid = pd.concat([df_valid, temp])
+     return df_valid.reset_index(drop = True)
+@@ -1478,3 +1478,3 @@ def find_two_hops(x_idx_value, x_type_value, df):
+     two_hop = df.merge(neighbors_df, left_on=['x_idx', 'x_type'], right_on=['idx', 'type'])
+-    two_hop = two_hop.append(df.merge(neighbors_df, left_on=['y_idx', 'y_type'], right_on=['idx', 'type']))
++    two_hop = pd.concat([two_hop, df.merge(neighbors_df, left_on=['y_idx', 'y_type'], right_on=['idx', 'type'])])
+ 

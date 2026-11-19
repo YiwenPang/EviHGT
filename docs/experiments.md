@@ -1,5 +1,7 @@
 # Recorded development experiments
 
+The [experiment source index](../experiments/) links each study to its implementation and the audit records for the common development panels.
+
 The development figures summarize runs from the original research implementation. The historical sections cover an earlier holdout evaluation and its validation studies. The repository includes aggregate statistics. Datasets, pair-level predictions and checkpoints remain local.
 
 The main comparison measures ranking of observed positives against unlabeled candidates on development panels from five overlapping folds of repeat R0.

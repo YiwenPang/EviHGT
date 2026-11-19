@@ -1,0 +1,4 @@
+# Preserve the original license bytes and the context of the upstream patch.
+TxGNN/LICENSE -text whitespace=cr-at-eol
+HGTDR/src/vendor/PYG_LICENSE text eol=lf
+TxGNN/utils-compat.patch -whitespace

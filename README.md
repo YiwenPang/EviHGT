@@ -51,6 +51,8 @@ python ablation.py --variants NO_D1 NO_PATH
 
 ## Development results
 
+[Experiment source and audit records](experiments/) cover the historical comparison drivers, ablations, cold-start evaluation and native baseline adaptations.
+
 The table summarizes repeat R0 across five overlapping folds. Metrics were averaged across eligible folds for each disease, then across 1,697 support diseases or 314 contraindication-related diseases. HGTDR supplies only support scores in this comparison.
 
 | Method | Support AUC | Support AP | Support NDCG@10 | Contra AUC | Contra AP | Contra NDCG@10 |

@@ -1,0 +1,924 @@
+{
+  "schema": 1,
+  "receipts": {
+    "DEV95": {
+      "source": "outputs/phase9/phase95/DEV95_EXECUTION_MANIFEST.json",
+      "sha256": "1e3d849c49852d00661500640fd130f54943288bf7d7d0a2b61221c4558478a4"
+    },
+    "DEV96": {
+      "source": "outputs/phase9/phase96/DEV96_EXECUTION_MANIFEST.json",
+      "sha256": "5e2abf325a9412bd03f0c33a3d12ef7cafd5be2422753a8618b2ac121b43ed81"
+    },
+    "DEV97": {
+      "source": "outputs/phase9/phase97/DEV97_EXECUTION_MANIFEST.json",
+      "sha256": "fd072c4fe1ccb9e95c58a3dc222ff8c0be686fb81ac32fdc3874ccde1c573322"
+    },
+    "DEV96_recovery": {
+      "source": "outputs/phase9/phase96/recovery_v1/RECOVERY_EXECUTION_MANIFEST.json",
+      "sha256": "24b6dd3f0b61a779dbe0c8e1c7c01d36e442541750bb74841b6e33ba157ff094"
+    },
+    "DEV97_recovery": {
+      "source": "outputs/phase9/phase97/recovery_v1/RECOVERY_EXECUTION_MANIFEST.json",
+      "sha256": "5d48776837152a1ac7080cd5ad006c280eb4987aa46a4e2f3225ce13d86ecbdb"
+    },
+    "historical_plan": {
+      "source": "outputs/phase842_evaluable/execution_plan.json",
+      "sha256": "595d6d07edb13385d219bffd997db3d8e1711af8790791f8653aefcbfb1c3868"
+    },
+    "historical_freeze": {
+      "source": "outputs/phase842_evaluable/freeze.json",
+      "sha256": "c925be7ffd50dc9c537f096df5be26b5695adfe6ce78ae8a79f7c3080da44165"
+    },
+    "historical_final_freeze": {
+      "source": "outputs/phase842_final/freeze.json",
+      "sha256": "d4a8d67d41df1192dbaf8bb54a1fcbbbc9c3de8f3cd5ab40c0cb03d70bda316e"
+    },
+    "historical_delivery": {
+      "source": "outputs/phase843_results/DELIVERY_VERIFICATION.json",
+      "sha256": "d8b1fa4787293637ba2fa2847d2b2159ab1af005b2e21017d31cee6df09b07a4"
+    },
+    "historical_execution_binding": {
+      "source": "outputs/phase8_4_2/execution_binding.json",
+      "sha256": "ccaba8da20942526e476198fd2530ad5eda3cb5d7ad7f3beefa7736b57d1694a"
+    },
+    "historical_u32_freeze": {
+      "source": "outputs/phase842_u32/freeze.json",
+      "sha256": "05c3453bdfb93db42a58cc454ef0a0c0453585a23d767b19d5310dc6b7df66c9"
+    }
+  },
+  "files": [
+    {
+      "file": "development/outputs/phase85_part3b10/stable_core.py",
+      "source": "outputs/phase85_part3b10/stable_core.py",
+      "source_sha256": "81f930325aa9de0370c6b12416bfaa6398d6c691ffe5f6e71712d0a178360b4b",
+      "lf_sha256": "81f930325aa9de0370c6b12416bfaa6398d6c691ffe5f6e71712d0a178360b4b",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/outputs/phase85_part3b11/stable_training_loss.py",
+      "source": "outputs/phase85_part3b11/stable_training_loss.py",
+      "source_sha256": "297cbab9b9b7c8f9367cac3c3a9dc44fea29679b878f5eb54b8d5ca12f37b451",
+      "lf_sha256": "297cbab9b9b7c8f9367cac3c3a9dc44fea29679b878f5eb54b8d5ca12f37b451",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/scripts/phase95/register.py",
+      "source": "scripts/phase95/register.py",
+      "source_sha256": "59cfeff4b9b004fe0413be43579f8e6639aea51ff2db7c8d86fdbfd4244e94a5",
+      "lf_sha256": "59cfeff4b9b004fe0413be43579f8e6639aea51ff2db7c8d86fdbfd4244e94a5",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/scripts/phase95/run_dev95.py",
+      "source": "scripts/phase95/run_dev95.py",
+      "source_sha256": "404541032716217c1ab4ab3867ed34e75d58a82963429db8e76a6ee8e0e70da7",
+      "lf_sha256": "56d69b3f2b716001e39f1bc2b91dbf64b7d49b482cb9e84fc80f207ea40b6edf",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ],
+      "publication_edit": "Module docstring shortened; executable statements unchanged."
+    },
+    {
+      "file": "development/scripts/phase96/recovery_v1/recovery_excerpts.py",
+      "source": "scripts/phase96/recovery_v1/recovery.py",
+      "source_sha256": "ab67ab3c25c1bbed9d4c9ce171760b0b9ee85c820d535e76f4815617095fc43e",
+      "lf_sha256": "68fd7c3cdb4ce6294d0fb7b799cd707b8bc5ce285ae2d802773f8a4474f6af9d",
+      "receipts": [
+        "DEV96_recovery"
+      ],
+      "selected_functions": [
+        "boundary_accounting",
+        "add_recovery_disclosure",
+        "patch_worker",
+        "summarize_recovery"
+      ]
+    },
+    {
+      "file": "development/scripts/phase96/register.py",
+      "source": "scripts/phase96/register.py",
+      "source_sha256": "6eba15cac7eb1fe9b7447f31a3982b5c72ac5f585c6708f5fa351b3f272412fa",
+      "lf_sha256": "6eba15cac7eb1fe9b7447f31a3982b5c72ac5f585c6708f5fa351b3f272412fa",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/scripts/phase96/run_dev96.py",
+      "source": "scripts/phase96/run_dev96.py",
+      "source_sha256": "804b495f38ae1d106063e31ab8dbdbe4fa352da0d7fd6bcd2bd0abee879e8125",
+      "lf_sha256": "804b495f38ae1d106063e31ab8dbdbe4fa352da0d7fd6bcd2bd0abee879e8125",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/scripts/phase97/recovery_v1/recovery_excerpts.py",
+      "source": "scripts/phase97/recovery_v1/recovery.py",
+      "source_sha256": "456f5dbf9c31babe77375f18676e355de091e77477508341f2ae3d3a28678cc3",
+      "lf_sha256": "f7b74f1715ea53b208cb7c1f711b2a25df020590ffc37bfb050f673353e4ab52",
+      "receipts": [
+        "DEV97_recovery"
+      ],
+      "selected_functions": [
+        "run_authorized_remaining",
+        "reporting_facility",
+        "verify_completed",
+        "summarize",
+        "worker"
+      ]
+    },
+    {
+      "file": "development/scripts/phase97/register.py",
+      "source": "scripts/phase97/register.py",
+      "source_sha256": "ae958e3630f1ed95eca84b05be21778b6d57d58e98ebb927cb869b22487e910d",
+      "lf_sha256": "ae958e3630f1ed95eca84b05be21778b6d57d58e98ebb927cb869b22487e910d",
+      "receipts": [
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/scripts/phase97/run_dev97.py",
+      "source": "scripts/phase97/run_dev97.py",
+      "source_sha256": "f10b48e3fbc0e50666cd65e07f00f89d86713cd8a3b27046c101ca4ede1deca0",
+      "lf_sha256": "f10b48e3fbc0e50666cd65e07f00f89d86713cd8a3b27046c101ca4ede1deca0",
+      "receipts": [
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt/models/four_valued_logic.py",
+      "source": "src/evi_hgt/models/four_valued_logic.py",
+      "source_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
+      "lf_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt/phase85_part2b/runtime.py",
+      "source": "src/evi_hgt/phase85_part2b/runtime.py",
+      "source_sha256": "27e389bf97539378c3740b24ecd5de0b3007f24b53169751b0f52a4f23d55a42",
+      "lf_sha256": "27e389bf97539378c3740b24ecd5de0b3007f24b53169751b0f52a4f23d55a42",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt/phase85_part3a_r2/conditional.py",
+      "source": "src/evi_hgt/phase85_part3a_r2/conditional.py",
+      "source_sha256": "c0d6ed51ad2819f74dd5399d0739e9d879dee9a9ffa758613e60f18c5b36a8d7",
+      "lf_sha256": "c0d6ed51ad2819f74dd5399d0739e9d879dee9a9ffa758613e60f18c5b36a8d7",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt/phase85_part3b1/model.py",
+      "source": "src/evi_hgt/phase85_part3b1/model.py",
+      "source_sha256": "692d686a1bc400bee9742e2b9cdea4f254fac34695c94620c8003b907f9871ed",
+      "lf_sha256": "692d686a1bc400bee9742e2b9cdea4f254fac34695c94620c8003b907f9871ed",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt/phase9/identity.py",
+      "source": "src/evi_hgt/phase9/identity.py",
+      "source_sha256": "c77b3133978affce2a07e5f4c5a1b35c0cce7615ef5bee51d7b70bae3f97d3c1",
+      "lf_sha256": "c77b3133978affce2a07e5f4c5a1b35c0cce7615ef5bee51d7b70bae3f97d3c1",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt/phase9/model.py",
+      "source": "src/evi_hgt/phase9/model.py",
+      "source_sha256": "792dc93e6d5e9962db3710a6468effc67f6003daa525f6cde7ea2cdaff3a0bef",
+      "lf_sha256": "792dc93e6d5e9962db3710a6468effc67f6003daa525f6cde7ea2cdaff3a0bef",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt/training/formal_objective.py",
+      "source": "src/evi_hgt/training/formal_objective.py",
+      "source_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
+      "lf_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev94/common.py",
+      "source": "src/evi_hgt_dev94/common.py",
+      "source_sha256": "63045772984a949b32b4c49bae5f92baddea44a7a6e6b3b832e707ef815b327f",
+      "lf_sha256": "63045772984a949b32b4c49bae5f92baddea44a7a6e6b3b832e707ef815b327f",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev94/data.py",
+      "source": "src/evi_hgt_dev94/data.py",
+      "source_sha256": "d2898d74243f731014a50f60a3fd14a7ebadba352f9e1805aafbe39f3dd0c753",
+      "lf_sha256": "d2898d74243f731014a50f60a3fd14a7ebadba352f9e1805aafbe39f3dd0c753",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev94/evaluation.py",
+      "source": "src/evi_hgt_dev94/evaluation.py",
+      "source_sha256": "a4e9b99bf75ab10b4d94dc0f1309a7fd56e52cf5458a8face572545aca22bf5f",
+      "lf_sha256": "a4e9b99bf75ab10b4d94dc0f1309a7fd56e52cf5458a8face572545aca22bf5f",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev94/model.py",
+      "source": "src/evi_hgt_dev94/model.py",
+      "source_sha256": "099663f186815b64371e0c5123d074f97a7b96661ddbef7e6a11d6bce2fd528d",
+      "lf_sha256": "099663f186815b64371e0c5123d074f97a7b96661ddbef7e6a11d6bce2fd528d",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev94/pretrained.py",
+      "source": "src/evi_hgt_dev94/pretrained.py",
+      "source_sha256": "cefd6bd1326a6482cc1295f92dfc11045abbc58eeddac17e0f3d9d7ef43236ac",
+      "lf_sha256": "cefd6bd1326a6482cc1295f92dfc11045abbc58eeddac17e0f3d9d7ef43236ac",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev94/training.py",
+      "source": "src/evi_hgt_dev94/training.py",
+      "source_sha256": "6688b96a60b46bc5fcbee380783aee11a7b17b35af80e4fdec3cc878e63c6351",
+      "lf_sha256": "6688b96a60b46bc5fcbee380783aee11a7b17b35af80e4fdec3cc878e63c6351",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev95/__init__.py",
+      "source": "src/evi_hgt_dev95/__init__.py",
+      "source_sha256": "5f666aee4f49dc10b9f7a768ba4edfbf42130b2bb8eec3f663438c030ce66bfd",
+      "lf_sha256": "5f666aee4f49dc10b9f7a768ba4edfbf42130b2bb8eec3f663438c030ce66bfd",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev95/checkpoint.py",
+      "source": "src/evi_hgt_dev95/checkpoint.py",
+      "source_sha256": "5cb484c63a8201def191b9e4b4b9bf7c92e3ea0f656985d20e8ce34b86e8d872",
+      "lf_sha256": "5cb484c63a8201def191b9e4b4b9bf7c92e3ea0f656985d20e8ce34b86e8d872",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev95/data.py",
+      "source": "src/evi_hgt_dev95/data.py",
+      "source_sha256": "6758d1a39ed2db8c9252dfaebca5af2f499985796a5fecdceaffb87ee21d3f44",
+      "lf_sha256": "6758d1a39ed2db8c9252dfaebca5af2f499985796a5fecdceaffb87ee21d3f44",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev95/diagnostics.py",
+      "source": "src/evi_hgt_dev95/diagnostics.py",
+      "source_sha256": "853e558cc3a247684001664559b8cc0fc4e7fe63528e939022d456e2e4591167",
+      "lf_sha256": "853e558cc3a247684001664559b8cc0fc4e7fe63528e939022d456e2e4591167",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev95/evaluation.py",
+      "source": "src/evi_hgt_dev95/evaluation.py",
+      "source_sha256": "05c99437908105942317f50262352078788405e38495adf689e555c7837f3160",
+      "lf_sha256": "05c99437908105942317f50262352078788405e38495adf689e555c7837f3160",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev95/losses.py",
+      "source": "src/evi_hgt_dev95/losses.py",
+      "source_sha256": "f81a2e3dcc31e2d137e1415488dc66465d4f2b9554d252739ef167ebe7da3669",
+      "lf_sha256": "f81a2e3dcc31e2d137e1415488dc66465d4f2b9554d252739ef167ebe7da3669",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev95/protocol.py",
+      "source": "src/evi_hgt_dev95/protocol.py",
+      "source_sha256": "aac658612f31baa918bb9a60f749723003a614bb439500e42a6abbea68d2e29c",
+      "lf_sha256": "aac658612f31baa918bb9a60f749723003a614bb439500e42a6abbea68d2e29c",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev95/reporting.py",
+      "source": "src/evi_hgt_dev95/reporting.py",
+      "source_sha256": "276f9ab4cfe846d7cba4ae9a3547ba5de0cc8b5ae868bf966e49922644c01e90",
+      "lf_sha256": "276f9ab4cfe846d7cba4ae9a3547ba5de0cc8b5ae868bf966e49922644c01e90",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev95/runner.py",
+      "source": "src/evi_hgt_dev95/runner.py",
+      "source_sha256": "4344cc826de748845ca988b7a6012fa9a5c967400dff08914fac0f8f32fee9c9",
+      "lf_sha256": "4344cc826de748845ca988b7a6012fa9a5c967400dff08914fac0f8f32fee9c9",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev95/training.py",
+      "source": "src/evi_hgt_dev95/training.py",
+      "source_sha256": "509d1fd1dfba6baf93028c5319555a6f408f7ff88ec2e11113a07b2b5582aaf9",
+      "lf_sha256": "509d1fd1dfba6baf93028c5319555a6f408f7ff88ec2e11113a07b2b5582aaf9",
+      "receipts": [
+        "DEV95",
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev96/__init__.py",
+      "source": "src/evi_hgt_dev96/__init__.py",
+      "source_sha256": "c376c02f11b52ef43930423391a1b775791afbae15bc501b5c85710918f7b3fc",
+      "lf_sha256": "c376c02f11b52ef43930423391a1b775791afbae15bc501b5c85710918f7b3fc",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev96/checkpoint.py",
+      "source": "src/evi_hgt_dev96/checkpoint.py",
+      "source_sha256": "ff63db18b040b1006d66a28fe56ae80cd2dc90e070893cc8020e36548957dc09",
+      "lf_sha256": "ff63db18b040b1006d66a28fe56ae80cd2dc90e070893cc8020e36548957dc09",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev96/data.py",
+      "source": "src/evi_hgt_dev96/data.py",
+      "source_sha256": "21625550a0724ebf55304f1a463645c568bce7b8225346a2ec5ed943b8f25ead",
+      "lf_sha256": "21625550a0724ebf55304f1a463645c568bce7b8225346a2ec5ed943b8f25ead",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev96/diagnostics.py",
+      "source": "src/evi_hgt_dev96/diagnostics.py",
+      "source_sha256": "a72807c75fd3b77e0663046cedffaa4fdc69ad027d625e0bc97076a80da8227f",
+      "lf_sha256": "a72807c75fd3b77e0663046cedffaa4fdc69ad027d625e0bc97076a80da8227f",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev96/evaluation.py",
+      "source": "src/evi_hgt_dev96/evaluation.py",
+      "source_sha256": "6460e05222f32c18da071fec6ebce55fb9b35df2f51e83e7dae86b45e2438108",
+      "lf_sha256": "6460e05222f32c18da071fec6ebce55fb9b35df2f51e83e7dae86b45e2438108",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev96/model.py",
+      "source": "src/evi_hgt_dev96/model.py",
+      "source_sha256": "4348be989b5e1595b21a8c4b69a30a874074eb7b0a7decea22ee1acbe6f73f7f",
+      "lf_sha256": "4348be989b5e1595b21a8c4b69a30a874074eb7b0a7decea22ee1acbe6f73f7f",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev96/protocol.py",
+      "source": "src/evi_hgt_dev96/protocol.py",
+      "source_sha256": "c851e81dd123059704a41f8fae6f00723f29ca0c08df6e59965d411adc75e7d9",
+      "lf_sha256": "c851e81dd123059704a41f8fae6f00723f29ca0c08df6e59965d411adc75e7d9",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev96/reporting.py",
+      "source": "src/evi_hgt_dev96/reporting.py",
+      "source_sha256": "02e7c12ecc3b007ecfd04659c76818ec0fc91665b86666733094013abc4404e5",
+      "lf_sha256": "02e7c12ecc3b007ecfd04659c76818ec0fc91665b86666733094013abc4404e5",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev96/runner.py",
+      "source": "src/evi_hgt_dev96/runner.py",
+      "source_sha256": "a9bb04bed3dcccc0ecb6a7c4fdba12080e3067064f6c8c1e0f64517bf0f4e836",
+      "lf_sha256": "a9bb04bed3dcccc0ecb6a7c4fdba12080e3067064f6c8c1e0f64517bf0f4e836",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev96/sampling.py",
+      "source": "src/evi_hgt_dev96/sampling.py",
+      "source_sha256": "a2d30869145a8a243c255c48b9f5cef7f8ff150099f046a9cd5d2daf4d4b54df",
+      "lf_sha256": "a2d30869145a8a243c255c48b9f5cef7f8ff150099f046a9cd5d2daf4d4b54df",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev96/training.py",
+      "source": "src/evi_hgt_dev96/training.py",
+      "source_sha256": "6772582cf3661afefa650cd7a5687c9163e8aaff23f8059afbc2b02565d807c9",
+      "lf_sha256": "6772582cf3661afefa650cd7a5687c9163e8aaff23f8059afbc2b02565d807c9",
+      "receipts": [
+        "DEV96",
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev97/__init__.py",
+      "source": "src/evi_hgt_dev97/__init__.py",
+      "source_sha256": "b9c070dafa848e64784a1677eee3a1acdac4d632424c6d95791131b86ef61b00",
+      "lf_sha256": "b9c070dafa848e64784a1677eee3a1acdac4d632424c6d95791131b86ef61b00",
+      "receipts": [
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev97/checkpoint.py",
+      "source": "src/evi_hgt_dev97/checkpoint.py",
+      "source_sha256": "f93cbc776ee41fea03d4858ced5b3a03250a631dcf2977ba0fe1295f6818adc0",
+      "lf_sha256": "f93cbc776ee41fea03d4858ced5b3a03250a631dcf2977ba0fe1295f6818adc0",
+      "receipts": [
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev97/evaluation.py",
+      "source": "src/evi_hgt_dev97/evaluation.py",
+      "source_sha256": "3b81eda81245e543d528f70e48c0ca0815995e188a05ad7d8ed49fe41b2d153e",
+      "lf_sha256": "3b81eda81245e543d528f70e48c0ca0815995e188a05ad7d8ed49fe41b2d153e",
+      "receipts": [
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev97/model.py",
+      "source": "src/evi_hgt_dev97/model.py",
+      "source_sha256": "660a56d12b7df3e2db39bd8203d4aa7cfe9180c44b440135529fdfef2ea820dc",
+      "lf_sha256": "660a56d12b7df3e2db39bd8203d4aa7cfe9180c44b440135529fdfef2ea820dc",
+      "receipts": [
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev97/protocol.py",
+      "source": "src/evi_hgt_dev97/protocol.py",
+      "source_sha256": "2ecbfd3d003f6a558133febd6d76e1b32ab22767ed0bf4327039ff47f821a560",
+      "lf_sha256": "2ecbfd3d003f6a558133febd6d76e1b32ab22767ed0bf4327039ff47f821a560",
+      "receipts": [
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev97/reporting.py",
+      "source": "src/evi_hgt_dev97/reporting.py",
+      "source_sha256": "e532da248eba961cb2a2f7bed3220401dd665f49992138135ddd5bbcaeb19527",
+      "lf_sha256": "e532da248eba961cb2a2f7bed3220401dd665f49992138135ddd5bbcaeb19527",
+      "receipts": [
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev97/runner.py",
+      "source": "src/evi_hgt_dev97/runner.py",
+      "source_sha256": "ffe3cc5c9fbea9565a97cb0ca0bb7142cb9c86eca708fd72db8e84a2214f2f43",
+      "lf_sha256": "ffe3cc5c9fbea9565a97cb0ca0bb7142cb9c86eca708fd72db8e84a2214f2f43",
+      "receipts": [
+        "DEV97"
+      ]
+    },
+    {
+      "file": "development/src/evi_hgt_dev97/sampling.py",
+      "source": "src/evi_hgt_dev97/sampling.py",
+      "source_sha256": "4996f75f20bb4a756819499b23989a4beb48dad80c855fc049315ef57284851c",
+      "lf_sha256": "4996f75f20bb4a756819499b23989a4beb48dad80c855fc049315ef57284851c",
+      "receipts": [
+        "DEV97"
+      ]
+    },
+    {
+      "file": "historical/scripts/phase842_evaluable_freeze.py",
+      "source": "scripts/phase842_evaluable_freeze.py",
+      "source_sha256": "af3d223691ca1ffa3f073b0f85cb9ebe75a1aa204d97609de3d8a07041769ae2",
+      "lf_sha256": "af3d223691ca1ffa3f073b0f85cb9ebe75a1aa204d97609de3d8a07041769ae2",
+      "receipts": [
+        "historical_freeze"
+      ]
+    },
+    {
+      "file": "historical/scripts/phase842_overnight_execution.py",
+      "source": "scripts/phase842_overnight_execution.py",
+      "source_sha256": "93a36bfd6dde76b970885f5ce036dda721591bd969c1553f0a78ceb8adb11f3e",
+      "lf_sha256": "93a36bfd6dde76b970885f5ce036dda721591bd969c1553f0a78ceb8adb11f3e",
+      "receipts": [
+        "historical_freeze"
+      ]
+    },
+    {
+      "file": "historical/scripts/phase843_analyze.py",
+      "source": "scripts/phase843_analyze.py",
+      "source_sha256": "53e6e500cf9bcb939165ab128b973c9544bcf119160b531314f7d383d674fb40",
+      "lf_sha256": "53e6e500cf9bcb939165ab128b973c9544bcf119160b531314f7d383d674fb40",
+      "receipts": [
+        "historical_delivery"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/__init__.py",
+      "source": "src/evi_hgt/__init__.py",
+      "source_sha256": "34662fbaf50eebcf1faf75c66520383c084e8ab00ce4ce25c8887ccd705822a7",
+      "lf_sha256": "34662fbaf50eebcf1faf75c66520383c084e8ab00ce4ce25c8887ccd705822a7",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/data/cold_visibility.py",
+      "source": "src/evi_hgt/data/cold_visibility.py",
+      "source_sha256": "d38ece83dfc23dd83518f31ae5ca6dfd25260946fbd545db87e61813354c4c23",
+      "lf_sha256": "1c03e5451bee9938e427316e7f7a7d946df04f972efc6e1da12b77a040ef1c69",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/candidates.py",
+      "source": "src/evi_hgt/evaluation/candidates.py",
+      "source_sha256": "13b74b6120d8e3150d33576575c45a44fe1e6dc33d88f5d6b5aa37e58393e792",
+      "lf_sha256": "13b74b6120d8e3150d33576575c45a44fe1e6dc33d88f5d6b5aa37e58393e792",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/emergency_u32.py",
+      "source": "src/evi_hgt/evaluation/emergency_u32.py",
+      "source_sha256": "0c322717615e6c683d5f3f2652f8d481cb42f0fd0171360171f53abb2a64749d",
+      "lf_sha256": "0c322717615e6c683d5f3f2652f8d481cb42f0fd0171360171f53abb2a64749d",
+      "receipts": [
+        "historical_u32_freeze"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/evaluable_protocol.py",
+      "source": "src/evi_hgt/evaluation/evaluable_protocol.py",
+      "source_sha256": "485a78122bb210733477b92abec3fa4e022d30cce16bedc78a8a5b6e6b0cc7a5",
+      "lf_sha256": "485a78122bb210733477b92abec3fa4e022d30cce16bedc78a8a5b6e6b0cc7a5",
+      "receipts": [
+        "historical_freeze"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/execution_safety.py",
+      "source": "src/evi_hgt/evaluation/execution_safety.py",
+      "source_sha256": "97b6cd731408cdbdc6931bd345b72d12ad8a5a59b0a7d3cc0c12876cae74158f",
+      "lf_sha256": "97b6cd731408cdbdc6931bd345b72d12ad8a5a59b0a7d3cc0c12876cae74158f",
+      "receipts": [
+        "historical_execution_binding"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/final_protocol.py",
+      "source": "src/evi_hgt/evaluation/final_protocol.py",
+      "source_sha256": "427bd7f8ff16db0a256585165201044a4b07f841f3d88dcc2b2617db37748bc1",
+      "lf_sha256": "427bd7f8ff16db0a256585165201044a4b07f841f3d88dcc2b2617db37748bc1",
+      "receipts": [
+        "historical_final_freeze"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/final_runtime.py",
+      "source": "src/evi_hgt/evaluation/final_runtime.py",
+      "source_sha256": "d7cb26d12b7459d3e27b932b758358dc31138d6b58a5a35226f6fdc61805d79c",
+      "lf_sha256": "d7cb26d12b7459d3e27b932b758358dc31138d6b58a5a35226f6fdc61805d79c",
+      "receipts": [
+        "historical_final_freeze"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/formal_redesign.py",
+      "source": "src/evi_hgt/evaluation/formal_redesign.py",
+      "source_sha256": "370c4b4ed512928cfe1476bd779e49df2cccbafc02ae5593f004b1aa91f54923",
+      "lf_sha256": "370c4b4ed512928cfe1476bd779e49df2cccbafc02ae5593f004b1aa91f54923",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/formal_runtime.py",
+      "source": "src/evi_hgt/evaluation/formal_runtime.py",
+      "source_sha256": "a7991027373815b3787cf07c4e074abd7356e453030ca4633e9ec77d2b61390a",
+      "lf_sha256": "a7991027373815b3787cf07c4e074abd7356e453030ca4633e9ec77d2b61390a",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/indexed_adapter.py",
+      "source": "src/evi_hgt/evaluation/indexed_adapter.py",
+      "source_sha256": "0d55890aa630f3b69cbf1801d3cb977233821510cf79e1ca0f8225e88687a5c2",
+      "lf_sha256": "0d55890aa630f3b69cbf1801d3cb977233821510cf79e1ca0f8225e88687a5c2",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/overnight_runtime.py",
+      "source": "src/evi_hgt/evaluation/overnight_runtime.py",
+      "source_sha256": "f2cc68c67b66ad4d74c17a46453a9fd4f34ab103e40067a4ab0fadf80bab38fe",
+      "lf_sha256": "f2cc68c67b66ad4d74c17a46453a9fd4f34ab103e40067a4ab0fadf80bab38fe",
+      "receipts": [
+        "historical_freeze"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/protocol.py",
+      "source": "src/evi_hgt/evaluation/protocol.py",
+      "source_sha256": "6417e2bc3922b700809e3f4a4273d25ef98369f5ac70cfed0233eaccca337c65",
+      "lf_sha256": "6417e2bc3922b700809e3f4a4273d25ef98369f5ac70cfed0233eaccca337c65",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/ranking.py",
+      "source": "src/evi_hgt/evaluation/ranking.py",
+      "source_sha256": "ef1a92ba77319c4a825a043d5505932bea32104740f5547856c3292055b16924",
+      "lf_sha256": "ef1a92ba77319c4a825a043d5505932bea32104740f5547856c3292055b16924",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/redesigned_runtime.py",
+      "source": "src/evi_hgt/evaluation/redesigned_runtime.py",
+      "source_sha256": "231cc8a25777524905bfd21feee7ec35373f1f8814c0bb6dcc5b5c5c0b54d612",
+      "lf_sha256": "231cc8a25777524905bfd21feee7ec35373f1f8814c0bb6dcc5b5c5c0b54d612",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/shared_scoring.py",
+      "source": "src/evi_hgt/evaluation/shared_scoring.py",
+      "source_sha256": "b77a7cb6fbf9deab48e24a3e34276901b7d18d43ce2953c22ac39d5da7fd8053",
+      "lf_sha256": "b77a7cb6fbf9deab48e24a3e34276901b7d18d43ce2953c22ac39d5da7fd8053",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/evaluation/validation_diagnostics.py",
+      "source": "src/evi_hgt/evaluation/validation_diagnostics.py",
+      "source_sha256": "74179172b6c0d01783885074cd890b6c14ee86ff4ef6eedeca6c6c73a6357681",
+      "lf_sha256": "74179172b6c0d01783885074cd890b6c14ee86ff4ef6eedeca6c6c73a6357681",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/formal_execution.py",
+      "source": "src/evi_hgt/formal_execution.py",
+      "source_sha256": "b22b96fd396227bf3c95367bf6c297e1ff32201d601f176e70e7ae83e377f43b",
+      "lf_sha256": "5ee3f2a9547ab424be9da8840da741795fab303af54035cb3352ffa9174a7ca0",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/models/config.py",
+      "source": "src/evi_hgt/models/config.py",
+      "source_sha256": "b0a0c026e8de598b4b5826324b531d69867ce86fff75d1745e8fe0522cdbddd1",
+      "lf_sha256": "b0a0c026e8de598b4b5826324b531d69867ce86fff75d1745e8fe0522cdbddd1",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/models/edge_context.py",
+      "source": "src/evi_hgt/models/edge_context.py",
+      "source_sha256": "082cf6306891ba80f13b5fc880af6539bf09b32e3a8334ad2fd28055f2fa54ca",
+      "lf_sha256": "082cf6306891ba80f13b5fc880af6539bf09b32e3a8334ad2fd28055f2fa54ca",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/models/evi_hgt.py",
+      "source": "src/evi_hgt/models/evi_hgt.py",
+      "source_sha256": "095f15d97b95a2c2fb697788deb91b4c81a7b5340d2dd145ce42d490d8e5bbd6",
+      "lf_sha256": "095f15d97b95a2c2fb697788deb91b4c81a7b5340d2dd145ce42d490d8e5bbd6",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/models/evi_hgt_layer.py",
+      "source": "src/evi_hgt/models/evi_hgt_layer.py",
+      "source_sha256": "836f22a645ea6cfcbba4e00486a180e8a8e34713d8b0d64d17434117ac10c705",
+      "lf_sha256": "836f22a645ea6cfcbba4e00486a180e8a8e34713d8b0d64d17434117ac10c705",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/models/four_valued_logic.py",
+      "source": "src/evi_hgt/models/four_valued_logic.py",
+      "source_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
+      "lf_sha256": "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/models/path_encoder.py",
+      "source": "src/evi_hgt/models/path_encoder.py",
+      "source_sha256": "d667182a99058bbd76498b54505b27ed47fb494516cbd694d011dd1b3300c092",
+      "lf_sha256": "d667182a99058bbd76498b54505b27ed47fb494516cbd694d011dd1b3300c092",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/models/path_reasoning.py",
+      "source": "src/evi_hgt/models/path_reasoning.py",
+      "source_sha256": "d08134463fca369b800a0866400d8283085e7ca105fa96d6cc3d44d82c15c53e",
+      "lf_sha256": "d08134463fca369b800a0866400d8283085e7ca105fa96d6cc3d44d82c15c53e",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/models/variants.py",
+      "source": "src/evi_hgt/models/variants.py",
+      "source_sha256": "d131d94a0dfff1035a0d29ef71a95952e3f1c0027086c0c8965c083e6120b416",
+      "lf_sha256": "d131d94a0dfff1035a0d29ef71a95952e3f1c0027086c0c8965c083e6120b416",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/protocols/confirmatory_ablation.py",
+      "source": "src/evi_hgt/protocols/confirmatory_ablation.py",
+      "source_sha256": "a843d6cd4d8b902c023d2f852f91acd0ffeb3dd9814156c5f25e74fa8ff21db6",
+      "lf_sha256": "a843d6cd4d8b902c023d2f852f91acd0ffeb3dd9814156c5f25e74fa8ff21db6",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/protocols/formal_experiments.py",
+      "source": "src/evi_hgt/protocols/formal_experiments.py",
+      "source_sha256": "00101190879cf774436bcc7de4b503fc09ae5dc4c7347c2afee44482f0192827",
+      "lf_sha256": "00101190879cf774436bcc7de4b503fc09ae5dc4c7347c2afee44482f0192827",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/training/formal_driver.py",
+      "source": "src/evi_hgt/training/formal_driver.py",
+      "source_sha256": "7ff3d92eb9f1a92595d1b89d1e1a1f22ed4708bdc0bfe23a3e695bd907f80ad9",
+      "lf_sha256": "b9edf8b508a9ae7cbfb3ce9806c9291a6001b4b9d7bb38ec91f0a6e7eab01077",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/training/formal_objective.py",
+      "source": "src/evi_hgt/training/formal_objective.py",
+      "source_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
+      "lf_sha256": "3d634a136ee1190a640d60d9908b0c8fc7d63ba97f1b5cb842583fc1b969bf0b",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/training/model_selection.py",
+      "source": "src/evi_hgt/training/model_selection.py",
+      "source_sha256": "618d174aa0e490d2b2e66fc78535e1388009e61e1d7c87f5161d71d5c55262cc",
+      "lf_sha256": "618d174aa0e490d2b2e66fc78535e1388009e61e1d7c87f5161d71d5c55262cc",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/src/evi_hgt/training/model_variants.py",
+      "source": "src/evi_hgt/training/model_variants.py",
+      "source_sha256": "71b6853c391fdf3d564fe0804294de8967d5e6d6ec69afcdec81974184cf79c3",
+      "lf_sha256": "71b6853c391fdf3d564fe0804294de8967d5e6d6ec69afcdec81974184cf79c3",
+      "receipts": [
+        "historical_plan"
+      ]
+    },
+    {
+      "file": "historical/tests/test_phase843_analysis.py",
+      "source": "tests/test_phase843_analysis.py",
+      "source_sha256": "a7dc888f2202cb888e02429378757119ebed8d25283c48d8ea4d60291e3282c4",
+      "lf_sha256": "a7dc888f2202cb888e02429378757119ebed8d25283c48d8ea4d60291e3282c4",
+      "receipts": [
+        "historical_delivery"
+      ]
+    }
+  ]
+}

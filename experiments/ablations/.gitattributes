@@ -1,0 +1,2 @@
+# Original files include a trailing blank line in three historical modules.
+historical/**/*.py whitespace=-blank-at-eof
