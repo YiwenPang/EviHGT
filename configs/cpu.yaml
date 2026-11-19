@@ -1,0 +1,11 @@
+# Explicit portability setting; FP32 CPU runs are not bitwise GPU reproductions.
+manifest: data/processed/corpus/manifest.json
+output_dir: outputs
+device: cpu
+precision: fp32
+learning_rate: 0.00005
+weight_decay: 0.00001
+max_grad_norm: 1.0
+checkpoint_every: 250
+evaluate_every_cycle: true
+refresh_seconds: 5.0

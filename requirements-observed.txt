@@ -1,0 +1,8 @@
+# Observed research workstation versions; not a universal platform lock file.
+# PyTorch build was 2.13.0+cu132 (install from the matching official index).
+torch==2.13.0
+numpy==2.5.2
+polars==1.43.2
+pyarrow==25.0.1
+PyYAML==6.0.3
+tqdm==4.70.0

@@ -1,0 +1,48 @@
+# No real dataset, derived corpus, embeddings or split manifests belong in Git.
+/data/**
+!/data/.gitkeep
+
+# All local runtime products, including logs, predictions and checkpoints.
+/outputs/**
+!/outputs/.gitkeep
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.npy
+*.npz
+*.parquet
+*.arrow
+*.sqlite
+*.db
+*.pkl
+*.pickle
+
+# Local environments, caches and IDE settings.
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.tmp
+*.partial
+
+# Credentials and private machine configuration.
+.env
+.env.*
+*.pem
+*.key
+credentials*.json
+secrets*.json

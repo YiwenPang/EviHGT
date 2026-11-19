@@ -1,0 +1,185 @@
+{
+  "schema": "EVIHGT_SOURCE_MAP_V1",
+  "manifest": {
+    "schema": "EVIHGT_PORTABLE_CORPUS_V1",
+    "training_seed": 42,
+    "token_buckets": 8192,
+    "semantics": {
+      "canonical_entities_verified": false,
+      "canonical_facts_deduplicated": false,
+      "evidence_records_deduplicated": false,
+      "clinical_labels_verified": false,
+      "target_aliases_resolved": false,
+      "disease_gene_label_leakage_removed": false,
+      "split_mask_applied": false,
+      "features_label_independent": false,
+      "unknown_is_negative": false
+    },
+    "nodes": "nodes.parquet",
+    "edge_catalog": "edge_catalog.json",
+    "fact_files": [
+      {
+        "path": "facts/component.parquet",
+        "component": "REPLACE_WITH_VERIFIED_COMPONENT",
+        "rows": 0
+      }
+    ],
+    "evidence_files": [
+      {
+        "path": "evidence/component.parquet",
+        "component": "REPLACE_WITH_VERIFIED_COMPONENT",
+        "rows": 0
+      }
+    ],
+    "csr": {
+      "indptr": "csr/indptr.npy",
+      "indices": "csr/indices.npy",
+      "fact_ids": "csr/fact_ids.npy"
+    },
+    "target_map": "target_map.parquet",
+    "forbidden_facts": "forbidden_facts.parquet",
+    "training_pairs": "training_pairs.parquet",
+    "observed_pairs": "observed_pairs.parquet",
+    "blocked_pairs": "blocked_pairs.parquet",
+    "eligibility": "eligibility.json",
+    "panels": {
+      "validation": "validation.parquet",
+      "auxiliary_validation": "auxiliary_validation.parquet"
+    },
+    "raw_features": {
+      "drug_ids": "raw_features/drug_ids.npy",
+      "drug_values": "raw_features/drug_values.npy",
+      "disease_ids": "raw_features/disease_ids.npy",
+      "disease_values": "raw_features/disease_values.npy"
+    },
+    "pretrained": {
+      "drug_ids": "d1/drug_ids.npy",
+      "drug_values": "d1/drug_values.npy",
+      "drug_available": "d1/drug_available.npy",
+      "disease_ids": "d1/disease_ids.npy",
+      "disease_values": "d1/disease_values.npy",
+      "disease_available": "d1/disease_available.npy",
+      "metadata": "d1/metadata.json"
+    },
+    "schedule": {
+      "G": 0,
+      "groups": "global_groups.parquet",
+      "conditional_records": "conditional_records.json",
+      "sampling_provenance": "REPLACE_WITH_VERIFIED_PLAN_PROVENANCE"
+    }
+  },
+  "sources": {
+    "nodes.parquet": {
+      "path": "../licensed_inputs/nodes.parquet",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "edge_catalog.json": {
+      "path": "../licensed_inputs/edge_catalog.json",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "facts/component.parquet": {
+      "path": "../licensed_inputs/facts/component.parquet",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "evidence/component.parquet": {
+      "path": "../licensed_inputs/evidence/component.parquet",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "csr/indptr.npy": {
+      "path": "../licensed_inputs/csr/indptr.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "csr/indices.npy": {
+      "path": "../licensed_inputs/csr/indices.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "csr/fact_ids.npy": {
+      "path": "../licensed_inputs/csr/fact_ids.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "target_map.parquet": {
+      "path": "../licensed_inputs/target_map.parquet",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "forbidden_facts.parquet": {
+      "path": "../licensed_inputs/forbidden_facts.parquet",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "training_pairs.parquet": {
+      "path": "../licensed_inputs/training_pairs.parquet",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "observed_pairs.parquet": {
+      "path": "../licensed_inputs/observed_pairs.parquet",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "blocked_pairs.parquet": {
+      "path": "../licensed_inputs/blocked_pairs.parquet",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "eligibility.json": {
+      "path": "../licensed_inputs/eligibility.json",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "validation.parquet": {
+      "path": "../licensed_inputs/validation.parquet",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "auxiliary_validation.parquet": {
+      "path": "../licensed_inputs/auxiliary_validation.parquet",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "raw_features/drug_ids.npy": {
+      "path": "../licensed_inputs/raw_features/drug_ids.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "raw_features/drug_values.npy": {
+      "path": "../licensed_inputs/raw_features/drug_values.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "raw_features/disease_ids.npy": {
+      "path": "../licensed_inputs/raw_features/disease_ids.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "raw_features/disease_values.npy": {
+      "path": "../licensed_inputs/raw_features/disease_values.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "d1/drug_ids.npy": {
+      "path": "../licensed_inputs/d1/drug_ids.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "d1/drug_values.npy": {
+      "path": "../licensed_inputs/d1/drug_values.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "d1/drug_available.npy": {
+      "path": "../licensed_inputs/d1/drug_available.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "d1/disease_ids.npy": {
+      "path": "../licensed_inputs/d1/disease_ids.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "d1/disease_values.npy": {
+      "path": "../licensed_inputs/d1/disease_values.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "d1/disease_available.npy": {
+      "path": "../licensed_inputs/d1/disease_available.npy",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "d1/metadata.json": {
+      "path": "../licensed_inputs/d1/metadata.json",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "global_groups.parquet": {
+      "path": "../licensed_inputs/global_groups.parquet",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    "conditional_records.json": {
+      "path": "../licensed_inputs/conditional_records.json",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    }
+  }
+}

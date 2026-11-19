@@ -1,0 +1,227 @@
+{
+  "scope": "Historical FULL event component times; excludes initialization, validation, export, idle time, and uninstrumented overhead.",
+  "portable_benchmark": false,
+  "completed_directories": 12,
+  "timed_cells": 12,
+  "four_timer_hours_min": 8.876680949860823,
+  "four_timer_hours_median": 15.675234982959275,
+  "four_timer_hours_max": 16.359526884498578,
+  "cells": [
+    {
+      "cell": "R0F2",
+      "status": "COMPLETE",
+      "unique_updates": 20421,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 24553.203680500304,
+        "forward_seconds": 3811.466921799536,
+        "backward_seconds": 3545.2201162994315,
+        "optimizer_seconds": 46.16070089969435
+      },
+      "four_timer_hours": 8.876680949860823,
+      "checkpoint_commit_seconds": 36.59539709999444,
+      "peak_allocated_gib": 2.285775661468506,
+      "peak_reserved_gib": 2.4609375,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R0F2/events.jsonl"
+    },
+    {
+      "cell": "R0F3",
+      "status": "COMPLETE",
+      "unique_updates": 20535,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 41133.3364180982,
+        "forward_seconds": 6059.083120300958,
+        "backward_seconds": 4861.782654701397,
+        "optimizer_seconds": 60.16532640148944
+      },
+      "four_timer_hours": 14.47621319986168,
+      "checkpoint_commit_seconds": 46.14666190011485,
+      "peak_allocated_gib": 2.285775661468506,
+      "peak_reserved_gib": 2.4609375,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R0F3/events.jsonl"
+    },
+    {
+      "cell": "R0F4",
+      "status": "COMPLETE",
+      "unique_updates": 20562,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 41746.43320189904,
+        "forward_seconds": 4315.230748699672,
+        "backward_seconds": 3572.274340100659,
+        "optimizer_seconds": 46.50966319991858
+      },
+      "four_timer_hours": 13.800124431638691,
+      "checkpoint_commit_seconds": 52.40919300004316,
+      "peak_allocated_gib": 2.285775661468506,
+      "peak_reserved_gib": 2.48046875,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R0F4/events.jsonl"
+    },
+    {
+      "cell": "R1F1",
+      "status": "COMPLETE",
+      "unique_updates": 20625,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 46448.404616398155,
+        "forward_seconds": 6560.526304300642,
+        "backward_seconds": 5064.449748701387,
+        "optimizer_seconds": 67.68660280143376
+      },
+      "four_timer_hours": 16.15029646450045,
+      "checkpoint_commit_seconds": 59.91475719999289,
+      "peak_allocated_gib": 2.285775661468506,
+      "peak_reserved_gib": 2.48046875,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R1F1/events.jsonl"
+    },
+    {
+      "cell": "R1F2",
+      "status": "COMPLETE",
+      "unique_updates": 20475,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 45660.28616740098,
+        "forward_seconds": 4546.002025800728,
+        "backward_seconds": 3690.971328399115,
+        "optimizer_seconds": 48.39959809550783
+      },
+      "four_timer_hours": 14.984905311026758,
+      "checkpoint_commit_seconds": 66.41668340010801,
+      "peak_allocated_gib": 2.285775661468506,
+      "peak_reserved_gib": 2.48046875,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R1F2/events.jsonl"
+    },
+    {
+      "cell": "R1F3",
+      "status": "COMPLETE",
+      "unique_updates": 20709,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 49693.13632839394,
+        "forward_seconds": 4623.1962082993705,
+        "backward_seconds": 3650.332320999296,
+        "optimizer_seconds": 48.02686230192194
+      },
+      "four_timer_hours": 16.115192144442926,
+      "checkpoint_commit_seconds": 77.76696269976674,
+      "peak_allocated_gib": 2.285775661468506,
+      "peak_reserved_gib": 2.48046875,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R1F3/events.jsonl"
+    },
+    {
+      "cell": "R1F4",
+      "status": "COMPLETE",
+      "unique_updates": 20448,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 46388.64140900446,
+        "forward_seconds": 4527.970817497524,
+        "backward_seconds": 3701.3351465042797,
+        "optimizer_seconds": 48.473700600792654
+      },
+      "four_timer_hours": 15.185116964890849,
+      "checkpoint_commit_seconds": 81.83436369994888,
+      "peak_allocated_gib": 2.2864198684692383,
+      "peak_reserved_gib": 2.48046875,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R1F4/events.jsonl"
+    },
+    {
+      "cell": "R2F0",
+      "status": "COMPLETE",
+      "unique_updates": 20622,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 48299.54821099655,
+        "forward_seconds": 4578.556814202981,
+        "backward_seconds": 3654.1946491019335,
+        "optimizer_seconds": 48.16125299950363
+      },
+      "four_timer_hours": 15.716794702028047,
+      "checkpoint_commit_seconds": 91.74194219999481,
+      "peak_allocated_gib": 2.2901244163513184,
+      "peak_reserved_gib": 2.48046875,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R2F0/events.jsonl"
+    },
+    {
+      "cell": "R2F1",
+      "status": "COMPLETE",
+      "unique_updates": 20574,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 50305.91769958782,
+        "forward_seconds": 4716.440756793891,
+        "backward_seconds": 3707.3666694976855,
+        "optimizer_seconds": 48.824710908404086
+      },
+      "four_timer_hours": 16.327374954663277,
+      "checkpoint_commit_seconds": 99.30323810013942,
+      "peak_allocated_gib": 2.2901244163513184,
+      "peak_reserved_gib": 2.48046875,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R2F1/events.jsonl"
+    },
+    {
+      "cell": "R2F2",
+      "status": "COMPLETE",
+      "unique_updates": 20565,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 46907.30671869253,
+        "forward_seconds": 5190.114916318213,
+        "backward_seconds": 4131.8797907024855,
+        "optimizer_seconds": 51.9295242925873
+      },
+      "four_timer_hours": 15.633675263890504,
+      "checkpoint_commit_seconds": 92.89796309988014,
+      "peak_allocated_gib": 2.2901244163513184,
+      "peak_reserved_gib": 2.48046875,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R2F2/events.jsonl"
+    },
+    {
+      "cell": "R2F3",
+      "status": "COMPLETE",
+      "unique_updates": 20646,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 49434.51784250303,
+        "forward_seconds": 5283.9399770980235,
+        "backward_seconds": 4118.689565399196,
+        "optimizer_seconds": 57.14939919463359
+      },
+      "four_timer_hours": 16.359526884498578,
+      "checkpoint_commit_seconds": 117.53304509946611,
+      "peak_allocated_gib": 2.2901244163513184,
+      "peak_reserved_gib": 2.48046875,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R2F3/events.jsonl"
+    },
+    {
+      "cell": "R2F4",
+      "status": "COMPLETE",
+      "unique_updates": 20490,
+      "duplicate_update_rows": 0,
+      "replay_rows": 0,
+      "timers_seconds": {
+        "prepare_seconds": 48335.80182859383,
+        "forward_seconds": 4550.180342402309,
+        "backward_seconds": 3686.1496949975844,
+        "optimizer_seconds": 47.455977096338756
+      },
+      "four_timer_hours": 15.72766328974724,
+      "checkpoint_commit_seconds": 107.78110400063451,
+      "peak_allocated_gib": 2.2901244163513184,
+      "peak_reserved_gib": 2.48046875,
+      "events_source": "outputs/phase9/phase98/runs/FULL/R2F4/events.jsonl"
+    }
+  ]
+}

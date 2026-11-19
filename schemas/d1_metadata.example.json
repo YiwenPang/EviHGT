@@ -1,0 +1,23 @@
+{
+  "schema": "EVIHGT_D1_FEATURES_V1",
+  "width": 768,
+  "optimizer_steps": 0,
+  "clinical_text_encoded": false,
+  "supervised_dda_features_present": false,
+  "trained_node_embeddings_loaded": false,
+  "prediction_scores_loaded": false,
+  "fixed_encoder_specs": {
+    "chemberta": {
+      "repo": "seyonec/ChemBERTa-zinc-base-v1",
+      "revision": "761d6a18cf99db371e0b43baf3e2d21b3e865a20",
+      "max_length": 512
+    },
+    "biobert": {
+      "repo": "dmis-lab/biobert-v1.1",
+      "revision": "551ca18efd7f052c8dfa0b01c94c2a8e68bc5488",
+      "max_length": 128
+    }
+  },
+  "pooling": "LAST_HIDDEN_STATE_MEAN_OVER_NONPADDING_NONSPECIAL_TOKENS",
+  "upstream_pretraining_target_exposure": "NOT_VERIFIED"
+}
