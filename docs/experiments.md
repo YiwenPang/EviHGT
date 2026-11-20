@@ -6,7 +6,7 @@ The development figures summarize runs from the original research implementation
 
 The main comparison measures ranking of observed positives against unlabeled candidates on development panels from five overlapping folds of repeat R0.
 
-The [HGTDR-contra adapter](../experiments/hgtdr_contra/) provides the code and synthetic tests for a separate contraindication-trained HGTDR run. The figures below report the recorded comparison with HGTDR support scores.
+The [HGTDR-adapted-contra implementation](../experiments/hgtdr_contra/) trains a separate model on recorded contraindications. The main comparison includes that model on the same contra candidates as the other methods. The saved-prediction and stratified figures show the original comparison set.
 
 ## Implemented development protocol
 
@@ -16,17 +16,17 @@ The development protocol uses pair-level splits, removes evaluation targets from
 
 [SVG](figures/experiments/fig01_evaluation_protocol.svg) · [PDF](figures/experiments/fig01_evaluation_protocol.pdf) · [PNG](figures/experiments/fig01_evaluation_protocol.png)
 
-## Six-method comparison
+## Main development comparison
 
-For R0's five development folds, metrics are averaged across eligible folds within each disease, then across diseases. Support includes 1,697 diseases; contra includes 314. The plot shows point estimates. HGTDR contributes support results. The adapted methods follow their respective model-selection procedures.
+For R0's five inner development folds, metrics are averaged across eligible folds within each disease, then across diseases. Support covers 1,697 diseases and contra covers 314. HGTDR-adapted contributes support scores and HGTDR-adapted-contra contributes contra scores. Each single-output model selects its checkpoint on the corresponding development panel. EviHGT uses the fixed three-cycle endpoint. The [README table](../README.md#development-results) gives the exact scores.
 
-![Six-method comparison](figures/experiments/fig02_main_comparison.png)
+![Main R0 development comparison](figures/experiments/fig02_main_comparison.png)
 
 [SVG](figures/experiments/fig02_main_comparison.svg) · [PDF](figures/experiments/fig02_main_comparison.pdf) · [PNG](figures/experiments/fig02_main_comparison.png)
 
 ## Saved-prediction ROC and PR curves
 
-The curves average within each disease across eligible folds, then across diseases. They cover six support methods and five contra methods. Popularity scores were reconstructed from training-positive counts in each channel. The main comparison reports the exact ROC-AUC and AP values. U denotes unlabeled candidates.
+The curves average within each disease across eligible folds, then across diseases. They cover the six support methods and five contra methods in the original comparison. HGTDR-adapted contributes support curves. Popularity scores were reconstructed from training-positive counts in each channel. U denotes unlabeled candidates.
 
 ![Saved-prediction ROC and PR curves](figures/experiments/fig03_development_curves.png)
 
@@ -34,7 +34,7 @@ The curves average within each disease across eligible folds, then across diseas
 
 ## Fold profiles
 
-Each point is a disease-macro average within one R0 fold. The primary comparison averages within disease before pooling across diseases. Folds overlap.
+Each point is a disease-macro average for one R0 fold in the original comparison. HGTDR-adapted appears in the support panels. The primary comparison averages within disease before pooling across the overlapping folds.
 
 ![Fold profiles](figures/experiments/fig04_fold_profiles.png)
 

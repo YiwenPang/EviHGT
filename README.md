@@ -79,18 +79,19 @@ python ablation.py --variants NO_D1 NO_PATH
 
 Browse the [baseline comparisons](experiments/comparisons/), [ablations](experiments/ablations/) and [cold-start experiments](experiments/cold_start/). The [experiment index](experiments/) also links to the HGTDR contraindication study and the fold-by-fold audit.
 
-The table summarizes repeat R0 across five overlapping folds. Metrics were averaged across eligible folds for each disease, then across 1,697 support diseases or 314 contraindication-related diseases. HGTDR supplies only support scores in this comparison.
+The table summarizes five inner development folds of repeat R0. Metrics are averaged over eligible folds within each disease, then over 1,697 support diseases or 314 contraindication diseases. HGTDR-adapted and HGTDR-adapted-contra are separate single-output models selected on their respective development panels. EviHGT reports both outputs from one model at the fixed three-cycle endpoint.
 
 | Method | Support AUC | Support AP | Support NDCG@10 | Contra AUC | Contra AP | Contra NDCG@10 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | EviHGT | 0.898440 | 0.873292 | 0.911893 | 0.922813 | 0.895974 | 0.927292 |
 | HGT-D1 | 0.864699 | 0.835220 | 0.883860 | 0.927014 | 0.897898 | 0.928273 |
 | PairMLP-D1 | 0.858382 | 0.823047 | 0.885701 | 0.901586 | 0.878157 | 0.913876 |
-| HGTDR adapted | 0.922917 | 0.901453 | 0.930877 | — | — | — |
-| TxGNN adapted | 0.813216 | 0.778118 | 0.848928 | 0.876748 | 0.837941 | 0.884425 |
+| HGTDR-adapted | 0.922917 | 0.901453 | 0.930877 | — | — | — |
+| HGTDR-adapted-contra | — | — | — | 0.964060 | 0.942237 | 0.959349 |
+| TxGNN-adapted | 0.813216 | 0.778118 | 0.848928 | 0.876748 | 0.837941 | 0.884425 |
 | Popularity | 0.828239 | 0.789221 | 0.864763 | 0.932036 | 0.893040 | 0.934880 |
 
-EviHGT scores above the input- and budget-matched HGT-D1 and PairMLP-D1 on all three support metrics. Adapted HGTDR leads those metrics. HGT-D1 leads contra AP, and Popularity leads contra AUC and NDCG@10. [Experiment figures and evaluation protocol](docs/experiments.md)
+HGTDR-adapted and HGTDR-adapted-contra lead on their respective development panels. In the input- and budget-matched comparison, EviHGT raises support AP by 3.81 percentage points over HGT-D1 and 5.02 over PairMLP-D1. These differences measure the full EviHGT model under matched conditions. [Experiment figures and evaluation protocol](docs/experiments.md)
 
 ## Tests
 
