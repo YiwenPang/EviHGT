@@ -6,7 +6,7 @@ EviHGT is an evidence-aware heterogeneous graph Transformer for drug–disease a
 
 ## Architecture
 
-![EviHGT architecture](docs/figures/architecture.png)
+![EviHGT architecture](docs/figures/architecture.svg)
 
 [Overview (SVG)](docs/figures/architecture.svg) · [Layer and path details (SVG)](docs/figures/architecture_details.svg) · [Editable Visio source](docs/figures/architecture.vsdx)
 

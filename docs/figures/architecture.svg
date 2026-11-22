@@ -4120,7 +4120,7 @@
 										<text stroke="none" fill="#000000" x="0,666" y="0" transform="translate(410,724)" xml:space="preserve">f</text>
 									</g>
 									<g font-family="'S'" font-style="normal" font-weight="400" font-size="333">
-										<text stroke="none" fill="#000000" x="0,666" y="0" transform="translate(348,318)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(348,318)"><title>+</title><path d="M514 1050H612V572H1087V475H612V0H514V475H37V572H514Z" transform="translate(0 0) scale(0.16259765625 -0.16259765625)"/></g>
 									</g>
 									<g font-family="'Times New Roman',roman,serif" font-style="normal" font-weight="700" font-size="575">
 										<text stroke="none" fill="#000000" x="0,1150" y="0" transform="translate(56,576)" xml:space="preserve">z</text>
@@ -4167,7 +4167,7 @@
 										<text stroke="none" fill="#000000" x="0,694" y="0" transform="translate(423,762)" xml:space="preserve">f</text>
 									</g>
 									<g font-family="'S'" font-style="normal" font-weight="400" font-size="347">
-										<text stroke="none" fill="#000000" x="0,694" y="0" transform="translate(359,339)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(359,339)"><title>−</title><path d="M37 576H1087V477H37Z" transform="translate(0 0) scale(0.16943359375 -0.16943359375)"/></g>
 									</g>
 									<g font-family="'Times New Roman',roman,serif" font-style="normal" font-weight="700" font-size="599">
 										<text stroke="none" fill="#000000" x="0,1198" y="0" transform="translate(55,608)" xml:space="preserve">z</text>
@@ -4813,7 +4813,7 @@
 										<text stroke="none" fill="#000000" x="0,619,1677" y="0" transform="translate(23,448)" xml:space="preserve">||</text>
 									</g>
 									<g font-family="'S'" font-style="normal" font-weight="400" font-size="529">
-										<text stroke="none" fill="#000000" x="0,1058" y="0" transform="translate(225,448)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(225,448)"><title>Δ</title><path d="M1226 0H26L654 1387ZM990 82 591 1049 151 82Z" transform="translate(0 0) scale(0.25830078125 -0.25830078125)"/></g>
 									</g>
 								</g>
 							</g>
@@ -4869,10 +4869,10 @@
 										<text stroke="none" fill="#000000" x="0,1411,2079" y="0" transform="translate(371,661)" xml:space="preserve">qq</text>
 									</g>
 									<g font-family="'S'" font-style="normal" font-weight="400" font-size="576">
-										<text stroke="none" fill="#000000" x="0,1152" y="0" transform="translate(2202,512)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(2202,512)"><title>≤</title><path d="M1066 1271V1161L224 746L1066 328V222L60 720V771ZM60 96H1066V0H60Z" transform="translate(0 0) scale(0.28125 -0.28125)"/></g>
 									</g>
 									<g font-family="'E',roman,serif" font-style="normal" font-weight="400" font-size="576">
-										<text stroke="none" fill="#000000" x="0,1411,2563" y="0" transform="translate(55,512)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(55,512)"><title>ΠΠ</title><path d="M1149 1278H423V193Q423 109 459.0 73.0Q495 37 583 37H637V0H35V37H70Q158 37 195.5 73.0Q233 109 233 192V1164Q233 1247 196.0 1283.0Q159 1319 70 1319H35V1356H1539V1319H1503Q1415 1319 1378.0 1283.0Q1341 1247 1341 1164V192Q1341 109 1378.0 73.0Q1415 37 1503 37H1539V0H934V37H985Q1073 37 1111.0 73.5Q1149 110 1149 192Z" transform="translate(0 0) scale(0.28125 -0.28125)"/><path d="M1149 1278H423V193Q423 109 459.0 73.0Q495 37 583 37H637V0H35V37H70Q158 37 195.5 73.0Q233 109 233 192V1164Q233 1247 196.0 1283.0Q159 1319 70 1319H35V1356H1539V1319H1503Q1415 1319 1378.0 1283.0Q1341 1247 1341 1164V192Q1341 109 1378.0 73.0Q1415 37 1503 37H1539V0H934V37H985Q1073 37 1111.0 73.5Q1149 110 1149 192Z" transform="translate(1411 0) scale(0.28125 -0.28125)"/></g>
 									</g>
 								</g>
 							</g>
@@ -4916,7 +4916,7 @@
 							<g transform="matrix(1.267, 0, 0, 1.2656, 0, 0)">
 								<g stroke="#000000" stroke-miterlimit="10" fill="none">
 									<g font-family="'S'" font-style="italic" font-weight="400" font-size="374">
-										<text stroke="none" fill="#000000" x="0,748" y="0" transform="translate(389,742)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(389,742)"><title>π</title><path d="M1049 916V771H807Q772 542 772 332Q772 229 808.0 184.5Q844 140 898 140Q941 140 973.0 170.0Q1005 200 1014 257H1049Q1032 99 973.5 34.0Q915 -31 842 -31Q764 -31 712.0 40.0Q660 111 660 305Q660 427 698 771H438Q407 247 363.0 108.0Q319 -31 242 -31Q206 -31 182.5 -7.0Q159 17 159 53Q159 79 167 98Q178 124 214 171Q275 252 299 341Q342 493 355 771H309Q236 771 200 747Q142 711 94 627H55Q111 800 186 866Q243 916 346 916Z" transform="translate(0 0) skewX(-14) scale(0.1826171875 -0.1826171875)"/></g>
 									</g>
 									<g font-family="'Times New Roman',roman,serif" font-style="normal" font-weight="700" font-size="645">
 										<text stroke="none" fill="#000000" x="0,1290" y="0" transform="translate(44,576)" xml:space="preserve">T</text>
@@ -4966,7 +4966,7 @@
 										<text stroke="none" fill="#000000" x="0,694" y="0" transform="translate(610,698)" xml:space="preserve">i</text>
 									</g>
 									<g font-family="'S'" font-style="italic" font-weight="400" font-size="347">
-										<text stroke="none" fill="#000000" x="0,694" y="0" transform="translate(262,698)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(262,698)"><title>π</title><path d="M1049 916V771H807Q772 542 772 332Q772 229 808.0 184.5Q844 140 898 140Q941 140 973.0 170.0Q1005 200 1014 257H1049Q1032 99 973.5 34.0Q915 -31 842 -31Q764 -31 712.0 40.0Q660 111 660 305Q660 427 698 771H438Q407 247 363.0 108.0Q319 -31 242 -31Q206 -31 182.5 -7.0Q159 17 159 53Q159 79 167 98Q178 124 214 171Q275 252 299 341Q342 493 355 771H309Q236 771 200 747Q142 711 94 627H55Q111 800 186 866Q243 916 346 916Z" transform="translate(0 0) skewX(-14) scale(0.16943359375 -0.16943359375)"/></g>
 									</g>
 									<g font-family="'Times New Roman',roman,serif" font-style="normal" font-weight="700" font-size="599">
 										<text stroke="none" fill="#000000" x="0,1198" y="0" transform="translate(46,544)" xml:space="preserve">t</text>
@@ -5016,10 +5016,10 @@
 										<text stroke="none" fill="#000000" x="0,694" y="0" transform="translate(676,698)" xml:space="preserve">i</text>
 									</g>
 									<g font-family="'S'" font-style="italic" font-weight="400" font-size="347">
-										<text stroke="none" fill="#000000" x="0,694" y="0" transform="translate(328,698)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(328,698)"><title>π</title><path d="M1049 916V771H807Q772 542 772 332Q772 229 808.0 184.5Q844 140 898 140Q941 140 973.0 170.0Q1005 200 1014 257H1049Q1032 99 973.5 34.0Q915 -31 842 -31Q764 -31 712.0 40.0Q660 111 660 305Q660 427 698 771H438Q407 247 363.0 108.0Q319 -31 242 -31Q206 -31 182.5 -7.0Q159 17 159 53Q159 79 167 98Q178 124 214 171Q275 252 299 341Q342 493 355 771H309Q236 771 200 747Q142 711 94 627H55Q111 800 186 866Q243 916 346 916Z" transform="translate(0 0) skewX(-14) scale(0.16943359375 -0.16943359375)"/></g>
 									</g>
 									<g font-family="'S'" font-style="italic" font-weight="400" font-size="599">
-										<text stroke="none" fill="#000000" x="0,1198" y="0" transform="translate(27,544)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(27,544)"><title>γ</title><path d="M675 916H842Q826 880 677 574Q615 446 588 380Q576 353 561 321L446 75Q453 11 456.0 -43.0Q459 -97 459 -141Q459 -277 439 -351Q425 -403 402.0 -422.5Q379 -442 352 -442Q319 -442 293.5 -414.0Q268 -386 268 -342Q268 -265 299.0 -164.5Q330 -64 391 61Q318 573 274.5 679.0Q231 785 154 785Q107 785 80.0 756.5Q53 728 39 628H0Q-1 658 -1 673Q-1 811 53 881Q94 933 163 933Q223 933 261 897Q313 846 354 675Q406 453 435 192L523 489Q582 689 675 916Z" transform="translate(0 0) skewX(-14) scale(0.29248046875 -0.29248046875)"/></g>
 									</g>
 								</g>
 							</g>
@@ -5060,7 +5060,7 @@
 							<g transform="matrix(1.2663, 0, 0, 1.2656, 0, 0)">
 								<g stroke="#000000" stroke-miterlimit="10" fill="none">
 									<g font-family="'S'" font-style="italic" font-weight="400" font-size="374">
-										<text stroke="none" fill="#000000" x="0,748" y="0" transform="translate(398,742)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(398,742)"><title>π</title><path d="M1049 916V771H807Q772 542 772 332Q772 229 808.0 184.5Q844 140 898 140Q941 140 973.0 170.0Q1005 200 1014 257H1049Q1032 99 973.5 34.0Q915 -31 842 -31Q764 -31 712.0 40.0Q660 111 660 305Q660 427 698 771H438Q407 247 363.0 108.0Q319 -31 242 -31Q206 -31 182.5 -7.0Q159 17 159 53Q159 79 167 98Q178 124 214 171Q275 252 299 341Q342 493 355 771H309Q236 771 200 747Q142 711 94 627H55Q111 800 186 866Q243 916 346 916Z" transform="translate(0 0) skewX(-14) scale(0.1826171875 -0.1826171875)"/></g>
 									</g>
 									<g font-family="'Times New Roman',roman,serif" font-style="normal" font-weight="700" font-size="645">
 										<text stroke="none" fill="#000000" x="0,1290" y="0" transform="translate(34,576)" xml:space="preserve">p</text>
@@ -5111,13 +5111,13 @@
 										<text stroke="none" fill="#000000" x="0,588" y="0" transform="translate(275,994)" xml:space="preserve">i</text>
 									</g>
 									<g font-family="'S'" font-style="italic" font-weight="400" font-size="294">
-										<text stroke="none" fill="#000000" x="0,584,1172" y="0" transform="translate(885,643)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(885,643)"><title>ππ</title><path d="M1049 916V771H807Q772 542 772 332Q772 229 808.0 184.5Q844 140 898 140Q941 140 973.0 170.0Q1005 200 1014 257H1049Q1032 99 973.5 34.0Q915 -31 842 -31Q764 -31 712.0 40.0Q660 111 660 305Q660 427 698 771H438Q407 247 363.0 108.0Q319 -31 242 -31Q206 -31 182.5 -7.0Q159 17 159 53Q159 79 167 98Q178 124 214 171Q275 252 299 341Q342 493 355 771H309Q236 771 200 747Q142 711 94 627H55Q111 800 186 866Q243 916 346 916Z" transform="translate(0 0) skewX(-14) scale(0.1435546875 -0.1435546875)"/><path d="M1049 916V771H807Q772 542 772 332Q772 229 808.0 184.5Q844 140 898 140Q941 140 973.0 170.0Q1005 200 1014 257H1049Q1032 99 973.5 34.0Q915 -31 842 -31Q764 -31 712.0 40.0Q660 111 660 305Q660 427 698 771H438Q407 247 363.0 108.0Q319 -31 242 -31Q206 -31 182.5 -7.0Q159 17 159 53Q159 79 167 98Q178 124 214 171Q275 252 299 341Q342 493 355 771H309Q236 771 200 747Q142 711 94 627H55Q111 800 186 866Q243 916 346 916Z" transform="translate(584 0) skewX(-14) scale(0.1435546875 -0.1435546875)"/></g>
 									</g>
 									<g font-family="'S'" font-style="italic" font-weight="400" font-size="508">
-										<text stroke="none" fill="#000000" x="0,1016" y="0" transform="translate(629,512)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(629,512)"><title>γ</title><path d="M675 916H842Q826 880 677 574Q615 446 588 380Q576 353 561 321L446 75Q453 11 456.0 -43.0Q459 -97 459 -141Q459 -277 439 -351Q425 -403 402.0 -422.5Q379 -442 352 -442Q319 -442 293.5 -414.0Q268 -386 268 -342Q268 -265 299.0 -164.5Q330 -64 391 61Q318 573 274.5 679.0Q231 785 154 785Q107 785 80.0 756.5Q53 728 39 628H0Q-1 658 -1 673Q-1 811 53 881Q94 933 163 933Q223 933 261 897Q313 846 354 675Q406 453 435 192L523 489Q582 689 675 916Z" transform="translate(0 0) skewX(-14) scale(0.248046875 -0.248046875)"/></g>
 									</g>
 									<g font-family="'S'" font-style="normal" font-weight="400" font-size="762">
-										<text stroke="none" fill="#000000" x="0,1524" y="0" transform="translate(53,629)" xml:space="preserve"></text>
+										<g stroke="none" fill="#000000" transform="translate(53,629)"><title>∑</title><path d="M1356 -204H43V-168L712 663L43 1480V1517H1321L1348 1180H1308Q1292 1318 1230.5 1377.0Q1169 1436 1059 1436H319L881 749L252 -28H1070Q1140 -28 1223 -1Q1280 18 1317.5 66.5Q1355 115 1380 218L1420 211Z" transform="translate(0 0) scale(0.3720703125 -0.3720703125)"/></g>
 									</g>
 									<g font-family="'Times New Roman',roman,serif" font-style="normal" font-weight="700" font-size="508">
 										<text stroke="none" fill="#000000" x="0,1016" y="0" transform="translate(1285,512)" xml:space="preserve">t</text>

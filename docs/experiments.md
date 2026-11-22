@@ -12,7 +12,7 @@ The [HGTDR-adapted-contra implementation](../experiments/hgtdr_contra/) trains a
 
 The development protocol uses pair-level splits, removes evaluation targets from graph and training inputs, and scores the support and contra channels separately.
 
-![Implemented development protocol](figures/experiments/fig01_evaluation_protocol.png)
+![Implemented development protocol](figures/experiments/fig01_evaluation_protocol.svg)
 
 [SVG](figures/experiments/fig01_evaluation_protocol.svg) · [PDF](figures/experiments/fig01_evaluation_protocol.pdf) · [PNG](figures/experiments/fig01_evaluation_protocol.png)
 
@@ -20,7 +20,7 @@ The development protocol uses pair-level splits, removes evaluation targets from
 
 For R0's five inner development folds, metrics are averaged across eligible folds within each disease, then across diseases. Support covers 1,697 diseases and contra covers 314. HGTDR-adapted contributes support scores and HGTDR-adapted-contra contributes contra scores. Each single-output model selects its checkpoint on the corresponding development panel. EviHGT uses the fixed three-cycle endpoint. The [README table](../README.md#development-results) gives the exact scores.
 
-![Main R0 development comparison](figures/experiments/fig02_main_comparison.png)
+![Main R0 development comparison](figures/experiments/fig02_main_comparison.svg)
 
 [SVG](figures/experiments/fig02_main_comparison.svg) · [PDF](figures/experiments/fig02_main_comparison.pdf) · [PNG](figures/experiments/fig02_main_comparison.png)
 
@@ -41,7 +41,7 @@ The treatment-support AP gain is 4.70 percentage points. The 95% paired disease 
 
 The curves average within each disease across eligible folds, then across diseases. They cover the six support methods and five contra methods in the original comparison. HGTDR-adapted contributes support curves. Popularity scores were reconstructed from training-positive counts in each channel. U denotes unlabeled candidates.
 
-![Saved-prediction ROC and PR curves](figures/experiments/fig03_development_curves.png)
+![Saved-prediction ROC and PR curves](figures/experiments/fig03_development_curves.svg)
 
 [SVG](figures/experiments/fig03_development_curves.svg) · [PDF](figures/experiments/fig03_development_curves.pdf) · [PNG](figures/experiments/fig03_development_curves.png)
 
@@ -49,7 +49,7 @@ The curves average within each disease across eligible folds, then across diseas
 
 Each point is a disease-macro average for one R0 fold in the original comparison. HGTDR-adapted appears in the support panels. The primary comparison averages within disease before pooling across the overlapping folds.
 
-![Fold profiles](figures/experiments/fig04_fold_profiles.png)
+![Fold profiles](figures/experiments/fig04_fold_profiles.svg)
 
 [SVG](figures/experiments/fig04_fold_profiles.svg) · [PDF](figures/experiments/fig04_fold_profiles.pdf) · [PNG](figures/experiments/fig04_fold_profiles.png)
 
@@ -57,7 +57,7 @@ Each point is a disease-macro average for one R0 fold in the original comparison
 
 The figure gives EviHGT AP minus comparator AP for each disease and counts lower, tied and higher values. The descriptive comparison covers all eligible diseases and uses a tie tolerance of `1e-12`.
 
-![Paired disease differences](figures/experiments/fig05_disease_heterogeneity.png)
+![Paired disease differences](figures/experiments/fig05_disease_heterogeneity.svg)
 
 [SVG](figures/experiments/fig05_disease_heterogeneity.svg) · [PDF](figures/experiments/fig05_disease_heterogeneity.pdf) · [PNG](figures/experiments/fig05_disease_heterogeneity.png)
 
@@ -65,7 +65,7 @@ The figure gives EviHGT AP minus comparator AP for each disease and counts lower
 
 The post-hoc analysis groups disease-fold records by candidate count. A disease can enter more than one stratum across folds. Each stratum uses disease-first aggregation for all methods.
 
-![Candidate-size analysis](figures/experiments/fig06_candidate_analysis.png)
+![Candidate-size analysis](figures/experiments/fig06_candidate_analysis.svg)
 
 [SVG](figures/experiments/fig06_candidate_analysis.svg) · [PDF](figures/experiments/fig06_candidate_analysis.pdf) · [PNG](figures/experiments/fig06_candidate_analysis.png)
 
@@ -73,7 +73,7 @@ The post-hoc analysis groups disease-fold records by candidate count. A disease 
 
 Contra AP ordering depends on whether averages are computed first by disease or by fold. The figure compares both summaries and shows the number of evaluable folds per disease.
 
-![Contra aggregation sensitivity](figures/experiments/fig07_aggregation_sensitivity.png)
+![Contra aggregation sensitivity](figures/experiments/fig07_aggregation_sensitivity.svg)
 
 [SVG](figures/experiments/fig07_aggregation_sensitivity.svg) · [PDF](figures/experiments/fig07_aggregation_sensitivity.pdf) · [PNG](figures/experiments/fig07_aggregation_sensitivity.png)
 
@@ -81,7 +81,7 @@ Contra AP ordering depends on whether averages are computed first by disease or 
 
 The figure shows all eight cell/intervention/head comparisons for R0F1 and R1F0 at their fixed 3G endpoints. `CONTENT_ZERO` removes explicit evidence and provenance content outputs. `FACT_QUALITY_CONSTANT` assigns uniform masses to available facts and preserves availability masks.
 
-![Historical two-cell ablations](figures/experiments/fig08_core_ablations.png)
+![Historical two-cell ablations](figures/experiments/fig08_core_ablations.svg)
 
 [SVG](figures/experiments/fig08_core_ablations.svg) · [PDF](figures/experiments/fig08_core_ablations.pdf) · [PNG](figures/experiments/fig08_core_ablations.png)
 
@@ -89,7 +89,7 @@ The figure shows all eight cell/intervention/head comparisons for R0F1 and R1F0 
 
 The two training diagnostic panels each contain 64 positive groups. Fractions count query occurrences and graph slots, including repeats. Path coverage measures the paths found by the bounded extractor.
 
-![Historical diagnostic exposure](figures/experiments/fig09_diagnostic_exposure.png)
+![Historical diagnostic exposure](figures/experiments/fig09_diagnostic_exposure.svg)
 
 [SVG](figures/experiments/fig09_diagnostic_exposure.svg) · [PDF](figures/experiments/fig09_diagnostic_exposure.pdf) · [PNG](figures/experiments/fig09_diagnostic_exposure.png)
 
@@ -97,7 +97,7 @@ The two training diagnostic panels each contain 64 positive groups. Fractions co
 
 Matched-model curves summarize all 307,881 updates in contiguous bins of at most 500 updates, split at the sampling-stage boundary. They show combined two-head loss. Native curves show support development AUC. HGTDR includes recorded F1–F4 curves; EviHGT has validation observations only for F0/F1.
 
-![Recorded optimization and selection](figures/experiments/fig10_training_dynamics.png)
+![Recorded optimization and selection](figures/experiments/fig10_training_dynamics.svg)
 
 [SVG](figures/experiments/fig10_training_dynamics.svg) · [PDF](figures/experiments/fig10_training_dynamics.pdf) · [PNG](figures/experiments/fig10_training_dynamics.png)
 
@@ -105,7 +105,7 @@ Matched-model curves summarize all 307,881 updates in contiguous bins of at most
 
 The figure separates baseline file-time windows from 12 EviHGT training and post-training windows. Timing definitions, hardware and run settings vary across methods. The [runtime reference](runtime_reference.json) records the instrumented optimizer-loop component times and the relative paths and SHA-256 checksums of the original research logs.
 
-![Recorded runtime windows](figures/experiments/fig11_runtime.png)
+![Recorded runtime windows](figures/experiments/fig11_runtime.svg)
 
 [SVG](figures/experiments/fig11_runtime.svg) · [PDF](figures/experiments/fig11_runtime.pdf) · [PNG](figures/experiments/fig11_runtime.png)
 
@@ -113,7 +113,7 @@ The figure separates baseline file-time windows from 12 EviHGT training and post
 
 Rank positions of observed positives (P) and unlabeled candidates (U) for three R0F0 support panels. The examples show a gain, a loss and a tie in AP for EviHGT versus HGT-D1. Outlines mark tied scores.
 
-![Case rankings](figures/experiments/fig12_case_rankings.png)
+![Case rankings](figures/experiments/fig12_case_rankings.svg)
 
 [SVG](figures/experiments/fig12_case_rankings.svg) · [PNG](figures/experiments/fig12_case_rankings.png)
 
@@ -121,7 +121,7 @@ Rank positions of observed positives (P) and unlabeled candidates (U) for three 
 
 Combined two-head loss for the 15 matched method and fold runs. Windows contain at most 500 updates. Each run is normalized by its own positive groups per cycle (G). The global stage spans 0–1G and the conditional stage spans 1–3G.
 
-![Training loss by sampling stage](figures/experiments/fig13_training_loss_by_stage.png)
+![Training loss by sampling stage](figures/experiments/fig13_training_loss_by_stage.svg)
 
 [SVG](figures/experiments/fig13_training_loss_by_stage.svg) · [PNG](figures/experiments/fig13_training_loss_by_stage.png)
 
@@ -129,7 +129,7 @@ Combined two-head loss for the 15 matched method and fold runs. Windows contain 
 
 Support and contra AP and NDCG@10 for panels with 2–5, 6–10, 11–32 or at least 33 candidates. Each count gives the number of unique diseases in that stratum. Diseases can enter multiple strata across folds.
 
-![Candidate strata and disease counts](figures/experiments/fig14_candidate_strata.png)
+![Candidate strata and disease counts](figures/experiments/fig14_candidate_strata.svg)
 
 [SVG](figures/experiments/fig14_candidate_strata.svg) · [PNG](figures/experiments/fig14_candidate_strata.png)
 
@@ -137,7 +137,7 @@ Support and contra AP and NDCG@10 for panels with 2–5, 6–10, 11–32 or at l
 
 Disease-first and fold-first contra AP for the five methods with contra scores. Coverage strata describe the 314 evaluable diseases.
 
-![Contra AP aggregation across methods](figures/experiments/fig15_aggregation_sensitivity_all_methods.png)
+![Contra AP aggregation across methods](figures/experiments/fig15_aggregation_sensitivity_all_methods.svg)
 
 [SVG](figures/experiments/fig15_aggregation_sensitivity_all_methods.svg) · [PNG](figures/experiments/fig15_aggregation_sensitivity_all_methods.png)
 
@@ -145,7 +145,7 @@ Disease-first and fold-first contra AP for the five methods with contra scores. 
 
 The 1,300 recorded support validation observations cover every HGTDR epoch in F1–F4 and every 25 TxGNN fine-tuning epochs in F0–F4. Markers identify the selected epochs. The full HGTDR F0 trajectory is unavailable.
 
-![Native model selection by fold](figures/experiments/fig16_native_selection_by_fold.png)
+![Native model selection by fold](figures/experiments/fig16_native_selection_by_fold.svg)
 
 [SVG](figures/experiments/fig16_native_selection_by_fold.svg) · [PNG](figures/experiments/fig16_native_selection_by_fold.png)
 
