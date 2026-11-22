@@ -15,7 +15,7 @@ The first three cases hash the relevant canonical entity IDs into train, validat
 
 The graph builder removes facts incident to a held-out endpoint, along with their evidence records and CSR traversals. Both edge directions and known target-equivalent facts are checked. Endpoints retain permitted static features, including pretrained D1 inputs and nonclinical drug–gene or disease–phenotype summaries. Possible exposure in upstream encoder pretraining remains unverified.
 
-Each case uses seed 42, the frozen FULL configuration and three training cycles. The trainer has access to role-free block lists. A separate integrity check reads the held-out panels, and their test-role files stay outside the trainer's input inventory. Test scoring uses the fixed last-step checkpoint. Each head ranks its recorded positive pairs against the same set of up to 64 sampled unlabeled drugs per disease. Results include per-disease ranking metrics, counts of constant scores and ties, and graph coverage. A single FULL run per setting measures its holdout performance. Comparisons to other models and variability across seeds require additional runs.
+Each case uses seed 42, the frozen FULL configuration and three training cycles. The trainer has access to role-free block lists. A separate integrity check reads the held-out panels, and their test-role files stay outside the trainer's input inventory. Test scoring uses the fixed last-step checkpoint. Each head ranks its recorded positive pairs against the same set of up to 64 sampled unlabeled drugs per disease. Results include per-disease ranking metrics, counts of constant scores and ties, and graph coverage. A single FULL run per setting measures its holdout performance. The [HGTDR comparison](hgtdr/) uses the same cold-disease split and test panels. Each model was trained once for that comparison.
 
 ## Source files
 
@@ -54,7 +54,7 @@ $env:EVIHGT_D1_FEATURES = (Resolve-Path '../HGTDR/data/processed/competition_pil
 python -B experiments/cold_start/run_queue.py
 ```
 
-The published checkout supplies the frozen runtime by default. Set `EVIHGT_FROZEN_ROOT` to use a separately archived matching runtime. A single case can also be prepared, validated and trained in a fresh run directory.
+The published checkout supplies the frozen runtime by default. Set `EVIHGT_FROZEN_ROOT` to use a separately archived matching runtime. A single case can also be prepared, validated and trained in a fresh run directory. For the HGTDR comparison, use the `cold_disease` case and pass its prepared corpus and completed run to the [comparison entry point](hgtdr/).
 
 ```sh
 python -B experiments/cold_start/prepare_case.py --case cold_drug

@@ -97,4 +97,4 @@ def main():
             automatic_next_phase=False,automatic_training_retry=False,score_conditioned_stopping=False),
         final_markdown_report=str(OUT/records.LOSS_MARKDOWN),final_json_report=str(OUT/records.LOSS_JSON))
     write(MANIFEST,m);validate_manifest()
-    print(f"LOSS_COMPARISON_PRELAUNCH_REGISTERED；{len(cases)} 项针对性测试通过；GPU TEST_ONLY={gpu}；DEVELOPMENT=0",flush=True)
+    print(f"LOSS_COMPARISON_PRELAUNCH_REGISTERED: {len(cases)} targeted tests passed. GPU TEST_ONLY={gpu}, DEVELOPMENT=0.",flush=True)

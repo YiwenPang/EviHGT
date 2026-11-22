@@ -50,7 +50,7 @@ def _launch(command, log):
         while child.poll() is None:
             try:child.wait(timeout=5)
             except subprocess.TimeoutExpired:
-                print(f'[{mode}] 原生worker运行中 · 已用{time.monotonic()-started:.0f}秒 · 日志：{log.resolve()}',flush=True)
+                print(f'[{mode}] Native worker running for {time.monotonic()-started:.0f} s. Log: {log.resolve()}',flush=True)
     if '--registration' in command:
         spec=read(command[command.index('--registration')+1])
         if spec.get('family') in ('native23','native24'):
@@ -60,7 +60,7 @@ def _launch(command, log):
             else:
                 from .runtime_budget23 import OUT23
             append(OUT23/'TEST_ONLY/BUDGET_EVENTS.jsonl',dict(event='PROCESS_END',run_id=spec['run_id'],seconds=time.monotonic()-started,exit_code=child.returncode))
-    if child.returncode:raise RuntimeError(f'原生模型进程停止（{child.returncode}）；日志：{log.resolve()}')
+    if child.returncode:raise RuntimeError(f'Native worker exited with code {child.returncode}. Log: {log.resolve()}')
     return child.returncode
 
 

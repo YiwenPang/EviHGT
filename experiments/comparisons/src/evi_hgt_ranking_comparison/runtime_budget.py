@@ -9,7 +9,7 @@ LIMITS=dict(updates=192,forwards=4096,queries=4096,seconds=2700.,HGTDR=4,TX_PRET
 
 def disk_guard(path,required_bytes=0,*,reserve_bytes=70_000_000_000):
     free=shutil.disk_usage(Path(path).anchor).free
-    if free < reserve_bytes+required_bytes:raise OSError('磁盘水位不足；保留有效恢复锚')
+    if free < reserve_bytes+required_bytes:raise OSError('Insufficient free space. Existing checkpoints retained.')
     from .resource_guard import check_growth
     quotas=check_growth(path,required_bytes)
     return dict(free_bytes=free,required_bytes=required_bytes,reserve_bytes=reserve_bytes,directory_limits=quotas)
@@ -24,12 +24,12 @@ class RuntimeBudget:
         total=self.totals()
         for key,limit in LIMITS.items():
             value=total[key]+cost.get(key,0)+(time.monotonic()-self.started if key=='seconds' and self.started else 0)
-            if value>limit:raise RuntimeError('Part2.1累计硬上限: '+key)
+            if value>limit:raise RuntimeError('Cumulative runtime limit exceeded: '+key)
         if self.started:
             for k,v in self.spec['limits'].items():
                 if k=='seconds':used=time.monotonic()-self.started
                 else:used=total[k]-self.initial[k]+cost.get(k,0)
-                if used>v:raise RuntimeError('登记run上限: '+k)
+                if used>v:raise RuntimeError('Registered run limit exceeded: '+k)
         return total
     @contextmanager
     def session(self,spec):

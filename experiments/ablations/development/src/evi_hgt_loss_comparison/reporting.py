@@ -132,27 +132,27 @@ def summarize(*,failed=False,ui=None):
                 for c in ("support","contra"):
                     row[c+"_auc"]=met[c]["macro_auc"];row[c+"_ap"]=met[c]["macro_ap"]
             writer.writerow(row)
-    lines=["# 单折配对损失比较","",f"**{records.display_status(status)}**","",
-        "DEVELOPMENT / ADAPTIVE。同期 E0 为主要对照；旧 D1 仅为历史参照。U 是未知，排名指标不是临床分类准确率。",
-        "", "| 臂 | 步数 | 状态 | Support AUC | Support AP | Contra AUC | Contra AP |",
+    lines=["# Paired loss comparison on R0F0","",f"**{records.display_status(status)}**","",
+        "The adaptive development comparison uses E0 as the contemporaneous control. D1 is a historical reference. The ranking metrics compare recorded positives with unlabeled candidates.",
+        "", "| Arm | Updates | Status | Support AUC | Support AP | Contra AUC | Contra AP |",
         "|---|---:|---|---:|---:|---:|---:|"]
-    fmt=lambda x:"不可用" if x is None else f"{x:.6f}"
+    fmt=lambda x:"Unavailable" if x is None else f"{x:.6f}"
     for p in points:
-        values=[fmt(p["metrics"][c][k]) if p["metrics"] else "不可用" for c in ("support","contra") for k in ("macro_auc","macro_ap")]
+        values=[fmt(p["metrics"][c][k]) if p["metrics"] else "Unavailable" for c in ("support","contra") for k in ("macro_auc","macro_ap")]
         lines.append(f"| {p['arm']} | {p['step']} | {p['status']} | "+" | ".join(values)+" |")
-    lines += ["","| 臂/步 | 通道 | P/U | 可评/跳过疾病 | P@5/10 | R@5/10 | Hits@5/10 | NDCG@5/10 |",
+    lines += ["","| Arm/update | Task | P/U | Evaluable/skipped diseases | P@5/10 | R@5/10 | Hits@5/10 | NDCG@5/10 |",
               "|---|---|---|---|---|---|---|---|"]
     for p in points:
         if not p["metrics"]:continue
         for c,met in p["metrics"].items():
             r=met["ranking"];scores=[" / ".join(fmt(r[f"{name}@{k}"]) for k in (5,10)) for name in ("P","R","Hits","NDCG")]
             lines.append(f"| {p['arm']}/{p['step']} | {c} | {met['P']}/{met['U']} | {met['evaluable_diseases']}/{met['skipped_diseases']} | "+" | ".join(scores)+" |")
-    lines += ["","逐病 P/U/N、effective_k、跳过原因、Top-K 和每病 E1−E0 完整差值保存在 JSON。沿用原 tie/skip 和 effective_k=min(k,N)。",
-              "","## 预登记九问","",
-              "1. 数学区别：m=score_P−score_U，tau=1。E0 为 sigmoid(−m)，稳定解析一阶导数 −exp(−|m|)/(1+exp(−|m|))²；E1 为 0.5 softplus(−m)，正常 autograd 导数 −0.5 sigmoid(−m)。零点均 −0.25；所有配对及归约不变。"]
+    lines += ["","The JSON records per-disease P/U/N, effective k, skip reasons, top-k scores and every E1 minus E0 difference. The evaluator uses the original tie and skip rules and caps k at N.",
+              "","## Prespecified questions","",
+              "1. Objectives. Let m = score_P minus score_U and tau = 1. E0 is sigmoid(−m), with stable derivative −exp(−|m|)/(1+exp(−|m|))². E1 is half-softplus(−m), with derivative −0.5 sigmoid(−m). Both have derivative −0.25 at zero and use the same pairing and reduction."]
     final=comparisons.get(str(TOTAL))
-    lines.append("2. 错误方向低梯度：下表按原 20 查询和新增两个固定训练面板分别列示；每份诊断还在相同 raw scores 上计算两种导数，避免将网络差异混入纯损失形状比较。")
-    lines += ["","| 臂/步 | 面板 | 头 | pair/负 margin | sigmoid 错方向低导数 | softplus 错方向低导数 |",
+    lines.append("2. Small gradients on misordered pairs. The table covers the original 20 queries and two additional fixed training panels. It also evaluates both derivatives on the same scores to isolate the loss shape.")
+    lines += ["","| Arm/update | Panel | Task | Pairs/negative margin | Small sigmoid gradients on misordered pairs | Small softplus gradients on misordered pairs |",
               "|---|---|---|---|---:|---:|"]
     for key,d in diagnostics.items():
         for panel,heads in d["summary"].items():
@@ -167,11 +167,11 @@ def summarize(*,failed=False,ui=None):
             for c in ("support","contra"):
                 x=a[c]["shape_on_identical_raw_scores"]["sigmoid"]["violated_low_derivative"]
                 y=b[c]["shape_on_identical_raw_scores"]["softplus"]["violated_low_derivative"]
-                lines.append(f"3G {panel}/{c}，各自实际目标的错方向低导数 pair：E0={x}/{a[c]['pairs']}，E1={y}/{b[c]['pairs']}，差值={y-x:+d}。仅代表该固定局部面板。")
+                lines.append(f"3G {panel}/{c}: small gradients on misordered pairs under each arm's objective. E0={x}/{a[c]['pairs']}, E1={y}/{b[c]['pairs']}, difference={y-x:+d}.")
     if final:
-        lines += [f"3. 3G 支持 E1−E0：AUC {final['support']['delta_auc']:+.8f}，AP {final['support']['delta_ap']:+.8f}。这只表示此完整开发面板的配对差值；不证明变化由解决饱和导致。",
-                  f"4. 3G 反证 E1−E0：AUC {final['contra']['delta_auc']:+.8f}，AP {final['contra']['delta_ap']:+.8f}。保留全部正向与负向变化。"]
-    else:lines += ["3. 支持是否提升：终点配对结果未全部完成，UNRESOLVED。","4. 反证是否改善或退化：终点配对结果未全部完成，UNRESOLVED。"]
+        lines += [f"3. At 3G, support differences (E1 minus E0): AUC {final['support']['delta_auc']:+.8f}, AP {final['support']['delta_ap']:+.8f}. Scores use the complete paired development panel.",
+                  f"4. At 3G, contraindication differences (E1 minus E0): AUC {final['contra']['delta_auc']:+.8f}, AP {final['contra']['delta_ap']:+.8f}."]
+    else:lines += ["3. The paired support endpoint is incomplete.","4. The paired contraindication endpoint is incomplete."]
     temporal=[]
     for arm in ARMS:
         early=next(p for p in points if p["arm"]==arm and p["step"]==MILESTONES[0])
@@ -180,23 +180,23 @@ def summarize(*,failed=False,ui=None):
             for c in ("support","contra"):
                 delta={k:late["metrics"][c][k]-early["metrics"][c][k] for k in ("macro_auc","macro_ap")}
                 temporal.append(f"{arm} {c} 1.5G→3G：ΔAUC={delta['macro_auc']:+.8f}，ΔAP={delta['macro_ap']:+.8f}。")
-    lines += ["5. clipping、有限零梯度和成本：",
+    lines += ["5. Clipping, finite zero gradients and measured costs.",
               "```json",json.dumps(dict(trajectories=trajectories,costs=costs,prelaunch_failures=issues),ensure_ascii=False,indent=2),"```",
-              "评价成本逐 attempt 记录；BEGIN 没有 DONE 的在途 forward 不假定为 0。训练、组准备、forward、backward/optimizer、索引准备、评价、诊断独立计时。",
-              "6. 过拟合 P/U 代理：训练负 margin 减少而完整开发排名不改善，或 1.5G→3G 开发排名下降，可作为局部警示，不能据此确认临床错误或 U 污染因果。两种训练 loss 尺度不同，不据 loss 大小判优。",
+              "Each evaluation attempt records duration independently. Attempts with no completion record have unknown forward-pass counts. Timings distinguish training, group preparation, forward passes, backward passes and optimizer steps, indexing, evaluation and diagnostics.",
+              "6. Training fit and development ranking. Negative margins can decrease without an improvement in development ranks. The two training losses have different scales. Score differences are interpreted on their common development candidates.",
               *temporal,
-              "7. 诊断仅覆盖预登记小型训练面板；AUC/AP/Top-K 来自完整、身份一致的 R0F0 开发候选面板。低范数 cosine 标 UNDEFINED/LOW_NORM。",
-              "8. E1 不满足常数对称和，不是经证明无偏的 PU 风险，也不是 nnPU。E0 的有界性和对称性可能具有污染鲁棒性价值；E1 对错序保持梯度，但可能加重潜在正例惩罚和 clipping。",
-              "9. 是否值得继续验证：只有综合终点 support/contra、各疾病变化、优化与资源代价后才能提出后续验证建议；本轮不自动扩展。单 cell 自适应结果不建立显著性、稳定性、SOTA、独立泛化或机制因果。",
-              "","## 历史参照与限制",
-              "特征基线 D1 对应点："+json.dumps(history,ensure_ascii=False),
-              "E0 如与历史 D1 不同，先核对同一 D1 factory、输入源码、初始 tensor、冻结采样和候选身份；未定位的数值差异原因标 UNKNOWN，不笼统归为 GPU 随机性。",
-              "特征基线 D0 从 3G 到 6G 支持 AUC/AP 上升、反证 AUC/AP 下降；51 次重放和非逐位一致限制保留。D2 补齐已验证，但原未完成评价的实际总 forward/耗时未知。",
-              "","OLD G3 = HELD；OUTER = UNSCORED；NEW FINAL = SEALED。没有自动下一阶段。"]
+              "7. The training diagnostics cover small registered panels. AUC, AP and top-k metrics use the complete R0F0 development panel. Cosine similarity for low-norm vectors is recorded as UNDEFINED/LOW_NORM.",
+              "8. E0 is bounded and has a constant symmetric sum. E1 retains gradients on misordered pairs and can increase both the penalty on latent positives and gradient clipping. The study evaluates half-softplus as an empirical P/U objective.",
+              "9. The endpoint scores, per-disease changes and measured costs together inform further validation. The estimates are conditional on one adaptive development cell.",
+              "","## Historical reference","",
+              "D1 feature-baseline reference: "+json.dumps(history,ensure_ascii=False),
+              "When E0 differs from the D1 reference, check the factory, source inputs, initial tensors, sampling plan and candidate identities. Unresolved causes are recorded as UNKNOWN.",
+              "From 3G to 6G, D0 support AUC/AP rose and contraindication AUC/AP fell. The run replayed 51 updates and bitwise equivalence was unverified. The D2 completion was verified. The number and duration of the original partial forward passes are unknown.",
+              "","OLD G3 = HELD. OUTER = UNSCORED. NEW FINAL = SEALED."]
     if final:
-        lines += ["",("3G 主要 support AUC 差值为正，可作为后续独立复核的开发线索；仍须结合 AP、反证和资源代价，不能确认机制或泛化收益。"
+        lines += ["",("The 3G support AUC difference is positive on this development panel."
                         if final["support"]["delta_auc"]>0 else
-                        "3G 主要 support AUC 未提高；本轮没有提供该主要指标获益的证据，低导数减少本身不足以支持继续扩展实验。")]
+                        "The 3G support AUC did not increase on this development panel. The gradient diagnostic measures a separate property.")]
     (OUT/records.LOSS_MARKDOWN).write_text("\n".join(lines)+"\n",encoding="utf-8")
     available=[p for p in points if p["metrics"]]
     if available:
@@ -221,8 +221,8 @@ def summarize(*,failed=False,ui=None):
             met=p["metrics"]
             ui._write(f"{p['arm']} step={p['step']} "+("UNAVAILABLE" if met is None else
                 "；".join(f"{c} AUC/AP={met[c]['macro_auc']:.6f}/{met[c]['macro_ap']:.6f}" for c in ("support","contra"))))
-        ui._write("实际训练/准备/评价/诊断耗时："+str(costs))
-        ui._write("错误、恢复与重放记录："+str(dict(trajectories=trajectories,prelaunch_failures=issues)))
+        ui._write("Measured training, preparation, evaluation and diagnostic times: "+str(costs))
+        ui._write("Errors, recovery and replay: "+str(dict(trajectories=trajectories,prelaunch_failures=issues)))
         ui._write("OLD G3 = HELD\nOUTER = UNSCORED\nNEW FINAL = SEALED")
         ui._write(str(OUT/records.LOSS_MARKDOWN));ui._write(str(OUT/records.LOSS_JSON))
     return result

@@ -240,7 +240,7 @@ def formal(manifest_path,grant_path,approved_digest):
         failure=ROOT/'outputs/ranking_protocol/ranking_comparison/runtime_failures'/(__import__('uuid').uuid4().hex+'.json')
         failure.parent.mkdir(parents=True,exist_ok=True)
         write_new(failure,dict(status='FAILED_STOPPED',error=str(exc),traceback=traceback.format_exc(),task=task if 'task' in locals() else None))
-        print('正式运行安全停止；完整日志：',failure,flush=True)
+        print('Run stopped. See the log at',failure,flush=True)
         raise
     finally:
         if lock.exists() and read(lock).get('token')==token:lock.unlink()

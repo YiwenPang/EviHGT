@@ -257,41 +257,41 @@ def generate_report(root, output_directory):
             'results':rows},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
         table = '\n'.join(f'| {r["learning_rate"]:.0e} | {r["cycle1_validation_objective"]:.9f} | '
             f'{r["cycle2_validation_objective"]:.9f} | {r["best_objective"]:.9f} | {r["best_cycle"]} | {r["wall_clock"]} |' for r in rows)
-        text = f'''# 学习率敏感性分析
+        text = f'''# Learning-rate sensitivity
 
-## 学习率设置
-本实验先进行较粗学习率搜索。已完成的 1e-4、3e-4 和 1e-3 中，1e-4 的验证目标最低，且第二轮优于第一轮。
-由于当前最优有效点位于较低学习率边界，随后在低学习率区域增加 2e-5 和 5e-5 进行 refinement。
-最终比较集合为 2e-5、5e-5、1e-4、3e-4 和 1e-3；这五点并非一开始就全部预注册。
-各候选采用独立的全新初始化，固定 seed=42。2e-4 因基础设施文件替换失败而无效，其第一轮值不参与 LR selection；
-5e-4 未执行并退出当前计划。两条历史记录均予以保留。本次未加入 1e-5，以控制两轮 horizon 下的搜索规模。
+## Learning-rate settings
+Of the first three completed rates (1e-4, 3e-4 and 1e-3), 1e-4 had the lowest validation objective. Its second cycle improved on the first.
+That rate was at the lower end of the initial search, so the study added 2e-5 and 5e-5.
+The final comparison covers 2e-5, 5e-5, 1e-4, 3e-4 and 1e-3. The two lower rates were added after the initial search.
+Each candidate used an independent initialization with seed 42. The run at 2e-4 was interrupted by a file replacement error, and its first cycle was excluded from selection.
+The planned 5e-4 run was dropped. Both records are retained. The two-cycle search did not extend to 1e-5.
 
-## 实验协议
-采用冻结的 PRACTICAL_FORMAL_V1、FULL_EVIHGT、Policy B 和 standard 划分。
-图预算为 1000 节点、5000 条遍历边、2 跳；路径长度 2–4，最多 16 条，beam=32、neighbors=64。
-AdamW 的 weight decay=1e-5，梯度累积=1、裁剪=1.0，不使用 scheduler。
-CUDA BF16 autocast 与 FP32 pairwise reduction 配合使用，不启用 GradScaler。
-目标为 SYMMETRIC_PU_PAIRWISE_RANKING_V1，temperature=1、chunk=4096，禁用 hard negative。
-每条 run 完成两次训练正例全覆盖，每轮结束后仅执行一次固定的确定性验证。
+## Training protocol
+The study used the frozen PRACTICAL_FORMAL_V1 protocol with FULL_EVIHGT, Policy B and the standard split.
+Each query used up to 1,000 nodes, 5,000 traversals and two hops. The path search kept up to 16 paths of length 2–4 with beam width 32 and 64 neighbors.
+AdamW used a weight decay of 1e-5, a gradient accumulation factor of 1 and gradient clipping at 1.0. The learning rate stayed constant.
+The run used CUDA BF16 autocast and FP32 pairwise reduction with the gradient scaler disabled.
+The objective was SYMMETRIC_PU_PAIRWISE_RANKING_V1 at temperature 1, with chunk size 4096 and hard-negative sampling disabled.
+Each run covered all training positives twice, with one deterministic validation pass at the end of each cycle.
 
-## 验证结果
+## Development results
 | LR | Cycle 1 | Cycle 2 | BEST | BEST cycle | Wall-clock |
 |---|---:|---:|---:|---:|---|
 {table}
 
-表中数值为展示舍入；CSV/JSON 保留用于选择的原始浮点精度。时间来自生产日志中训练开始至完成的间隔，不包含启动准备。
-图 1 展示各学习率的最低验证目标，图 2 展示两轮验证目标；两图均以同一 CSV 为数据源，学习率轴采用对数刻度。
+The table rounds values for display. The CSV and JSON retain the precision used for selection. Reported duration spans training start to completion, excluding startup.
+Figure 1 plots the minimum validation objective, and Figure 2 shows both cycles. Both use the same CSV and a logarithmic learning-rate axis.
 
-## 学习率选择
-每个 LR 的分数为两轮确定性验证目标的最小值；同一 run 的目标完全相等时取较早轮次。
-候选分数与全局最小值的绝对差不超过 1e-8 时，选择其中数值较小的 LR。
-按预先冻结的规则，选择学习率 {decision.selected_learning_rate:.0e}。这属于 validation-based hyperparameter selection，
-不是 formal test performance。formal test 次数为 0，测试集未参与学习率选择。
+## Selection
+Each rate is scored by its lower validation objective across the two cycles. A tie within a run goes to the earlier cycle.
+If a candidate is within 1e-8 of the global minimum, the smallest qualifying rate is selected.
+The prespecified rule selected {decision.selected_learning_rate:.0e} by the validation objective.
+The test set stayed sealed throughout learning-rate selection.
 
-## 结果讨论
-该比较描述固定 seed、固定图与路径预算以及两轮训练范围内的学习率敏感性。
-两轮最小值是本次超参数选择的依据，不能据此推断更长训练的行为或跨随机种子的泛化表现。
-本节不进行统计显著性检验，也不据此宣称收敛或相对其他方法的性能优势。
+## Interpretation
+The scores describe learning-rate sensitivity at a fixed seed and fixed graph and path budgets over two training cycles.
+The selected rate applies to this two-cycle validation protocol.
+The study reports descriptive validation differences.
 '''
         (staging/'LR_TUNING_REPORT.md').write_text(text,encoding='utf-8')
         plot_results(csv_path,staging)

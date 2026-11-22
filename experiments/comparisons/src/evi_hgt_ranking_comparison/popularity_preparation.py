@@ -130,7 +130,7 @@ def prepare_all_popularity():
         row = prepare_cell(data,seals[cell],all_seal_digest=all_seals['digest'],
             all_seal_sha256=initial_seal_sha,source_sha256=source_hashes)
         rows.append(row)
-        print(f"训练计数完成 {cell}：support P={row['support_unique_pairs']}，contra P={row['contra_unique_pairs']}；query 评分 0。",flush=True)
+        print(f"Training counts for {cell}: support P={row['support_unique_pairs']}, contra P={row['contra_unique_pairs']}. Scored queries: 0.",flush=True)
     if sha(path) != initial_seal_sha or any(sha(p) != h for p,h in source_hashes.items()):
         raise ValueError('Bound input/source changed during popularity preparation')
     summary = bound(dict(schema='RANKING_COMPARISON_ALL_POPULARITY_COUNTS_PREPARED_V1',status='PREPARED_15_CELLS_NO_SCORES',
@@ -151,5 +151,5 @@ def prepare_all_popularity():
         summary_path=str(result_path),summary_sha256=sha(result_path),cells_completed=15,
         query_scores=0,model_forwards=0,optimizer_updates=0)
     _publish(RUNTIME/'runs'/f'{uuid.uuid4().hex}.json',runtime)
-    print(f'15 个 cell 训练计数已完成：{result_path}',flush=True)
+    print(f'Training counts for 15 folds saved to {result_path}',flush=True)
     return summary

@@ -29,8 +29,8 @@ EVENTS={"stage","preparation_progress","training_start","update","checkpoint",
 
 def queue(resume=False):
     m=validate_manifest();no_conflicts();old_hold()
-    if shutil.disk_usage(OUT).free<m["required_free_bytes"]:raise OSError("可用磁盘空间不足")
-    if (OUT/"queue_started.json").exists() and not resume:raise FileExistsError("LOSS_COMPARISON 队列已启动")
+    if shutil.disk_usage(OUT).free<m["required_free_bytes"]:raise OSError("Insufficient free space")
+    if (OUT/"queue_started.json").exists() and not resume:raise FileExistsError("The loss comparison queue has already started")
     ui=Console(stream=sys.stderr,color=False);rc=0;worker=None
     ui.banner(ARMS,TOTAL)
     try:
@@ -58,7 +58,7 @@ def queue(resume=False):
                         except Exception:
                             with (OUT/"console_render_errors.log").open("a",encoding="utf-8") as f:f.write(traceback.format_exc())
                     code=worker.wait();worker=None
-                if code:raise RuntimeError(f"{arm} 已停止（退出码 {code}），后续实验未启动；详见该臂日志")
+                if code:raise RuntimeError(f"{arm} exited with code {code}. See its run log.")
                 from evi_hgt_loss_comparison.runner import verify_receipt
                 verify_receipt(read(dest/"receipt.json"),identity(m,arm))
     except BaseException as exc:
@@ -66,7 +66,7 @@ def queue(resume=False):
         # Do not kill any process. A worker owns its fail-closed exception path.
         (OUT/"queue_traceback.log").write_text(traceback.format_exc(),encoding="utf-8")
         write(OUT/("QUEUE_FAILED_"+str(time.time_ns())+".json"),dict(status="PARTIAL_FAILED",error=repr(exc)))
-        ui.failure("开发队列停止："+str(exc),str(OUT/"queue_traceback.log"))
+        ui.failure("Development queue stopped: "+str(exc),str(OUT/"queue_traceback.log"))
     finally:
         from evi_hgt_loss_comparison.reporting import summarize
         try:
@@ -78,9 +78,9 @@ def queue(resume=False):
             # Never label a failed verification as COMPLETE.
             write(OUT/records.LOSS_JSON,dict(status="BLOCKED",error=repr(exc),old_G3="HELD",
                   outer="UNSCORED",new_final="SEALED"),immutable=False)
-            (OUT/records.LOSS_MARKDOWN).write_text("# 损失函数比较汇总中止\n\n汇总身份验证失败；原始记录保留。\n\n"+
+            (OUT/records.LOSS_MARKDOWN).write_text("# Loss comparison summary interrupted\n\nSummary verification failed. Run records are available.\n\n"+
                 str(OUT/"reporting_traceback.log")+"\n",encoding="utf-8")
-            ui.failure("最终汇总验证失败",str(OUT/"reporting_traceback.log"))
+            ui.failure("Summary verification failed",str(OUT/"reporting_traceback.log"))
             ui._write("FINAL STATUS = BLOCKED")
             ui._write(str(OUT/records.LOSS_MARKDOWN));ui._write(str(OUT/records.LOSS_JSON))
         ui.close()
@@ -92,7 +92,7 @@ def main():
     g.add_argument("--queue",action="store_true");g.add_argument("--worker",choices=ARMS);g.add_argument("--verify",action="store_true")
     p.add_argument("--resume",action="store_true");a=p.parse_args()
     if a.verify:
-        validate_manifest();no_conflicts();old_hold();print("LOSS_COMPARISON 清单与启动边界验证通过。",flush=True);return 0
+        validate_manifest();no_conflicts();old_hold();print("Loss comparison manifest and launch conditions verified.",flush=True);return 0
     if a.worker:
         from evi_hgt_loss_comparison.runner import run_arm
         run_arm(a.worker,resume=a.resume);return 0

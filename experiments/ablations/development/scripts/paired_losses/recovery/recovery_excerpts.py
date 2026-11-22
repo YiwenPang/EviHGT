@@ -35,7 +35,7 @@ def add_recovery_disclosure(result,recovery_receipt):
         r['trajectories'][key]['unrecorded_physical_updates_min']=rec.get('unrecorded_physical_updates_min',0)
         r['trajectories'][key]['unrecorded_physical_updates_max']=rec.get('unrecorded_physical_updates_max',1)
     r.setdefault('scientific_limits',[]).append(
-        'R1F0/E0突然中断，从完整checkpoint7168恢复；7169–7284的116次已知物理更新重放。历史7285是否已执行未知(0–1次)，精确物理总数UNRESOLVED。保留原CUDA flags，不声称恢复后逐位等价。')
+        'R1F0/E0 resumed from checkpoint 7168. It replayed 116 recorded updates from 7169 through 7284. Update 7285 may have run once before the interruption, so the physical update total remains unresolved. The run retained its CUDA flags. Bitwise equivalence after recovery remains unverified.')
     r['costs_note']=r.get('costs_note','')+' Durable journal costs and clipping denominator include known replay; historical in-flight step7285 cost is UNKNOWN, never invented.'
     return r
 
@@ -104,10 +104,10 @@ def summarize_recovery(manifest,*,failed,ui):
     def final_markdown(value):
         original_markdown(add_recovery_disclosure(value,manifest))
         with (OUT/records.PAIRED_MARKDOWN).open('a',encoding='utf-8') as f:
-            f.write('\n## 中断恢复与物理更新不确定性\n\n')
+            f.write('\n## Recovery and update accounting\n\n')
             disclosed=add_recovery_disclosure(value,manifest)
-            f.write(f"从7168步完整状态恢复；已知重放116步。历史7285步的optimizer执行状态永久UNRESOLVED（额外0–1次）。已知物理更新={value['physical_optimizer_updates']}，总物理范围=[{disclosed['physical_optimizer_updates_lower_bound']}, {disclosed['physical_optimizer_updates_upper_bound']}]。\n\n")
-            f.write('所有已有日志和失败现场保留；clipping与资源统计含已知重放，未知边界耗时不补造。原G=6900采样锚点、数据、seed、模型、loss、预算与评价时点均保持。CUDA非逐位确定性限制继续保留。\n')
+            f.write(f"Checkpoint 7168 restored the full state. The run replayed 116 documented updates. The original optimizer outcome at step 7285 is unresolved (0 or 1 additional update). Known physical updates: {value['physical_optimizer_updates']}. Physical range: [{disclosed['physical_optimizer_updates_lower_bound']}, {disclosed['physical_optimizer_updates_upper_bound']}].\n\n")
+            f.write('Clipping and resource summaries include the known replay. The interrupted attempt has no measured duration. Recovery used the existing G=6900 sampling anchor, data, seed, model, loss, budget and evaluation schedule. CUDA execution can differ at the bit level.\n')
     reporting.write=final_write;reporting.markdown=final_markdown
     try:
         # Printing is deferred until recovery fields have been written, so no exact-count claim leaks.
@@ -120,9 +120,9 @@ def summarize_recovery(manifest,*,failed,ui):
             if p['metrics']:ui.evaluation_result(p['cell']+'/'+p['arm'],p['step'],p['metrics'])
         for c,stages in result['comparisons'].items():
             for head,values in stages.get('3G',{}).items():ui._write('3G '+c+'/'+head+' E1−E0：'+str({k:values[k] for k in ('delta_auc','delta_ap','ranking_deltas')}))
-        ui._write('新增两格描述性摘要：'+str(result['new_two_cell_equal_weight_descriptive']))
-        ui._write('实际成本（已知重放计入，未知边界耗时不补造）：'+str(result['costs']))
-        ui._write('恢复：known replay116；historical7285 optimizer outcomeUNKNOWN(0–1)；旧中断原因UNRESOLVED')
+        ui._write('Descriptive mean across two cells: '+str(result['new_two_cell_equal_weight_descriptive']))
+        ui._write('Measured costs, including the known replay: '+str(result['costs']))
+        ui._write('Recovery: 116 replayed updates. Original update 7285 and cause of interruption are unresolved.')
         for s in ('OLD G3 = HELD','OUTER = UNSCORED','NEW FINAL = SEALED',str(OUT/records.PAIRED_MARKDOWN),str(OUT/records.PAIRED_JSON)):ui._write(s)
         return result
     finally:reporting.write=original_write;reporting.markdown=original_markdown

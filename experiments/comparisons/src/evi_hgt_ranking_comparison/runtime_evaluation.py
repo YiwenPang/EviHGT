@@ -135,6 +135,6 @@ def evaluate_training_fixture(engine,task):
     write_new(path,dict(mode='TEST_ONLY',not_formal_development=True,source_step=step,
         fixture_content_digest=spec.content_digest,rows=rows,metrics=metrics,training_state_preserved=invariant))
     from .console import Console
-    console=Console(context='TEST_ONLY');console.stage('训练夹具评分验收','不是正式开发集、outer或final结果')
+    console=Console(context='TEST_ONLY');console.stage('Training fixture evaluation','Synthetic verification')
     console.evaluation_result(engine.method,engine.logical,metrics);console.close()
     return str(path)

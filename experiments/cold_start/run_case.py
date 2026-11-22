@@ -137,10 +137,10 @@ def _bootstrap():
 
 def _localized_console(base):
     phases = {
-        "Validate and load prepared inputs": "校验并载入输入",
-        "Initialize EviHGT": "初始化 EviHGT",
-        "Train the fixed three-cycle plan": "训练：固定三个完整周期",
-        "Save final development results": "保存开发集结果",
+        "Validate and load prepared inputs": "Validate and load inputs",
+        "Initialize EviHGT": "Initialize EviHGT",
+        "Train the fixed three-cycle plan": "Train for three fixed cycles",
+        "Save final development results": "Save development results",
     }
 
     class ColdConsole(base):
@@ -149,17 +149,17 @@ def _localized_console(base):
 
         def banner(self):
             self.say("=" * 72)
-            self.say("EviHGT｜冷启动实验｜support 与 contra 独立输出")
+            self.say("EviHGT cold start | Separate support and contra outputs")
             self.say("=" * 72)
 
         def failure(self, exc):
             with self.error_path.open("a", encoding="utf8") as stream:
                 traceback.print_exception(exc, file=stream)
             self.event("failure", type=type(exc).__name__, message=str(exc))
-            self.say(f"本阶段失败（{type(exc).__name__}），完整日志：{self.error_path}")
+            self.say(f"Stage failed ({type(exc).__name__}). Error log: {self.error_path}")
 
         def metrics(self, metrics):
-            self.say("开发评估：已观测阳性 vs 未标注候选")
+            self.say("Development evaluation | Recorded positives and unlabeled candidates")
             _print_metrics(self.say, metrics)
             self.event("evaluation_completed", metrics=metrics)
 
@@ -168,9 +168,9 @@ def _localized_console(base):
 
 def _print_metrics(say, metrics):
     def fmt(value):
-        return "不可用" if value is None else f"{value:.6g}"
+        return "Unavailable" if value is None else f"{value:.6g}"
 
-    say(f"{'Head':<12} {'ROC-AUC':>12} {'AP':>12} {'疾病数':>8}")
+    say(f"{'Head':<12} {'ROC-AUC':>12} {'AP':>12} {'Diseases':>8}")
     for head, result in metrics.items():
         say(f"{head:<12} {fmt(result.get('macro_auc')):>12} {fmt(result.get('macro_ap')):>12} "
             f"{result.get('evaluable_diseases', 0):>8}")
@@ -275,7 +275,7 @@ def _score(case, runner, settings, root, audit, training):
             raise ValueError("Sealed test candidates changed before evaluation")
         members[head] = pl.read_parquet(path, columns=list(PANEL_FIELDS)).to_dicts()
     with runner.Console(target / "logs", refresh_seconds=settings.refresh_seconds) as console:
-        with console.phase(1, "重新载入冻结评估图和最终检查点"):
+        with console.phase(1, "Load the fixed graph and final checkpoint"):
             corpus = runner.load_inputs(settings, console)
             saved = torch.load(final, map_location="cpu", weights_only=False)
             if (saved.get("schema") != "EVIHGT_CHECKPOINT_V1" or saved.get("step") != corpus.plan.total_steps
@@ -303,8 +303,8 @@ def _score(case, runner, settings, root, audit, training):
             corpus.panel_pairs[domain] = pairs
         infer_start = time.monotonic()
         scores = {}
-        with console.phase(2, "冻结测试候选评分"):
-            with console.progress(len(pairs), "测试评分", unit="pair") as bar:
+        with console.phase(2, "Score the sealed test candidates"):
+            with console.progress(len(pairs), "Test scoring", unit="pair") as bar:
                 with torch.no_grad(), runner.precision_context(settings):
                     for pair in sorted(pairs):
                         q = runner.make_unlabeled_query_supervision(*pair)
@@ -323,7 +323,7 @@ def _score(case, runner, settings, root, audit, training):
                                             disease_has_graph_fact=source.disease_node_index in incident)
                         bar.update()
         infer_elapsed = time.monotonic() - infer_start
-        with console.phase(3, "记录指标、同分率与图证据覆盖"):
+        with console.phase(3, "Save metrics, score ties and graph coverage"):
             metrics, ties, output_hashes = {}, {}, {}
             for head, rows in members.items():
                 scored = [dict(row, support_logit=scores[tuple(row[k] for k in PAIR_FIELDS)]["support_logit"],
@@ -433,14 +433,14 @@ def main():
                         test_scoring_seconds=result["graph_scoring_seconds"],
                         training_invocation_seconds=training["elapsed_seconds"], resumed=resumed,
                         this_invocation_seconds=total, recorded_at=now()), exclusive=True)
-            print(f"冷启动实验完成：{args.case}，结果 {completed_path}", flush=True)
+            print(f"Completed {args.case}. Result: {completed_path}", flush=True)
             return 0
     except Exception as exc:
         log = root / "workflow_errors.log"
         with log.open("a", encoding="utf8") as stream:
             stream.write(f"\n{now()} {args.case} {args.mode}\n")
             traceback.print_exc(file=stream)
-        print(f"流程失败（{type(exc).__name__}），完整日志：{log}", file=sys.stderr, flush=True)
+        print(f"Cold-start run failed ({type(exc).__name__}). Error log: {log}", file=sys.stderr, flush=True)
         return 1
 
 

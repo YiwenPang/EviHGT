@@ -1,0 +1,97 @@
+{
+  "split": "cold_disease",
+  "seed": 42,
+  "aggregation": "disease macro",
+  "comparison": {
+    "support": {
+      "paired_disease_analysis": {
+        "auc": {
+          "EviHGT_minus_HGTDR": 0.020229382140217102,
+          "conditional_disease_bootstrap_95": [
+            0.00027333948343462615,
+            0.0400465053118981
+          ]
+        },
+        "ap": {
+          "EviHGT_minus_HGTDR": 0.04698064038116273,
+          "conditional_disease_bootstrap_95": [
+            0.012688452899867557,
+            0.0823665319137129
+          ]
+        },
+        "NDCG@10": {
+          "EviHGT_minus_HGTDR": 0.046436615341759434,
+          "conditional_disease_bootstrap_95": [
+            0.011515367742046366,
+            0.08246422168330643
+          ]
+        }
+      },
+      "evaluable_diseases": 196,
+      "HGTDR": {
+        "macro_ap": 0.5233156419365227,
+        "macro_auc": 0.8503070771872606,
+        "NDCG@10": 0.6024630278617853
+      },
+      "EviHGT": {
+        "macro_ap": 0.5702962823176855,
+        "macro_auc": 0.8705364593274778,
+        "NDCG@10": 0.6488996432035448
+      }
+    },
+    "contra": {
+      "paired_disease_analysis": {
+        "auc": {
+          "EviHGT_minus_HGTDR": -0.021886326925862603,
+          "conditional_disease_bootstrap_95": [
+            -0.043764564781330555,
+            -0.004087442009744157
+          ]
+        },
+        "ap": {
+          "EviHGT_minus_HGTDR": -0.03875275622011901,
+          "conditional_disease_bootstrap_95": [
+            -0.11182400455047711,
+            0.026810094537288658
+          ]
+        },
+        "NDCG@10": {
+          "EviHGT_minus_HGTDR": -0.030040483723082805,
+          "conditional_disease_bootstrap_95": [
+            -0.09258112417425272,
+            0.02873712816060901
+          ]
+        }
+      },
+      "evaluable_diseases": 45,
+      "HGTDR": {
+        "macro_ap": 0.7077890887003995,
+        "macro_auc": 0.9606903256059233,
+        "NDCG@10": 0.7709106470917214
+      },
+      "EviHGT": {
+        "macro_ap": 0.6690363324802805,
+        "macro_auc": 0.9388039986800607,
+        "NDCG@10": 0.7408701633686386
+      }
+    }
+  },
+  "selection": {
+    "EviHGT": {
+      "checkpoint": "fixed three-cycle endpoint"
+    },
+    "HGTDR": {
+      "checkpoint": "development AUROC then AP then earlier epoch",
+      "epochs_per_model": 300,
+      "selected_epoch": {
+        "support": 149,
+        "contra": 53
+      }
+    }
+  },
+  "paired_interval": {
+    "method": "Percentile bootstrap of paired diseases",
+    "draws": 10000,
+    "scope": "Conditional on the split and the fitted models. A drug can occur in more than one disease panel."
+  }
+}

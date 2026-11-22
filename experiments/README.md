@@ -8,7 +8,7 @@ From the repository root, run the following after the [one-time CPU installation
 python experiments/run_checks.py
 ```
 
-The command runs 96 tests on the public code, checks the five-fold ledger and the ablation source hashes, then trains and scores a small synthetic cold-start case. All fixtures are local or generated during the run. To inspect the output of just the cold-start example, run `python -B experiments/cold_start/synthetic/test_frozen_test_score.py`. It prints the temporary directory containing the checkpoint and `test/metrics.json`.
+The command runs the public test suites, checks the five-fold ledger and the ablation source hashes, then trains and scores a small synthetic cold-start case. All fixtures are local or generated during the run. To inspect the output of just the cold-start example, run `python -B experiments/cold_start/synthetic/test_frozen_test_score.py`. It prints the temporary directory containing the checkpoint and `test/metrics.json`.
 
 With just Python, `python experiments/audit/verify_r0.py` checks the published fold ledger and `python experiments/ablations/verify.py sources` checks the published ablation files against their recorded hashes.
 
@@ -19,6 +19,7 @@ With just Python, `python experiments/audit/verify_r0.py` checks the published f
 | [Baseline comparisons](comparisons/) | Six methods on five R0 folds, including the training-frequency (Popularity) baseline. The [fold ledger](audit/) records each method and output. | Matching research checkout, fold manifests, legal training graphs, features and sampling plans. HGTDR and TxGNN also need their native environments. The reused HGTDR fold needs its selected checkpoint. |
 | [Ablations](ablations/) | Paired comparisons of training losses and evidence interventions, plus the earlier six-variant holdout study. | Matching research checkout, frozen schedules, graphs, features and evaluation panels. The pairing audit reads the original update logs. The holdout analysis reads saved predictions and run records. |
 | [Cold start](cold_start/) | Drug, disease, double-cold and first-approval-year cohorts. | Prepared research graph and evidence, split and exclusion manifests, and frozen drug and disease features. The approval-year case also needs the drug first-approval-year field. |
+| [Cold-disease comparison with HGTDR](cold_start/hgtdr/) | EviHGT and two separately trained HGTDR variants on the same held-out diseases and test candidates. | Prepared cold-disease corpus, completed EviHGT cold-disease run, and the source-bound HGTDR CUDA runtime and feature package. The aggregate results are readable without those inputs. |
 | [HGTDR-adapted-contra](hgtdr_contra/) | A separate single-output model fitted on recorded contraindications and evaluated on the five common R0 inner development panels. | Original R0 folds, features and graph caches, matching research modules, and the local HGTDR reconstruction with CUDA. |
 
 The original licensed records, prepared folds, per-pair predictions and trained weights are held outside this repository. To train the portable EviHGT model on your own normalized data, follow the [data guide](../docs/data.md).

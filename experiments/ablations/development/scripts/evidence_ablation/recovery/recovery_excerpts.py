@@ -50,7 +50,7 @@ def summarize(failed,ui=None):
         remaining_queue=[list(x) for x in REMAINING],repair='Pinned installed/signed Adobe AcroCEF classification only; parent scientific code/identity unchanged')
     p.write(REC/records.EVIDENCE_JSON,value,immutable=False)
     with (REC/records.EVIDENCE_MARKDOWN).open('a',encoding='utf-8') as f:
-        f.write('\n## 控制层修复与继续执行\n\n原第一条20541步及全部评价只读复用，无重训、无额外评价forward。原PARTIAL_FAILED报告和故障证据保留于父目录。仅继续固定后三条，科学身份/初始化/采样/损失/评价/预算均不变。完整模型参照仍只读2条。\n')
+        f.write('\n## Restart and recovery\n\nThe first run contributed its original 20,541 updates and evaluation scores. The failure report and trace remain in the parent directory. The other three runs resumed with the registered initialization, sampling, loss, evaluation and budget. The two FULL references were reused.\n')
     return value
 
 

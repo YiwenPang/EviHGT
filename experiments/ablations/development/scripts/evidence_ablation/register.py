@@ -75,4 +75,4 @@ def main():
         execution=dict(GPU_workers=1,automatic_training_retry=False,automatic_next_phase=False),
         final_markdown_report=str(OUT/records.EVIDENCE_MARKDOWN),final_json_report=str(OUT/records.EVIDENCE_JSON))
     write(MANIFEST,m);validate_manifest()
-    print(f'EVIDENCE_ABLATION_PRELAUNCH_ACCEPTED；{len(cases)}项针对性测试；预留{required/2**30:.2f}GiB。',flush=True)
+    print(f'EVIDENCE_ABLATION_PRELAUNCH_ACCEPTED: {len(cases)} targeted tests. Reserved {required/2**30:.2f} GiB.',flush=True)

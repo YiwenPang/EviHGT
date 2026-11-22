@@ -75,8 +75,8 @@ def facility(cell,arm,resume=False):
     class Events(OriginalEvents):
         def stage(self,title,detail):
             import json
-            title=title.replace('配对损失实验','证据消融实验')
-            detail=detail.replace('独立初始化模型','从完整检查点恢复' if resume else '从初始权重开始训练')
+            title=title.replace('Paired-loss study','Evidence ablation')
+            detail=detail.replace('independent initialization','checkpoint recovery' if resume else 'initial weights')
             print(json.dumps(dict(event='stage',args=[title,detail]),ensure_ascii=False),flush=True)
     m.Events=Events
     return m

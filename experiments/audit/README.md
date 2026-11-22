@@ -24,4 +24,4 @@ The verifier uses the local R0 metrics audit when it can identify a single copy.
 - Popularity scores the training-positive frequency of each drug separately for each output. It leads contra AUC and NDCG@10, and matched HGT-D1 leads contra AP under the main aggregation. Fold-first averaging also puts Popularity first on contra AP. Candidate composition and repeated disease coverage matter for interpreting this task.
 - The main results average each disease across its eligible folds and then weight diseases equally. The 55 rows here are fold summaries. Recomputing the main table uses the disease-level observations. The five folds overlap and support descriptive comparisons.
 
-[Reported main table](../../README.md#development-results) 路 [Source for the comparison](../comparisons/)
+[Reported main table](../../README.md#development-results) · [Source for the comparison](../comparisons/)

@@ -256,9 +256,9 @@ def build_graph(workspace: Path, dest: Path, heldout_drugs: set[str],
             direct = _with_direct_pair(direct).select(_ID, pl.col("_drug").alias("drug_id"),
                                                        pl.col("_disease").alias("disease_id"))
             if direct.join(blocked, on=["drug_id", "disease_id"], how="semi").height:
-                raise ValueError("Blocked drug鈥揹isease endpoints survived the canonical fact mask")
+                raise ValueError("Blocked drug–disease endpoints survived the canonical fact mask")
             if direct.join(target_map, on=[_ID, "drug_id", "disease_id"], how="anti").height:
-                raise ValueError("Unregistered direct or reverse drug鈥揹isease fact")
+                raise ValueError("Unregistered direct or reverse drug–disease fact")
         name = f"canonical_facts/{original.name}"
         evidence_name = f"evidence_records/{original.name}"
         if len(ids) == fact_count:

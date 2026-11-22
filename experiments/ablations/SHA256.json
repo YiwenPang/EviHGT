@@ -26,7 +26,7 @@
     },
     {
       "file": "development/scripts/loss_comparison/register.py",
-      "published_sha256": "3fd94d01dd26a8cb2c7ede11a8bad3ebe38c2028a76390fb92f21bef5472a036",
+      "published_sha256": "8d4b6c8f333993b25f9c0af56df325ea0c06c361271013929e8c53e6a6380e8f",
       "research_sha256": "59cfeff4b9b004fe0413be43579f8e6639aea51ff2db7c8d86fdbfd4244e94a5",
       "prior_release_lf_sha256": "59cfeff4b9b004fe0413be43579f8e6639aea51ff2db7c8d86fdbfd4244e94a5",
       "receipts": [
@@ -37,7 +37,7 @@
     },
     {
       "file": "development/scripts/loss_comparison/run.py",
-      "published_sha256": "fc38f25a3e3f12bcfb77fc6f8129e7ec8e7e49eee87ccce8863d4f5039da69bd",
+      "published_sha256": "c265efddc50d2708b128b1c213fb2d3ef385eca14e5025c1c7acfdd0a06baf56",
       "research_sha256": "404541032716217c1ab4ab3867ed34e75d58a82963429db8e76a6ee8e0e70da7",
       "prior_release_lf_sha256": "56d69b3f2b716001e39f1bc2b91dbf64b7d49b482cb9e84fc80f207ea40b6edf",
       "receipts": [
@@ -49,7 +49,7 @@
     },
     {
       "file": "development/scripts/paired_losses/recovery/recovery_excerpts.py",
-      "published_sha256": "5ef0eecdf7aee3eb747fe546db757ca767513fb839b5ac52ce01ad94cfc4fbe1",
+      "published_sha256": "3ed007007da742d1a5facda6180ff3b6d96a34ee55f187e12214c9d6fbd39654",
       "research_sha256": "ab67ab3c25c1bbed9d4c9ce171760b0b9ee85c820d535e76f4815617095fc43e",
       "prior_release_lf_sha256": "68fd7c3cdb4ce6294d0fb7b799cd707b8bc5ce285ae2d802773f8a4474f6af9d",
       "receipts": [
@@ -64,7 +64,7 @@
     },
     {
       "file": "development/scripts/paired_losses/register.py",
-      "published_sha256": "60ab3cf97b4d8b1587b6547a4d883f3159562391147cbdbf3440921e32abef05",
+      "published_sha256": "6be47a04fe964476e7a63e8abb708a746ddb8e443018afc103c554bb82f7d6a6",
       "research_sha256": "6eba15cac7eb1fe9b7447f31a3982b5c72ac5f585c6708f5fa351b3f272412fa",
       "prior_release_lf_sha256": "6eba15cac7eb1fe9b7447f31a3982b5c72ac5f585c6708f5fa351b3f272412fa",
       "receipts": [
@@ -74,7 +74,7 @@
     },
     {
       "file": "development/scripts/paired_losses/run.py",
-      "published_sha256": "36bda015c7c7f7caced42dd8243fba1f7051c02b2a6495a317353585723e67d6",
+      "published_sha256": "a5a945800e74b50514eeac69565cb06c4928b0bad3776a8727ef3f954b6c28fa",
       "research_sha256": "804b495f38ae1d106063e31ab8dbdbe4fa352da0d7fd6bcd2bd0abee879e8125",
       "prior_release_lf_sha256": "804b495f38ae1d106063e31ab8dbdbe4fa352da0d7fd6bcd2bd0abee879e8125",
       "receipts": [
@@ -84,7 +84,7 @@
     },
     {
       "file": "development/scripts/evidence_ablation/recovery/recovery_excerpts.py",
-      "published_sha256": "1adf2f4726f2e4e376462e54b4784fa108fc7fb8c8b6a5827792bee81e6211b0",
+      "published_sha256": "14898e694b0ebe2dd78ea04ac62ff2ae09ccd9ae4ceaba8a2e08740718b59ace",
       "research_sha256": "456f5dbf9c31babe77375f18676e355de091e77477508341f2ae3d3a28678cc3",
       "prior_release_lf_sha256": "f7b74f1715ea53b208cb7c1f711b2a25df020590ffc37bfb050f673353e4ab52",
       "receipts": [
@@ -100,7 +100,7 @@
     },
     {
       "file": "development/scripts/evidence_ablation/register.py",
-      "published_sha256": "69c6306b610c42ab339ef447c16b59c968763840bc6b8b7f54a0a86c7fbff03c",
+      "published_sha256": "1d5cc5fb120592dbd14bc353e44ba8afad13cca25c86a961fc3eb6efee4a63fd",
       "research_sha256": "ae958e3630f1ed95eca84b05be21778b6d57d58e98ebb927cb869b22487e910d",
       "prior_release_lf_sha256": "ae958e3630f1ed95eca84b05be21778b6d57d58e98ebb927cb869b22487e910d",
       "receipts": [
@@ -109,7 +109,7 @@
     },
     {
       "file": "development/scripts/evidence_ablation/run.py",
-      "published_sha256": "38a29f7cff8cb724e17e898ae99d7e7460c351725fba801aa2a82b0e46fb802d",
+      "published_sha256": "ea2ba8bcf5798f7c996b7c3becd6895f373585be7368e7ef85309dbb2cab222c",
       "research_sha256": "f10b48e3fbc0e50666cd65e07f00f89d86713cd8a3b27046c101ca4ede1deca0",
       "prior_release_lf_sha256": "f10b48e3fbc0e50666cd65e07f00f89d86713cd8a3b27046c101ca4ede1deca0",
       "receipts": [
@@ -294,7 +294,7 @@
     },
     {
       "file": "development/src/evi_hgt_loss_comparison/diagnostics.py",
-      "published_sha256": "675689fc580d455bd38353b64a4e5aa223b7fa5bd64bdaa9c35023216f484a69",
+      "published_sha256": "9399567261e9d47cb9b14ab0596944e361f9933d2ed92dfd4d83c88d4e37b264",
       "research_sha256": "853e558cc3a247684001664559b8cc0fc4e7fe63528e939022d456e2e4591167",
       "prior_release_lf_sha256": "853e558cc3a247684001664559b8cc0fc4e7fe63528e939022d456e2e4591167",
       "receipts": [
@@ -338,7 +338,7 @@
     },
     {
       "file": "development/src/evi_hgt_loss_comparison/reporting.py",
-      "published_sha256": "80fe49c6c4d2b8f3941e22ff922f1be5216e2c8f939aacf944fbac09f58a60c7",
+      "published_sha256": "ed984e3c4b1427f54cbe9512e0514762e12480ec175f1bb57b23f2822d6c8cd0",
       "research_sha256": "276f9ab4cfe846d7cba4ae9a3547ba5de0cc8b5ae868bf966e49922644c01e90",
       "prior_release_lf_sha256": "276f9ab4cfe846d7cba4ae9a3547ba5de0cc8b5ae868bf966e49922644c01e90",
       "receipts": [
@@ -349,7 +349,7 @@
     },
     {
       "file": "development/src/evi_hgt_loss_comparison/runner.py",
-      "published_sha256": "fd0df0337cedf7bbecdb0f4d97490c5d682ee7a0e8e2168262896fbe219e1732",
+      "published_sha256": "50468c2110c8f7e29a0dc992c584c42202285a93b18c4e8ca3b01ee66baa04ae",
       "research_sha256": "4344cc826de748845ca988b7a6012fa9a5c967400dff08914fac0f8f32fee9c9",
       "prior_release_lf_sha256": "4344cc826de748845ca988b7a6012fa9a5c967400dff08914fac0f8f32fee9c9",
       "receipts": [
@@ -441,7 +441,7 @@
     },
     {
       "file": "development/src/evi_hgt_paired_losses/reporting.py",
-      "published_sha256": "c1278ffd8631d1a9fb9ad646baf0c95c291707c513c5b98dfe94229a36b43742",
+      "published_sha256": "41c3f642eede528b4daa9eed7ea812d9aee7bfc6179df1ab779fd488df11b60d",
       "research_sha256": "02e7c12ecc3b007ecfd04659c76818ec0fc91665b86666733094013abc4404e5",
       "prior_release_lf_sha256": "02e7c12ecc3b007ecfd04659c76818ec0fc91665b86666733094013abc4404e5",
       "receipts": [
@@ -451,7 +451,7 @@
     },
     {
       "file": "development/src/evi_hgt_paired_losses/runner.py",
-      "published_sha256": "7f9d71843185b06ba2de3e3631ee2009073b46d7e0f53c0450c7ca46a3121253",
+      "published_sha256": "2b3f1bc3d199e7ebdf8d4a2ce238d063407fda4552f37047b0ff3f25e79c87e3",
       "research_sha256": "a9bb04bed3dcccc0ecb6a7c4fdba12080e3067064f6c8c1e0f64517bf0f4e836",
       "prior_release_lf_sha256": "a9bb04bed3dcccc0ecb6a7c4fdba12080e3067064f6c8c1e0f64517bf0f4e836",
       "receipts": [
@@ -526,7 +526,7 @@
     },
     {
       "file": "development/src/evi_hgt_evidence_ablation/reporting.py",
-      "published_sha256": "29aa5b98f6d52d00a8733c673f26ee1dc82dcd9f40d25c96153ff6b18df8fd3d",
+      "published_sha256": "cf5402c933fa8d5edaee5d7abb6050fce3621ea67d7e363aef459962809e441e",
       "research_sha256": "e532da248eba961cb2a2f7bed3220401dd665f49992138135ddd5bbcaeb19527",
       "prior_release_lf_sha256": "e532da248eba961cb2a2f7bed3220401dd665f49992138135ddd5bbcaeb19527",
       "receipts": [
@@ -535,7 +535,7 @@
     },
     {
       "file": "development/src/evi_hgt_evidence_ablation/runner.py",
-      "published_sha256": "efd23db4764b51ae95eaf797a091637955fca1aa8a7ffd4686bc125422bd0d3c",
+      "published_sha256": "b6341ba5c159abb268d2db9f5942638efa9e75689846ed7c8700c9c8ac30a672",
       "research_sha256": "ffe3cc5c9fbea9565a97cb0ca0bb7142cb9c86eca708fd72db8e84a2214f2f43",
       "prior_release_lf_sha256": "ffe3cc5c9fbea9565a97cb0ca0bb7142cb9c86eca708fd72db8e84a2214f2f43",
       "receipts": [

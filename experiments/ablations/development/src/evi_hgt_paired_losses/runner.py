@@ -56,7 +56,7 @@ def run_arm(cell,arm,*,resume=False):
     control=dict(clipped_updates=0,zero_gradient_steps=0,training_seconds=0.,query_preparation_seconds=0.,
         forward_seconds=0.,backward_optimizer_seconds=0.,diagnostics={},evaluations={},sampling_preparation_seconds=0.)
     try:
-        ui.stage('配对损失实验：准备数据',cell+'/'+arm+'；当前折运行三个完整采样周期，独立初始化模型')
+        ui.stage('Paired-loss study: preparing data',cell+'/'+arm+'. Three full sampling cycles, independent initialization')
         numeric_backend();data,corpus=load_data(cell);groups,stream,schedule,cache=freeze_schedule(data,corpus)
         if dict(data.bindings,corpus_digest=corpus['digest'],schedule_digest=schedule['digest'])!=cm['data_bindings']:
             raise ValueError('Current-cell registered data/graph/schedule differs')
@@ -97,7 +97,7 @@ def run_arm(cell,arm,*,resume=False):
                 d=read(p)
                 if d['identity']!=ident or d['model_weight_sha256']!=weight:raise ValueError('Diagnostic identity differs')
             else:
-                ui.stage('当前cell固定训练诊断',cell+'/'+arm+f' step={n}；hash面板，非开发评价')
+                ui.stage('Fixed training diagnostics',cell+'/'+arm+f' step={n}. Hash-selected training panel')
                 d=diagnose(cell,assembler,built,optimizer,groups,records,n,arm=arm,panels=cm['diagnostic_panels'],ui=ui)
                 d.update(identity=ident,model_weight_sha256=weight,actual_training_clipped_updates=control['clipped_updates'],
                          actual_training_finite_zero_steps=control['zero_gradient_steps'])
@@ -149,10 +149,10 @@ def run_arm(cell,arm,*,resume=False):
             last_checkpoint=last_commit,old_G3='HELD',outer='UNSCORED',new_final='SEALED')
         verify_receipt(receipt,ident);write(out/'receipt.json',receipt)
         write(out/'status.json',dict(status=receipt['status'],step=step),immutable=False)
-        ui.stage('本轨迹开发训练及评价完成',label+'；继续固定本地队列')
+        ui.stage('Development run complete',label+'. Continuing the local queue.')
         return receipt
     except BaseException as exc:
         (out/'traceback.log').write_text(traceback.format_exc(),encoding='utf-8')
         write(out/('FAILED_'+attempt+'.json'),dict(status='PARTIAL_FAILED',identity=ident,step=step,
             optimizer_boundary_unknown=(out/'IN_FLIGHT_UPDATE.json').exists(),error=repr(exc),wall_seconds=time.monotonic()-start,control=control))
-        ui.failure('配对损失实验已停止：'+str(exc),str(out/'traceback.log'));raise
+        ui.failure('Paired-loss study stopped: '+str(exc),str(out/'traceback.log'));raise

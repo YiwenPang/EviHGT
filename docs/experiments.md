@@ -1,4 +1,4 @@
-# Recorded development experiments
+# Recorded experiments
 
 The [experiment source index](../experiments/) links each study to its implementation and the audit records for the common development panels.
 
@@ -23,6 +23,19 @@ For R0's five inner development folds, metrics are averaged across eligible fold
 ![Main R0 development comparison](figures/experiments/fig02_main_comparison.png)
 
 [SVG](figures/experiments/fig02_main_comparison.svg) · [PDF](figures/experiments/fig02_main_comparison.pdf) · [PNG](figures/experiments/fig02_main_comparison.png)
+
+## Cold-disease comparison
+
+All graph facts incident to held-out diseases are removed. Both models use the same frozen drug and disease features, split and test candidates. EviHGT also uses its static side information. Each HGTDR variant trains for 300 epochs and selects a checkpoint on the disjoint development panel. EviHGT uses its fixed three-cycle endpoint. Metrics are averaged over diseases with both recorded positives and unlabeled candidates.
+
+| Task | Evaluable diseases | Method | ROC-AUC | AP | NDCG@10 |
+| --- | ---: | --- | ---: | ---: | ---: |
+| Treatment support | 196 | EviHGT | **0.8705** | **0.5703** | **0.6489** |
+| Treatment support | 196 | HGTDR-adapted | 0.8503 | 0.5233 | 0.6025 |
+| Contraindication | 45 | EviHGT | 0.9388 | 0.6690 | 0.7409 |
+| Contraindication | 45 | HGTDR-adapted-contra | **0.9607** | **0.7078** | **0.7709** |
+
+The treatment-support AP gain is 4.70 percentage points. The 95% paired disease bootstrap interval is [1.27, 8.24] points. The corresponding EviHGT minus HGTDR difference for contraindication AP is −3.88 points, with an interval of [−11.18, 2.68] points. The intervals describe variation across diseases conditional on this split and the trained models. [Aggregate results](../experiments/cold_start/hgtdr/results.json) · [Run the comparison](../experiments/cold_start/hgtdr/)
 
 ## Saved-prediction ROC and PR curves
 

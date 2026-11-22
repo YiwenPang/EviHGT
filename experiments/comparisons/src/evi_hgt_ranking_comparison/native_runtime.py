@@ -521,7 +521,7 @@ def evaluate_native(runtime,task,domain,token,*,selected=False):
         if current==cached['counters_before']:
             for key,value in cached['counters_after'].items():setattr(t,key,value)
         elif current!=cached['counters_after']:raise ValueError('Native cached evaluation counters differ')
-        display(cached['metrics'],'回放')
+        display(cached['metrics'],'REPLAY')
         return cached['metrics']
     counters_before=counters()
     rng=state_api._rng();original=state_api._snapshot(t.model.state_dict()) if selected else None

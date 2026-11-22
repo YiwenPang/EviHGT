@@ -58,7 +58,7 @@ def run_arm(arm,*,resume=False):
                  forward_seconds=0.,backward_optimizer_seconds=0.,diagnostics={},evaluations={})
     attempt=str(time.time_ns())
     try:
-        ui.stage("损失函数对比：准备数据",arm+"；沿用 R0F0 特征基线的前三个采样周期")
+        ui.stage("Preparing loss comparison inputs",arm+". Uses the first three sampling cycles of the R0F0 feature baseline.")
         numeric_backend();data,corpus=load_data()
         groups,records,stream,paired,schedule=load_paired(data)
         if (corpus["digest"]!=m["corpus_digest"] or paired["paired_stream_sha256"]!=m["paired_stream_sha256"]
@@ -100,7 +100,7 @@ def run_arm(arm,*,resume=False):
                 if d["identity"]!=ident or d["model_weight_sha256"]!=weight:
                     raise ValueError("Diagnostic checkpoint mismatch")
             else:
-                ui.stage("固定训练优化诊断",f"{arm} step={n}；原 20 查询及 global/conditional 各 32 组")
+                ui.stage("Fixed training diagnostics",f"{arm} step={n}. Original 20 queries and 32 groups each from the global and conditional samplers.")
                 d=diagnose(assembler,built,optimizer,groups,records,n,arm=arm,panels=m["diagnostic_panels"],ui=ui)
                 d.update(identity=ident,model_weight_sha256=weight,
                          actual_training_clipped_updates=control["clipped_updates"],
@@ -163,11 +163,11 @@ def run_arm(arm,*,resume=False):
             old_G3="HELD",outer="UNSCORED",new_final="SEALED")
         verify_receipt(receipt,ident);write(out/"receipt.json",receipt)
         write(out/"status.json",dict(status="COMPLETE_VERIFIED_DEVELOPMENT",step=step),immutable=False)
-        ui.stage("本臂开发训练及评价完成",arm+"；两时点均验证完成")
+        ui.stage("Development run complete",arm+". Both scheduled evaluations are complete.")
         return receipt
     except BaseException as exc:
         detail=traceback.format_exc();(out/"traceback.log").write_text(detail,encoding="utf-8")
         write(out/("FAILED_"+attempt+".json"),dict(status="PARTIAL_FAILED",identity=ident,step=step,
             optimizer_boundary_unknown=(out/"IN_FLIGHT_UPDATE.json").exists(),error=repr(exc),
             wall_seconds=time.monotonic()-start,control=control,evaluations=evaluations))
-        ui.failure("损失函数对比已停止："+str(exc),str(out/"traceback.log"));raise
+        ui.failure("Loss comparison stopped: "+str(exc),str(out/"traceback.log"));raise

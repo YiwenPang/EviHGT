@@ -115,4 +115,4 @@ def main():
         execution=dict(GPU_workers=1,automatic_training_retry=False,automatic_next_phase=False,score_conditioned_stopping=False),
         final_markdown_report=str(OUT/records.PAIRED_MARKDOWN),final_json_report=str(OUT/records.PAIRED_JSON))
     write(MANIFEST,m);validate_manifest()
-    print(f'PAIRED_LOSSES_PRELAUNCH_REGISTERED；{len(cases)}项针对性测试；GPU TEST_ONLY={gpu}；开发=0；预留磁盘={required/(1<<30):.2f}GiB',flush=True)
+    print(f'PAIRED_LOSSES_PRELAUNCH_REGISTERED: {len(cases)} targeted tests. GPU TEST_ONLY={gpu}, DEVELOPMENT=0. Reserved {required/(1<<30):.2f} GiB.',flush=True)

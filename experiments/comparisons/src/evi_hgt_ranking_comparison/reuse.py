@@ -128,7 +128,7 @@ def verify_all_reuse():
             if read(dest)!=result: raise ValueError('Immutable reuse binding differs')
         else: write_new(dest,result)
         rows.append(result)
-        print(f"复用核验 {row['method']} {row['cell']}：CPU权重与历史源码一致；前向 0。",flush=True)
+        print(f"Verified {row['method']} {row['cell']} against the archived source and CPU weights. Forward passes: 0.",flush=True)
     if len(rows)!=4: raise ValueError('Exactly four registered training credits required')
     result=bound(dict(schema='RANKING_COMPARISON_FOUR_REUSE_BINDINGS_V1',status='VERIFIED_NO_FORWARD',rows=rows,
         actual_training_credits=4,model_forwards=0,optimizer_updates=0))

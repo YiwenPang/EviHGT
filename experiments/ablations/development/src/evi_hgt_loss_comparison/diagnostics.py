@@ -125,7 +125,7 @@ def diagnose(assembler,built,optimizer,groups,records,step,*,arm,panels=None,ui=
                 shared_gradients=gradient_comparison([gs[k] for k in shared_indices],[gc[k] for k in shared_indices]),
                 input_gradients=inputs,availability=copy.deepcopy(built.last),
                 graph_exposures=exposures))
-            if ui is not None: ui.preparation_progress("固定训练诊断组",j+1,len(selected))
+            if ui is not None: ui.preparation_progress("Fixed training diagnostic groups",j+1,len(selected))
     return dict(arm=arm,step=step,panels=panels,records=rows,seconds=time.monotonic()-start,**cost,
                 actual_query_forwards=sum(len(groups[i])+(len(records[i-G]["extra_pairs"]) if i>=G else 0) for i in selected),
                 training_state_unchanged=True,scope="LOCAL_FIXED_TRAINING_DIAGNOSTIC_NOT_POPULATION_OR_CLINICAL")

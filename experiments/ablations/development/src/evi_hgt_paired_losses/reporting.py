@@ -11,13 +11,13 @@ from .evaluation import facility,verify_result
 
 TIERS=(('2–5',2,5),('6–10',6,10),('11–32',11,32),('≥33',33,math.inf))
 LIMITS=[
-    '同一开发池中的跨cell开发复核；fold间存在数据角色重叠，不是独立盲测或互不相关的数据集。',
-    '划分与对应seed同时改变，无法单独分离初始化方差；逐病数量不是独立训练重复。',
-    '单折损失比较使用 R0F0 探索损失选择；新增两格及历史TEST_ONLY使用记录均披露。未作朴素独立fold t检验或显著性声明。',
-    'U为未知，softplus为经验P/U代理；无无偏PU、nnPU、常数对称和或统计优越性保证。',
-    '诊断仅覆盖预声明训练小面板，不外推全训练发生率或临床错误率。',
-    '原CUDA flags不保证逐位确定性；上游预训练target exposure仍NOT_VERIFIED。',
-    '同格E0真实G checkpoint摘要用作共享随机来源；属于跨划分配对实验的预登记开发规则，不是正式G1 M0采样计划。',
+    'The development cells come from the same pool and have overlapping data roles.',
+    'The split and its assigned seed change together. Per-disease counts describe the evaluation panel.',
+    'R0F0 informed loss selection. The history records the two additional cells and the earlier TEST_ONLY use.',
+    'U is unlabeled. Half-softplus is an empirical P/U objective.',
+    'Diagnostics cover the small registered training panels.',
+    'The CUDA flags allow bitwise differences. Pretraining target exposure remains unverified.',
+    'Each cell uses the digest of its E0 checkpoint at G as the shared random source for the paired comparison.',
 ]
 
 
@@ -149,12 +149,12 @@ def summarize(*,failed=False,ui=None):
         ui._write(f'ACTUAL LOGICAL / PHYSICAL UPDATES = {logical} / {physical}；REPLAY = {physical-logical}')
         for p in points:
             if p['metrics']:ui.evaluation_result(p['cell']+'/'+p['arm'],p['step'],p['metrics'])
-            else:ui._write(f"{p['cell']}/{p['arm']} {p['stage']}：指标不可用")
+            else:ui._write(f"{p['cell']}/{p['arm']} {p['stage']}: metrics unavailable")
         for cell in CELLS:
             for h,v in comparisons[cell].get('3G',{}).items():ui._write(f"3G {cell} {h} E1−E0 AUC={v['delta_auc']:+.6f} AP={v['delta_ap']:+.6f} Top-K={v['ranking_deltas']}")
-        ui._write('新增两格描述性等权摘要：'+str(descriptive))
-        ui._write('训练/评价/诊断实际耗时：'+str(costs))
-        ui._write('失败、恢复和重放：'+str({k:{f:v[f] for f in ('failures','recoveries','replayed_updates','optimizer_boundary_unknown')} for k,v in trajectories.items()}))
+        ui._write('Descriptive mean across two cells: '+str(descriptive))
+        ui._write('Measured training, evaluation and diagnostic times: '+str(costs))
+        ui._write('Failures, recovery and replay: '+str({k:{f:v[f] for f in ('failures','recoveries','replayed_updates','optimizer_boundary_unknown')} for k,v in trajectories.items()}))
         for line in ('OLD G3 = HELD','OUTER = UNSCORED','NEW FINAL = SEALED',str(OUT/records.PAIRED_MARKDOWN),str(OUT/records.PAIRED_JSON)):ui._write(line)
     return result
 
@@ -166,81 +166,81 @@ def quantiles(xs):
 
 
 def answers(r):
-    if r['new_two_cell_equal_weight_descriptive'] is None:return ['训练或双通道评价未完整，尚不能回答复现问题。']*8
+    if r['new_two_cell_equal_weight_descriptive'] is None:return ['Training or dual-task evaluation is incomplete.']*8
     c=r['comparisons'];good=all(c[x]['3G']['support']['delta_auc']>0 and c[x]['3G']['support']['delta_ap']>0 for x in CELLS)
     bad=all(c[x]['3G']['support']['delta_auc']<0 and c[x]['3G']['support']['delta_ap']<0 for x in CELLS)
-    decision='两格支持AUC/AP均改善，增加保留softplus候选的开发依据。' if good else '两格普遍退化，应重新审视R0F0观察。' if bad else '方向不一致或部分持平，收益对划分/seed敏感；完整保留全部结果。'
+    decision='Support AUC and AP increased in both cells, supporting further study of half-softplus.' if good else 'Support scores decreased in both cells. The R0F0 result needs further study.' if bad else 'The direction of the support difference varies across the two cells.'
     late_drop=any(next(p for p in r['milestones'] if p['cell']==cell and p['arm']==ARMS[1] and p['stage']=='3G')['metrics']['support']['macro_auc']<next(p for p in r['milestones'] if p['cell']==cell and p['arm']==ARMS[1] and p['stage']=='1.5G')['metrics']['support']['macro_auc'] for cell in CELLS)
     ap_top=[];contra=[];tiers=[];diagnostic=[];resource=[]
     for cell in CELLS:
         s=c[cell]['3G']['support'];t=c[cell]['3G']['contra']
         neg=[k for k,v in s['ranking_deltas'].items() if v< -1e-12]
-        ap_top.append(f"{cell} support ΔAP={s['delta_ap']:+.6f}，Top-K退化项={neg or '无'}")
+        ap_top.append(f"{cell} support ΔAP={s['delta_ap']:+.6f}. Lower top-k metrics: {neg or 'none'}.")
         e=[next(p for p in r['milestones'] if p['cell']==cell and p['arm']==ARMS[1] and p['stage']==stage)['metrics']['contra'] for stage in ('1.5G','3G')]
-        contra.append(f"{cell} contra ΔAUC/AP={t['delta_auc']:+.6f}/{t['delta_ap']:+.6f}；Top-K退化项={[k for k,v in t['ranking_deltas'].items() if v< -1e-12] or '无'}；E1自身1.5G→3G ΔAUC/AP={e[1]['macro_auc']-e[0]['macro_auc']:+.6f}/{e[1]['macro_ap']-e[0]['macro_ap']:+.6f}")
+        contra.append(f"{cell} contraindication ΔAUC/AP={t['delta_auc']:+.6f}/{t['delta_ap']:+.6f}. Lower top-k metrics: {[k for k,v in t['ranking_deltas'].items() if v< -1e-12] or 'none'}. E1 change from 1.5G to 3G: ΔAUC/AP={e[1]['macro_auc']-e[0]['macro_auc']:+.6f}/{e[1]['macro_ap']-e[0]['macro_ap']:+.6f}.")
         for h in ('support','contra'):
             desc=[]
             for tier,v in c[cell]['3G'][h]['candidate_tiers'].items():
-                desc.append(tier+'=空' if not v['diseases'] else f"{tier}(n={v['diseases']}) ΔAUC/AP={v['delta_auc']:+.6f}/{v['delta_ap']:+.6f}，退化Top-K={[k for k,x in v['ranking_deltas'].items() if x< -1e-12] or '无'}")
+                desc.append(tier+' is empty' if not v['diseases'] else f"{tier} (n={v['diseases']}) ΔAUC/AP={v['delta_auc']:+.6f}/{v['delta_ap']:+.6f}. Lower top-k metrics: {[k for k,x in v['ranking_deltas'].items() if x< -1e-12] or 'none'}.")
             tiers.append(cell+'/'+h+'：'+'；'.join(desc))
         for panel in ('global32','conditional32'):
             for h in ('support','contra'):
                 ds=[r['diagnostics'][cell+'/'+a+':'+str(cell_spec(cell)['total'])]['summary'][panel][h] for a in ARMS]
                 lows=[ds[i]['shape_on_identical_raw_scores'][loss]['violated_low_derivative'] for i,loss in enumerate(('sigmoid','softplus'))]
-                diagnostic.append(f"{cell}/{panel}/{h}：实际逆序{ds[0]['negative']}→{ds[1]['negative']}，错方向低导数{lows[0]}→{lows[1]}")
+                diagnostic.append(f"{cell}/{panel}/{h}: misordered pairs {ds[0]['negative']} to {ds[1]['negative']}. Small gradients on misordered pairs {lows[0]} to {lows[1]}.")
         ts=[r['trajectories'][cell+'/'+a] for a in ARMS]
-        resource.append(f"{cell} E0/E1 clipping={ts[0]['clipping_frequency']:.2%}/{ts[1]['clipping_frequency']:.2%}，训练={ts[0]['training_seconds']/3600:.3f}/{ts[1]['training_seconds']/3600:.3f}h，有限零梯度={ts[0]['finite_zero_gradient_updates']}/{ts[1]['finite_zero_gradient_updates']}")
+        resource.append(f"{cell} E0/E1 clipping={ts[0]['clipping_frequency']:.2%}/{ts[1]['clipping_frequency']:.2%}, training={ts[0]['training_seconds']/3600:.3f}/{ts[1]['training_seconds']/3600:.3f} h, finite zero gradients={ts[0]['finite_zero_gradient_updates']}/{ts[1]['finite_zero_gradient_updates']}.")
     return [decision,
-        '；'.join(ap_top)+'。全部正/负/零Top-K差值见表；不能仅由AUC推断Top-K同向。',
-        '；'.join(contra)+'。支持改善但反证下降不称全面改善。',
-        '；'.join(tiers)+'。边界预先固定，小样本仅描述。',
-        '；'.join(diagnostic)+'。低导数减少不等于逆序普遍减少；margin/两头梯度完整见JSON。',
-        '；'.join(resource)+'。梯度分位数和实际显存见资源表，未据此调clip或LR。',
-        '历史开发、划分重叠、划分/seed混杂、预训练暴露NOT_VERIFIED与CUDA非逐位确定性限制均保留。',
-        ('更应优先检查固定训练预算下的时间走势；本轮不追加训练。' if late_drop else '更应优先做核心证据消融；本轮不自动执行。') if good else '更应先重新诊断划分/seed敏感性及反证或候选池代价；不追加seed刷分。']
+        ' '.join(ap_top)+' The table reports all top-k differences.',
+        ' '.join(contra),
+        ' '.join(tiers)+' Candidate-size boundaries were prespecified.',
+        ' '.join(diagnostic)+' The JSON reports margins and gradient summaries for both tasks.',
+        ' '.join(resource)+' See the resource table for gradient quantiles and memory use.',
+        'The development estimates are conditional on these two split and seed combinations.',
+        ('Inspect the score trajectory under the fixed training budget.' if late_drop else 'Evaluate the effect of the evidence interventions.') if good else 'Check sensitivity to the split and assigned seed, and inspect the contraindication and candidate-stratum results.']
 
 
 def markdown(r):
-    fmt=lambda v:'空/不可用' if v is None else f'{v:.6f}'
-    lines=['# 跨划分配对损失比较','',records.display_status(r['status']),'',f"完成 {r['complete_development_trajectories']}/4；逻辑/物理={r['logical_optimizer_updates']}/{r['physical_optimizer_updates']}；重放={r['replayed_updates']}",'',
-        '| cell | loss | 时点/step | support AUC | AP | contra AUC | AP |','|---|---|---|---:|---:|---:|---:|']
+    fmt=lambda v:'Unavailable' if v is None else f'{v:.6f}'
+    lines=['# Paired loss comparison across splits','',records.display_status(r['status']),'',f"Completed {r['complete_development_trajectories']}/4. Logical/physical updates: {r['logical_optimizer_updates']}/{r['physical_optimizer_updates']}. Replayed: {r['replayed_updates']}.",'',
+        '| Cell | Loss | Endpoint/update | Support AUC | AP | Contra AUC | AP |','|---|---|---|---:|---:|---:|---:|']
     for p in r['milestones']:
-        vals=[fmt(p['metrics'][h][k]) if p['metrics'] else '不可用' for h in ('support','contra') for k in ('macro_auc','macro_ap')]
+        vals=[fmt(p['metrics'][h][k]) if p['metrics'] else 'Unavailable' for h in ('support','contra') for k in ('macro_auc','macro_ap')]
         lines.append(f"| {p['cell']} | {p['arm']} | {p['stage']}/{p['step']} | "+' | '.join(vals)+' |')
-    lines+=['','| cell/loss/时点 | 通道 | 总P/U | 可评P/U | 可评/跳过疾病 | P@5/10 | R@5/10 | Hits@5/10 | NDCG@5/10 |','|---|---|---|---|---|---|---|---|---|']
+    lines+=['','| Cell/loss/endpoint | Task | Total P/U | Evaluable P/U | Evaluable/skipped diseases | P@5/10 | R@5/10 | Hits@5/10 | NDCG@5/10 |','|---|---|---|---|---|---|---|---|---|']
     for p in r['milestones']:
         if not p['metrics']:continue
         for h,v in p['metrics'].items():
             pu=[sum(d[k] for d in v['disease_metrics']) for k in ('P','U')]
             top=[' / '.join(fmt(v['ranking'][f'{k}@{n}']) for n in (5,10)) for k in ('P','R','Hits','NDCG')]
             lines.append(f"| {p['cell']}/{p['arm']}/{p['stage']} | {h} | {v['P']}/{v['U']} | {pu[0]}/{pu[1]} | {v['evaluable_diseases']}/{v['skipped_diseases']} | "+' | '.join(top)+' |')
-    lines+=['','逐病P/U/N、effective_k、跳过原因及所有Top-K原值见JSON；AP为threshold-group AP。','',
-        '| cell | 时点 | 通道 | ΔAUC | ΔAP | AUC改善/退化/持平 | AP改善/退化/持平 | ΔTop-K |','|---|---|---|---:|---:|---|---|---|']
+    lines+=['','The JSON lists per-disease P/U/N, effective k, skip reasons and all top-k values. AP groups tied scores by threshold.','',
+        '| Cell | Endpoint | Task | ΔAUC | ΔAP | AUC higher/lower/tied | AP higher/lower/tied | ΔTop-K |','|---|---|---|---:|---:|---|---|---|']
     for cell,stages in r['comparisons'].items():
         for stage,heads in stages.items():
             for h,c in heads.items():
                 count=lambda k:'/'.join(str(c['direction_counts'][k][x]) for x in ('improved','degraded','tied'))
                 lines.append(f"| {cell} | {stage} | {h} | {c['delta_auc']:+.6f} | {c['delta_ap']:+.6f} | {count('auc')} | {count('ap')} | {c['ranking_deltas']} |")
-                lines+=['','| 候选N | 疾病数 | P/U | ΔAUC | ΔAP | ΔTop-K |','|---|---:|---|---:|---:|---|']
+                lines+=['','| Candidates N | Diseases | P/U | ΔAUC | ΔAP | ΔTop-K |','|---|---:|---|---:|---:|---|']
                 for tier,t in c['candidate_tiers'].items():lines.append(f"| {cell}/{stage}/{h}/{tier} | {t['diseases']} | {t['P']}/{t['U']} | {fmt(t['delta_auc'])} | {fmt(t['delta_ap'])} | {t['ranking_deltas']} |")
-                lines+=['','所有逐病E1−E0及负向变化完整保存在JSON per_disease，数值持平阈值1e-12。','']
-    lines+=['','新增两格差值的描述性等权均值：',str(r['new_two_cell_equal_weight_descriptive']),'',
-        '| 轨迹 | clipping频率 | 有限零梯度 | 训练秒 | 梯度分位数 | CUDA最大记录reserved |','|---|---:|---:|---:|---|---:|']
+                lines+=['','The per_disease JSON contains every E1 minus E0 difference. The tie tolerance is 1e-12.','']
+    lines+=['','Descriptive mean difference across the two added cells:',str(r['new_two_cell_equal_weight_descriptive']),'',
+        '| Run | Clipping frequency | Finite zero gradients | Training (s) | Gradient quantiles | Peak CUDA reserved |','|---|---:|---:|---:|---|---:|']
     for k,t in r['trajectories'].items():lines.append(f"| {k} | {fmt(t['clipping_frequency'])} | {t['finite_zero_gradient_updates']} | {t['training_seconds']:.3f} | {t['gradient_norm_quantiles']} | {t['CUDA_max_recorded_reserved']} |")
-    lines+=['','| 固定训练诊断 | 面板 | 通道 | pair数 | 实际逆序 | 本臂错方向低导数 | LOW_NORM cosine |','|---|---|---|---:|---:|---:|---:|']
+    lines+=['','| Fixed training diagnostic | Panel | Task | Pairs | Misordered pairs | Small gradients on misordered pairs | LOW_NORM cosine |','|---|---|---|---:|---:|---:|---:|']
     for k,d in r['diagnostics'].items():
         loss='softplus' if ARMS[1] in k else 'sigmoid'
         for panel,heads in d['summary'].items():
             for h,v in heads.items():lines.append(f"| {k} | {panel} | {h} | {v['pairs']} | {v['negative']} | {v['shape_on_identical_raw_scores'][loss]['violated_low_derivative']} | {v['low_norm_cosines']} |")
-    lines+=['','训练/评价/诊断及准备实际耗时：',str(r['costs']),'',r['costs_note'],'',
-        '失败、恢复、重放及未决optimizer边界完整见JSON trajectories；未完成评价保持UNAVAILABLE。','',
-        '## 八个预登记问题','']
+    lines+=['','Measured training, evaluation, diagnostics and preparation times:',str(r['costs']),'',r['costs_note'],'',
+        'The trajectories section of the JSON records failures, recovery, replay and unresolved optimizer state. Incomplete evaluations are marked UNAVAILABLE.','',
+        '## Eight prespecified questions','']
     for i,a in enumerate(r['answers'],1):lines.append(f'{i}. {a}')
-    lines+=['','## R0F0发现集参照（单独列示）','']
+    lines+=['','## R0F0 development reference','']
     for p in r['discovery_R0F0']['milestones']:
-        if p.get('metrics'):lines.append(f"- 单折损失比较 {p['arm']} step={p['step']}：support AUC/AP={p['metrics']['support']['macro_auc']:.6f}/{p['metrics']['support']['macro_ap']:.6f}；contra={p['metrics']['contra']['macro_auc']:.6f}/{p['metrics']['contra']['macro_ap']:.6f}")
-    lines+=['','## 历史使用与限制','',str(r['historical_development_use']),'']+['- '+s for s in LIMITS]
-    lines+=['','OLD G3 = HELD / 4 OF 75 COMPLETE','OUTER = UNSCORED','NEW FINAL = SEALED','无论结果如何，本轮结束后停止。','',r['final_json_report']]
+        if p.get('metrics'):lines.append(f"- Paired loss comparison {p['arm']} step={p['step']}: support AUC/AP={p['metrics']['support']['macro_auc']:.6f}/{p['metrics']['support']['macro_ap']:.6f}, contra={p['metrics']['contra']['macro_auc']:.6f}/{p['metrics']['contra']['macro_ap']:.6f}.")
+    lines+=['','## Prior development use','',str(r['historical_development_use']),'']+['- '+s for s in LIMITS]
+    lines+=['','OLD G3 = HELD / 4 OF 75 COMPLETE','OUTER = UNSCORED','NEW FINAL = SEALED','',r['final_json_report']]
     (OUT/records.PAIRED_MARKDOWN).write_text('\n'.join(lines)+'\n',encoding='utf-8')
 
 

@@ -71,7 +71,7 @@ def check_growth(target,required_bytes=0):
         path=(ROOT/relative).resolve()
         if target==path or target.is_relative_to(path):
             actual=bytes_under(path)
-            if actual+required_bytes>cap:raise OSError(f'新工件目录增长上限：{path}；当前{actual}，本次预留{required_bytes}，上限{cap}；保留现有恢复锚')
+            if actual+required_bytes>cap:raise OSError(f'Artifact directory limit at {path}: {actual} bytes used, {required_bytes} requested, {cap} allowed. Existing checkpoints retained.')
             rows.append(dict(path=str(path),actual_bytes=actual,required_bytes=required_bytes,limit_bytes=cap))
     base=(ROOT/'outputs/ranking_protocol/ranking_comparison/runs').resolve()
     if target==base or target.is_relative_to(base):
@@ -83,7 +83,7 @@ def check_growth(target,required_bytes=0):
             # Every commit reserves metadata/log growth between durable anchors.
             extra=(required_bytes if key==category or (key=='uncommitted_orphans' and category=='atomic')
                    else 1_000_000 if key=='logs_metadata' else 0)
-            if usage[key]+extra>cap:raise OSError('新工件分类增长上限：'+key+'；保留有效恢复锚')
+            if usage[key]+extra>cap:raise OSError('Artifact category limit exceeded: '+key+'. Existing checkpoints retained.')
             rows.append(dict(category=key,actual_bytes=usage[key],required_bytes=extra,limit_bytes=cap))
     return rows
 
@@ -121,9 +121,9 @@ def check_queue_capacity():
     remaining={}
     for relative in ('outputs/ranking_protocol/ranking_comparison/runs','data/cache/ranking_comparison/native'):
         path=ROOT/relative;actual=bytes_under(path);cap=_limits[relative]
-        if actual>cap:raise OSError('新队列现有目录已超过容量合同：'+relative)
+        if actual>cap:raise OSError('Existing output exceeds the queue storage limit: '+relative)
         remaining[relative]=cap-actual
     required=sum(remaining.values())+70_000_000_000
     free=shutil.disk_usage(ROOT.anchor).free
-    if free<required:raise OSError(f'整个串行队列磁盘不足：还需{required-free} bytes；未启动模型，保留有效恢复锚')
+    if free<required:raise OSError(f'The queue needs {required-free} more bytes. Existing checkpoints retained.')
     return dict(free_bytes=free,required_free_bytes=required,remaining_growth_bytes=remaining,system_reserve_bytes=70_000_000_000)

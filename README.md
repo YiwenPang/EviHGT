@@ -93,6 +93,10 @@ The table summarizes five inner development folds of repeat R0. Metrics are aver
 
 HGTDR-adapted and HGTDR-adapted-contra lead on their respective development panels. In the input- and budget-matched comparison, EviHGT raises support AP by 3.81 percentage points over HGT-D1 and 5.02 over PairMLP-D1. These differences measure the full EviHGT model under matched conditions. [Experiment figures and evaluation protocol](docs/experiments.md)
 
+## Cold-disease results
+
+On a strict disease holdout, EviHGT increased treatment-support AP from 0.5233 to 0.5703 and NDCG@10 from 0.6025 to 0.6489 relative to HGTDR-adapted. HGTDR-adapted-contra achieved contraindication AP of 0.7078, against 0.6690 for EviHGT. Both models scored the same test candidates. [Full metrics and paired intervals](docs/experiments.md#cold-disease-comparison) · [Code and input requirements](experiments/cold_start/hgtdr/)
+
 ## Tests
 
 To run just the portable model and data tests after installing the test dependencies, use `python -m pytest tests -q --basetemp outputs/pytest`. The [public checks](#try-the-public-checks) also exercise the study-specific code.

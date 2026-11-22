@@ -26,8 +26,8 @@ EVENTS={'stage','preparation_progress','training_start','update','checkpoint','e
 
 def queue(resume=False):
     m=validate_manifest();no_conflicts();old_hold()
-    if shutil.disk_usage(OUT).free<m['required_free_bytes']:raise OSError('本轮四条轨迹所需磁盘空间不足')
-    if (OUT/'queue_started.json').exists() and not resume:raise FileExistsError('PAIRED_LOSSES队列已启动')
+    if shutil.disk_usage(OUT).free<m['required_free_bytes']:raise OSError('Insufficient free space for four training runs')
+    if (OUT/'queue_started.json').exists() and not resume:raise FileExistsError('The paired-loss queue has already started')
     ui=Console(stream=sys.stderr,color=False);ui.banner(QUEUE,82482);rc=0
     try:
         with exclusive_queue(),awake():
@@ -38,7 +38,7 @@ def queue(resume=False):
                 no_conflicts();validate_manifest();root=OUT/cell/arm;root.mkdir(parents=True,exist_ok=True)
                 command=[sys.executable,'-B','-u',str(Path(__file__).resolve()),'--worker',cell,arm]
                 if resume and (root/'started.json').exists():command.append('--resume')
-                ui.stage('固定开发队列',f'当前 {cell}/{arm}；完成轨迹数 {i}/4；预算{cell_spec(cell)["total"]}')
+                ui.stage('Development queue',f'{cell}/{arm}. Complete: {i}/4. Planned updates: {cell_spec(cell)["total"]}.')
                 with (root/'stdout.log').open('a',encoding='utf-8') as log:
                     worker=subprocess.Popen(command,cwd=ROOT,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,encoding='utf-8',errors='replace',bufsize=1)
                     write(OUT/'active_worker.json',dict(cell=cell,arm=arm,pid=worker.pid,queue_pid=os.getpid(),command=command),immutable=False)
@@ -54,14 +54,14 @@ def queue(resume=False):
                         except Exception:
                             with (OUT/'console_render_errors.log').open('a',encoding='utf-8') as f:f.write(traceback.format_exc())
                     code=worker.wait()
-                if code:raise RuntimeError(f'{cell}/{arm}已停止（退出码{code}），后续未启动；详见{root / "stdout.log"}')
+                if code:raise RuntimeError(f'{cell}/{arm} exited with code {code}. Log: {root / "stdout.log"}')
                 from evi_hgt_paired_losses.runner import verify_receipt
                 verify_receipt(read(root/'receipt.json'),identity(m,cell,arm))
-                ui.stage('开发轨迹完成',f'{cell}/{arm}；完成轨迹数 {i+1}/4')
+                ui.stage('Development run complete',f'{cell}/{arm}. Complete: {i+1}/4.')
     except BaseException as exc:
         rc=1;(OUT/'queue_traceback.log').write_text(traceback.format_exc(),encoding='utf-8')
         write(OUT/('QUEUE_FAILED_'+str(time.time_ns())+'.json'),dict(status='PARTIAL_FAILED',error=repr(exc)))
-        ui.failure('开发队列停止：'+str(exc),str(OUT/'queue_traceback.log'))
+        ui.failure('Development queue stopped: '+str(exc),str(OUT/'queue_traceback.log'))
     finally:
         try:
             from evi_hgt_paired_losses.reporting import summarize
@@ -70,8 +70,8 @@ def queue(resume=False):
         except BaseException as exc:
             rc=1;(OUT/'reporting_traceback.log').write_text(traceback.format_exc(),encoding='utf-8')
             write(OUT/records.PAIRED_JSON,dict(status='BLOCKED',error=repr(exc),old_G3='HELD',outer='UNSCORED',new_final='SEALED'),immutable=False)
-            (OUT/records.PAIRED_MARKDOWN).write_text('# 跨划分损失比较汇总中止\n\n汇总身份验证失败；原始记录保留。\n\n'+str(OUT/'reporting_traceback.log')+'\n',encoding='utf-8')
-            ui.failure('最终汇总验证失败',str(OUT/'reporting_traceback.log'));ui._write('FINAL STATUS = BLOCKED')
+            (OUT/records.PAIRED_MARKDOWN).write_text('# Paired-loss summary interrupted\n\nSummary verification failed. Run records are available.\n\n'+str(OUT/'reporting_traceback.log')+'\n',encoding='utf-8')
+            ui.failure('Summary verification failed',str(OUT/'reporting_traceback.log'));ui._write('FINAL STATUS = BLOCKED')
             ui._write(str(OUT/records.PAIRED_MARKDOWN));ui._write(str(OUT/records.PAIRED_JSON))
         ui.close()
     return rc
@@ -82,7 +82,7 @@ def main():
     g.add_argument('--queue',action='store_true');g.add_argument('--worker',nargs=2,metavar=('CELL','ARM'));g.add_argument('--verify',action='store_true')
     p.add_argument('--resume',action='store_true');a=p.parse_args()
     if a.verify:
-        validate_manifest();no_conflicts();old_hold();print('PAIRED_LOSSES清单及启动边界通过。',flush=True);return 0
+        validate_manifest();no_conflicts();old_hold();print('Paired-loss manifest and launch conditions verified.',flush=True);return 0
     if a.worker:
         from evi_hgt_paired_losses.runner import run_arm
         run_arm(*a.worker,resume=a.resume);return 0

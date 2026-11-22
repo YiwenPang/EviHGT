@@ -1,5 +1,6 @@
 {
   "EviHGT/main.py": "3bb2d6515441a7d5cda607657ff39db62aa7a44268fce467b034ef0be5539fc2",
   "EviHGT/src/evi_hgt/competition/runner.py": "76810474d94ba10c43dd5ecc50eca3c363ce1d6747fe35df0156637c932bf144",
-  "EviHGT/src/evi_hgt/evaluation/protocol.py": "6417e2bc3922b700809e3f4a4273d25ef98369f5ac70cfed0233eaccca337c65"
+  "EviHGT/src/evi_hgt/evaluation/protocol.py": "6417e2bc3922b700809e3f4a4273d25ef98369f5ac70cfed0233eaccca337c65",
+  "EviHGT/src/evi_hgt/competition/protocol.py": "d971d225a4a78f291d9c16f0b16531a29d30e80bdd95960e36ceabbd04da522b"
 }

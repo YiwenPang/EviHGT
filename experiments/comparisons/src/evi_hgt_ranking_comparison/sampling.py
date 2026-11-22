@@ -193,7 +193,7 @@ def freeze_all():
         for f in range(5):
             cell=f'R{r}F{f}'
             rows.append(freeze_cell(inputs.cell(cell),parent))
-            print(f'采样计划封存 {cell}：{rows[-1]["origin_kind"]}，模型前向 0，优化更新 0',flush=True)
+            print(f'Sealed sampling plan for {cell}: {rows[-1]["origin_kind"]}. Forward passes: 0. Optimizer updates: 0.',flush=True)
     result=bound(dict(schema='RANKING_COMPARISON_ALL_CELL_PLANS_SEALED_V1',status='SEALED_15_CELLS',cells=rows,
         existing_reference_count=3,static_metadata_count=12,formal_training_authorized=False,outer_authorized=False,final_authorized=False,
         source_sha256={str(ROOT/'src/evi_hgt_ranking_comparison'/n):sha(ROOT/'src/evi_hgt_ranking_comparison'/n) for n in ('data.py','sampling.py')},

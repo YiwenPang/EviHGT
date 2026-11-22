@@ -13,10 +13,10 @@ class RuntimeConsole:
     @contextmanager
     def preparing(self):
         stop=threading.Event();started=time.monotonic()
-        self.write(f'━━ [{self.mode}] {self.method}/{self.cell} · 数据与特征准备 ━━')
+        self.write(f'━━ [{self.mode}] {self.method}/{self.cell} · Preparing data and features ━━')
         def heartbeat():
             while not stop.wait(self.refresh):
-                self.write(f'[{self.mode}] 准备中，已用 {time.monotonic()-started:.0f} 秒；此阶段尚无模型更新。')
+                self.write(f'[{self.mode}] Preparing inputs for {time.monotonic()-started:.0f} s. Optimizer updates: 0.')
         thread=threading.Thread(target=heartbeat,daemon=True);thread.start()
         try:yield
         finally:stop.set();thread.join()
@@ -26,11 +26,11 @@ class RuntimeConsole:
         duration=sum(row[k] for k in ('prepare_seconds','forward_seconds','backward_seconds','optimizer_seconds'))
         speed=1/duration if duration>0 else 0
         remaining=(3*G-row['source_step'])/speed if speed else None
-        eta='不适用（有界夹具）' if self.mode=='TEST_ONLY' else f'{remaining/3600:.2f} 小时' if remaining is not None else '未知'
-        info=(f"Epoch {epoch}/3 loss={row['loss']:.6g} {speed:.3f}步/秒 ETA={eta} "
+        eta='n/a (test fixture)' if self.mode=='TEST_ONLY' else f'{remaining/3600:.2f} h' if remaining is not None else 'unknown'
+        info=(f"Epoch {epoch}/3 loss={row['loss']:.6g} {speed:.3f} updates/s ETA={eta} "
               f"GPU allocated={row['allocated_peak']/2**30:.3f}GiB reserved={row['reserved_peak']/2**30:.3f}GiB")
         prefix=f'[{self.mode}] {self.method}/{self.cell}'
-        if self.mode=='TEST_ONLY':prefix+=' 训练夹具'+(' · 重放' if row['replay'] else '')
+        if self.mode=='TEST_ONLY':prefix+=' fixture'+(' · replay' if row['replay'] else '')
         if self.tty:
             if self.bar is None:
                 self.bar=tqdm(total=None if self.mode=='TEST_ONLY' else 3*G,desc=prefix,file=self.stream,mininterval=self.refresh,dynamic_ncols=True)
@@ -50,8 +50,8 @@ class NativeConsole:
         total=300 if stage=='HGTDR' else 1 if stage=='PRETRAIN' else 500
         seconds=row.get('elapsed_seconds',row.get('seconds',0));speed=1/seconds if seconds else 0.
         memory='CPU' if gpu_bytes is None else f'{gpu_bytes/2**30:.3f}GiB'
-        prefix=f'[{self.mode}] {self.method} {stage}'+(' · 重放' if replay else '')
-        detail=f"Epoch {epoch}/{total} loss={row['loss']:.6g} {speed:.3f}更新/秒 ETA="+('不适用（有界夹具）' if self.mode=='TEST_ONLY' else '按原生阶段推进')+f' GPU={memory}'
+        prefix=f'[{self.mode}] {self.method} {stage}'+(' · replay' if replay else '')
+        detail=f"Epoch {epoch}/{total} loss={row['loss']:.6g} {speed:.3f} updates/s ETA="+('n/a (test fixture)' if self.mode=='TEST_ONLY' else 'native stage')+f' GPU={memory}'
         if sys.stdout.isatty():
             if self.bar is None:self.bar=tqdm(total=None,desc=prefix,mininterval=5,dynamic_ncols=True)
             self.bar.set_postfix_str(detail,refresh=False);self.bar.update()

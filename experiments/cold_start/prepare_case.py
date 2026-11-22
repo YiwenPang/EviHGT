@@ -186,11 +186,11 @@ def prepare(case):
     G, groups, conditional = make_schedule(*positives['train'],ds['train'],ss['train'], observed | blocked,case)
     d_hold = {k for k,v in drug_part.items() if v!='train'}
     s_hold = {k for k,v in disease_part.items() if v!='train'}
-    print(f'[{case}] 训练/验证/测试 P（支持、禁忌）：{[(len(a),len(b)) for a,b in positives.values()]}；计划更新 {3*G:,} 次。',flush=True)
+    print(f'[{case}] Train/dev/test positives (support, contra): {[(len(a),len(b)) for a,b in positives.values()]}. Planned updates: {3*G:,}.',flush=True)
     stage = CACHE / f'{case}.prepare_{os.getpid()}'
     stage.mkdir(exist_ok=False)
     graph = build_graph(WORKSPACE,stage,d_hold,s_hold,blocked)
-    print(f'[{case}] 图谱隔离完成，写入采样计划和特征。',flush=True)
+    print(f'[{case}] Graph masking complete. Writing the sampling plan and features.',flush=True)
     files = graph.pop('files')
     graph_audit = graph.pop('graph_audit')
     def put(name, writer):
@@ -246,7 +246,7 @@ def prepare(case):
     manifest['cold_case_receipt'] = js('preparation_audit.json',audit)
     write_json(stage/'manifest.json',manifest)
     os.rename(stage,final)
-    print(f'[{case}] 输入已封存：{final}',flush=True)
+    print(f'[{case}] Sealed inputs: {final}',flush=True)
 
 
 if __name__ == '__main__':

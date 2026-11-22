@@ -158,7 +158,7 @@ def prepare(spec_path=None):
         if 'protocol_digest' in settings:
             raise ValueError('Protocol binding is added only after freezing')
     manifest = dict(schema='COMMON_PILOT_COMPETITION_V1', scope='COMMON_PILOT_DEVELOPMENT',
-        training_authorized=True, authorization='User: 开始做实验吧。请开始比赛！',
+        training_authorized=True, authorization='User approved the pilot training runs',
         outer_scoring=False, final_scoring=False, unlabeled_is_negative=False,
         frozen_at_utc=datetime.now(timezone.utc).isoformat(), dataset=str(DATASET),
         data_digest=data['digest'], data_manifest_sha256=sha256(DATASET / 'manifest.json'),

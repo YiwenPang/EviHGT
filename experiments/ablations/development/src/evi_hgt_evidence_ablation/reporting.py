@@ -9,14 +9,14 @@ from .runner import logged_updates,verify_receipt,verify_actual_pairing
 from .evaluation import verify_result,facility
 
 LIMITS=[
-    '同一开发池的两个既有cell，角色重叠；不建立独立泛化、统计显著或优于HGTDR/TxGNN的结论。',
-    'EP只截断显式evidence pooled64和最终provenance16两个出口；properties、数量、polarity、availability、SideInfo和D1均保留。',
-    'EP的pool、s/c和质量随干预重新学习；不是所有证据对无证据，也不是Evidence与Provenance各自因果贡献。',
-    'QUALITY只识别显式动态fact质量context；pool/属性仍含代理，不证明四维展开优于直接s/c，NA不等于U。',
-    '名义参数相同但有效容量、输入秩、梯度和AdamW活跃状态不同；两消融不是完全正交因果分解。',
-    'softplus为经验P/U代理，不是nnPU或已证明无偏风险；U是未知，contra不是support补集；潜在四值不是临床真值。',
-    'available覆盖及诊断仅来自登记训练面板；结构可达和局部logit变化不等于性能增益。上游预训练目标暴露NOT_VERIFIED。',
-    '未增加cell、seed、epoch、联合删除臂、疾病末端残差或超参搜索；旧G3 HELD、outer UNSCORED、new final SEALED。',
+    'Both cells come from the same development pool, with overlapping data roles. The comparison estimates changes within these cells.',
+    'EP zeros the pooled 64-dimensional evidence vector and the final 16-dimensional provenance vector. Properties, counts, polarity, availability, SideInfo and D1 remain available.',
+    'The EP intervention retrains pooling, support and refutation strengths, and quality estimates. It estimates the joint contribution of the two zeroed outputs.',
+    'QUALITY fixes the explicit fact-quality context while retaining pooled evidence and attributes. Not-applicable and unknown are distinct states.',
+    'The interventions have equal nominal parameter counts. Effective input rank, gradient flow and active optimizer states differ and can interact.',
+    'Half-softplus is an empirical P/U objective. U is unlabeled, and contraindication scores have their own head. The four latent fact states describe model representations.',
+    'Training-panel coverage and local logit changes are diagnostic. Pretraining target exposure remains unverified.',
+    'The registered study covers its two cells and original training budget. The outer and final panels were held aside.',
 ]
 
 
@@ -99,11 +99,11 @@ def summarize(failed=False,ui=None):
            records.PAIRED_HISTORY_FIELD: reuse[records.PAIRED_REFERENCE_FIELD]},scientific_limits=LIMITS,old_G3='HELD',outer='UNSCORED',new_final='SEALED',
         final_markdown_report=str(OUT/records.EVIDENCE_MARKDOWN),final_json_report=str(OUT/records.EVIDENCE_JSON))
     write(OUT/records.EVIDENCE_JSON,result,immutable=False)
-    lines=['# Core evidence ablations', '', records.display_status(status),'',f'只读参照2条；新增消融完成{completed}/4。',
-        f'逻辑更新{logical}；已知物理下界{physical}；已知重放{replay}；物理范围{actual["unknown_range"]}；精确值{actual["exact"]}。',
-        '跨划分损失比较记录了82482次逻辑更新；已知物理下界82598、上界82599；精确值UNRESOLVED；已知重放116；历史7285边界UNKNOWN、旧中断原因UNRESOLVED。','',
-        '固定3G为主要终点；1.5G完整保留。差值始终 REF_FULL − ablation；正值完整模型较好。','',
-        '|cell/arm/step|head|FULL AUC/AP|消融AUC/AP|ΔAUC|ΔAP|ΔP/R/Hits/NDCG@5/10|','|---|---|---|---|---|---|---|']
+    lines=['# Core evidence ablations', '', records.display_status(status),'',f'Two FULL references reused. Completed interventions: {completed}/4.',
+        f'Logical updates: {logical}. Known physical lower bound: {physical}. Replayed: {replay}. Physical range: {actual["unknown_range"]}. Exact: {actual["exact"]}.',
+        'The paired-loss comparison recorded 82,482 logical updates and 116 known replays. The physical total is between 82,598 and 82,599 because the outcome of attempt 7285 is unresolved.','',
+        'The primary endpoint is 3G. Results at 1.5G are also reported. Each difference is FULL minus the ablation.','',
+        '|cell/arm/step|head|FULL AUC/AP|Ablation AUC/AP|ΔAUC|ΔAP|ΔP/R/Hits/NDCG@5/10|','|---|---|---|---|---|---|---|']
     csv_rows=[]
     for c in comparisons.values():
         ref=reuse['cells'][c['cell']]['metrics'][str(c['step'])][c['head']]
@@ -112,13 +112,13 @@ def summarize(failed=False,ui=None):
         lines.append(f'|{c["cell"]}/{c["ablation"]}/{c["step"]}|{c["head"]}|{ref["macro_auc"]:.9f}/{ref["macro_ap"]:.9f}|{a["macro_auc"]:.9f}/{a["macro_ap"]:.9f}|{c["delta_auc"]:+.9f}|{c["delta_ap"]:+.9f}|{c["ranking_deltas"]}|')
         for metric,delta in [('AUC',c['delta_auc']),('AP',c['delta_ap']),*c['ranking_deltas'].items()]:
             csv_rows.append(dict(cell=c['cell'],ablation=c['ablation'],step=c['step'],primary_endpoint=c['primary_endpoint'],head=c['head'],metric=metric,delta_FULL_minus_ablation=delta))
-        lines+=['',f'逐病及候选分层 {c["cell"]}/{c["ablation"]}/{c["step"]}/{c["head"]}：',
-                str(c['direction_counts']),str(c['candidate_tiers']),f'可评疾病={a["evaluable_diseases"]}；跳过={a["skipped_diseases"]}。']
-    lines+=['','完整逐病改善/退化/持平、原始P/U/N、effective_k、全部TopK及skip明细在JSON。',
-        '','训练/评价/诊断新成本：'+str(costs),'历史参照成本单列JSON，不计为新增。','实际训练面板质量暴露：'+str(diagnostics),'',*LIMITS,'',
-        '论文可加强或收窄的范围：只按每格每通道固定终点的实际差值讨论两条显式路径的条件增量；方向不一致则收窄为cell/通道依赖。',
-        '仍需另行正式授权：独立测试、依赖感知统计推断、Evidence/Provenance分别删除、四维对s/c、正式HGTDR/TxGNN对比。',
-        '本轮未自动扩展。OLD G3=HELD；OUTER=UNSCORED；NEW FINAL=SEALED。']
+        lines+=['',f'Per-disease and candidate-stratum results for {c["cell"]}/{c["ablation"]}/{c["step"]}/{c["head"]}',
+                str(c['direction_counts']),str(c['candidate_tiers']),f'Evaluable diseases: {a["evaluable_diseases"]}. Skipped: {a["skipped_diseases"]}.']
+    lines+=['','See the JSON for per-disease changes, P/U/N counts, effective k, top-k metrics and reasons for skipping a disease.',
+        '','Training, evaluation and diagnostic costs: '+str(costs),'The JSON lists costs for reused references separately.','Quality diagnostics on the training panels: '+str(diagnostics),'',*LIMITS,'',
+        'Endpoint differences describe the conditional contribution of each explicit intervention by cell and task.',
+        'Independent test sets and individual evidence and provenance interventions would answer separate questions.',
+        'OLD G3=HELD. OUTER=UNSCORED. NEW FINAL=SEALED.']
     (OUT/records.EVIDENCE_MARKDOWN).write_text('\n'.join(lines)+'\n',encoding='utf-8')
     with (OUT/'paired_ablation_metrics.csv').open('w',newline='',encoding='utf-8-sig') as f:
         fields=['cell','ablation','step','primary_endpoint','head','metric','delta_FULL_minus_ablation'];w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(csv_rows)
@@ -138,6 +138,6 @@ def summarize(failed=False,ui=None):
         ui._write(f'NEW DEVELOPMENT TRAJECTORIES COMPLETE = {completed} / 4');ui._write('ACTUAL LOGICAL UPDATES = '+str(logical))
         ui._write('KNOWN PHYSICAL UPDATES / REPLAY / UNKNOWN RANGE = '+str((physical,replay,actual['unknown_range'])))
         for c in comparisons.values():ui._write(f'{c["cell"]}/{c["ablation"]}/{c["step"]}/{c["head"]} FULL−ablation AUC={c["delta_auc"]:+.9f} AP={c["delta_ap"]:+.9f} '+str(c['ranking_deltas']))
-        ui._write('训练/评价/诊断实际成本 = '+str(costs));ui._write('OLD G3 = HELD\nOUTER = UNSCORED\nNEW FINAL = SEALED')
+        ui._write('Measured training, evaluation and diagnostic costs: '+str(costs));ui._write('OLD G3 = HELD\nOUTER = UNSCORED\nNEW FINAL = SEALED')
         ui._write(str(OUT/records.EVIDENCE_MARKDOWN));ui._write(str(OUT/records.EVIDENCE_JSON))
     return result

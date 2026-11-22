@@ -2,7 +2,7 @@
   {
     "path": "tools/lr_tuning_report.py",
     "research_sha256": "d61c985780dd94ed30aa6260c920c3ba2df2be87d50c92f0cc0e9b3c3ad5633a",
-    "release_sha256": "5c330d1f7bd07b73a7b3bfce8f821aa6417d2765740cc9cc1fa6b7340523e248"
+    "release_sha256": "fda4039bae6c957e6fc602ec8fb1dd91df9328bb884f28863aec7f8e9a7d5095"
   },
   {
     "path": "src/evi_hgt/checkpoint_selection/selection.py",
@@ -12,11 +12,11 @@
   {
     "path": "src/evi_hgt/training/formal_checkpoint.py",
     "research_sha256": "67e8b1e58c1994442da4b8b08fdab43ed2e7fd55534e7d13504cdf6a9574ff09",
-    "release_sha256": "67e8b1e58c1994442da4b8b08fdab43ed2e7fd55534e7d13504cdf6a9574ff09"
+    "release_sha256": "2d69b3a127e7141f15b1913d84d5cd6d3a95a80ad82b0b3dda292f46f57181eb"
   },
   {
     "path": "src/evi_hgt/training/checkpoint.py",
     "research_sha256": "a3620da0f9d766bf97d63d256637975106e845ae950903b24ec1320a52a045fd",
-    "release_sha256": "a3620da0f9d766bf97d63d256637975106e845ae950903b24ec1320a52a045fd"
+    "release_sha256": "2dbcbecf0114cc45a9f2e96dd059cf8af0a022a0b3470c10da3c1606436b5734"
   }
 ]
