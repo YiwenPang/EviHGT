@@ -1,15 +1,18 @@
 # Reproducibility guide
 
-The portable runner executes a specified corpus, schedule and configuration. See the [data contract](data.md) for how to prepare those inputs. To reproduce a recorded result, use the original code, data, splits, features, seed, update budget, and evaluation panels for that run. The [software verification](#software-verification) section covers the synthetic tests and implementation comparisons.
+The portable runner trains from a prepared corpus, fixed schedule and configuration. Its default input is `data/processed/corpus/manifest.json`. The [supported preparation routes](data.md#supported-preparation-routes) import normalized artifacts or export a completed research corpus; the raw-to-training preprocessing entry point is not yet published.
+
+To reproduce a recorded result, use the original code, data, splits, features, seed, update budget, and evaluation panels for that run. The [software verification](#software-verification) section describes checks that run with synthetic fixtures and the published result ledger, without the research datasets.
 
 ## Before a run
 
 1. Record the source version and its commit or release identifier when available. Retain a copy or checksum of the configuration used for the run.
 2. Select a Python environment and run `python check_environment.py --device cuda` or `--device cpu`. Keep the resulting report with the run records.
-3. Preserve source database versions and original files. Prepare a corpus with verified entity mappings, clinical relation semantics, deduplication, feature sources, and leakage exclusions.
-4. Preserve the corpus manifest and every bound SHA-256. The fixed schedule determines sample order, shared global U, conditional local U and fallback behavior.
-5. Validate the corpus with `python main.py --mode validate`. Check evidence and relation semantics against the source audits.
-6. Save the exact YAML configuration. Record device, precision and dependency versions with the run.
+3. If obtaining the raw databases, follow the [download and placement guide](data.md#download-and-place-the-source-databases), preserve the original files, and run `python check_data.py`. This read-only, standard-library check verifies the OptimusKG file identities and the DrugBank XML/XSD headers. It does not build a corpus or validate all source records.
+4. Supply a complete portable corpus, import verified normalized artifacts with `prepare_data.py`, or export a completed research cell with `export_data.py`. Follow the commands and prerequisites in the [preparation guide](data.md#supported-preparation-routes). Raw downloads alone are insufficient for these routes. Entity mappings, clinical labels, deduplication, feature sources and leakage exclusions must already be verified in the prepared inputs.
+5. Preserve the corpus manifest and every bound SHA-256. The fixed schedule determines sample order, shared global U, conditional local U and fallback behavior. Point the YAML `manifest` setting to this corpus if it is outside the default location.
+6. Run `python main.py --mode validate`, adding `--config /path/to/run.yaml` when using another configuration. Validation loads the prepared inputs and writes its report to a new run directory under the configured `output_dir`, before model creation or training. Check evidence and relation semantics against the source audits.
+7. Save the exact YAML configuration. Record device, precision and dependency versions with the run.
 
 The [experiment index](../experiments/) links the published results to their study-specific code, local inputs and verification commands. For a run whose receipts record its original source layout, see [how to restore the archived sources](../experiments/README.md#restore-the-archived-source-layout).
 
@@ -43,6 +46,8 @@ Retain the following with each run:
 Keep raw data, derived restricted inputs, checkpoints and predictions local under the configured data/output directories. Public reports can describe schemas and reproducibility identities without redistributing licensed records.
 
 ## Software verification
+
+From the repository root, `python experiments/audit/verify_r0.py` checks the published five-fold ledger using only the Python standard library. After installing the [CPU test dependencies](../README.md#try-the-public-checks), run `python experiments/run_checks.py` for the public model and experiment checks. These commands do not need the raw databases or a prepared research corpus. Passing them verifies the exercised software and published ledger; reproducing the paper's scores requires the matching research inputs listed in the [experiment guide](../experiments/README.md#inputs-for-the-paper-experiments).
 
 The 46 tests in the initial release passed in the source directory and after relocation under an isolated Python invocation. Tests use synthetic fixtures and cover corpus schemas and hashes, label exclusions, direct/reverse target removal, fixed conditional records, feature masks, model gradients and ablations, metrics, console output and error handling.
 

@@ -8,7 +8,9 @@ EviHGT is an evidence-aware heterogeneous graph Transformer for drug–disease a
 
 ![EviHGT architecture showing the shared fused representation feeding both prediction heads](docs/figures/architecture.svg)
 
-[Overview (SVG)](docs/figures/architecture.svg) · [Layer and path details (SVG)](docs/figures/architecture_details.svg) · [Editable Visio source](docs/figures/architecture.vsdx)
+[Overview (SVG)](docs/figures/architecture.svg) · [Overview (PDF)](docs/figures/architecture.pdf) · [Layer and path details (SVG)](docs/figures/architecture_details.svg) · [Layer and path details (PDF)](docs/figures/architecture_details.pdf) · [Editable Visio source](docs/figures/architecture.vsdx)
+
+[Manuscript Figures 1–11 in English and Chinese](docs/manuscript_figures.md) provides the artwork used in the current draft, with SVG vectors, PNG previews and editable diagram sources.
 
 The full model combines provenance-aware evidence pooling, four-valued fact representations (True, False, Both and Unknown), query-conditioned graph layers, and bounded path encoding. It can use frozen chemical and disease-name embeddings as node features. When fact logic is available, the four direct logic transforms are averaged with equal weights. Learned fact masses enter the edge context. [Model equations and ablations](docs/model.md)
 
@@ -110,7 +112,7 @@ In the input- and budget-matched comparison, EviHGT raises support AP by 3.81 pe
 
 ## Cold-disease results
 
-On a strict disease holdout, EviHGT increased treatment-support AP from 0.5233 to 0.5703 and NDCG@10 from 0.6025 to 0.6489 relative to HGTDR-adapted. HGTDR-adapted-contra achieved contraindication AP of 0.7078, against 0.6690 for EviHGT. Both models scored the same test candidates. [Full metrics and paired intervals](docs/experiments.md#cold-disease-comparison) · [Code and input requirements](experiments/cold_start/hgtdr/)
+On a strict disease holdout, EviHGT increased treatment-support AP from 0.5233 to 0.5703 and NDCG@10 from 0.6025 to 0.6489 relative to HGTDR-adapted. The comparison uses the same test candidates for each model and covers 196 evaluable support diseases and 45 contraindication diseases. [Both-task metrics and paired intervals](docs/experiments.md#cold-disease-comparison) · [Code and input requirements](experiments/cold_start/hgtdr/)
 
 ## Tests
 

@@ -1,12 +1,24 @@
 # Troubleshooting
 
-Run the commands below from the repository directory using the same Python interpreter selected in your IDE. Start with input validation when diagnosing a data problem.
+Run the commands below from the repository root using the same Python interpreter selected in your IDE. Choose the check for the inputs you have.
+
+For downloaded raw databases:
+
+```text
+python check_data.py
+```
+
+This read-only check uses the Python standard library. It verifies the required filenames, OptimusKG release 2.0 file sizes and SHA-256 values, and the DrugBank XML/XSD root elements. See the [download and placement guide](data.md#download-and-place-the-source-databases) for the paths and current access requirements.
+
+For a prepared corpus, install the runtime dependencies and run:
 
 ```text
 python main.py --mode validate
 ```
 
-Validation uses CPU memory for the input index and exits before model creation, training or CUDA/BF16 checks. Install the runtime dependencies first.
+Corpus validation uses CPU memory for the input index and exits before model creation, training or CUDA/BF16 checks. Add `--config /path/to/run.yaml` if your corpus uses a nondefault configuration.
+
+A successful raw-file check does not create `data/processed/corpus/manifest.json`. The release imports normalized artifacts with `prepare_data.py` or exports a completed research corpus with `export_data.py`; its raw-to-training preprocessing entry point is not yet published. Use the [supported preparation routes](data.md#supported-preparation-routes) when the required prepared inputs are available. To check the software without those inputs, follow the [public CPU checks](../README.md#try-the-public-checks).
 
 Runtime failures print an English explanation and the absolute traceback-log path. Inspect that file first. Normal runs write `outputs/RUN_ID/logs/errors.log` and `events.jsonl`; early configuration/import failures use `outputs/logs/startup_errors.log`. Preparation and export commands have their own log directories. Preserve the original inputs and the failed run's logs while investigating.
 
@@ -14,14 +26,17 @@ Runtime failures print an English explanation and the absolute traceback-log pat
 
 | Symptom | Meaning and next step |
 | --- | --- |
-| `Prepared corpus not found` or `Prepared corpus is missing` | Point `manifest` to a prepared corpus. See [data preparation](data.md). |
-| `Unsupported corpus schema` | Use `prepare_data.py` with a source map or `export_data.py` with a completed research workspace to create an `EVIHGT_PORTABLE_CORPUS_V1` manifest. |
+| `Missing file` from `check_data.py` | Check the extracted filename and its location relative to the repository root. For files in another checkout, use `python check_data.py --root /path/to/checkout`. Follow the [raw-file layout](data.md#download-and-place-the-source-databases). |
+| `Does not match OptimusKG release 2.0` | The file size or SHA-256 differs from the recorded aggregate input. Confirm the release and aggregate filename, and check for an incomplete download. Preserve the existing source file while investigating. |
+| `Cannot read the expected XML header` | Confirm that the archive was extracted and that the inputs are the full DrugBank XML and XSD, rather than a CSV, SDF, archive or downloaded web page. |
+| `Prepared corpus not found` or `Prepared corpus is missing` | Set the YAML `manifest` field to a complete prepared corpus. The default is `data/processed/corpus/manifest.json`. Raw-file checks can pass while this corpus is still absent; see the [supported preparation routes](data.md#supported-preparation-routes). |
+| `Unsupported corpus schema` | The trainer expects `EVIHGT_PORTABLE_CORPUS_V1`. Use `prepare_data.py` with a complete source map of normalized inputs, or `export_data.py` with the required completed research workspace. Renaming a raw-data manifest does not convert its schema. |
 | `Unbound corpus input path` or `Missing corpus input` | A referenced file is absent or missing from the hashed inventory. Restore the matching corpus as a unit, including its manifest. |
 | `Output already exists` | Choose a new derived-data directory, such as `data/processed/corpus_v2`. Failed preparations can leave `.attempt_...` directories for inspection. |
 | `No completed masked corpus exists` or a missing sampling seal | Supply a completed, masked research corpus and its sealed sampling plan. |
 | A semantic-declaration, channel, target-mask or conditional-record error | Check affected rows against the source audit and the relevant schema in [data.md](data.md). Keep U labels and verified relation meanings intact while correcting the input. |
 
-The source-map and D1 metadata templates live in [schemas](../schemas). Replace the template placeholders with verified values from the prepared corpus.
+The [source-map template](../schemas/source.example.json) and [D1 metadata template](../schemas/d1_metadata.example.json) describe the required prepared artifacts. Replace their placeholders with verified paths, hashes and declarations. The templates do not generate entity mappings, labels, features or sampling plans.
 
 ## Python environment, CUDA and BF16
 

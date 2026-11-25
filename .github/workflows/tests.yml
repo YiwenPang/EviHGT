@@ -44,3 +44,4 @@ jobs:
           python ablation.py --help
           python prepare_data.py --help
           python export_data.py --help
+          python check_data.py --help

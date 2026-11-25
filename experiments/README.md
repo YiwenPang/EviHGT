@@ -30,7 +30,7 @@ To recompute the original R0 comparison without retraining, the [comparison summ
 
 The [single-fold pilot](pilot/) records the earlier shared support comparison. The [learning-rate study](tuning/) records the five completed FULL settings and how the validation objective determined the selected rate.
 
-[Figures and study results](../docs/experiments.md) · [Portable training and evaluation](../docs/reproducibility.md)
+[Figures and study results](../docs/experiments.md) · [Bilingual manuscript figures](../docs/manuscript_figures.md) · [Portable training and evaluation](../docs/reproducibility.md)
 
 ## Restore the archived source layout
 

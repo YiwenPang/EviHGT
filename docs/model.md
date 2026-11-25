@@ -8,9 +8,9 @@ The node representation starts with a type embedding. Available drug and disease
 
 Frozen 768-dimensional drug and disease representations enter before query encoding and graph reasoning through separate bias-free projections. These projections start at zero and are trainable. The availability mask sets the contribution of missing vectors to zero throughout training and evaluation.
 
-Evidence records encode numeric values and masks, Boolean values and masks, property tokens, evidence tokens, provenance tokens, and relation identity. Three independent attention pools summarize all records, verified support records, and verified counter records. The all-record pool retains context independent of polarity.
+Evidence encoding first represents individual source records, then pools records belonging to the same canonical fact. Each record encodes numeric values and masks, Boolean values and masks, property tokens, evidence tokens, provenance tokens, and relation identity. Three independent attention pools summarize all records, verified support records, and verified counter records. The all-record pool retains context independent of polarity.
 
-Two distinct strength functions produce support strength `s` and counter strength `c`. Where both channels are semantically available, the fact masses are:
+Two separately parameterized strength functions produce support strength `s` and counter strength `c` (the refutation strength denoted by `r` in the manuscript). Each function reads its own pooled vector and observation flag. An available channel with no records can still produce a latent strength from the zero pooled vector, observation flag and learned bias. Where both channels are semantically available, the fact masses are:
 
 ```text
 T = s (1 - c)
@@ -19,7 +19,9 @@ B = s c
 U = (1 - s) (1 - c)
 ```
 
-Facts without both semantic channels carry a zero vector and a false availability mask. An available fact can have a high `U` mass. Edge context combines relation, all/support/counter pools, provenance, available masses, and six availability/observation indicators.
+These four components sum to one for an available fact. `B` represents concurrent learned support and counter strengths; `U` represents weak strengths in both channels. Separate observation flags record whether either kind of evidence was present. Facts without both semantic channels carry a zero vector and a false availability mask (`NA`). Edge context combines the relation embedding, the all-record pool, availability-masked support/counter pools, mean provenance, available masses, and six availability/observation indicators. Graph messages and path steps retrieve this shared context by canonical fact identifier.
+
+In the supplied input implementation, fact polarity applies to verified anatomy-to-gene expression relations. `EXPRESSION_PRESENT` and `EXPRESSION_ABSENT` retain separate canonical facts because their relation names differ. Their support/refutation semantics concern the expression proposition. At the clinical ranking level, the support and contra heads instead learn from their respective indication and contraindication positives.
 
 ## Graph and path computation
 
@@ -27,9 +29,13 @@ The graph encoder uses typed multi-head attention, query-conditioned edge contex
 
 The graph readout concatenates final drug and disease embeddings, their elementwise product, their absolute difference, and the query embedding constructed before graph propagation. A projection produces a shared query representation.
 
-Bounded paths are encoded by the path Transformer, scored against the query, and pooled within each query. A scalar sigmoid gate adds a projected path residual to the graph readout. Empty path sets produce an exact graph-only fallback. The model requires an explicit packed path batch, including when it is empty.
+Each bounded path step joins its final endpoint embeddings with the shared fact context. The path Transformer encodes the step sequence; step attention normalizes over valid steps within a path, and query-conditioned path attention normalizes over candidate paths for the same query. A single scalar sigmoid gate per query adds the projected pooled path context to the graph readout. Empty path sets set the gate to zero and produce an exact graph-only fallback. The model requires an explicit packed path batch, including when it is empty.
 
-Independent support and contra heads map the shared representation to two logits. Their sigmoid outputs define predicted query T/F/B/U masses with the same product formulas above. The two heads yield independent, uncalibrated scores. `ranking_score` is the predicted `T` mass. Channel-specific evaluation uses the corresponding head logit.
+A path weight gives that path's share in the pooled representation. To assess its effect on candidate ranking, remove or replace the path for the same query and compare recomputed scores and ranks. The weight itself records pooling behavior; interpreting a path as a biological mechanism requires external evidence.
+
+Separate support and contra heads map the shared representation to two logits. Each head learns the ordering of its own recorded positives and unlabeled candidates, so the two scores can vary separately. Their sigmoid outputs define predicted query T/F/B/U masses with the same product formulas above. `ranking_score` is the predicted `T` mass; channel-specific evaluation uses the corresponding head logit.
+
+The half-softplus ranking objective depends on positive-versus-unlabeled logit differences. Adding the same constant to every logit from one head leaves these differences and the loss unchanged, but changes its sigmoid scores and the query masses. Clinical probability interpretation therefore requires independent calibration and validation. See the [model card](model_card.md) for output interpretation and the status of upstream pretraining exposure.
 
 ## Available variants
 

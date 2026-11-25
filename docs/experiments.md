@@ -2,6 +2,8 @@
 
 The [experiment source index](../experiments/) links each study to its implementation and the audit records for the common development panels.
 
+The [manuscript figure index](manuscript_figures.md) follows paper Figures 1–11 and provides both language versions. The analysis figures on this page retain their original filenames and also cover studies outside the current manuscript figures.
+
 The development figures summarize runs from the original research implementation. The historical sections cover an earlier holdout evaluation and its validation studies. The repository includes aggregate statistics. Datasets, pair-level predictions and checkpoints remain local.
 
 The main comparison measures ranking of observed positives against unlabeled candidates on development panels from five overlapping folds of repeat R0.
@@ -14,11 +16,13 @@ The development protocol uses pair-level splits, removes evaluation targets from
 
 ![Implemented development protocol](figures/experiments/fig01_evaluation_protocol.svg)
 
-[SVG](figures/experiments/fig01_evaluation_protocol.svg) · [PDF](figures/experiments/fig01_evaluation_protocol.pdf) · [PNG](figures/experiments/fig01_evaluation_protocol.png)
+[English SVG](figures/experiments/fig01_evaluation_protocol.svg) · [PDF](figures/experiments/fig01_evaluation_protocol.pdf) · [PNG](figures/experiments/fig01_evaluation_protocol.png) · [Visio](figures/experiments/fig01_evaluation_protocol.vsdx) · [Chinese SVG](figures/experiments/fig01_evaluation_protocol_zh.svg) · [Chinese PDF](figures/experiments/fig01_evaluation_protocol_zh.pdf) · [Chinese PNG](figures/experiments/fig01_evaluation_protocol_zh.png) · [Chinese Visio](figures/experiments/fig01_evaluation_protocol_zh.vsdx)
 
 ## Main development comparison
 
 For R0's five inner development folds, metrics are averaged across eligible folds within each disease, then across diseases. Support covers 1,697 diseases and contra covers 314. HGTDR-adapted contributes support scores and HGTDR-adapted-contra contributes contra scores. Each single-output model selects its checkpoint on the corresponding development panel. EviHGT uses the fixed three-cycle endpoint. The [README table](../README.md#development-results) gives the exact scores.
+
+EviHGT's support Precision@10 is 0.3429, against a ceiling of 0.3482 for the same candidate composition. For a panel with P recorded positives and N candidates, let k = min(10, N). Placing all positives first gives a maximum precision of min(P, k) / k. The reported ceiling averages these values over evaluable folds within each disease, then weights diseases equally. Panels with fewer than k positives have a ceiling below one.
 
 ![Main R0 development comparison](figures/experiments/fig02_main_comparison.svg)
 
@@ -58,6 +62,8 @@ Each point is a disease-macro average for one R0 fold in the original comparison
 ## Paired disease differences
 
 The figure gives EviHGT AP minus comparator AP for each disease and counts lower, tied and higher values. The descriptive comparison covers all eligible diseases and uses a tie tolerance of `1e-12`.
+
+The cumulative curves show the fraction of diseases whose AP difference is at or below each horizontal-axis value. Positive differences favor EviHGT. For example, a point at (0.10, 0.70) means that 70% of diseases have a difference no greater than 0.10. The jump at zero reflects tied scores. Against HGT-D1, support has 793 higher, 585 tied and 319 lower values across 1,697 diseases. Counts describe how often each outcome occurs; the horizontal spread also shows the size of the differences.
 
 ![Paired disease differences](figures/experiments/fig05_disease_heterogeneity.svg)
 
@@ -115,6 +121,8 @@ The figure separates baseline file-time windows from 12 EviHGT training and post
 
 Rank positions of observed positives (P) and unlabeled candidates (U) for three R0F0 support panels. The examples show a gain, a loss and a tie in AP for EviHGT versus HGT-D1. Outlines mark tied scores.
 
+The three disease panels and all 16 U candidates were fixed before the literature search. The review searched drug names and aliases together with the target disease in PubMed, Europe PMC, journal articles and official trial registries through 17 November 2026. Each record was checked for agreement on the drug entity or formulation, disease and treatment outcome. The review found no direct efficacy evidence matching all three conditions for these 16 candidates, which retain their U labels.
+
 ![Case rankings](figures/experiments/fig12_case_rankings.svg)
 
 [SVG](figures/experiments/fig12_case_rankings.svg) · [PNG](figures/experiments/fig12_case_rankings.png)
@@ -122,6 +130,8 @@ Rank positions of observed positives (P) and unlabeled candidates (U) for three 
 ## Training loss by sampling stage
 
 Combined two-head loss for the 15 matched method and fold runs. Windows contain at most 500 updates. Each run is normalized by its own positive groups per cycle (G). The global stage spans 0–1G and the conditional stage spans 1–3G.
+
+Within a sampling stage, lower loss means that the model better satisfies the training pair rankings overall. After 1G, support preferentially pairs positives with U candidates for the same disease, falling back to global sampling when needed; contra continues global pairing. The change in sampled pairs gives the second stage a new loss scale. Development AP and ranking metrics assess the resulting rankings.
 
 ![Training loss by sampling stage](figures/experiments/fig13_training_loss_by_stage.svg)
 

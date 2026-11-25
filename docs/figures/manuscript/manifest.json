@@ -1,0 +1,247 @@
+{
+  "revision_date": "2026-11-25",
+  "description": "Exact outlined SVG assets from the current bilingual manuscripts, with white-background PNG previews.",
+  "language_note": "Language identifies the source manuscript. Figures 4-11 use shared English plot labels in both manuscripts.",
+  "figures": [
+    {
+      "figure": 1,
+      "language": "en",
+      "title": "EviHGT architecture",
+      "svg": "figure01-en.svg",
+      "png": "figure01-en.png",
+      "svg_sha256": "c3741dd0cba88c690e84f7ec87bfcc2097b3ef8c0b21a83525efe6fc6e0bd040",
+      "png_sha256": "0080e93a11567ad79a15dab235568e03a94785c97702d151f798673708cdb771",
+      "source_member": "word/media/image1.svg"
+    },
+    {
+      "figure": 2,
+      "language": "en",
+      "title": "Evidence-aware attention and path reasoning",
+      "svg": "figure02-en.svg",
+      "png": "figure02-en.png",
+      "svg_sha256": "897c12b75bbd4e85aa26ff2c195a2224cfc529ec04d7fd17cd2b22f0bd4dc15f",
+      "png_sha256": "e2d155357c2345ddfd5a478f1a5951505429ff4f75c3bdce633b38d71b055a36",
+      "source_member": "word/media/image2.svg"
+    },
+    {
+      "figure": 3,
+      "language": "en",
+      "title": "R0 five-fold development evaluation protocol",
+      "svg": "figure03-en.svg",
+      "png": "figure03-en.png",
+      "svg_sha256": "9a956433162f4791fc58c8809422c2d0996ffd84b9bc1a376bf9d2545fcdad25",
+      "png_sha256": "3bd2ec34fc4a98d47fdb54fe96141d869932120657bee6a3332aeb8bee1968fa",
+      "source_member": "word/media/image3.svg"
+    },
+    {
+      "figure": 4,
+      "language": "en",
+      "title": "Disease-macro ROC and precision-recall curves",
+      "svg": "figure04-en.svg",
+      "png": "figure04-en.png",
+      "svg_sha256": "d25f09108c46617837711c16f56a09169c11324da836b83fecb00c3f65001a7b",
+      "png_sha256": "64eb2f5472aaa9ea41184785227af23a21465031fb5cfabc4de04e2f8a7fbb07",
+      "source_member": "word/media/image4.svg"
+    },
+    {
+      "figure": 5,
+      "language": "en",
+      "title": "Within-fold disease-macro ranking performance",
+      "svg": "figure05-en.svg",
+      "png": "figure05-en.png",
+      "svg_sha256": "a7201cc5876d149a047af121859d9339a912b1b31fe83f1fe8a737c802c1caff",
+      "png_sha256": "f9db8bde3063f820b73717130071f41633767343ef394fc48a08ff7dd64a4e0f",
+      "source_member": "word/media/image5.svg"
+    },
+    {
+      "figure": 6,
+      "language": "en",
+      "title": "Evidence and path coverage in fixed training diagnostics",
+      "svg": "figure06-en.svg",
+      "png": "figure06-en.png",
+      "svg_sha256": "10d9785e88502833f534684792a6ef8b0a24d43f676e3e57d95850ac3a72c991",
+      "png_sha256": "94b5ea60acb17c7a83801fc20d6bbba375264f1faf7bcb99f614dea6b461eebf",
+      "source_member": "word/media/image6.svg"
+    },
+    {
+      "figure": 7,
+      "language": "en",
+      "title": "Training loss by sampling stage",
+      "svg": "figure07-en.svg",
+      "png": "figure07-en.png",
+      "svg_sha256": "5e748a0330173b7f9e63996e173c49bc460d6ec52940f2a6969f5a69db9cab9b",
+      "png_sha256": "8691422c076c32ffc7cab10ed64dd57facacb2682c43013ebdb6d1795b8ab066",
+      "source_member": "word/media/image7.svg"
+    },
+    {
+      "figure": 8,
+      "language": "en",
+      "title": "Per-disease AP differences",
+      "svg": "figure08-en.svg",
+      "png": "figure08-en.png",
+      "svg_sha256": "d19b9f92937c0cf8a6f92d2fc2ff043bd43f24564acd1afa1c71bbeacf9bb6e1",
+      "png_sha256": "76b6cd358f454c9d15640e8be291c4373465f52d6bee7566c271798e6b43653a",
+      "source_member": "word/media/image8.svg"
+    },
+    {
+      "figure": 9,
+      "language": "en",
+      "title": "Ranking performance by candidate-set size",
+      "svg": "figure09-en.svg",
+      "png": "figure09-en.png",
+      "svg_sha256": "861ab3a747ef48bee037c0ebcc2add41202a0a35a9e679d9e832b4fe509f718a",
+      "png_sha256": "af04b10a646a3e11fdbca76ae5e67d93e3b90f6f9c6c2e4ffd299e6f7e7c4d11",
+      "source_member": "word/media/image9.svg"
+    },
+    {
+      "figure": 10,
+      "language": "en",
+      "title": "Contra AP fold coverage and aggregation sensitivity",
+      "svg": "figure10-en.svg",
+      "png": "figure10-en.png",
+      "svg_sha256": "0c329cf248bd0f846308bb7a67f9082cd73878c7ab9f27369d864c2887baa012",
+      "png_sha256": "8cc80110522891053bb3e6f53484880e3197ded023f8a8f182ef7497ba9ab07f",
+      "source_member": "word/media/image10.svg"
+    },
+    {
+      "figure": 11,
+      "language": "en",
+      "title": "Full candidate rankings for three representative diseases",
+      "svg": "figure11-en.svg",
+      "png": "figure11-en.png",
+      "svg_sha256": "d622d7159406b6f4c92e93893b892d0fa9b014324b1b640266601d5b0d16604f",
+      "png_sha256": "f2960825e68038dd0ae4ced9d7fb82007f22ae8d157606dd752b5ac40980ab8b",
+      "source_member": "word/media/image11.svg"
+    },
+    {
+      "figure": 1,
+      "language": "zh",
+      "title": "EviHGT architecture",
+      "svg": "figure01-zh.svg",
+      "png": "figure01-zh.png",
+      "svg_sha256": "c79a4f2137572a5cad62df121afe4c5b824744530a9d9dc075e5bca75f94a60b",
+      "png_sha256": "f71be3cfa48f7341ba3524fac53627c129679818765f417a33059c4381b7c685",
+      "source_member": "word/media/image1.svg"
+    },
+    {
+      "figure": 2,
+      "language": "zh",
+      "title": "Evidence-aware attention and path reasoning",
+      "svg": "figure02-zh.svg",
+      "png": "figure02-zh.png",
+      "svg_sha256": "21cf5aa06476a8c01c0e0292580a434fa68ce766ef82b15794c505bbbe0f0b2c",
+      "png_sha256": "a943f0c23c2333a7a754d3413d21b37181604f9e3e47685f9a12b312690b8609",
+      "source_member": "word/media/image2.svg"
+    },
+    {
+      "figure": 3,
+      "language": "zh",
+      "title": "R0 five-fold development evaluation protocol",
+      "svg": "figure03-zh.svg",
+      "png": "figure03-zh.png",
+      "svg_sha256": "7950781a7226364db25fc78d661c006ac0eb7a237f12819ea9571026ee92c53c",
+      "png_sha256": "6cbecd9b677fa9f3ce9ebe4c11a49a917b81d1e9fb48a9bf5537a484b5ffefb8",
+      "source_member": "word/media/image3.svg"
+    },
+    {
+      "figure": 4,
+      "language": "zh",
+      "title": "Disease-macro ROC and precision-recall curves",
+      "svg": "figure04-zh.svg",
+      "png": "figure04-zh.png",
+      "svg_sha256": "ee88fe018d4b5a8b59953dac6919224ac13dd6758c0b51e35254036cdfeba8bd",
+      "png_sha256": "1cf84a97d8c67a75078b380193aba9b171a16a0723f541270488041350b56012",
+      "source_member": "word/media/image4.svg"
+    },
+    {
+      "figure": 5,
+      "language": "zh",
+      "title": "Within-fold disease-macro ranking performance",
+      "svg": "figure05-zh.svg",
+      "png": "figure05-zh.png",
+      "svg_sha256": "df463815e10c8a57d35e13ceae64ffea411eeb49fe4c6b14e2296066fb8ba0a1",
+      "png_sha256": "9ccc46f36f606317f425d701f17a253241aac61d150fa85c23f4d24144e918b3",
+      "source_member": "word/media/image5.svg"
+    },
+    {
+      "figure": 6,
+      "language": "zh",
+      "title": "Evidence and path coverage in fixed training diagnostics",
+      "svg": "figure06-zh.svg",
+      "png": "figure06-zh.png",
+      "svg_sha256": "6dd62d18bb5c1cbbd8a9c21b7d53e72dec6e9586037752ca9ed4dcfdbb5f44b3",
+      "png_sha256": "c4d71594536bc428101184f92d16d04de4d4d9c335f2c6d2a551460fc503041a",
+      "source_member": "word/media/image6.svg"
+    },
+    {
+      "figure": 7,
+      "language": "zh",
+      "title": "Training loss by sampling stage",
+      "svg": "figure07-zh.svg",
+      "png": "figure07-zh.png",
+      "svg_sha256": "2ad9988820ba8d64363e4f1e6b92bb46c98ac1ae9be6844b8774a4ffce823fcf",
+      "png_sha256": "ec011457adfb0a1d3f125506c8a766102f1478b71ae6c83cc2a663dbeaf84728",
+      "source_member": "word/media/image7.svg"
+    },
+    {
+      "figure": 8,
+      "language": "zh",
+      "title": "Per-disease AP differences",
+      "svg": "figure08-zh.svg",
+      "png": "figure08-zh.png",
+      "svg_sha256": "6c7835582f7852bfa72d96d0b1ba199f5f7a05484cf1e8f440de77a95135ed79",
+      "png_sha256": "87bf428edb38e750c771e7beb254ebbe6542d4967e5e9fffd5235633e4dfac6d",
+      "source_member": "word/media/image8.svg"
+    },
+    {
+      "figure": 9,
+      "language": "zh",
+      "title": "Ranking performance by candidate-set size",
+      "svg": "figure09-zh.svg",
+      "png": "figure09-zh.png",
+      "svg_sha256": "57cb629851d6b21bbc6e545a355f70ace083c219d97448bb84ff2dbb17dbd857",
+      "png_sha256": "37cea6dc9f8e449ec84479a795ac64017bdca459a0906bb2e42151b7af496b2f",
+      "source_member": "word/media/image9.svg"
+    },
+    {
+      "figure": 10,
+      "language": "zh",
+      "title": "Contra AP fold coverage and aggregation sensitivity",
+      "svg": "figure10-zh.svg",
+      "png": "figure10-zh.png",
+      "svg_sha256": "32e12980c7ad3895bb4c9f2cfff1e993c0e7bfa04ff576d3dbc8ea744b1d2855",
+      "png_sha256": "ee778ad7c459b0c2f88f94e90376e4824bfbf1db88d67e417a5533f8a323dd15",
+      "source_member": "word/media/image10.svg"
+    },
+    {
+      "figure": 11,
+      "language": "zh",
+      "title": "Full candidate rankings for three representative diseases",
+      "svg": "figure11-zh.svg",
+      "png": "figure11-zh.png",
+      "svg_sha256": "98403289022b2f52014a0da5e653c0b95b23652e428716572d2069fa1cd241d8",
+      "png_sha256": "21bb539b086a0ca7cf2282d3e427e459e60a1bb9193b52a6e93ee7810a1854c5",
+      "source_member": "word/media/image11.svg"
+    }
+  ],
+  "editable_sources": [
+    {
+      "figures": [
+        1,
+        2
+      ],
+      "language": "en",
+      "file": "architecture-en.vsdx",
+      "sha256": "b67795dee1f3ff9519c330c9328b939e1fcdc0b50e99b1063dad6f8857c682b3"
+    },
+    {
+      "figures": [
+        1,
+        2
+      ],
+      "language": "zh",
+      "file": "architecture-zh.vsdx",
+      "sha256": "f2b5ccce6b5021366bc8db9d090d5e20dff4abf04f9a446e6064be9ff1710d24"
+    }
+  ]
+}

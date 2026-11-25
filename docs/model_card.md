@@ -11,41 +11,43 @@ EviHGT ranks canonical drug-disease pairs using a biomedical knowledge graph, ev
 | Support | Verified `INDICATION` pairs admitted by the upstream inclusion policy | Relative support for an indication-related association. |
 | Contra | Verified `CONTRAINDICATION` pairs | Relative evidence for a contraindication-related association. |
 
-Use EviHGT to study association ranking, inspect the edges and paths used in scoring, and test model components. Attention weights and extracted paths describe the computation. The scores have no prospective clinical validation and are unsuitable for patient-level predictions, dosing or treatment decisions.
+Use EviHGT to study association ranking, inspect the edges and paths used in scoring, and test model components. Each clinical head learns from its own recorded positive relations and unlabeled candidates. A pair can have both kinds of positive relation; a missing relation remains unobserved. The scores have no prospective clinical validation and are unsuitable for patient-level predictions, dosing or treatment decisions.
 
 ## Inputs and implementation scope
 
 Training requires a locally prepared portable corpus: canonical node/fact/evidence tables, a physically masked CSR graph, source-audited supervision and exclusions, raw SideInfo, frozen D1 vectors with availability masks, explicit development panels, and the supplied three-cycle plan. See the [data contract](data.md) for schemas and preparation commands.
 
-The model uses independent support/counter evidence pools, differentiable fact logic, two query-conditioned heterogeneous Transformer layers, and a gated path residual. In `FULL`, the four direct logic-message transforms receive uniform weights of 0.25 when logic is available. Learned fact masses affect edge context and subsequent attention/messages indirectly; the four direct transform weights remain fixed. Unavailable facts use a separate `NA` transform.
+The model encodes individual source records, pools them by canonical fact, and shares the resulting fact context between graph messages and path steps. It uses independent support/counter evidence pools, differentiable fact logic, two query-conditioned heterogeneous Transformer layers, and a gated path residual. In `FULL`, the four direct logic-message transforms receive uniform weights of 0.25 when logic is available. Learned fact masses enter the edge context and affect attention scores and message values through it; the four direct transform weights remain fixed. Unavailable facts use a separate `NA` transform.
 
 The local extractor retains at most two hops, 1000 nodes and 5000 messages per query. Path search retains up to 16 paths of length 2-4. The returned paths depend on these search bounds and the supplied graph.
 
+Step attention normalizes over the valid steps in each path, then path attention normalizes over candidate paths for the same query. A single scalar gate controls the pooled path contribution to the graph readout. A path weight gives its share in that pool. To assess a path's effect on ranking, remove or replace it for the same query and compare the recomputed scores and ranks. Biological interpretation also requires evidence for the proposed mechanism.
+
 ## T/F/B/U and availability
 
-For independent learned support strength `s` and counter strength `c`, the available fact representation is:
+For separately learned support strength `s` and counter strength `c`, the available fact representation is:
 
 | State | Mass | Meaning within the representation |
 | --- | --- | --- |
-| `T` | `s * (1 - c)` | Support without strong counter evidence. |
-| `F` | `(1 - s) * c` | Counter evidence without strong support. |
-| `B` | `s * c` | Support and counter evidence coexist. |
+| `T` | `s * (1 - c)` | High support strength and low counter strength. |
+| `F` | `(1 - s) * c` | Low support strength and high counter strength. |
+| `B` | `s * c` | Concurrent modeled support and counter strengths. |
 | `U` | `(1 - s) * (1 - c)` | Neither learned channel is strong. |
 | `NA` | No normalized mass vector; availability is false | The fact is outside the verified two-channel semantic scope, or that scope is unavailable. |
 
-`T/F/B/U` are latent masses learned from evidence. For `NA`, all four stored masses are zero and the availability mask is false. An available fact can have a high `U` mass. Separate flags mark whether support or counter evidence was observed.
+`T/F/B/U` are latent masses learned from evidence; `c` is the refutation strength denoted by `r` in the manuscript. Each strength scorer uses its own pooled evidence and observation flag. Even an empty polarity pool can yield a latent strength through the learned bias, so separate flags identify whether support or counter evidence was observed. For `NA`, all four stored masses are zero and the availability mask is false. An available fact can have a high `U` mass when both learned strengths are weak.
 
-In this input implementation, direct two-channel fact logic is available for verified ANA-to-GEN `EXPRESSION_PRESENT`/`EXPRESSION_ABSENT` relations. Other relation families supply context and messages through the `NA` transform. See [source semantics and labeling](data.md#source-map-and-manifest).
+In this input implementation, direct two-channel fact logic is available for verified ANA-to-GEN `EXPRESSION_PRESENT`/`EXPRESSION_ABSENT` relations. These relation names retain separate canonical facts, while their polarity refers to the same expression proposition. This fact-level refutation has a different target from the clinical contra head, whose positives are recorded contraindications. Other relation families supply context and messages through the `NA` transform. See [source semantics and labeling](data.md#source-map-and-manifest).
 
 The two query prediction heads also produce T/F/B/U values using the same product formulas after sigmoid transformation. These masses aggregate the two query scores. They sum to one and are uncalibrated. See [the fact-logic implementation](../src/evi_hgt/models/four_valued_logic.py) and [prediction outputs](../src/evi_hgt/training/prediction.py).
 
 ## Scores and training objective
 
-The model exposes support and unsuitability logits, their sigmoid scores, predicted query masses, and a `ranking_score` equal to predicted `T` mass. Use the corresponding head logit to reproduce a channel-specific metric.
+The model exposes support and contra logits (the latter uses the API field name `unsuitability_logit`), their sigmoid scores, predicted query masses, and a `ranking_score` equal to predicted `T` mass. Use the corresponding head logit to reproduce a channel-specific metric. The contra score is learned from contraindication positives and varies separately from the support score.
 
 Training uses the half-softplus positive-unlabeled ranking loss on positive-versus-U logit differences. The supplied plan preserves one global U per original group. The first cycle uses global comparisons; later support comparisons use supplied same-disease U records with an explicit fallback, while contra retains the original global U stream.
 
-U denotes unlabeled candidate pairs. The loss trains relative ordering. The two sigmoid scores vary independently, and the workflow uses no calibrated decision threshold.
+U denotes unlabeled candidate pairs. The loss trains relative ordering: adding the same constant to every logit from one head preserves the paired differences and loss while changing the sigmoid outputs and query masses. Interpreting these values as clinical probabilities requires independent calibration and validation. The workflow uses no calibrated decision threshold.
 
 ## Evaluation interpretation
 
@@ -55,6 +57,8 @@ ROC-AUC, AP, trapezoid AUPR and top-K metrics quantify separation of observed po
 
 Metrics are computed by disease and macro-averaged over diseases with both P and U. Missing classes are reported as skips; when nothing is evaluable, the console shows `N/A`. AP uses step integration, while trapezoid AUPR uses adjacent exact-score threshold endpoints; the two can differ substantially when scores are tied. Rankings use deterministic drug-ID tie breaking and `effective_k = min(K, candidate_count)`. In small panels, `Hits@K` may be guaranteed by the candidate counts. Report those counts, skipped diseases, the metric definition and candidate identity together with any score. See [metrics.py](../src/evi_hgt/metrics.py).
 
+Candidate composition also sets the per-panel Precision@K ceiling: placing every P before U gives `min(P, effective_k) / effective_k`. A panel with fewer than K positives cannot fill the top K with P; when the total candidate count is below K, the denominator is the actual candidate count. Aggregate this ceiling in the same way as the reported precision.
+
 See [recorded ablations](experiments.md#historical-two-cell-ablations) for the two-cell comparison.
 
 ## Leakage and provenance boundaries
@@ -63,7 +67,7 @@ The corpus must already remove held-out target facts and their evidence physical
 
 Observed clinical pairs are excluded from U draws. Evaluation members are blocked from training, and graph assembly for evaluation receives role-free queries. Source hashes, immutable group order, conditional records and feature availability are checked. Audit source assertions and entity mappings during corpus preparation.
 
-D1 uses frozen drug SMILES and canonical disease-name representations from the pinned ChemBERTa/BioBERT sources documented in [data.md](data.md). Clinical label text, supervised DDA features, trained node embeddings and prediction scores are excluded by the input contract. Upstream pretrained-encoder exposure to target-related knowledge is `NOT_VERIFIED`.
+D1 uses frozen drug SMILES and canonical disease-name representations from the pinned ChemBERTa/BioBERT sources documented in [data.md](data.md). Clinical label text, supervised DDA features, trained node embeddings and prediction scores are excluded by the input contract. The masking and verification steps above cover the constructed input graphs. Whether the encoders' original pretraining corpora contain the drug-disease associations under evaluation has not been established; the recorded status is `NOT_VERIFIED`.
 
 ## Known limits and reproducibility
 
