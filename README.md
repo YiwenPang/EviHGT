@@ -49,7 +49,20 @@ The default configuration uses CUDA with BF16. For a CPU/FP32 run, use `configs/
 
 ## Data and training
 
-Training requires a local corpus with normalized facts and evidence, leakage-filtered graph indexes, node features and availability masks, a three-cycle sample schedule, and development evaluation panels. Use [the data guide](docs/data.md) to import normalized artifacts with `prepare_data.py` or export them from an audited EviHGT workspace with `export_data.py`. The data guide identifies the OptimusKG, DrugBank, ChemBERTa and BioBERT sources and the inputs each step needs. Keep source records and derived data in the ignored `data/` directory and use your own authorized DrugBank copy.
+Download the two aggregate Parquet files from [OptimusKG release 2.0](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IYNGEV&version=2.0), and obtain the full XML database and schema from [DrugBank](https://go.drugbank.com/releases/latest) with your own authorized account. Keep these filenames and paths relative to the repository root:
+
+```text
+data/
+├── drugbank_all_full_database.xml
+├── drugbank.xsd
+└── cache/optimuskg/doi_10_7910_DVN_IYNGEV/2.0/recovery/aggregate/
+    ├── nodes.parquet
+    └── edges.parquet
+```
+
+Extract the DrugBank archive, then rename its full database XML to `drugbank_all_full_database.xml`. The [download guide](docs/data.md#download-and-place-the-source-databases) includes browser and command-line instructions, exact download links, and a read-only check: `python check_data.py`. DrugBank's academic downloads were temporarily paused when checked on 25 November 2026; access follows the provider's current terms and availability.
+
+Training reads `data/processed/corpus/manifest.json` and the files listed in it. This release imports a prepared corpus with `prepare_data.py` or exports a completed research corpus with `export_data.py`; the raw-to-training preprocessing entry point is not yet published. Placing the raw downloads above does not create that corpus. Follow [the preparation commands](docs/data.md#supported-preparation-routes) for the supported inputs. All source records and derived data stay in the Git-ignored `data/` directory.
 
 ### Train the full model
 
@@ -81,17 +94,19 @@ Browse the [baseline comparisons](experiments/comparisons/), [ablations](experim
 
 The table summarizes five inner development folds of repeat R0. Metrics are averaged over eligible folds within each disease, then over 1,697 support diseases or 314 contraindication diseases. HGTDR-adapted and HGTDR-adapted-contra are separate single-output models selected on their respective development panels. EviHGT reports both outputs from one model at the fixed three-cycle endpoint.
 
+As in the manuscript, **bold** marks the best value in each metric column; <ins><em>italic underlining</em></ins> identifies EviHGT values.
+
 | Method | Support AUC | Support AP | Support NDCG@10 | Contra AUC | Contra AP | Contra NDCG@10 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| EviHGT | 0.898440 | 0.873292 | 0.911893 | 0.922813 | 0.895974 | 0.927292 |
+| EviHGT | <ins><em>0.898440</em></ins> | <ins><em>0.873292</em></ins> | <ins><em>0.911893</em></ins> | <ins><em>0.922813</em></ins> | <ins><em>0.895974</em></ins> | <ins><em>0.927292</em></ins> |
 | HGT-D1 | 0.864699 | 0.835220 | 0.883860 | 0.927014 | 0.897898 | 0.928273 |
 | PairMLP-D1 | 0.858382 | 0.823047 | 0.885701 | 0.901586 | 0.878157 | 0.913876 |
-| HGTDR-adapted | 0.922917 | 0.901453 | 0.930877 | — | — | — |
-| HGTDR-adapted-contra | — | — | — | 0.964060 | 0.942237 | 0.959349 |
+| HGTDR-adapted | **0.922917** | **0.901453** | **0.930877** | — | — | — |
+| HGTDR-adapted-contra | — | — | — | **0.964060** | **0.942237** | **0.959349** |
 | TxGNN-adapted | 0.813216 | 0.778118 | 0.848928 | 0.876748 | 0.837941 | 0.884425 |
 | Popularity | 0.828239 | 0.789221 | 0.864763 | 0.932036 | 0.893040 | 0.934880 |
 
-HGTDR-adapted and HGTDR-adapted-contra lead on their respective development panels. In the input- and budget-matched comparison, EviHGT raises support AP by 3.81 percentage points over HGT-D1 and 5.02 over PairMLP-D1. These differences measure the full EviHGT model under matched conditions. [Experiment figures and evaluation protocol](docs/experiments.md)
+In the input- and budget-matched comparison, EviHGT raises support AP by 3.81 percentage points over HGT-D1 and 5.02 over PairMLP-D1, while producing support and contraindication rankings from one model. These differences measure the full EviHGT model under matched conditions. [Experiment figures and evaluation protocol](docs/experiments.md)
 
 ## Cold-disease results
 

@@ -1,10 +1,58 @@
 # Data preparation and portable input contract
 
-Obtain OptimusKG and DrugBank under their respective terms. Keep DrugBank-derived artifacts private. The trainer takes a locally prepared corpus containing canonical entity, fact and evidence tables, a masked CSR graph, fixed entity features, verified clinical memberships and a fixed three-cycle sampling plan.
+The trainer reads `data/processed/corpus/manifest.json`. Its corpus contains canonical entity, fact and evidence tables, a masked CSR graph, fixed entity features, verified clinical memberships and a fixed three-cycle sampling plan. The public preparation tools import those prepared artifacts. The raw-to-training preprocessing entry point is not yet published.
 
-Verify relation semantics against the source schemas when normalizing the inputs. The tools below work with prepared artifacts. Raw source files, encoder downloads, and raw-to-canonical normalization are handled upstream.
+## Download and place the source databases
+
+Run commands from the repository root, the folder containing `main.py`. The paths below match the original research inputs.
+
+```text
+data/
+├── drugbank_all_full_database.xml
+├── drugbank.xsd
+└── cache/optimuskg/doi_10_7910_DVN_IYNGEV/2.0/recovery/aggregate/
+    ├── nodes.parquet
+    └── edges.parquet
+```
+
+### OptimusKG
+
+Open [OptimusKG release 2.0 on Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IYNGEV&version=2.0), download the aggregate `nodes.parquet` and `edges.parquet`, and place them in the directory shown above. Use release **2.0**, not the latest release or the per-type files under `nodes/` and `edges/`. These two aggregate files are the source of the graph used in this study.
+
+Alternatively, PowerShell 7 can download the same files directly with the following commands. Use a new checkout or an empty destination so existing source files are preserved.
+
+```powershell
+$target = 'data/cache/optimuskg/doi_10_7910_DVN_IYNGEV/2.0/recovery/aggregate'
+New-Item -ItemType Directory -Path $target -Force | Out-Null
+if (Test-Path -LiteralPath "$target/nodes.parquet") { throw 'nodes.parquet already exists; keep your existing file.' }
+if (Test-Path -LiteralPath "$target/edges.parquet") { throw 'edges.parquet already exists; keep your existing file.' }
+Invoke-WebRequest 'https://dataverse.harvard.edu/api/access/datafile/13835035' -OutFile "$target/nodes.parquet"
+Invoke-WebRequest 'https://dataverse.harvard.edu/api/access/datafile/13835018' -OutFile "$target/edges.parquet"
+```
+
+The [official release metadata](https://dataverse.harvard.edu/api/datasets/:persistentId/versions/2.0?persistentId=doi:10.7910/DVN/IYNGEV) identifies file 13835035 as `nodes.parquet` (163,857,672 bytes) and file 13835018 as `edges.parquet` (177,526,798 bytes). `check_data.py` checks both files against the study's SHA-256 values.
+
+### DrugBank
+
+Use your own authorized account on the [DrugBank downloads page](https://go.drugbank.com/releases/latest). Select the **full database XML for All drugs**, extract the archive, and save the full XML as `data/drugbank_all_full_database.xml`. Save the linked **Schema Definition** as `data/drugbank.xsd`. The CSV and SDF exports are different inputs and cannot replace the full XML.
+
+For command-line access, use the **Command / Example** supplied by DrugBank for the release and account you are authorized to use, then extract and name the two files as above. DrugBank's academic downloads were temporarily paused when checked on **25 November 2026**. The provider controls account access and download availability; this repository does not supply or redistribute DrugBank files.
+
+The study's local XML records `version="5.1"` and `exported-on="2026-04-23"`. This header does not identify a patch release. Retain the release information and checksum supplied with your authorized download when preparing a new corpus.
+
+### Check placement
+
+```sh
+python check_data.py
+```
+
+This standard-library command reads the files without changing them. It reports missing or misnamed files, verifies both OptimusKG checksums, and checks the DrugBank XML and XSD root elements. A successful placement check confirms the raw inputs; it does not create the training corpus or validate every DrugBank record.
+
+All of `data/` is excluded from Git. Keep the source files unchanged and retain DrugBank-derived artifacts locally under the applicable data terms.
 
 ## Supported preparation routes
+
+If a complete portable corpus is already available locally, keep its files and subdirectories together under `data/processed/corpus/`, so that the manifest is exactly `data/processed/corpus/manifest.json`. Then run `python main.py --mode validate`, followed by `python main.py`.
 
 If you have a completed original research workspace, export one cell explicitly:
 

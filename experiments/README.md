@@ -14,6 +14,8 @@ With just Python, `python experiments/audit/verify_r0.py` checks the published f
 
 ## Inputs for the paper experiments
 
+The [database download and placement guide](../docs/data.md#download-and-place-the-source-databases) gives source links, filenames and a directory tree. The study inputs below also include the prepared graph, features and fixed splits used by each experiment.
+
 | Study | What was evaluated | Inputs needed to repeat the run |
 | --- | --- | --- |
 | [Baseline comparisons](comparisons/) | Six methods on five R0 folds, including the training-frequency (Popularity) baseline. The [fold ledger](audit/) records each method and output. | Matching research checkout, fold manifests, legal training graphs, features and sampling plans. HGTDR and TxGNN also need their native environments. The reused HGTDR fold needs its selected checkpoint. |
