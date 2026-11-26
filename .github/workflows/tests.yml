@@ -29,6 +29,7 @@ jobs:
           cache-dependency-path: |
             requirements.txt
             requirements-dev.txt
+            requirements-preprocess.txt
       - name: Install CPU dependencies
         run: |
           python -m pip install --upgrade pip
@@ -37,7 +38,9 @@ jobs:
       - name: Inspect the CPU environment
         run: python check_environment.py --device cpu
       - name: Run tests
-        run: python -B -m pytest tests -q -p no:cacheprovider --basetemp outputs/pytest
+        run: python -B -m pytest tests experiments/cold_start/test_locations.py -q -p no:cacheprovider --basetemp outputs/pytest
+      - name: Check cold-start runtime compatibility
+        run: python -B experiments/cold_start/synthetic/test_frozen_test_score.py
       - name: Check public entry points
         run: |
           python main.py --help

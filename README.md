@@ -43,11 +43,13 @@ The paper's reported scores come from the original research inputs. Reproducing 
 Use Python 3.11 or later in a virtual environment. Install a [PyTorch build](https://pytorch.org/get-started/locally/) for your platform and device, then install the remaining dependencies.
 
 ```sh
-python -m pip install -r requirements.txt
+python -m pip install -r requirements-preprocess.txt
 python check_environment.py --device cuda
 ```
 
-The default configuration uses CUDA with BF16. For a CPU/FP32 run, use `configs/cpu.yaml` and check the environment with `--device cpu`. The observed dependency versions are listed in [requirements-observed.txt](requirements-observed.txt).
+`requirements-preprocess.txt` installs the full workflow dependencies, including XML parsing, RDKit and the libraries for frozen encoder inference. If you already have a complete portable corpus, `requirements.txt` supplies the training dependencies. `requirements-dev.txt` includes preprocessing and test dependencies.
+
+The default training configuration uses CUDA with BF16. Feature preparation has its own `feature_device: cuda` setting in `configs/raw.yaml`. For a CPU workflow, use `configs/cpu.yaml` for training and a copy of `configs/raw.yaml` with `feature_device: cpu` for preparation. The observed dependency versions are listed in [requirements-observed.txt](requirements-observed.txt).
 
 ## Data and training
 
@@ -62,9 +64,11 @@ data/
     └── edges.parquet
 ```
 
-Extract the DrugBank archive, then rename its full database XML to `drugbank_all_full_database.xml`. The [download guide](docs/data.md#download-and-place-the-source-databases) includes browser and command-line instructions, exact download links, and a read-only check: `python check_data.py`. DrugBank's academic downloads were temporarily paused when checked on 25 November 2026; access follows the provider's current terms and availability.
+Extract the DrugBank archive, then save its full database XML as `drugbank_all_full_database.xml`. The [download guide](docs/data.md#download-and-place-the-source-databases) includes download links, source identities and a read-only placement check: `python check_data.py`. Obtain DrugBank through your authorized account and keep its records local.
 
-Training reads `data/processed/corpus/manifest.json` and the files listed in it. This release imports a prepared corpus with `prepare_data.py` or exports a completed research corpus with `export_data.py`; the raw-to-training preprocessing entry point is not yet published. Placing the raw downloads above does not create that corpus. Follow [the preparation commands](docs/data.md#supported-preparation-routes) for the supported inputs. All source records and derived data stay in the Git-ignored `data/` directory.
+With these inputs and the preprocessing dependencies installed, `main.py` prepares the corpus when `data/processed/corpus/manifest.json` is absent, validates it, and starts training. Preparation constructs canonical facts and evidence, rebuilds the original R0F1 memberships and sampling plan, removes leakage sources, and computes entity features locally. It downloads missing, pinned Open Targets 25.06 files and ChemBERTa/BioBERT model files into `data/cache/`. An old research workspace is not required. All source records and derived data stay in the Git-ignored `data/` directory.
+
+The published raw recipe supports R0F1 and checks its original membership and sampling identities. It does not launch all folds, baselines or cold-start studies reported in the paper. See [preparation and recovery](docs/data.md#supported-preparation-routes) for custom paths, offline operation and stage reuse.
 
 ### Train the full model
 
@@ -72,7 +76,17 @@ Training reads `data/processed/corpus/manifest.json` and the files listed in it.
 python main.py
 ```
 
-Training checks the inputs first, then runs the three-cycle plan in the prepared corpus. The default settings are in `configs/default.yaml`. Training writes logs, development metrics and checkpoints to `outputs/`. See the [reproducibility guide](docs/reproducibility.md) for output files, checkpoints and evaluation scope.
+On the first invocation, preparation uses `configs/raw.yaml`; training uses `configs/default.yaml`. Later invocations load and validate the existing corpus before starting a new three-cycle training run. Training writes logs, development metrics and checkpoints to `outputs/`. See the [reproducibility guide](docs/reproducibility.md) for output files, checkpoints and evaluation scope.
+
+To prepare and validate the corpus without training:
+
+```sh
+python main.py --mode prepare
+```
+
+Use `--raw-config /path/to/raw.yaml` for other source/cache paths. Add `--offline` when the pinned auxiliary files are already cached; missing files then stop preparation instead of triggering downloads.
+
+For an existing corpus, explicit preparation requires the raw files and matching source/build identities before reuse. Use `--mode validate` to check a corpus without its raw sources.
 
 ### Check the inputs before training (optional)
 
@@ -82,7 +96,7 @@ python main.py --mode validate
 
 Use this command after preparing or changing the corpus. It checks the configuration and loads the prepared inputs, writes a validation report to `outputs/`, and exits before initializing the model.
 
-For CPU, add `--config configs/cpu.yaml` to either command. In PyCharm, select the same interpreter and set the desired arguments on the `main.py` run configuration.
+For training on CPU, add `--config configs/cpu.yaml`. This does not change the feature-preparation device; set `feature_device: cpu` in the raw configuration when preparation must also use CPU. In PyCharm, select the same interpreter and set the desired arguments on the `main.py` run configuration.
 
 Run specific ablations by name, for example:
 

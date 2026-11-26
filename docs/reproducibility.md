@@ -1,6 +1,6 @@
 # Reproducibility guide
 
-The portable runner trains from a prepared corpus, fixed schedule and configuration. Its default input is `data/processed/corpus/manifest.json`. The [supported preparation routes](data.md#supported-preparation-routes) import normalized artifacts or export a completed research corpus; the raw-to-training preprocessing entry point is not yet published.
+`main.py` prepares an absent corpus from the configured raw databases, validates it and trains the FULL model on its fixed three-cycle schedule. The default corpus is `data/processed/corpus/manifest.json`. The [preparation guide](data.md#supported-preparation-routes) covers raw preparation, existing portable corpora and explicit research exports.
 
 To reproduce a recorded result, use the original code, data, splits, features, seed, update budget, and evaluation panels for that run. The [software verification](#software-verification) section describes checks that run with synthetic fixtures and the published result ledger, without the research datasets.
 
@@ -9,16 +9,26 @@ To reproduce a recorded result, use the original code, data, splits, features, s
 1. Record the source version and its commit or release identifier when available. Retain a copy or checksum of the configuration used for the run.
 2. Select a Python environment and run `python check_environment.py --device cuda` or `--device cpu`. Keep the resulting report with the run records.
 3. If obtaining the raw databases, follow the [download and placement guide](data.md#download-and-place-the-source-databases), preserve the original files, and run `python check_data.py`. This read-only, standard-library check verifies the OptimusKG file identities and the DrugBank XML/XSD headers. It does not build a corpus or validate all source records.
-4. Supply a complete portable corpus, import verified normalized artifacts with `prepare_data.py`, or export a completed research cell with `export_data.py`. Follow the commands and prerequisites in the [preparation guide](data.md#supported-preparation-routes). Raw downloads alone are insufficient for these routes. Entity mappings, clinical labels, deduplication, feature sources and leakage exclusions must already be verified in the prepared inputs.
+4. For raw preparation, install `requirements-preprocess.txt` and run `python main.py --mode prepare`, adding `--raw-config /path/to/raw.yaml` for another source configuration. This builds the original R0F1 corpus without training. Missing pinned Open Targets and encoder files are downloaded automatically; use `--offline` with complete caches. Alternatively, supply a complete portable corpus, import verified normalized artifacts with `prepare_data.py`, or export a completed research cell with `export_data.py`.
 5. Preserve the corpus manifest and every bound SHA-256. The fixed schedule determines sample order, shared global U, conditional local U and fallback behavior. Point the YAML `manifest` setting to this corpus if it is outside the default location.
 6. Run `python main.py --mode validate`, adding `--config /path/to/run.yaml` when using another configuration. Validation loads the prepared inputs and writes its report to a new run directory under the configured `output_dir`, before model creation or training. Check evidence and relation semantics against the source audits.
-7. Save the exact YAML configuration. Record device, precision and dependency versions with the run.
+7. Save both YAML configurations when using raw preparation. `feature_device` and `feature_batch_size` belong to the raw configuration; training `device` and `precision` belong to the run configuration. Record both devices and the dependency versions.
 
 The [experiment index](../experiments/) links the published results to their study-specific code, local inputs and verification commands. For a run whose receipts record its original source layout, see [how to restore the archived sources](../experiments/README.md#restore-the-archived-source-layout).
 
+## Raw recipe and preparation identity
+
+The raw entry point implements the original R0F1 recipe. It reconstructs the historical candidate exclusions and holdout reservations before the five-fold and inner reservations, then verifies the resulting membership and mask hashes. Its three complete positive cycles preserve the original global U order and the conditional U records for cycles 2 and 3. Checkpoint hashes retained in the seed recipe are deterministic constants; preparation does not load those checkpoints or recreate historical training receipts.
+
+OptimusKG aggregate file identities are fixed to release 2.0. DrugBank XML/XSD identities and schema information are recorded from the local authorized files. Open Targets 25.06 datasource files and encoder revisions/files have separate pinned resource contracts. Retain these identities with the final corpus, because changing structured data or features changes the experiment even when the same command still runs.
+
+Completed stages under `stage_root` have file-hash receipts. Rerunning the same preparation verifies those files before reuse and preserves failed attempts. Changed source bytes, code, bound package versions or feature settings require a new `stage_root` and a new final `manifest` destination. Explicit preparation checks an existing final corpus against the available raw sources and its source, recipe and build identity before reuse. Use `--mode validate` when checking a corpus without raw sources. Normal training with an existing corpus skips raw preparation. See [preparation recovery](data.md#resume-preparation-or-rebuild-changed-inputs) for the exact behavior.
+
 ## Training and ablations
 
-`main.py` runs the supplied three-cycle FULL plan. `ablation.py` runs explicitly selected variants serially. All variants consume the same corpus and plan and use the same initialization seed. The common nominal parameter schema is retained even when a branch is bypassed; report effective computation as well as nominal parameter count.
+`main.py` runs one three-cycle FULL plan. A fresh training invocation prepares missing inputs before entering that plan; validation, checkpoint evaluation and checkpoint resume require the existing corpus. `ablation.py` runs explicitly selected variants serially. All variants consume the same corpus and plan and use the same initialization seed. The common nominal parameter schema is retained even when a branch is bypassed; report effective computation as well as nominal parameter count.
+
+Running `main.py` does not launch all paper folds, baseline comparisons, cold-start studies or final-test evaluations. Those studies retain their own protocols and required inputs in the experiment directories. The published result tables come from the original research runs.
 
 For an ablation comparison, keep data membership, sample sequence, feature availability, optimizer settings, total updates, candidate panels and metric definitions fixed. Record the exact variant ID.
 
@@ -38,6 +48,7 @@ Retain the following with each run:
 
 - Code identity and configuration.
 - Source versions, corpus identity, feature provenance and plan identity.
+- Raw configuration, `stage_root/identity.json`, stage receipts, and `output_dir/preparation/<attempt-id>/` reports when preparing from raw files.
 - Hardware, dependency versions, precision, seed, variant and update budget.
 - Parent checkpoint when resuming, output directory, final checkpoint and development metrics.
 - Measured elapsed time and a precise statement of which stages it includes.
@@ -61,5 +72,13 @@ The comparisons with the research implementation recorded:
 - Exact final CPU model and AdamW state after an injected interruption at update 1 and resumption through update 3. The integration test also covers graph assembly, all three cycles, development scoring and checkpoint evaluation.
 
 The equivalence comparisons above apply to the stated CPU settings and fixtures. [Recorded development results](experiments.md) and [instrumented runtime components](runtime_reference.json) come from the original research workflow.
+
+On 26 November 2026, `main.py --mode prepare` completed from the four original database files in a newly installed, independent environment. The run used verified public Open Targets and encoder caches in offline mode. It generated every canonical, split, cleaned-graph, feature and sampling artifact afresh and passed the complete portable-corpus loader before publication. No previously prepared research corpus, feature arrays or trained checkpoint served as an input to that build.
+
+The final R0F1 corpus contains 202,131 nodes, 14,709,000 facts, 14,726,957 evidence rows and 26,756,592 traversals across 82 bound files. All seven membership hashes, the exclusion mask, three cycle hashes and all 13,694 conditional records matched the original recipe. The 56 fact/evidence tables, role-free target map, forbidden-fact table and CSR arrays matched the independently verified historical reconstruction. Recomputed SideInfo and D1 arrays also matched the recorded research features byte for byte in the tested CUDA environment. Canonical-stage counts and traversal-order checks are documented in [raw preparation](raw_preparation.md).
+
+The same independent environment passed all 131 core tests and the complete public experiment-check command, including synthetic three-update training, checkpoint recovery and cold-start scoring. A separate network check downloaded one Open Targets shard and both encoder configuration files from their pinned official URLs and verified their sizes and SHA-256 values. These checks validate the new preparation workflow and its software integration. The paper's training runs and reported evaluation scores remain the original experiments.
+
+An additional read-only check loaded the newly generated corpus, assembled one real training query with 1,000 nodes and 5,000 traversals, and ran the seeded, untrained FULL model in inference mode. Both heads returned finite tensors of shape `[1]`; model parameters and the corpus manifest were unchanged. This query exercised the no-path fallback and a missing drug D1 feature. Nonempty paths and the other feature branches are covered by the synthetic model tests. The check made no optimizer updates and produced no experimental performance result.
 
 GitHub Actions runs the synthetic tests on Linux and Windows with Python 3.11.

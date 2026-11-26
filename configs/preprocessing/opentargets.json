@@ -1,0 +1,381 @@
+{
+  "schema": "EVIHGT_OPENTARGETS_SOURCE_RECIPE_V1",
+  "release": "25.06",
+  "dataset": "association_by_datasource_indirect",
+  "source_receipt_sha256": "906cd38d8103fedcd9fe21686e007bba72da65e0c34fdadc9e27ab02a0f19bd4",
+  "source_policy_sha256": "68a988c4535c0c94a0c5b13684ea0bb9b12c6a67cbe18c8a5c1615dc4eb5ed62",
+  "files": [
+    {
+      "name": "part-00000-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00000-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 5534445,
+      "sha256": "f1f5c3b8ad222a84aff2cb2d7e002401e4b91c6c0a7b1e1c3251e23f0cedb2d8",
+      "rows": 661632
+    },
+    {
+      "name": "part-00001-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00001-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 8300020,
+      "sha256": "c0a26518a08b3ebbcd6803650afd73448be9995c00f06b5d890e8f8a6d1092cd",
+      "rows": 683536
+    },
+    {
+      "name": "part-00002-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00002-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 5380032,
+      "sha256": "4ab504b039da17c7779f7f226aaab1731980568a98521ef3f7dae6ea17465b07",
+      "rows": 669249
+    },
+    {
+      "name": "part-00003-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00003-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 5046351,
+      "sha256": "81add07266d6f150c5e21d6a4879923435ad2de12f20d99a43a2019ebbe2e474",
+      "rows": 579554
+    },
+    {
+      "name": "part-00004-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00004-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 5764225,
+      "sha256": "a8516e9ea8828a128158aa142aa94a0f4130d7e1650349f5c6d9e7996a966c93",
+      "rows": 644020
+    },
+    {
+      "name": "part-00005-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00005-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 4967202,
+      "sha256": "1a92fbda3df49bc397ea4659720bf29874c52cd7e1530b000ccf1eed0857dee7",
+      "rows": 636622
+    },
+    {
+      "name": "part-00006-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00006-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 5433884,
+      "sha256": "9de89d93ac400a9cb492a86e1795787df7d9ca52dfca6fff73118debf0350523",
+      "rows": 645414
+    },
+    {
+      "name": "part-00007-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00007-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 4656044,
+      "sha256": "4c1114535d7c8972f13e515a741b8cc2f47df0e7a290b5c5c2bfc7667a3959a3",
+      "rows": 584491
+    },
+    {
+      "name": "part-00008-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00008-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 4982477,
+      "sha256": "9a95f0ebc6beadbf061524d40cab9fab2667ce3396388b14b45c77bd75b99456",
+      "rows": 705839
+    },
+    {
+      "name": "part-00009-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00009-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 4477476,
+      "sha256": "38e9475334331454a7a6c4cbfdba9c80838874d19c2e47a208d72b60178dcd00",
+      "rows": 724902
+    },
+    {
+      "name": "part-00010-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00010-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 4760729,
+      "sha256": "017a8f7971c555b082da27d017a67bc9e4b9984356e4900ce824c2add642fd95",
+      "rows": 641289
+    },
+    {
+      "name": "part-00011-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00011-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 4808358,
+      "sha256": "33165a7750b7c5740d9e7bf719b9efaf42f18ba70ce84f488c85aac17f5ac5c5",
+      "rows": 641463
+    },
+    {
+      "name": "part-00012-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00012-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 4727978,
+      "sha256": "55ec3ebebc21d1cdb59f9f6daac5a9adcd396b2f09bacd35fa21c77278aa598e",
+      "rows": 633611
+    },
+    {
+      "name": "part-00013-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00013-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 3980897,
+      "sha256": "fa11f7b48eff4a561f1096a8debae60056220651e2bdbe6494a909d9f171893c",
+      "rows": 619338
+    },
+    {
+      "name": "part-00014-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00014-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 4208751,
+      "sha256": "7bfa5661beccd90bca031f46d1bd54abe17ad46ae2c15e6d5d7b5a78397dbf1c",
+      "rows": 620309
+    },
+    {
+      "name": "part-00015-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00015-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 4392150,
+      "sha256": "a9d4a933b228f05c53e0b068a68952990cb31af9f91d4ebe580a06d838a85245",
+      "rows": 621864
+    },
+    {
+      "name": "part-00016-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00016-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 5057943,
+      "sha256": "e012a353d697a38d4cbb72033613785f1434157d90647fa6eed7ecd5757eb877",
+      "rows": 654284
+    },
+    {
+      "name": "part-00017-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00017-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 4039272,
+      "sha256": "2d118c1a09288fffa82a5e9f36522383c025b3cc1482a5bb85ef873e1f25cc1d",
+      "rows": 554591
+    },
+    {
+      "name": "part-00018-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00018-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 5274285,
+      "sha256": "636aecaaa424233769cf66d76d5a8362268b3b99b6cb58ccdb9e144e7ea7a68b",
+      "rows": 638993
+    },
+    {
+      "name": "part-00019-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/opentargets/platform/25.06/output/association_by_datasource_indirect/part-00019-697cec39-1283-46b4-98da-fae6227408f9-c000.snappy.parquet",
+      "bytes": 3715533,
+      "sha256": "076a1d001c4417351a446c141cb0c92b05ebed96dd6e0a72ce2e46aacabc4590",
+      "rows": 568732
+    }
+  ],
+  "datasource_policy": {
+    "cancer_biomarkers": {
+      "datasource_id": "cancer_biomarkers",
+      "datatype_id": "affected_pathway",
+      "eligible": false,
+      "uses_drug_entity": "YES",
+      "uses_drug_indication": "YES",
+      "uses_clinical_drug_development": "YES",
+      "reason": "anti-cancer therapy sensitivity/resistance/toxicity",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "cancer_gene_census": {
+      "datasource_id": "cancer_gene_census",
+      "datatype_id": "somatic_mutation",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "somatic mutation curation",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "chembl": {
+      "datasource_id": "chembl",
+      "datatype_id": "known_drug",
+      "eligible": false,
+      "uses_drug_entity": "YES",
+      "uses_drug_indication": "YES",
+      "uses_clinical_drug_development": "YES",
+      "reason": "drug target plus indication; clinical-phase evidence",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "clingen": {
+      "datasource_id": "clingen",
+      "datatype_id": "genetic_association",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "Mendelian gene validity curation",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "crispr": {
+      "datasource_id": "crispr",
+      "datatype_id": "affected_pathway",
+      "eligible": false,
+      "uses_drug_entity": "UNVERIFIED",
+      "uses_drug_indication": "UNVERIFIED",
+      "uses_clinical_drug_development": "UNVERIFIED",
+      "reason": "priority score incorporates tractability/target annotations; drug-independent priority construction not certified",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "crispr_screen": {
+      "datasource_id": "crispr_screen",
+      "datatype_id": "affected_pathway",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "genetic CRISPRi/a/KO; brain cell phenotype mapping",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "europepmc": {
+      "datasource_id": "europepmc",
+      "datatype_id": "literature",
+      "eligible": false,
+      "uses_drug_entity": "UNVERIFIED",
+      "uses_drug_indication": "UNVERIFIED",
+      "uses_clinical_drug_development": "UNVERIFIED",
+      "reason": "unrestricted literature co-occurrence cannot exclude treatment/indication-derived assertions",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "eva": {
+      "datasource_id": "eva",
+      "datatype_id": "genetic_association",
+      "eligible": false,
+      "uses_drug_entity": "YES",
+      "uses_drug_indication": "UNVERIFIED",
+      "uses_clinical_drug_development": "UNVERIFIED",
+      "reason": "source score includes drug-response records; aggregates cannot separate them",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "eva_somatic": {
+      "datasource_id": "eva_somatic",
+      "datatype_id": "somatic_mutation",
+      "eligible": false,
+      "uses_drug_entity": "YES",
+      "uses_drug_indication": "UNVERIFIED",
+      "uses_clinical_drug_development": "UNVERIFIED",
+      "reason": "source score includes drug-response records; aggregates cannot separate them",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "expression_atlas": {
+      "datasource_id": "expression_atlas",
+      "datatype_id": "rna_expression",
+      "eligible": false,
+      "uses_drug_entity": "UNVERIFIED",
+      "uses_drug_indication": "UNVERIFIED",
+      "uses_clinical_drug_development": "UNVERIFIED",
+      "reason": "aggregate lacks sample treatment context required to certify every contrast as non-drug-derived",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "gene2phenotype": {
+      "datasource_id": "gene2phenotype",
+      "datatype_id": "genetic_association",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "allelic requirement and mutation-disease curation",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "gene_burden": {
+      "datasource_id": "gene_burden",
+      "datatype_id": "genetic_association",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "rare variant burden association tests",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "genomics_england": {
+      "datasource_id": "genomics_england",
+      "datatype_id": "genetic_association",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "diagnostic germline gene panels",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "gwas_credible_sets": {
+      "datasource_id": "gwas_credible_sets",
+      "datatype_id": "genetic_association",
+      "eligible": false,
+      "uses_drug_entity": "YES",
+      "uses_drug_indication": "YES",
+      "uses_clinical_drug_development": "YES",
+      "reason": "L2G effector-gene training list includes ChEMBL phase III/IV gene-indication pairs",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/gentropy/locus-to-gene-l2g.md"
+    },
+    "impc": {
+      "datasource_id": "impc",
+      "datatype_id": "animal_model",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "knockout mouse to human phenotype similarity",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "intogen": {
+      "datasource_id": "intogen",
+      "datatype_id": "somatic_mutation",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "tumour mutation driver analysis",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "orphanet": {
+      "datasource_id": "orphanet",
+      "datatype_id": "genetic_association",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "rare disease genetic association curation",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "progeny": {
+      "datasource_id": "progeny",
+      "datatype_id": "affected_pathway",
+      "eligible": false,
+      "uses_drug_entity": "UNVERIFIED",
+      "uses_drug_indication": "UNVERIFIED",
+      "uses_clinical_drug_development": "UNVERIFIED",
+      "reason": "perturbation-trained pathway signatures; exclusion of drug perturbations not certified",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "reactome": {
+      "datasource_id": "reactome",
+      "datatype_id": "affected_pathway",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "disease-causing mutation/expression events in reactions",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "slapenrich": {
+      "datasource_id": "slapenrich",
+      "datatype_id": "affected_pathway",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "TCGA mutation enrichment in pathways",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "sysbio": {
+      "datasource_id": "sysbio",
+      "datatype_id": "affected_pathway",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "disease driver network signatures",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "uniprot_literature": {
+      "datasource_id": "uniprot_literature",
+      "datatype_id": "genetic_association",
+      "eligible": false,
+      "uses_drug_entity": "UNVERIFIED",
+      "uses_drug_indication": "UNVERIFIED",
+      "uses_clinical_drug_development": "UNVERIFIED",
+      "reason": "aggregated publications on pathogenic processes lack record-level exclusion of drug-derived assertions",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    },
+    "uniprot_variants": {
+      "datasource_id": "uniprot_variants",
+      "datatype_id": "genetic_association",
+      "eligible": true,
+      "uses_drug_entity": "NO",
+      "uses_drug_indication": "NO",
+      "uses_clinical_drug_development": "NO",
+      "reason": "curated disease-causing protein variation",
+      "definition_url": "https://github.com/opentargets/platform-docs/blob/2fe32176d2d9df7cdfa979917dfc8582556ea09b/evidence.md"
+    }
+  }
+}

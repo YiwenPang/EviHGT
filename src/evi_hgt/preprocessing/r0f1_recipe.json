@@ -1,0 +1,61 @@
+{
+  "schema": "EVIHGT_R0F1_RECONSTRUCTION_RECIPE_V1",
+  "conditional_bindings": {
+    "fold_manifest_digest": "552281ca25c8ac58ef93f39b32a084ecc693e0c12053b42dd029334fc5760ed8",
+    "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+    "fold": 1,
+    "training_seed": 342565966,
+    "training_u_manifest_digest": "0e9a3971a90ab8b43e83a0f9ecd94820461cb862d3603b0673174761a1a8074b",
+    "exclusion_digest": "41a83afb7d8a6d8b84b1d2ceeb5bad9658e83d555743b87485ef123918b5bd4a",
+    "warmup_checkpoint_sha256": "4bfef47df033347ed39b0ba4d5cf7bdccc5004c5a6c4c61ce09361ad4ccf83ca",
+    "dev96_namespace": "DEV96_E0_G_SHARED_CONDITIONAL_V1",
+    "cell": "R0F1",
+    "corpus_digest": "100c3e4483679d1df37beed44a1e684c09bc5cebd1c4eabc4d8f224dfcd80c7f",
+    "schedule_digest": "f7f500c0ea51a031554f49b366a2d201944ce418c1bd453c6c841bbbd0645867",
+    "cycles": [
+      2,
+      3
+    ],
+    "record_order": "cycle_then_original_group"
+  },
+  "membership_digests": {
+    "training": "5a76ac3accd8e23b76f4fe42a8fe4f995a40140b26d569c993e97edc634a50fe",
+    "validation": "784ea2c6c7f110f2c3967e7f61a684cb8800bf0b6000bc23d59ce671003f9a90",
+    "train_probe": "950bc74c277c520b9f9596bd41a123625973ab209e9547575876d0711f4feb78",
+    "outer_test": "0dfddc1e6b98092673944d5efa9e3b0ca5041c40a477ab707fee94f5c727daf6",
+    "auxiliary_training": "031d9959b3d7bb76801643d84e8d4289d2a46b582ecae15ef987c1a00dca867f",
+    "auxiliary_validation": "b6914774f9b76a0d3c4b60baaa6c4d6fb53ea1c7d3fe9ca4278a37ca726563ff",
+    "auxiliary_probe": "e76ccd20896b77a25ec33b70f2e29cdff341d6dab1db116400b927da118892f9"
+  },
+  "mask_digest": "41a83afb7d8a6d8b84b1d2ceeb5bad9658e83d555743b87485ef123918b5bd4a",
+  "training_seed": 342565966,
+  "cycles": [
+    {
+      "cycle": 1,
+      "groups": 6847,
+      "group_digest": "3c5f9ab83bd4621b52a083ff60392011a29eb6c4bc8f1aa20519f92702bda045",
+      "support_P": 17663,
+      "contra_P": 6847,
+      "positive_coverage": "EXACTLY_ONCE"
+    },
+    {
+      "cycle": 2,
+      "groups": 6847,
+      "group_digest": "ccc7da17790a51b50759a801915dbda4534995621898fcf685c28ebb3c8bc133",
+      "support_P": 17663,
+      "contra_P": 6847,
+      "positive_coverage": "EXACTLY_ONCE"
+    },
+    {
+      "cycle": 3,
+      "groups": 6847,
+      "group_digest": "194b865018e4cacda6b0eb5004302b236242761d467b6f0ea5d85c769dc4d2cf",
+      "support_P": 17663,
+      "contra_P": 6847,
+      "positive_coverage": "EXACTLY_ONCE"
+    }
+  ],
+  "G": 6847,
+  "record_digest": "53fcf62546d3dbe50a15e6e45aa13b1f4cee937206a955013363499f526a6c8d",
+  "digest_semantics": "Historical identifiers used solely as deterministic seed recipe constants; no checkpoint or prior execution receipt is required or recreated."
+}

@@ -6,3 +6,11 @@ polars==1.43.2
 pyarrow==25.0.1
 PyYAML==6.0.3
 tqdm==4.70.0
+
+# Additional versions verified in the isolated raw-preparation environment.
+lxml==6.1.2
+requests==2.34.2
+rdkit==2026.3.6
+transformers==5.19.0
+tokenizers==0.23.2
+huggingface_hub==1.33.0

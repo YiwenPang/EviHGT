@@ -1,0 +1,266 @@
+{
+  "configs/cpu.yaml": [
+    "68091077dee0615395082aa343d5e0c826b1f8d3b9d8ff2fdf6f3016125b9ce4"
+  ],
+  "configs/default.yaml": [
+    "3d07acd9c9f843719010589b08b40e503f87dcfe791dce3028ed5ec5b86684f2"
+  ],
+  "configs/raw.yaml": [
+    "57e40ce24b8bc31c49c763c30bf8bf5a8e1c4ae5d22acbb1e140bd17c13ca6f3"
+  ],
+  "src/evi_hgt/__init__.py": [
+    "d5e691d03d2bb2b4c2127aa8fc243230c96ef568c2d95a8101e62fb0c68633ac"
+  ],
+  "src/evi_hgt/bootstrap.py": [
+    "5225e57ab40240d93bceb5ba36aa914476f0859207d3b0a03e0c8cfc3918b0c8"
+  ],
+  "src/evi_hgt/cli.py": [
+    "68c3aee9010acd0cb2c5d74b183f0e90e4ae3074b33ab1a40a8481b742b8301d"
+  ],
+  "src/evi_hgt/console.py": [
+    "1a4547900e69f171f07e32ca33eb1b439e4ab2aade7b34362b9e98f6281df5b6"
+  ],
+  "src/evi_hgt/data/__init__.py": [
+    "95fd47119d4946c8a740b55da544730474f88785628a9d79d6d94986037879a4"
+  ],
+  "src/evi_hgt/data/common.py": [
+    "b727f42dd0a9429238bdf24ead17a8bbfeb7a94af008759a6955a2e9ec9fe199"
+  ],
+  "src/evi_hgt/data/corpus.py": [
+    "e0f4b39a35f049edd8db54761b37deed0cd1b090ae90074ff32566f3e67227ab"
+  ],
+  "src/evi_hgt/data/direction_policy.py": [
+    "3fab2bcaa49a993d17132f042b0a8f58c8266260819b96feb468f9e3ed7c17a1"
+  ],
+  "src/evi_hgt/data/encoding_fields.py": [
+    "dd2ddb66338988438af64f40c145e9b784797eda6cd45476f9e68f9a8178903e"
+  ],
+  "src/evi_hgt/data/graph.py": [
+    "109e55d2eb544de55a2e79ad9982ff447f7a8e6dad20c841ee01205a1bdb9da8"
+  ],
+  "src/evi_hgt/data/leakage.py": [
+    "23c19a44aaf78d094363c2e4c47af1fd473973408f40ad1d78c40048643d0606"
+  ],
+  "src/evi_hgt/data/native_csr.py": [
+    "f8a5d36e43162c3038ffd8f3e4ee9561438d99e0fab0e8ac2b07a1121790a07f"
+  ],
+  "src/evi_hgt/data/plan.py": [
+    "9fe3c052d663db2276a11f29bf6e1c3dcc47b985abe612ddcde35ba35b572614"
+  ],
+  "src/evi_hgt/data/prepare.py": [
+    "7b663af6abb6b9685d8ce759b2fea93f4be891a85b351f0c91fd2a06f4b5d1d5"
+  ],
+  "src/evi_hgt/data/pretrained.py": [
+    "a20fec56d0239c6e243cf98605c3b07bd31525d66d02141a329b8d4f8bdb4d83"
+  ],
+  "src/evi_hgt/data/projection.py": [
+    "a09d300c716ba15cd5b27fff3a6738edf88d997820e06e8152692434aa2c64a2"
+  ],
+  "src/evi_hgt/data/provenance.py": [
+    "d9653b5db9a3194d6aa9b0fff1d24d813f8e0e90b15cdbb9c5d6264b206c49fc"
+  ],
+  "src/evi_hgt/data/raw_features.py": [
+    "e5182b8d046db53eb40b09987655b24ae7653a90c9f2b5223bcbeaec6529d680"
+  ],
+  "src/evi_hgt/data/research_export.py": [
+    "a7574905cd9aeea5b281cded0f54682418c506a3688d45816af88756ebc3f420"
+  ],
+  "src/evi_hgt/io.py": [
+    "7fb30f5c1d49bec1688934e17a73eb53a42f89eb865746a6ef4ed3445ced7a12"
+  ],
+  "src/evi_hgt/losses.py": [
+    "382c2de7e5ddb9f5769d348dfb9c7f6749d8f8b09ca9177ca546ff42e46e7170"
+  ],
+  "src/evi_hgt/metrics.py": [
+    "e4047017e7dd3df6c783a9530d11bb8a9eb718dca82dc400a5d5ecfa9339f22c"
+  ],
+  "src/evi_hgt/model.py": [
+    "c518cf984cabaefdd4cfc2bc97c93f00d4bf411d38e322faeec6932c7ef37f61"
+  ],
+  "src/evi_hgt/models/__init__.py": [
+    "d5e691d03d2bb2b4c2127aa8fc243230c96ef568c2d95a8101e62fb0c68633ac"
+  ],
+  "src/evi_hgt/models/config.py": [
+    "b366c96670b731ebe47fd114801ca9b1c857ce7d1c5f818564ee7aa153ae24b6"
+  ],
+  "src/evi_hgt/models/edge_context.py": [
+    "082cf6306891ba80f13b5fc880af6539bf09b32e3a8334ad2fd28055f2fa54ca"
+  ],
+  "src/evi_hgt/models/evi_hgt.py": [
+    "d01ae2ed22d843318c6d240c5eb9c81b5bdb775b878ce9160f8ce6c78f5ac8cd"
+  ],
+  "src/evi_hgt/models/evi_hgt_layer.py": [
+    "75a1ce0d258f71977a783b1ed830281ed0dbea27067b33464b64c88a9930c708"
+  ],
+  "src/evi_hgt/models/evidence_encoder.py": [
+    "898f768651b808a98a3c7dae7f0ad94a899567fec0c977bac18398d96914eb1b"
+  ],
+  "src/evi_hgt/models/evidence_pooling.py": [
+    "97adf97e6bb2cf1a3efc1ce4e088502123252c536f79a4caa1169ef9d8dd6ca0"
+  ],
+  "src/evi_hgt/models/four_valued_logic.py": [
+    "5e9a0c0966530691c83c443a2c9cf8f30c0e314c0ae472c3dea21d67331a7356"
+  ],
+  "src/evi_hgt/models/input_contract.py": [
+    "5b464c3164a2d09f68eb8cabae1338d46b400fde689444640f73dcea786d25a4"
+  ],
+  "src/evi_hgt/models/node_encoder.py": [
+    "662f2a693e1666e3c7a951bcc12539007785c859879a7d2fc8cff3353f1da56f"
+  ],
+  "src/evi_hgt/models/path_encoder.py": [
+    "2ab5a48b36c00611a5a58e522d4c6c288c3e23fdaa2a1d2bfa12f78f2b142443"
+  ],
+  "src/evi_hgt/models/path_reasoning.py": [
+    "ce3e61428ed8806ac28295b80dab045d276ef10db4a839541b5f7f1f2ce4645b"
+  ],
+  "src/evi_hgt/models/provenance_encoder.py": [
+    "c7bc6d7c3a9e1ce5398a45efdc1dfe617b7c4af66caf83a3179bab53024ff120"
+  ],
+  "src/evi_hgt/models/query_encoder.py": [
+    "258381132a91234a0f59e037a99565eaafc71bbea53edb8f691cc48c98c20760"
+  ],
+  "src/evi_hgt/models/segment_ops.py": [
+    "561856a42978b99d5b5576ac530a70be8315299d812c60cf4d1cc4324ae03157"
+  ],
+  "src/evi_hgt/models/side_information.py": [
+    "e9f9859dde406ce117052724c1a569c763d50418c2411088ba2dfbf5e344a205"
+  ],
+  "src/evi_hgt/preprocessing/__init__.py": [
+    "203dd83f0563251866538b49be341acdd356040af45c7f3c6d1ce35f398e9411"
+  ],
+  "src/evi_hgt/preprocessing/canonical.py": [
+    "c35c5e459bb258bd8cfbdb9b7aab71f568d0326fa5b6ed2f9a698720ddd82c6d"
+  ],
+  "src/evi_hgt/preprocessing/clean_graph.py": [
+    "0920d64b18f4041dc49910bf05762675f9e0d217f31df5f8f977898abc429d45"
+  ],
+  "src/evi_hgt/preprocessing/clean_graph_source.py": [
+    "235f69f426916b76c08dbaae45820f08f7ed07ca574aa41d3a0b528768cee93e"
+  ],
+  "src/evi_hgt/preprocessing/feature_encoders.py": [
+    "8e6a04429784d9a11a8b0c4dbbe997657d130ecbb03d1931581afc126bf449b7"
+  ],
+  "src/evi_hgt/preprocessing/feature_sources.py": [
+    "74827ea6d51126669df43bbdb421a3fec82d01aa7ad258a72bd0624d591d6a14"
+  ],
+  "src/evi_hgt/preprocessing/features.py": [
+    "b56a4d41e497d2fe8c6494a92d1de163fb45e455bbe23ca102554a8d952f8569"
+  ],
+  "src/evi_hgt/preprocessing/initial_splits_source.py": [
+    "e7f0775b8e4f114e2380c01e23b2ae4d51877bf9803239ad7eee7d74f885def5"
+  ],
+  "src/evi_hgt/preprocessing/pipeline.py": [
+    "508c1fe318f78c2ceff11429e0887439e6aa9d0b15b4765be6e3e36600992e1e"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/__init__.py": [
+    "f527b343369813b4253f3f3f2c2394c681d7f63962c510d8a23e3ece3a826cda"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/canonical_facts.py": [
+    "2a408b7a379370404b53f5470a09698d7df5291aa8cc44c8bd3845046ffea177"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/csr_order_recipe.py": [
+    "e2458be32410028f72d06b0887384f2131de5d031ac9e284f561750f08ca16d4"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/dda_supervision.py": [
+    "9b827c939c6a72957609ae308042f21c0448f2c3b13d4a8cb015ebce6768d7f5"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/drugbank_loader.py": [
+    "89df38d790549727d17213453f746108b24a8a5fc7101b6e0ff0a7d5c21e90e6"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/drugbank_merge.py": [
+    "b702262f1f3fd36362d4ee3e7d309584fd3545c833dd84634f8b9e1803f23aac"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/evidence_overlap.py": [
+    "08b4df3d2386532a1d43b20dc430c6e27adab20e00c4f576c83f83cbd9ecab96"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/graph_builder.py": [
+    "51a4b72bdc579c6b040948631ddf5b9685ec322977a04467040edb72aff09e8f"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/leakage.py": [
+    "f0c16e2927ca935e8dcbdfa840f2b99d59b10a85b1d1d38878db77351e6511bb"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/optimus_loader.py": [
+    "8a764436e183f785627e6cab24d5247fb20be908f5fc223e134d6dd8104c5f6a"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/paths.py": [
+    "c0628301361357de97b87d95a988799deb576ec6c564274f43b3c29f0959a1a5"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/phase3_2_recovery.py": [
+    "d8faf6a28feb5a0b1894f0a76d446874d007e31c521b467fe5dfea6dc97ba01c"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/phase3_cache.py": [
+    "9cf33d9ae6e8ccff7c55ba7147f749107c657b4e93f73d4e393a717df14c05c4"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/phase3_formal_pipeline.py": [
+    "ea1501fc76c7503a433e4e86f037e19a73e896b3f10979b169bc0b382bb56d6b"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/phase3_pipeline.py": [
+    "322904993e5a91bdd366b6ba382dd5c7dd09411038371802a6424b5c9ee665b3"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/phase3_recovery_build.py": [
+    "634fad1e2cd2b84948d4ace46c874257769e244017ad8d447c1df8b6fb0f7406"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/phase3_schema.py": [
+    "0de2d929c0f0592ccff5e329a43de71276e4d0bc72a67f4ec81cbf114d2e3be5"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/provenance.py": [
+    "d9653b5db9a3194d6aa9b0fff1d24d813f8e0e90b15cdbb9c5d6264b206c49fc"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/scientific_gate.py": [
+    "b0402ef05536d33b8b332435a1913da7e3c93a2a6612a927efd6fb538a6b745e"
+  ],
+  "src/evi_hgt/preprocessing/raw_source/splits.py": [
+    "e7f0775b8e4f114e2380c01e23b2ae4d51877bf9803239ad7eee7d74f885def5"
+  ],
+  "src/evi_hgt/preprocessing/resources.py": [
+    "1660279f99eb450b3942c91dd9ec60f22000ea0b034204af70d7bf9a4cac894f"
+  ],
+  "src/evi_hgt/preprocessing/sampling.py": [
+    "74362ff71f771887c2fb0c7b818401a41133f5b8fac7eba6277e05bfead3e04c"
+  ],
+  "src/evi_hgt/preprocessing/splits.py": [
+    "92acab4b1fb3a14b768122b5f04fd8d08170919b321a72c557af9169400e1c52"
+  ],
+  "src/evi_hgt/preprocessing/splits_source.py": [
+    "3001382cb99407b57a4a2e1a8b007a56cbcd0a175b62267d15916d394174106e"
+  ],
+  "src/evi_hgt/runner.py": [
+    "93cf08671d8f2ab4d85419d0d5d31cb45896225fb2ccb3600d013f0666a40d0c"
+  ],
+  "src/evi_hgt/sampling/__init__.py": [
+    "d5e691d03d2bb2b4c2127aa8fc243230c96ef568c2d95a8101e62fb0c68633ac"
+  ],
+  "src/evi_hgt/sampling/path_extractor.py": [
+    "954150c1f5ab5b852d8bc2b5ede5a09602d8e297d54f5fbc9f6bfb4948c0c348"
+  ],
+  "src/evi_hgt/sampling/path_leakage.py": [
+    "5690df11d577dc07d1f1113a88f0038ea9648e938d71097c47a3de30baa23e99"
+  ],
+  "src/evi_hgt/sampling/path_schema.py": [
+    "f847be44f4d747437920842cb0af7022925d525d57f07654dbd4999d25ae737d"
+  ],
+  "src/evi_hgt/settings.py": [
+    "31ac1dbcf78522a65250b608df0af37c344b97e2040bbf156e28d81fffb8050d"
+  ],
+  "src/evi_hgt/training/__init__.py": [
+    "95fd47119d4946c8a740b55da544730474f88785628a9d79d6d94986037879a4"
+  ],
+  "src/evi_hgt/training/indexed_assembly.py": [
+    "6b3c13e8febb02dca7474790fa4a0d889c321da473783150c9b52516b1477358"
+  ],
+  "src/evi_hgt/training/input_encoding.py": [
+    "ba6ebced1762b1488a93c2b981182fad52f5893d29acfafba40b82a711681fed"
+  ],
+  "src/evi_hgt/training/input_index.py": [
+    "c81eef6d6e25224349258626e521324e7d37e6489ef5dc419dd1f9ac0ff8c63f"
+  ],
+  "src/evi_hgt/training/prediction.py": [
+    "0baafa7f5306e7cd843c88c6b45e9fe2b7de91f25819ab08a8d486fcf35191c7"
+  ],
+  "src/evi_hgt/training/supervision.py": [
+    "ae5b3f55f81428d50b2f7b62b11ea13bd6781bccc37d29d946a6eb9338cd2cb1"
+  ],
+  "tests/data_fixture.py": [
+    "215d0ff68a58ddbe09c1356e79d6a69517f46c2780d506391f62aeb8b9c8b124"
+  ]
+}

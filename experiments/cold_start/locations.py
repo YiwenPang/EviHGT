@@ -24,15 +24,29 @@ EXPERIMENT = WORKSPACE / "outputs/phase9/phase98/cold_start_20261118"
 
 
 def check_frozen():
-    """Verify the historical or released spelling of each runtime source file."""
-    expected = json.loads((SOURCE / "runtime_sha256.json").read_text(encoding="utf-8"))
+    """Match one complete registered runtime, retaining its distinct identity."""
+    variants = [("historical-release", SOURCE / "runtime_sha256.json")]
+    raw_manifest = SOURCE / "runtime_sha256_raw_preparation.json"
+    if raw_manifest.is_file():
+        variants.append(("raw-preparation-release", raw_manifest))
     files = [*(FROZEN / "src").rglob("*.py"), *(FROZEN / "configs").rglob("*.yaml"),
              FROZEN / "tests/data_fixture.py"]
     actual = {file.relative_to(FROZEN).as_posix(): file for file in files}
-    if actual.keys() != expected.keys():
-        raise RuntimeError(f"Runtime inventory differs from the cold-start release at {FROZEN}")
-    for name, choices in expected.items():
-        normalized = actual[name].read_bytes().replace(b"\r\n", b"\n")
-        if sha256(normalized).hexdigest() not in choices:
-            raise RuntimeError(f"Cold-start runtime source differs: {name}")
-    return {"files": len(actual), "identical": True}
+    mismatches = []
+    observed = None
+    for variant, manifest in variants:
+        expected = json.loads(manifest.read_text(encoding="utf-8"))
+        if actual.keys() != expected.keys():
+            continue
+        if observed is None:
+            observed = {name: sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+                        for name, path in actual.items()}
+        changed = [name for name, choices in expected.items() if observed[name] not in choices]
+        if not changed:
+            return {"files": len(actual), "identical": True,
+                    "runtime_variant": variant, "runtime_manifest": manifest.name,
+                    "historical_runtime_identical": variant == "historical-release"}
+        mismatches.append(f"{variant}: {', '.join(changed)}")
+    if mismatches:
+        raise RuntimeError("Cold-start runtime source differs: " + "; ".join(mismatches))
+    raise RuntimeError(f"Runtime inventory differs from every registered cold-start release at {FROZEN}")

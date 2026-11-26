@@ -18,9 +18,9 @@ python main.py --mode validate
 
 Corpus validation uses CPU memory for the input index and exits before model creation, training or CUDA/BF16 checks. Add `--config /path/to/run.yaml` if your corpus uses a nondefault configuration.
 
-A successful raw-file check does not create `data/processed/corpus/manifest.json`. The release imports normalized artifacts with `prepare_data.py` or exports a completed research corpus with `export_data.py`; its raw-to-training preprocessing entry point is not yet published. Use the [supported preparation routes](data.md#supported-preparation-routes) when the required prepared inputs are available. To check the software without those inputs, follow the [public CPU checks](../README.md#try-the-public-checks).
+A successful placement check does not create `data/processed/corpus/manifest.json`. Install `requirements-preprocess.txt` and run `python main.py --mode prepare` to build and validate it, or run `python main.py` to prepare it and then train. Use `--raw-config /path/to/raw.yaml` for custom source/cache paths. The raw recipe supports R0F1. To check the software without databases, follow the [public CPU checks](../README.md#try-the-public-checks).
 
-Runtime failures print an English explanation and the absolute traceback-log path. Inspect that file first. Normal runs write `outputs/RUN_ID/logs/errors.log` and `events.jsonl`; early configuration/import failures use `outputs/logs/startup_errors.log`. Preparation and export commands have their own log directories. Preserve the original inputs and the failed run's logs while investigating.
+Failures print an explanation and the absolute traceback-log path. Inspect that file first. Training runs write `outputs/RUN_ID/logs/errors.log` and `events.jsonl`; early configuration/import failures use `outputs/logs/startup_errors.log`. Raw preparation reports Chinese phase messages and writes `output_dir/preparation/<attempt-id>/events.jsonl`, `errors.log` on failure and `completion.json` on success. Import and export utilities have their own logs. Preserve the original inputs and failed attempts while investigating.
 
 ## Missing inputs or preparation errors
 
@@ -29,11 +29,17 @@ Runtime failures print an English explanation and the absolute traceback-log pat
 | `Missing file` from `check_data.py` | Check the extracted filename and its location relative to the repository root. For files in another checkout, use `python check_data.py --root /path/to/checkout`. Follow the [raw-file layout](data.md#download-and-place-the-source-databases). |
 | `Does not match OptimusKG release 2.0` | The file size or SHA-256 differs from the recorded aggregate input. Confirm the release and aggregate filename, and check for an incomplete download. Preserve the existing source file while investigating. |
 | `Cannot read the expected XML header` | Confirm that the archive was extracted and that the inputs are the full DrugBank XML and XSD, rather than a CSV, SDF, archive or downloaded web page. |
-| `Prepared corpus not found` or `Prepared corpus is missing` | Set the YAML `manifest` field to a complete prepared corpus. The default is `data/processed/corpus/manifest.json`. Raw-file checks can pass while this corpus is still absent; see the [supported preparation routes](data.md#supported-preparation-routes). |
-| `Unsupported corpus schema` | The trainer expects `EVIHGT_PORTABLE_CORPUS_V1`. Use `prepare_data.py` with a complete source map of normalized inputs, or `export_data.py` with the required completed research workspace. Renaming a raw-data manifest does not convert its schema. |
+| `Prepared corpus not found` or `Prepared corpus is missing` | Run `python main.py --mode prepare` with preprocessing dependencies and the configured source files. `--mode validate`, evaluation and checkpoint resume require an existing corpus. The default manifest is `data/processed/corpus/manifest.json`. |
+| `Unsupported corpus schema` | The trainer expects `EVIHGT_PORTABLE_CORPUS_V1`. Build a new corpus with `main.py --mode prepare`, import normalized inputs with `prepare_data.py`, or export a completed research corpus with `export_data.py`. Renaming a raw-data manifest does not convert its schema. |
 | `Unbound corpus input path` or `Missing corpus input` | A referenced file is absent or missing from the hashed inventory. Restore the matching corpus as a unit, including its manifest. |
 | `Output already exists` | Choose a new derived-data directory, such as `data/processed/corpus_v2`. Failed preparations can leave `.attempt_...` directories for inspection. |
 | `No completed masked corpus exists` or a missing sampling seal | Supply a completed, masked research corpus and its sealed sampling plan. |
+| `缺少原始文件` | Check the four source paths in the YAML passed with `--raw-config`. Relative paths resolve from the repository root. |
+| `Missing resource in offline mode` | Populate the exact pinned Open Targets/model caches in an online preparation, or transfer those cache files locally. `--offline` never downloads missing resources. |
+| `Preserving existing resource with unexpected identity` or an encoder checksum error | The cache file differs from the pinned bytes. Keep it for diagnosis and use a separate clean cache directory for the required version. Existing files are not silently replaced. |
+| `Raw preparation identity changed`, `Existing corpus has a different preparation identity`, or `Completed stage output changed` | Preserve the previous artifacts. Use a new `stage_root` and final corpus destination after code, source, bound package or feature-setting changes; investigate altered completed outputs before reuse. Use `--mode validate` to inspect an existing corpus without its raw build inputs. |
+| `Another preparation may be active` | Check the PID in `stage_root/.prepare.lock`. If that process has stopped and no preparation is active, remove that lock before retrying. |
+| `Raw data do not reproduce original R0F1 membership`, a mask mismatch, or an original-cycle mismatch | Compare source and recipe identities with the specified releases. The raw path requires the original R0F1 memberships and sampling order; do not remove the check or substitute a new split. |
 | A semantic-declaration, channel, target-mask or conditional-record error | Check affected rows against the source audit and the relevant schema in [data.md](data.md). Keep U labels and verified relation meanings intact while correcting the input. |
 
 The [source-map template](../schemas/source.example.json) and [D1 metadata template](../schemas/d1_metadata.example.json) describe the required prepared artifacts. Replace their placeholders with verified paths, hashes and declarations. The templates do not generate entity mappings, labels, features or sampling plans.
@@ -47,7 +53,7 @@ python -c "import sys; print(sys.executable); print(sys.version)"
 python -c "import torch; print(torch.__version__); print(torch.version.cuda); print(torch.cuda.is_available()); print(torch.cuda.is_bf16_supported() if torch.cuda.is_available() else False)"
 ```
 
-If an import is missing, install dependencies into that interpreter with `python -m pip install -r requirements.txt`. In PyCharm, verify the project's configured interpreter and the run configuration use the same environment. See the [installation instructions](../README.md#installation) for PyTorch setup.
+If an import is missing, install dependencies into that interpreter with `python -m pip install -r requirements-preprocess.txt` for the raw workflow, or `-r requirements.txt` for an existing portable corpus. `requirements-dev.txt` includes preprocessing and test dependencies. In PyCharm, verify the project's configured interpreter and the run configuration use the same environment. See the [installation instructions](../README.md#installation) for PyTorch setup.
 
 The default settings require `device: cuda` and `precision: bf16`. If you get `CUDA is unavailable`, check the PyTorch installation, GPU and driver used by that interpreter. `Configured BF16 is unsupported` requires an explicit FP32 configuration or a compatible environment.
 
@@ -59,13 +65,13 @@ python main.py --config configs/cpu.yaml
 
 For CUDA/FP32, create a separate configuration based on `configs/default.yaml` and set `precision: fp32` while keeping `device: cuda`. Start a new run when changing device or precision. Checkpoints bind to the device and precision used to create them.
 
-RDKit is needed only when explicitly invoking the molecular-fingerprint helper. Supply the frozen D1 arrays with the prepared corpus.
+The CPU command above changes the training device. If preparation is also needed, pass a raw YAML with `feature_device: cpu`; the default `configs/raw.yaml` uses CUDA for feature inference. Feature inference uses the pinned encoders locally and has a separate `feature_batch_size`. Changes to these settings require a new preparation identity. RDKit and Transformers are required for raw feature construction; an existing portable corpus already contains its SideInfo and D1 arrays.
 
 ## Paths, relocation and file hashes
 
 Paths inside the corpus manifest must be relative POSIX paths within the corpus directory. Absolute paths, parent traversal, backslashes and escaping symlinks are rejected. Move the **complete** portable corpus together with its manifest; its content identity does not depend on the containing directory.
 
-`manifest` and `output_dir` inside a YAML configuration resolve relative to the repository root. Explicit command-line paths such as `--config` and `--checkpoint` resolve from the process working directory, so use a correct working directory or an absolute path. The no-argument entry point locates its default configuration from the repository itself.
+`manifest`, `output_dir` and paths inside the raw YAML resolve relative to the repository root. Explicit command-line paths such as `--config`, `--raw-config` and `--checkpoint` resolve from the process working directory, so use a correct working directory or an absolute path. The no-argument entry point locates its default configurations from the repository itself.
 
 Old research manifests may contain their former absolute workspace root. Only the explicit migration utility handles this mapping:
 
@@ -76,6 +82,8 @@ python export_data.py --research-root /new/research --recorded-root /old/researc
 Use the actual former root recorded in those manifests, including its original Windows path form when applicable. This mapping is not needed by ordinary portable-corpus training.
 
 A hash mismatch means a file differs from the recorded copy. Check for a partial copy, stale features, edits or files from another cell. Restore the matching file to resume a checkpoint, or audit and prepare a new corpus for a new run.
+
+After an interrupted preparation, rerun the same command. Completed stage receipts are checked before reuse. Failed attempts remain on disk, and the feature stage can resume its completed output types. If the final manifest already exists, explicit preparation requires the raw files and matching source, recipe and build identities before reuse. To build changed inputs, set both a new `stage_root` in the raw YAML and a new final `manifest` path in the training YAML. Keep staging and final corpus directories separate. For an existing corpus without its raw sources, use `--mode validate`; normal training also loads that corpus without invoking preparation.
 
 ## Checkpoints and interrupted runs
 

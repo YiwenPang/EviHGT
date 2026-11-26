@@ -1,0 +1,78 @@
+{
+  "schema": "HGTDR_PINNED_SMALL_FILE_SHA256_V1",
+  "fetched_date": "2026-10-09",
+  "models": [
+    {
+      "model_id": "dmis-lab/biobert-v1.1",
+      "revision": "551ca18efd7f052c8dfa0b01c94c2a8e68bc5488",
+      "files": [
+        {
+          "filename": "config.json",
+          "bytes": 462,
+          "sha256": "d506e8d0cfd5223472678e897cb294f6765d2e4695d39445a6e486cf853e62e8",
+          "url": "https://huggingface.co/dmis-lab/biobert-v1.1/resolve/551ca18efd7f052c8dfa0b01c94c2a8e68bc5488/config.json"
+        },
+        {
+          "filename": "special_tokens_map.json",
+          "bytes": 112,
+          "sha256": "303df45a03609e4ead04bc3dc1536d0ab19b5358db685b6f3da123d05ec200e3",
+          "url": "https://huggingface.co/dmis-lab/biobert-v1.1/resolve/551ca18efd7f052c8dfa0b01c94c2a8e68bc5488/special_tokens_map.json"
+        },
+        {
+          "filename": "tokenizer_config.json",
+          "bytes": 49,
+          "sha256": "0f6d13e6f4da6f9e24f22ada6bc3be571123d858d7c0c05a8a7cd55a9c23c2e8",
+          "url": "https://huggingface.co/dmis-lab/biobert-v1.1/resolve/551ca18efd7f052c8dfa0b01c94c2a8e68bc5488/tokenizer_config.json"
+        },
+        {
+          "filename": "vocab.txt",
+          "bytes": 213450,
+          "sha256": "eeaa9875b23b04b4c54ef759d03db9d1ba1554838f8fb26c5d96fa551df93d02",
+          "url": "https://huggingface.co/dmis-lab/biobert-v1.1/resolve/551ca18efd7f052c8dfa0b01c94c2a8e68bc5488/vocab.txt"
+        }
+      ]
+    },
+    {
+      "model_id": "seyonec/ChemBERTa-zinc-base-v1",
+      "revision": "761d6a18cf99db371e0b43baf3e2d21b3e865a20",
+      "files": [
+        {
+          "filename": "config.json",
+          "bytes": 501,
+          "sha256": "a484ab1497bf438b2dcbda35c6ce518ca8043539ff1a56d713aa84bcf2cba225",
+          "url": "https://huggingface.co/seyonec/ChemBERTa-zinc-base-v1/resolve/761d6a18cf99db371e0b43baf3e2d21b3e865a20/config.json"
+        },
+        {
+          "filename": "merges.txt",
+          "bytes": 3213,
+          "sha256": "f8c368d3b2f44cf4eec62aa576b69945302fcfa8eba065048d3725259671f2bb",
+          "url": "https://huggingface.co/seyonec/ChemBERTa-zinc-base-v1/resolve/761d6a18cf99db371e0b43baf3e2d21b3e865a20/merges.txt"
+        },
+        {
+          "filename": "special_tokens_map.json",
+          "bytes": 150,
+          "sha256": "7638f5bbbe86ef6d604ef28ad3647dc690d6d117c81c0d63e885416be8da1150",
+          "url": "https://huggingface.co/seyonec/ChemBERTa-zinc-base-v1/resolve/761d6a18cf99db371e0b43baf3e2d21b3e865a20/special_tokens_map.json"
+        },
+        {
+          "filename": "tokenizer_config.json",
+          "bytes": 166,
+          "sha256": "36557a021e64d222c7ff0fef5369bc87ae6e0780264af0f35d8c6461cf106577",
+          "url": "https://huggingface.co/seyonec/ChemBERTa-zinc-base-v1/resolve/761d6a18cf99db371e0b43baf3e2d21b3e865a20/tokenizer_config.json"
+        },
+        {
+          "filename": "vocab.json",
+          "bytes": 9429,
+          "sha256": "791f9dd0e7dacb628c2f3155671a702044b1da537784eaa5663fb36ee7b8d42f",
+          "url": "https://huggingface.co/seyonec/ChemBERTa-zinc-base-v1/resolve/761d6a18cf99db371e0b43baf3e2d21b3e865a20/vocab.json"
+        },
+        {
+          "filename": "README.md",
+          "bytes": 2132,
+          "sha256": "54d3f0a4d58b3eb4b9b72bbdb0dc7f7b820e46167a5efd879eba11f1f6d89087",
+          "url": "https://huggingface.co/seyonec/ChemBERTa-zinc-base-v1/resolve/761d6a18cf99db371e0b43baf3e2d21b3e865a20/README.md"
+        }
+      ]
+    }
+  ]
+}

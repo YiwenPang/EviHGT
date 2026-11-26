@@ -1,0 +1,12 @@
+# Paths are relative to the repository, unless absolute paths are supplied.
+# Raw inputs are read-only. See docs/data.md for the exact source releases.
+nodes: data/cache/optimuskg/doi_10_7910_DVN_IYNGEV/2.0/recovery/aggregate/nodes.parquet
+edges: data/cache/optimuskg/doi_10_7910_DVN_IYNGEV/2.0/recovery/aggregate/edges.parquet
+drugbank_xml: data/drugbank_all_full_database.xml
+drugbank_xsd: data/drugbank.xsd
+stage_root: data/interim/raw_R0F1
+open_targets_cache: data/cache/open_targets/25.06/association_by_datasource_indirect
+model_cache: data/cache/pretrained
+cell: R0F1
+feature_device: cuda
+feature_batch_size: 16

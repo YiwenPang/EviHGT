@@ -22,9 +22,13 @@ Each case uses seed 42, the frozen FULL configuration and three training cycles.
 - [prepare_case.py](prepare_case.py) builds the split, legal unlabeled candidates and fixed training schedule. [approval_cohort.py](approval_cohort.py) defines the year boundaries.
 - [graph_builder.py](graph_builder.py) materializes the masked facts, evidence and adjacency.
 - [run_case.py](run_case.py) checks memberships, trains, verifies the checkpoint and scores the held-out queries. [run_queue.py](run_queue.py) launches the four cases serially.
-- [source_sha256.json](source_sha256.json) records the SHA-256 of each script or test as used in the research directory and of the public copy with LF line endings.
+- [source_sha256.json](source_sha256.json) preserves the SHA-256 of the listed research scripts and tests and their original public copies with LF line endings.
 
-The published adapters replace workstation-specific paths with [locations.py](locations.py), separate the location of source scripts from runtime outputs and use the system temporary directory for the synthetic smoke run. The original queue verified its entire frozen 130-file distribution, including documentation and figures. The public check pins all 51 Python runtime sources, both configurations and the synthetic data fixture. It accepts the original or published source spelling with LF-normalized SHA-256. Python syntax trees with docstrings removed and parsed YAML contents matched across the frozen and public versions of these files. The accepted digests are in [runtime_sha256.json](runtime_sha256.json).
+The published adapters replace workstation-specific paths with [locations.py](locations.py), separate source scripts from runtime outputs and use the system temporary directory for the synthetic smoke run. The original queue verified its entire frozen 130-file distribution, including documentation and figures. The historical public runtime identity covers 51 Python sources, two YAML configurations and the synthetic data fixture. Its accepted LF-normalized digests remain in [runtime_sha256.json](runtime_sha256.json). The earlier comparison of Python syntax trees without docstrings and parsed YAML contents applies to those historical frozen and public files.
+
+The current public checkout adds the raw-database preparation workflow and its configuration. It has a separate 88-file identity in [runtime_sha256_raw_preparation.json](runtime_sha256_raw_preparation.json): 84 Python sources, three YAML configurations and the same synthetic data fixture. Among files present in the historical inventory, the CLI adds preparation dispatch and the corpus loader changes its missing-file explanation; the numerical model and training sources retain their historical accepted hashes. This inventory records the new checkout without changing the meaning of the historical inventory.
+
+`check_frozen()` requires the complete file set and all hashes to match one registered inventory. Extra files, edits and combinations of incompatible versions fail. Its receipt names `historical-release` or `raw-preparation-release`; the latter explicitly reports `historical_runtime_identical=False`. The [source restoration command](../README.md#restore-the-archived-source-layout) still restores its pinned Git revision, and the historical script hashes in `source_sha256.json` remain unchanged.
 
 ## Running the software checks
 
@@ -35,7 +39,7 @@ python -B -m pytest experiments/cold_start -q
 python -B experiments/cold_start/synthetic/test_frozen_test_score.py
 ```
 
-The first command checks entity assignment, sample exclusions, graph masking, memberships and ties on invented inputs. It also checks that the public runtime source pin rejects a changed file or extra module. The second performs a three-update CPU training run and held-out evaluation on a tiny synthetic corpus.
+The first command checks entity assignment, sample exclusions, graph masking, memberships and ties on invented inputs. It also checks both runtime identities and rejects changed files, extra modules and mixtures of incompatible versions. The second performs a three-update CPU training run and held-out evaluation on a tiny synthetic corpus.
 
 ## Running with licensed inputs
 
@@ -54,7 +58,7 @@ $env:EVIHGT_D1_FEATURES = (Resolve-Path '../HGTDR/data/processed/competition_pil
 python -B experiments/cold_start/run_queue.py
 ```
 
-The published checkout supplies the frozen runtime by default. Set `EVIHGT_FROZEN_ROOT` to use a separately archived matching runtime. A single case can also be prepared, validated and trained in a fresh run directory. For the HGTDR comparison, use the `cold_disease` case and pass its prepared corpus and completed run to the [comparison entry point](hgtdr/).
+The published checkout supplies the registered raw-preparation runtime by default. Set `EVIHGT_FROZEN_ROOT` to use a separately archived runtime matching the historical inventory. A single case can also be prepared, validated and trained in a fresh run directory. For the HGTDR comparison, use the `cold_disease` case and pass its prepared corpus and completed run to the [comparison entry point](hgtdr/).
 
 ```sh
 python -B experiments/cold_start/prepare_case.py --case cold_drug

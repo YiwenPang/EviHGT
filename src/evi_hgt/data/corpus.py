@@ -38,7 +38,7 @@ class PortableCorpus:
         path = Path(manifest_path).resolve()
         if not path.is_file():
             raise FileNotFoundError('Prepared corpus is missing: ' + str(path)
-                + '. Read docs/data.md and run prepare_data.py with your licensed, normalized inputs.')
+                + '. Run main.py --mode prepare with the raw files listed in docs/data.md, or import verified normalized inputs with prepare_data.py.')
         self.root = path.parent
         self.manifest = m = read_json(path)
         if m.get('schema') != SCHEMA:

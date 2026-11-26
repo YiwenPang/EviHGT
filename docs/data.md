@@ -1,6 +1,6 @@
 # Data preparation and portable input contract
 
-The trainer reads `data/processed/corpus/manifest.json`. Its corpus contains canonical entity, fact and evidence tables, a masked CSR graph, fixed entity features, verified clinical memberships and a fixed three-cycle sampling plan. The public preparation tools import those prepared artifacts. The raw-to-training preprocessing entry point is not yet published.
+`main.py` prepares the original R0F1 corpus from local OptimusKG and DrugBank files when the configured corpus manifest is absent, then starts training. The corpus contains canonical entity, fact and evidence tables, a masked CSR graph, fixed entity features, verified clinical memberships and a three-cycle sampling plan. Its default manifest is `data/processed/corpus/manifest.json`.
 
 ## Download and place the source databases
 
@@ -36,9 +36,9 @@ The [official release metadata](https://dataverse.harvard.edu/api/datasets/:pers
 
 Use your own authorized account on the [DrugBank downloads page](https://go.drugbank.com/releases/latest). Select the **full database XML for All drugs**, extract the archive, and save the full XML as `data/drugbank_all_full_database.xml`. Save the linked **Schema Definition** as `data/drugbank.xsd`. The CSV and SDF exports are different inputs and cannot replace the full XML.
 
-For command-line access, use the **Command / Example** supplied by DrugBank for the release and account you are authorized to use, then extract and name the two files as above. DrugBank's academic downloads were temporarily paused when checked on **25 November 2026**. The provider controls account access and download availability; this repository does not supply or redistribute DrugBank files.
+For command-line access, use the **Command / Example** supplied by DrugBank for the release and account you are authorized to use, then extract and name the two files as above. The provider controls account access and download availability; this repository does not supply or redistribute DrugBank files.
 
-The study's local XML records `version="5.1"` and `exported-on="2026-04-23"`. This header does not identify a patch release. Retain the release information and checksum supplied with your authorized download when preparing a new corpus.
+The study's local XML records `version="5.1"` and `exported-on="2026-04-23"`. This header does not identify a patch release. Preparation checks the supported XML/XSD structure and records the supplied file hashes. Retain the provider's release information and checksum: a different export can change structured drug mappings or features even when its header says 5.1.
 
 ### Check placement
 
@@ -51,6 +51,78 @@ This standard-library command reads the files without changing them. It reports 
 All of `data/` is excluded from Git. Keep the source files unchanged and retain DrugBank-derived artifacts locally under the applicable data terms.
 
 ## Supported preparation routes
+
+### Prepare from the raw databases
+
+Install a suitable PyTorch build, then the full preparation dependencies:
+
+```sh
+python -m pip install -r requirements-preprocess.txt
+python main.py
+```
+
+If the configured corpus is absent, this command runs canonicalization, R0F1 split reconstruction, disease-gene leakage cleaning, SideInfo and frozen D1 feature construction, sampling-plan reconstruction, and portable-corpus validation before training. All database parsing and encoder inference run locally. No previous research directory, trained checkpoint or historical execution receipt is needed.
+
+The [canonical preparation specification](raw_preparation.md) describes entity matching, fact and evidence handling, verified source exclusions, and reconstruction of the original CSR traversal order.
+
+For preparation without optimizer updates:
+
+```sh
+python main.py --mode prepare
+```
+
+The raw recipe supports `cell: R0F1`. It reconstructs the historical candidate exclusions, final-holdout reservations, five-fold memberships and independent support/contra inner reservations. Membership and mask digests must match the recorded R0F1 recipe. The three global cycles and all conditional U records are also checked. Different memberships or another cell stop preparation; the program does not substitute a new random split. Historical checkpoint and corpus hashes in the conditional seed recipe are fixed seed inputs; their files are not loaded.
+
+### Configure paths, devices and downloads
+
+Copy [configs/raw.yaml](../configs/raw.yaml) when changing source or cache locations. It contains these fields:
+
+| Field | Purpose |
+| --- | --- |
+| `nodes`, `edges`, `drugbank_xml`, `drugbank_xsd` | Read-only local source files. |
+| `stage_root` | Derived stages and their receipts; default `data/interim/raw_R0F1`. |
+| `open_targets_cache` | Pinned Open Targets 25.06 datasource Parquet cache. |
+| `model_cache` | Pinned ChemBERTa and BioBERT files; default `data/cache/pretrained`. |
+| `cell` | `R0F1`. |
+| `feature_device` | `cuda` or `cpu` for frozen encoder inference; default `cuda`. |
+| `feature_batch_size` | Positive encoder batch size; default 16. |
+
+Pass the copy explicitly:
+
+```sh
+python main.py --mode prepare --raw-config /path/to/raw.yaml
+```
+
+The training configuration passed with `--config` determines `manifest`, `output_dir`, training `device` and `precision`. Its `manifest` must end with `manifest.json`. The default is `configs/default.yaml`; `configs/cpu.yaml` selects CPU/FP32 training. To prepare features on CPU as well, set `feature_device: cpu` in the raw configuration. Relative paths inside either YAML resolve from the repository root.
+
+Missing public auxiliary resources are downloaded automatically and checked by size and SHA-256 before use:
+
+| Resource | Pinned input and cache |
+| --- | --- |
+| Open Targets | Release 25.06 `association_by_datasource_indirect`: 20 Parquet files, 99,508,052 bytes total. [The source recipe](../configs/preprocessing/opentargets.json) fixes file identities and the datasource exclusion policy. |
+| ChemBERTa and BioBERT | The revisions listed under [Entity features](#entity-features), with pinned weights, tokenizer and configuration files. The two weight files total 612,098,256 bytes (about 612 MB); tokenizer/configuration files add a small amount. |
+
+Preparation uses Open Targets associations from the allowed sources to replace the original disease-gene evidence. It does not treat association presence or a source score as an explicit support/refutation label. Encoder downloads supply public model files; DrugBank XML, SMILES and other local records are not uploaded.
+
+To use only verified caches:
+
+```sh
+python main.py --mode prepare --raw-config /path/to/raw.yaml --offline
+```
+
+Populate the caches during an online preparation or transfer the exact pinned cache files under their original filenames. Offline mode reports missing resources and stops. Existing files with unexpected hashes are preserved and rejected.
+
+### Resume preparation or rebuild changed inputs
+
+Rerun the same command after an interruption. Each completed stage has a receipt and a file-hash inventory under `stage_root`; reuse requires matching files and the same build identity. The identity includes source hashes, code and recipe hashes, dependency versions, the feature device and batch size. The feature stage can reuse its completed output types. An unfinished stage without a completed receipt runs in a new attempt directory, except for the feature stage's supported recovery. Failed attempt directories remain available for inspection.
+
+Preparation writes its events, error tracebacks and completion report under `output_dir/preparation/<attempt-id>/`. If a stale `.prepare.lock` remains after a process crash, check the recorded PID and confirm that preparation has stopped before removing that lock.
+
+When source files, code, bound packages or feature settings change, choose a new `stage_root` and a new final corpus directory through the training YAML's `manifest` field. Keep the old artifacts for comparison. If the final `manifest.json` already exists, `--mode prepare` requires the raw source files and a matching source, recipe and build identity before reuse. It rejects a mismatch and never overwrites the corpus. Use `--mode validate` to check an existing corpus without raw sources or preprocessing dependencies. A normal training invocation with an existing corpus skips raw preparation and validates the corpus itself.
+
+The final corpus is published only after its complete validation succeeds; an interrupted publication leaves an `.attempt_...` directory. Existing final output directories are never overwritten.
+
+### Use an existing or independently prepared corpus
 
 If a complete portable corpus is already available locally, keep its files and subdirectories together under `data/processed/corpus/`, so that the manifest is exactly `data/processed/corpus/manifest.json`. Then run `python main.py --mode validate`, followed by `python main.py`.
 
@@ -71,7 +143,7 @@ python main.py
 
 `prepare_data.py` copies and validates the source files, preserving labels, missing values, splits and training samples. Source paths resolve beside the source-map JSON. The default output is `data/processed/corpus`. Choose a new directory if the output already exists. Failures point to a traceback log under `outputs/logs`.
 
-`evi_hgt.data.raw_features` provides `fingerprint`, `profile`, `pack_drug` and `pack_disease` to construct raw feature vectors. Install the optional `rdkit` package to call `fingerprint`. The other workflows use prepared arrays.
+`evi_hgt.data.raw_features` provides `fingerprint`, `profile`, `pack_drug` and `pack_disease` for raw feature vectors. The raw workflow invokes these helpers and requires RDKit from `requirements-preprocess.txt`. Loading an existing portable corpus uses its prepared arrays and needs `requirements.txt`.
 
 ## Source map and manifest
 

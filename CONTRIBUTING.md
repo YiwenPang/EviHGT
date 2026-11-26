@@ -1,6 +1,6 @@
 # Contributing
 
-Install the appropriate [PyTorch build and test dependencies](README.md#try-the-public-checks), then run the synthetic CPU suite from the repository root.
+Install the appropriate [PyTorch build](README.md#installation) and `requirements-dev.txt`, which includes preprocessing and test dependencies, then run the synthetic CPU suite from the repository root.
 
 ```sh
 python check_environment.py --device cpu
@@ -11,8 +11,10 @@ For changes that affect the published experiment code, also run `python experime
 
 Describe the behavior changed and give the commands used to check it. For changes to training or evaluation, identify the affected data fields, model components or metrics and update the corresponding equations and diagrams from the implemented behavior. Keep issue examples small and use synthetic fixtures. Place research inputs and run artifacts in the ignored `data/` and `outputs/` directories; do not commit licensed records or credentials.
 
-Keep data instructions consistent with the [supported preparation routes](docs/data.md#supported-preparation-routes). `check_data.py` checks raw-file placement, OptimusKG identities and DrugBank headers without changing files. `prepare_data.py` packages already normalized inputs, and `export_data.py` requires a completed research corpus and sealed sampling plan. The raw-to-training preprocessing entry point is not yet published. Do not describe raw downloads as sufficient to run training. Use synthetic inputs when checking changes to these interfaces, preserve source files, and verify any new commands against their actual prerequisites.
+Keep data instructions consistent with the [supported preparation routes](docs/data.md#supported-preparation-routes). `main.py` prepares an absent corpus from the raw configuration before a fresh training run; `--mode prepare` stops after corpus validation. The published raw recipe supports R0F1 and verifies its membership, mask and sampling identities. `check_data.py` checks placement, OptimusKG identities and DrugBank headers without preparing a corpus. `prepare_data.py` imports normalized inputs, and `export_data.py` migrates a completed research corpus with its sealed plan.
+
+Use synthetic inputs to test these interfaces, preserve source files and check each command's prerequisites. For preprocessing changes, test source validation, target/reverse/equivalent masking, stage-hash reuse, interruption handling and offline cache behavior as applicable. Keep pinned resource contracts versioned. Changed build identities require a new stage directory and final corpus destination; never rewrite completed receipts to make changed inputs appear reusable. Keep original result records distinct from new software checks or preparation runs.
 
 Maintain independent support and contraindication-related channels. Use verified relation fields for labels and keep unknown values distinct from explicit negatives. If a change alters the data partitions, sample order, or held-out exclusions, assign the resulting corpus a new identity. When reporting a metric, specify its positive and unlabeled candidate pools. For ablations, name the computation removed or replaced.
 
-Use English by default in source comments and primary documentation. Keep English and Chinese paper figures synchronized, with labels in the language of each version and shared axis terms retained in both. Public-release console output uses English. Console messages should identify the current phase, show training progress, and point to the full error log when a run fails.
+Use English by default in source comments and primary documentation. Keep English and Chinese paper figures synchronized, with labels in the language of each version and shared axis terms retained in both. Preparation currently prints Chinese phase messages. Console messages should identify the phase, preserve method IDs and metric names, and point to the full error log when a run fails.

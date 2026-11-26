@@ -9,3 +9,7 @@
 *.svg text eol=lf
 *.png binary
 *.vsdx binary
+# This pinned upstream metadata file is authenticated byte for byte.
+configs/feature_model_files.json -text -eol whitespace=cr-at-eol
+# Preserve terminal blank lines in migrated scientific source files.
+src/evi_hgt/preprocessing/raw_source/*.py whitespace=-blank-at-eof

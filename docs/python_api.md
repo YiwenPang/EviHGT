@@ -1,6 +1,28 @@
 # Python API
 
-Run these examples from the repository root with a [prepared corpus](data.md). The public scripts call the same runner.
+Run these examples from the repository root. Install `requirements-preprocess.txt` to prepare from raw files, or `requirements.txt` to use a complete [portable corpus](data.md). The CLI automatically prepares missing inputs before a fresh training run; a direct call to `run()` expects the corpus to exist.
+
+## Prepare from local raw files
+
+```python
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path.cwd() / "src"))
+
+from evi_hgt.preprocessing.pipeline import prepare_raw
+from evi_hgt.settings import load_settings
+
+settings = load_settings()
+prepared = prepare_raw(
+    "configs/raw.yaml",
+    manifest_path=settings.resolve(settings.manifest),
+    output_dir=settings.resolve(settings.output_dir),
+    offline=False,
+)
+```
+
+`prepare_raw()` builds and validates the original R0F1 corpus and returns its manifest path, identity and validation status. It performs no optimizer updates. Reusing an existing final corpus requires available raw files and matching source, recipe and build identities. To validate a corpus without raw sources, call `run(settings, mode="validate")`. Set `offline=True` to require complete pinned auxiliary caches. The raw YAML controls source paths, staging, caches and the feature-inference device; `settings.device` controls training. See [configuration and recovery](data.md#configure-paths-devices-and-downloads) before changing an existing preparation's inputs or environment.
 
 ## Validate or run through the shared workflow
 
@@ -53,6 +75,7 @@ The runner checks checkpoint identity, restores optimizer and RNG state, applies
 
 | Object | Relevant interface |
 | --- | --- |
+| `prepare_raw` | Raw configuration, final manifest path, output directory and offline flag; prepares R0F1 or checks the raw build identity before reusing a corpus |
 | `Settings` | Explicit paths, device, precision, optimizer and reporting settings |
 | `PortableCorpus` | `model_config`, `pretrained`, `assembler`, `plan`, `panels`, `training_seed`, `identity` |
 | `TrainingPlan` | `G`, `total_steps` and `step(i)` for the fixed sampling plan |
