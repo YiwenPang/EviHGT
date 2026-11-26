@@ -147,7 +147,7 @@ Support and contra AP and NDCG@10 for panels with 2–5, 6–10, 11–32 or at l
 
 ## Contra AP aggregation across methods
 
-Disease-first and fold-first contra AP for the five methods with contra scores. Coverage strata describe the 314 evaluable diseases.
+Disease-first and fold-first contra AP for the five methods with contra scores in the original comparison. The later HGTDR-adapted-contra model appears in the main result table and is outside this figure's method set. Coverage strata describe the 314 evaluable diseases.
 
 ![Contra AP aggregation across methods](figures/experiments/fig15_aggregation_sensitivity_all_methods.svg)
 
