@@ -1,6 +1,6 @@
 # EviHGT
 
-[English](README.md) · [安装环境](#安装环境) · [运行完整主模型](#运行完整主模型) · [查看结果](#查看结果)
+[English](README.md) · [安装环境](#安装环境) · [运行完整主模型](#运行完整主模型) · [运行论文实验](#运行论文实验) · [查看结果](#查看结果)
 
 EviHGT 是用于药物–疾病关联排序的证据感知异构图 Transformer。针对一个药物–疾病查询，模型从 OptimusKG 和 DrugBank 结构化记录中提取子图，编码证据及其来源，并通过两个独立预测头分别给出治疗支持和禁忌相关关联分数。
 
@@ -103,9 +103,31 @@ python main.py
 
 通过 `--raw-config`、`--config` 或 `--report-config` 指定其他 YAML。报告配置控制保存的输出数量和解释计算量，不改变训练样本、优化器更新或开发集候选面板。
 
-原始数据流程重建既定的 R0F1 成员划分和固定采样计划。上述命令按该配置运行一个 FULL 主模型。论文其他研究的代码和输入要求见[实验索引](experiments/)。
+该命令按原始数据流程重建 R0F1 成员划分和固定采样计划，供 FULL 主模型训练使用。
 
 需要 CPU 训练时，添加 `--config configs/cpu.yaml`。如果特征准备也使用 CPU，请复制 `configs/raw.yaml`，将 `feature_device` 设为 `cpu`，并用 `--raw-config` 指定该文件。在 PyCharm 中选择同一解释器，将工作目录设为仓库根目录后运行 `main.py`。
+
+## 运行论文实验
+
+沿用上文列出的四个原始文件。每条命令按所选实验准备图和候选集、运行各项任务并生成报告。安装 `requirements-preprocess.txt` 时会一并安装实验调度所需的 `filelock`。
+
+```sh
+python main.py --experiment ablations
+python main.py --experiment losses
+python main.py --experiment comparisons
+python main.py --experiment cold
+python main.py --experiment all
+```
+
+`all` 依次运行四组实验。下面的命令用 CPU 和合成数据检查 FULL 与 Popularity 的对比流程。
+
+```sh
+python main.py --experiment comparisons --smoke --methods FULL TRAIN_VISIBLE_POPULARITY
+```
+
+完整对比需要安装匹配对照和原生基线的依赖。冷启动还包含疾病留出场景下的两个 HGTDR 模型。只运行 EviHGT 的冷启动场景时，添加 `--skip-cold-hgtdr`。[原生模型安装说明](experiments/workflow/native_sources/README.md)
+
+实验报告默认保存到 `outputs/experiments/<timestamp>_<experiment>/report.html`，同目录下还有 `summary.json`、`metrics.csv` 和 `disease_metrics.csv`。可用 `--run-dir outputs/NAME` 指定目录。中断后使用同一目录、原有选项和 `--resume` 继续运行。[默认折、筛选参数与恢复说明](experiments/#run-from-the-source-databases)
 
 ## 查看结果
 

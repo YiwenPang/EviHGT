@@ -20,6 +20,7 @@
 
 # Local environments, caches and IDE settings.
 .venv/
+.venv-txgnn/
 venv/
 env/
 __pycache__/

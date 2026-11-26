@@ -1,0 +1,5 @@
+# Install alongside the main PyTorch environment for matched controls and HGTDR.
+-r requirements-preprocess.txt
+torch-geometric==2.8.0.post1
+filelock>=3.13,<5
+# HGTDR also needs torch-sparse==0.6.18 built for the installed Python/PyTorch ABI.

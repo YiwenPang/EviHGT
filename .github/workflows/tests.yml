@@ -43,9 +43,16 @@ jobs:
         run: python -B experiments/cold_start/synthetic/test_frozen_test_score.py
       - name: Run the complete primary-entry smoke workflow
         run: python -B main.py --smoke
+      - name: Run portable experiment entry points
+        run: |
+          python -B main.py --experiment ablations --smoke
+          python -B main.py --experiment losses --smoke
+          python -B main.py --experiment comparisons --methods FULL TRAIN_VISIBLE_POPULARITY --smoke
+          python -B main.py --experiment cold --skip-cold-hgtdr --smoke
       - name: Check public entry points
         run: |
           python main.py --help
+          python main.py --experiment all --help
           python ablation.py --help
           python prepare_data.py --help
           python export_data.py --help

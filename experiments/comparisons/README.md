@@ -1,4 +1,33 @@
-# Six-method comparison on the R0 development folds
+# Comparisons on the R0 development folds
+
+## Run the R0 comparison from the four source files
+
+```sh
+python main.py --experiment comparisons
+```
+
+The workflow prepares all five R0 folds (`R0F0` through `R0F4`) and runs FULL plus six baselines. Each method scores the applicable development panel. Use `--cells` to choose folds and `--methods` with these IDs to choose methods.
+
+| CLI ID | Model |
+| --- | --- |
+| `FULL` | EviHGT |
+| `HGT_D1_MATCHED` | HGT-D1 |
+| `PAIR_MLP_D1_MATCHED` | PairMLP-D1 |
+| `HGTDR_ADAPTED` | HGTDR-adapted for support |
+| `HGTDR_ADAPTED_CONTRA` | HGTDR-adapted-contra for contraindications |
+| `TXGNN_ADAPTED` | TxGNN-adapted |
+| `TRAIN_VISIBLE_POPULARITY` | Popularity scored from training-positive counts |
+
+```sh
+python main.py --experiment comparisons --cells R0F1 --methods FULL HGT_D1_MATCHED
+python main.py --experiment comparisons --smoke --methods FULL TRAIN_VISIBLE_POPULARITY
+```
+
+Install the matched-control dependencies for HGT-D1 and PairMLP-D1. The HGTDR methods also require native `torch-sparse` and `torch-scatter`. TxGNN uses its own CPython 3.11 CPU interpreter and a pinned source revision. Configure it with `--txgnn-python` and `--txgnn-source` as needed. The smoke command above uses synthetic data. A smoke run with native methods also needs their dependencies and a verified local TxGNN source if selected. [Native installation](../workflow/native_sources/README.md)
+
+The run's `report.html` presents the aggregate results. `disease_metrics.csv` contains the disease-level records used to average over eligible folds before averaging across diseases. [Selection, preparation, and recovery flags](../README.md#run-from-the-source-databases)
+
+## Original six-method comparison
 
 This directory contains the research code behind the common drug–disease ranking comparison. Each of five R0 folds has one inner development panel for therapeutic support and another for contraindications. Methods scoring the same task in a fold receive the same drug–disease pairs and P/U labels. P denotes a recorded positive for that task. Both panels use the same sampled unlabeled pairs (U). The five folds overlap and belong to a single repeat.
 
@@ -54,4 +83,4 @@ To obtain the matching source files and entry points from a Git checkout, run th
 python experiments/replay.py --output NEW_DIRECTORY
 ```
 
-The restored comparison README lists the original entry points. Full training also requires the matching private research checkout, its registered fold manifests, graph and feature caches, sampling plans, native HGTDR and TxGNN environments, and job permissions. Redistribution restrictions apply to parts of these inputs. Upstream target exposure during D1 pretraining remains unverified. [Release data contract](../../docs/data.md) · [Native adapters](../native_adapters/) · [Earlier single-fold pilot](../pilot/)
+The restored comparison README lists the original entry points. Replaying an original job uses its research checkout, registered fold manifests, graph and feature caches, sampling plans, native environments, and job permissions. Redistribution restrictions apply to parts of these inputs. Upstream target exposure during D1 pretraining remains unverified. [Release data contract](../../docs/data.md) · [Native adapters](../native_adapters/) · [Earlier single-fold pilot](../pilot/)

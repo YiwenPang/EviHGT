@@ -1,6 +1,25 @@
 # Training objective and ablation experiments
 
-This directory contains the research code for the paired loss and evidence experiments and for the earlier six-variant holdout study. The two studies used different models, data splits and checkpoint rules. The portable runner in the repository root has a separate entry point.
+The main entry point runs the paired loss and evidence experiments. This directory also records the earlier six-variant holdout study, which used its own models, data splits, and checkpoint rule.
+
+## Run from the four source files
+
+Use the source files and preparation settings from the main guide. Run from the repository root. [Download and placement](../../README.md#download-and-place-the-four-source-files)
+
+```sh
+python main.py --experiment ablations
+python main.py --experiment losses
+```
+
+`ablations` runs `FULL`, `CONTENT_ZERO`, and `FACT_QUALITY_CONSTANT` on `R0F1` and `R1F0`. `losses` runs FULL with `softplus` and `sigmoid` on `R0F0`, `R0F1`, and `R1F0`. It uses the dedicated `DEV95` recipe for the `R0F0` loss comparison.
+
+```sh
+python main.py --experiment ablations --cells R0F1 --variants FULL FACT_QUALITY_CONSTANT
+python main.py --experiment losses --cells R0F0 --mode prepare
+python main.py --experiment losses --smoke
+```
+
+`--mode prepare` stops after input preparation. Smoke mode runs on synthetic CPU data and defaults to one fold. Open `report.html` in the experiment's run directory for the summary and use `disease_metrics.csv` for the per-disease scores. [Run directories and checkpoint recovery](../README.md#run-from-the-source-databases)
 
 ## Paired loss and evidence experiments
 

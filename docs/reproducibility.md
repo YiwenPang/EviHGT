@@ -26,9 +26,9 @@ Completed stages under `stage_root` have file-hash receipts. Rerunning the same 
 
 ## Training and ablations
 
-`main.py` runs one three-cycle FULL plan and completes the report after its final development evaluation. A fresh training invocation prepares missing inputs before entering that plan; validation, checkpoint evaluation and checkpoint resume require the existing corpus. `ablation.py` runs explicitly selected variants serially. All variants consume the same corpus and plan and use the same initialization seed. The common nominal parameter schema is retained even when a branch is bypassed; report effective computation as well as nominal parameter count.
+Without `--experiment`, `main.py` runs one three-cycle FULL plan and completes the report after its final development evaluation. A fresh training invocation prepares missing inputs before entering that plan; validation, checkpoint evaluation and checkpoint resume require the existing corpus. `ablation.py` runs explicitly selected variants serially. All variants consume the same corpus and plan and use the same initialization seed. The common nominal parameter schema is retained even when a branch is bypassed; report effective computation as well as nominal parameter count.
 
-Running `main.py` does not launch all paper folds, baseline comparisons, cold-start studies or final-test evaluations. Those studies retain their own protocols and required inputs in the experiment directories. The published result tables come from the original research runs.
+Use `main.py --experiment ablations`, `losses`, `comparisons`, or `cold` for the corresponding paper experiment, or select `all` for these four suites. Each command prepares its inputs from the same four databases and runs the selected models through evaluation and reporting. The [experiment commands](../experiments/README.md#run-from-the-source-databases) list the exact default folds, variants, native dependencies, and recovery options. These commands create new local results; the published tables remain records of the original research runs. Earlier learning-rate and pilot studies retain their archived procedures.
 
 For an ablation comparison, keep data membership, sample sequence, feature availability, optimizer settings, total updates, candidate panels and metric definitions fixed. Record the exact variant ID.
 
@@ -138,4 +138,6 @@ The same independent environment passed all 131 core tests and the complete publ
 
 An additional read-only check loaded the newly generated corpus, assembled one real training query with 1,000 nodes and 5,000 traversals, and ran the seeded, untrained FULL model in inference mode. Both heads returned finite tensors of shape `[1]`; model parameters and the corpus manifest were unchanged. This query exercised the no-path fallback and a missing drug D1 feature. Nonempty paths and the other feature branches are covered by the synthetic model tests. The check made no optimizer updates and produced no experimental performance result.
 
-GitHub Actions runs the synthetic tests on Linux and Windows with Python 3.11.
+The experiment coordinator additionally verifies result receipts against the selected method, loss, fold, prepared inputs, source files, and dependency versions. Completion is recorded after the expected output heads and shared candidate identities pass validation and the aggregate report is saved. Aggregation first averages each disease over its eligible folds, then averages across diseases. The original six fold memberships and sampling plans, including the dedicated DEV95 loss-study recipe, have been reconstructed and checked independently without loading trained weights.
+
+GitHub Actions runs the synthetic tests and portable primary-entry commands on Linux and Windows with Python 3.11. Native HGTDR and TxGNN smoke checks require their separately documented environments.

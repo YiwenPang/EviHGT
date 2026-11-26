@@ -18,7 +18,7 @@ def checker():
 
 def fake_packages(checker, monkeypatch, *, missing=(), cuda=False, bf16=False):
     versions = {"torch": "2.13.0+cu132", "numpy": "2.4.0", "polars": "1.37.0",
-                "pyarrow": "22.0.0", "PyYAML": "6.0.3", "tqdm": "4.67.1"}
+                "pyarrow": "22.0.0", "PyYAML": "6.0.3", "tqdm": "4.67.1", "filelock": "3.20.0"}
     def version(name):
         if name in missing:
             raise checker.metadata.PackageNotFoundError(name)
@@ -34,7 +34,7 @@ def fake_packages(checker, monkeypatch, *, missing=(), cuda=False, bf16=False):
     )
     torch_module = SimpleNamespace(cuda=cuda_api, version=SimpleNamespace(cuda="13.2"))
     def import_module(name):
-        assert name in ("torch", "numpy", "polars", "pyarrow", "yaml", "tqdm")
+        assert name in ("torch", "numpy", "polars", "pyarrow", "yaml", "tqdm", "filelock")
         return torch_module if name == "torch" else SimpleNamespace()
     monkeypatch.setattr(checker.metadata, "version", version)
     monkeypatch.setattr(checker.importlib, "import_module", import_module)

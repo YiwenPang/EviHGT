@@ -1,0 +1,417 @@
+{
+  "schema": "EVIHGT_EXPERIMENT_RECIPES_V1",
+  "cells": {
+    "R0F0": {
+      "cell": "R0F0",
+      "training_seed": 1289779183,
+      "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+      "membership_digests": {
+        "training": "17ea4fb24fb4d4f850f08e6217cc45cad5f67b3ea6f6454bd8625ee406c22917",
+        "validation": "3270ace49681c1b913bcc2e95b3bb707d1845062d1b7cb051528124cddb17d66",
+        "train_probe": "f16913dd5b5d72fc23fffecc42d3014447fffdf18f676252dd5c5bf0ceebb3ee",
+        "outer_test": "dcff611f42bd65432c469e6eb1eecf52335fdd130546b64d30a183cd20081fcc",
+        "auxiliary_training": "3716499be8ca803d5f528602e2dd0e549b87adc3174cdb9daab1602f254d40e1",
+        "auxiliary_validation": "aec3422c76fcd570700e6dd0d85f45af01ef8ca8a1e79436b0ed35454282fdac",
+        "auxiliary_probe": "6e815f8247d3c2fc4217c521488025c53eb3bba008597f72aabadc89f74e6e5e"
+      },
+      "mask_digest": "629c981593e20ae8acb6c87ac992d734af0ef67bbf0ead9ad3400ef0de396208",
+      "G": 6856,
+      "cycles": [
+        {
+          "cycle": 1,
+          "groups": 6856,
+          "group_digest": "88d34afd53fb8ec5ee492a26720fd4797a3afc445a08441766c202cdc8f692b2",
+          "support_P": 17634,
+          "contra_P": 6856,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 2,
+          "groups": 6856,
+          "group_digest": "54a47c7c2991723f0fe99309ebe8c5d432119d562cc473cd60a26d91077e0e5e",
+          "support_P": 17634,
+          "contra_P": 6856,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 3,
+          "groups": 6856,
+          "group_digest": "f96e8d7e954b7d3ddfe9827e9e2415d4dbffcd9ebce9016380fba1d23c53a11b",
+          "support_P": 17634,
+          "contra_P": 6856,
+          "positive_coverage": "EXACTLY_ONCE"
+        }
+      ],
+      "conditional_bindings": {
+        "fold_manifest_digest": "83c10b65d2c779b5dc041b1758b23602d155aea1ba6c6877ed70ee272b978196",
+        "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+        "fold": 0,
+        "training_seed": 1289779183,
+        "training_u_manifest_digest": "0e9a3971a90ab8b43e83a0f9ecd94820461cb862d3603b0673174761a1a8074b",
+        "exclusion_digest": "629c981593e20ae8acb6c87ac992d734af0ef67bbf0ead9ad3400ef0de396208",
+        "warmup_checkpoint_sha256": "22e8a39a9baf222865edeca83806dec0589cd920d541031c0ad3a296cdb33fcd"
+      },
+      "record_digest": "61aabd36dd9da08b8c73fb174d0e8bfbe0ede1fa1e654c330e06fad62e4115d9"
+    },
+    "R0F1": {
+      "cell": "R0F1",
+      "training_seed": 342565966,
+      "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+      "membership_digests": {
+        "training": "5a76ac3accd8e23b76f4fe42a8fe4f995a40140b26d569c993e97edc634a50fe",
+        "validation": "784ea2c6c7f110f2c3967e7f61a684cb8800bf0b6000bc23d59ce671003f9a90",
+        "train_probe": "950bc74c277c520b9f9596bd41a123625973ab209e9547575876d0711f4feb78",
+        "outer_test": "0dfddc1e6b98092673944d5efa9e3b0ca5041c40a477ab707fee94f5c727daf6",
+        "auxiliary_training": "031d9959b3d7bb76801643d84e8d4289d2a46b582ecae15ef987c1a00dca867f",
+        "auxiliary_validation": "b6914774f9b76a0d3c4b60baaa6c4d6fb53ea1c7d3fe9ca4278a37ca726563ff",
+        "auxiliary_probe": "e76ccd20896b77a25ec33b70f2e29cdff341d6dab1db116400b927da118892f9"
+      },
+      "mask_digest": "41a83afb7d8a6d8b84b1d2ceeb5bad9658e83d555743b87485ef123918b5bd4a",
+      "G": 6847,
+      "cycles": [
+        {
+          "cycle": 1,
+          "groups": 6847,
+          "group_digest": "3c5f9ab83bd4621b52a083ff60392011a29eb6c4bc8f1aa20519f92702bda045",
+          "support_P": 17663,
+          "contra_P": 6847,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 2,
+          "groups": 6847,
+          "group_digest": "ccc7da17790a51b50759a801915dbda4534995621898fcf685c28ebb3c8bc133",
+          "support_P": 17663,
+          "contra_P": 6847,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 3,
+          "groups": 6847,
+          "group_digest": "194b865018e4cacda6b0eb5004302b236242761d467b6f0ea5d85c769dc4d2cf",
+          "support_P": 17663,
+          "contra_P": 6847,
+          "positive_coverage": "EXACTLY_ONCE"
+        }
+      ],
+      "conditional_bindings": {
+        "fold_manifest_digest": "552281ca25c8ac58ef93f39b32a084ecc693e0c12053b42dd029334fc5760ed8",
+        "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+        "fold": 1,
+        "training_seed": 342565966,
+        "training_u_manifest_digest": "0e9a3971a90ab8b43e83a0f9ecd94820461cb862d3603b0673174761a1a8074b",
+        "exclusion_digest": "41a83afb7d8a6d8b84b1d2ceeb5bad9658e83d555743b87485ef123918b5bd4a",
+        "warmup_checkpoint_sha256": "4bfef47df033347ed39b0ba4d5cf7bdccc5004c5a6c4c61ce09361ad4ccf83ca",
+        "dev96_namespace": "DEV96_E0_G_SHARED_CONDITIONAL_V1",
+        "cell": "R0F1",
+        "corpus_digest": "100c3e4483679d1df37beed44a1e684c09bc5cebd1c4eabc4d8f224dfcd80c7f",
+        "schedule_digest": "f7f500c0ea51a031554f49b366a2d201944ce418c1bd453c6c841bbbd0645867",
+        "cycles": [
+          2,
+          3
+        ],
+        "record_order": "cycle_then_original_group"
+      },
+      "record_digest": "53fcf62546d3dbe50a15e6e45aa13b1f4cee937206a955013363499f526a6c8d"
+    },
+    "R0F2": {
+      "cell": "R0F2",
+      "training_seed": 1867477778,
+      "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+      "membership_digests": {
+        "training": "461937be5bb4023bbd1a38816e28fc795e06cebd6896744aaaa0844bc5ec2117",
+        "validation": "6ef56289169da03a2e02c0c43933ef74309df73665e229d1407f6d8b0023be05",
+        "train_probe": "bb112e512348baf0f58860479b65c968ce5a3841a450f4853cfa07d4ab156c9a",
+        "outer_test": "8454bbf8b2c0e2393507726e95a379c26c715d175e30bedb4611d56aa7deb6bf",
+        "auxiliary_training": "e6409ed36ff8e69450bcc746ca0fece171f0c32ee7722b30a216a4ead56fca40",
+        "auxiliary_validation": "479c60fc0ac0d24ee0937f3e8c0b2433b9f9df432e512f1722dee24e1e2b0389",
+        "auxiliary_probe": "c7f3db8a960a7eb02db0d6fd5099852d1f4d54ca13ad4106945bf3c14988b00f"
+      },
+      "mask_digest": "7d388bba94304e4f9e87ee50ddf79c34f1537f1828c7b59fcbb6959204fa2f48",
+      "G": 6807,
+      "cycles": [
+        {
+          "cycle": 1,
+          "groups": 6807,
+          "group_digest": "7e2fa03cdebf7a32d2647d214742679d32ed47588a4b43ae4e610f019fcf53e7",
+          "support_P": 17601,
+          "contra_P": 6807,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 2,
+          "groups": 6807,
+          "group_digest": "7c7d75d71f90126e4d55a83112fc92fb8890229cfcdfa6fb0f2a85100a40142c",
+          "support_P": 17601,
+          "contra_P": 6807,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 3,
+          "groups": 6807,
+          "group_digest": "3edd29f1feab9e4f260b6c71bea508d1a559da78e1f34166a9b1366ecd0a703f",
+          "support_P": 17601,
+          "contra_P": 6807,
+          "positive_coverage": "EXACTLY_ONCE"
+        }
+      ],
+      "conditional_bindings": {
+        "schema": "PHASE98_STATIC_METADATA_CONDITIONAL_BINDINGS_V1",
+        "cell": "R0F2",
+        "fold_manifest_digest": "7273edff06b28d290936e669974813a2b87f8bc3be0c9932659ed7604842eaa3",
+        "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+        "fold": 2,
+        "training_seed": 1867477778,
+        "training_u_manifest_digest": "0e9a3971a90ab8b43e83a0f9ecd94820461cb862d3603b0673174761a1a8074b",
+        "exclusion_digest": "7d388bba94304e4f9e87ee50ddf79c34f1537f1828c7b59fcbb6959204fa2f48",
+        "origin_kind": "STATIC_METADATA",
+        "origin_sha256": "680bc1507fa966162cbdcffe93552ecd8b07f10b294737823c4ad315db22264e"
+      },
+      "record_digest": "81b764d3a71945cc9ef832eba984b9bcc043c6db3f4269d23fbcc434d4a0ddd4"
+    },
+    "R0F3": {
+      "cell": "R0F3",
+      "training_seed": 214283396,
+      "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+      "membership_digests": {
+        "training": "403a4c8200afcede2e2a50209f3fda0d60ddafa736605e971aeef459f69a97eb",
+        "validation": "893a3d0b2177be5c3c2f50f8cf556bddb275f3065d03eb61d54da2c9054eec72",
+        "train_probe": "6883706c7b7688e1d75813ace307e3fc3f0d04a32dc9a9ef44ccefaf49eb89ee",
+        "outer_test": "19a13b220a97ec96e84fda1b33f80f38b7f4076389d790a704a47c6599e9f25f",
+        "auxiliary_training": "a477489047fa24c30e067166877dda10fc842e09c823a0fa54895bbc9287305d",
+        "auxiliary_validation": "cdd6fce2056268903daf017b89dd4326875582ba5506e211f2f6ef21d91fb4c3",
+        "auxiliary_probe": "cc7323181d244a291dd6e1ed773bf437ad3695eff8f90d872ea7c9287ccda1c1"
+      },
+      "mask_digest": "3cad87c8cf8fe229df5b562b6059f255e6fb8e969a192f6bbbce32037f6aae47",
+      "G": 6845,
+      "cycles": [
+        {
+          "cycle": 1,
+          "groups": 6845,
+          "group_digest": "2d37eb9a47d9ec940d5fb054747a2f66feb460088c8b2b29e2c836b640cd945d",
+          "support_P": 17603,
+          "contra_P": 6845,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 2,
+          "groups": 6845,
+          "group_digest": "2f01b2028e46421cece91bfbad3c7a82bc68b3bae656570d74159fed20897dd1",
+          "support_P": 17603,
+          "contra_P": 6845,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 3,
+          "groups": 6845,
+          "group_digest": "dbf4b58dac3f1450ab98b07cc2186f821c168ff31f5ae75f3bfb26e18f0952bc",
+          "support_P": 17603,
+          "contra_P": 6845,
+          "positive_coverage": "EXACTLY_ONCE"
+        }
+      ],
+      "conditional_bindings": {
+        "schema": "PHASE98_STATIC_METADATA_CONDITIONAL_BINDINGS_V1",
+        "cell": "R0F3",
+        "fold_manifest_digest": "952208967c5d185245b0b161e6a77b58060428defa756cb642ebe72f03d0f997",
+        "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+        "fold": 3,
+        "training_seed": 214283396,
+        "training_u_manifest_digest": "0e9a3971a90ab8b43e83a0f9ecd94820461cb862d3603b0673174761a1a8074b",
+        "exclusion_digest": "3cad87c8cf8fe229df5b562b6059f255e6fb8e969a192f6bbbce32037f6aae47",
+        "origin_kind": "STATIC_METADATA",
+        "origin_sha256": "eb831bf40e4d3feb11975f77d661fc55d894b19c0be589f225f7c695af22b7cd"
+      },
+      "record_digest": "cd423c5c14c1d195b96d9b02beccb248c8d795dbffdeb53fa74477c80cdf7ccb"
+    },
+    "R0F4": {
+      "cell": "R0F4",
+      "training_seed": 1680030835,
+      "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+      "membership_digests": {
+        "training": "962f82448b1bdda89d76a9022b1cd45b489f90abfac1277c4da57a0465c632a9",
+        "validation": "1f5fc635e868430551e85a9eec4007de8dee200dad315d68a8c6e38f45c57a64",
+        "train_probe": "f03a29807188505e896abd2d5df1afd659acc3f9c71982d04c3cfe7e9aeefda6",
+        "outer_test": "18e81835c1ce36fad15870fcf613f5a8feccf80b44dab69f2227e1d83ce9472a",
+        "auxiliary_training": "6f5417467f20044aeea6cdc10a868d1f890396b1c0e87451a47ddfb4f37851c6",
+        "auxiliary_validation": "e9732716d5c750733d56f9ea13170cb2b4b3531f6e1aacdf9c386eeb2431b25e",
+        "auxiliary_probe": "43e47e431aab090391dbad8cf075ed1c054c89bf6d1001ecf58c8f01778607fb"
+      },
+      "mask_digest": "e994297e3cf28148de2b7b2d08b6846f64ad585cb0206cf8e6e7d00a44a0dc56",
+      "G": 6854,
+      "cycles": [
+        {
+          "cycle": 1,
+          "groups": 6854,
+          "group_digest": "c6c69b5518af254ea7c74a78bba0e827851973423659ca6a2eb1b06b37e22505",
+          "support_P": 17559,
+          "contra_P": 6854,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 2,
+          "groups": 6854,
+          "group_digest": "c661d8ef89a4260e496570a712bdd61f0b13f18a95f725cceea0c1981ff3ae73",
+          "support_P": 17559,
+          "contra_P": 6854,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 3,
+          "groups": 6854,
+          "group_digest": "17b08c41066f7c0d3927590bdb76dc1a8db8912904d37e9945575c238f3f80d2",
+          "support_P": 17559,
+          "contra_P": 6854,
+          "positive_coverage": "EXACTLY_ONCE"
+        }
+      ],
+      "conditional_bindings": {
+        "schema": "PHASE98_STATIC_METADATA_CONDITIONAL_BINDINGS_V1",
+        "cell": "R0F4",
+        "fold_manifest_digest": "da40c107bb8370afb4829e7a093ad527fec8657cd5b83fe395f710e65acb4940",
+        "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+        "fold": 4,
+        "training_seed": 1680030835,
+        "training_u_manifest_digest": "0e9a3971a90ab8b43e83a0f9ecd94820461cb862d3603b0673174761a1a8074b",
+        "exclusion_digest": "e994297e3cf28148de2b7b2d08b6846f64ad585cb0206cf8e6e7d00a44a0dc56",
+        "origin_kind": "STATIC_METADATA",
+        "origin_sha256": "b6dac492f57add76f0efa414adf34f9548814af1097b49905be72466d2a2c04d"
+      },
+      "record_digest": "8fe8dbcf41137d4e9f832a63975536beafebe6cac5704db2fcdbb8954dab0036"
+    },
+    "R1F0": {
+      "cell": "R1F0",
+      "training_seed": 625224385,
+      "repeat_key": "609880fd4bb61c8d80c07e7f83f75f26cea2d35a1f9e93727b5514cc4141a1d0",
+      "membership_digests": {
+        "training": "202e8b150d08857baf126f5440309789f3769776501bb1e83b6ade2cf1b73cdd",
+        "validation": "851e746f2fb5476051f47bde31db22eb32eff5c8f7cd98489aaa3db85de1d387",
+        "train_probe": "969486899b39acca1a4f4b58f29d192d86cda4af79c48e5c395b140a337e95c7",
+        "outer_test": "6294805f52953d89aa1131c8bbfc831b8a41bbc72b513caa481df65cb46a105a",
+        "auxiliary_training": "6f0680d0722b8920a0c319e788eeb97349194bfb435d5859e48392c9aceb1a03",
+        "auxiliary_validation": "a9532378e2680c001d1c1db2a0867c2d29e0bb0a696c6d6810a011badc0cd20b",
+        "auxiliary_probe": "8d32b6ce80193885a0a162961963f1ffa362eb686c54af88ee139bb5ab21d798"
+      },
+      "mask_digest": "fec74433ab46d1dd76319c14d843f2d0c217019d9e65c44429030fd2af655cb4",
+      "G": 6900,
+      "cycles": [
+        {
+          "cycle": 1,
+          "groups": 6900,
+          "group_digest": "fb0f1202c76a69d5b98f0bf70c3a5d2af8783cbc1d068281eec3a3ed95a141ed",
+          "support_P": 17533,
+          "contra_P": 6900,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 2,
+          "groups": 6900,
+          "group_digest": "b9cbe6f824c36362b4193909ca43d0efa6e1069fc41c1cdbf7ad73268439d108",
+          "support_P": 17533,
+          "contra_P": 6900,
+          "positive_coverage": "EXACTLY_ONCE"
+        },
+        {
+          "cycle": 3,
+          "groups": 6900,
+          "group_digest": "f480b32ab9c28a676018eece8aaf6eb84033c2f1c660656eebcf2ca7ddefb5c3",
+          "support_P": 17533,
+          "contra_P": 6900,
+          "positive_coverage": "EXACTLY_ONCE"
+        }
+      ],
+      "conditional_bindings": {
+        "fold_manifest_digest": "6d51311d969c5c27131caaf521bd463a6fd4ab71584fb043f58359f181b81038",
+        "repeat_key": "609880fd4bb61c8d80c07e7f83f75f26cea2d35a1f9e93727b5514cc4141a1d0",
+        "fold": 0,
+        "training_seed": 625224385,
+        "training_u_manifest_digest": "0e9a3971a90ab8b43e83a0f9ecd94820461cb862d3603b0673174761a1a8074b",
+        "exclusion_digest": "fec74433ab46d1dd76319c14d843f2d0c217019d9e65c44429030fd2af655cb4",
+        "warmup_checkpoint_sha256": "28f48185bb26a5e38893fb4901dd2afb894bd4b199c9cd77ec3c927cdd92e3bd",
+        "dev96_namespace": "DEV96_E0_G_SHARED_CONDITIONAL_V1",
+        "cell": "R1F0",
+        "corpus_digest": "321ccb9416ad4a1bba799c941e0c0bb79f55c78fb78586194d99bb180444ee82",
+        "schedule_digest": "49c107319d276155227f8d3859b313a520f10beed58bf9b259a7e130d9b00de8",
+        "cycles": [
+          2,
+          3
+        ],
+        "record_order": "cycle_then_original_group"
+      },
+      "record_digest": "d1241d57cf62fe5c51de7c87429d4181af1605e972e664c285cbdd37abb5ec77"
+    }
+  },
+  "protocols": {
+    "losses": {
+      "R0F0": {
+        "cell": "R0F0",
+        "training_seed": 1289779183,
+        "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+        "membership_digests": {
+          "training": "17ea4fb24fb4d4f850f08e6217cc45cad5f67b3ea6f6454bd8625ee406c22917",
+          "validation": "3270ace49681c1b913bcc2e95b3bb707d1845062d1b7cb051528124cddb17d66",
+          "train_probe": "f16913dd5b5d72fc23fffecc42d3014447fffdf18f676252dd5c5bf0ceebb3ee",
+          "outer_test": "dcff611f42bd65432c469e6eb1eecf52335fdd130546b64d30a183cd20081fcc",
+          "auxiliary_training": "3716499be8ca803d5f528602e2dd0e549b87adc3174cdb9daab1602f254d40e1",
+          "auxiliary_validation": "aec3422c76fcd570700e6dd0d85f45af01ef8ca8a1e79436b0ed35454282fdac",
+          "auxiliary_probe": "6e815f8247d3c2fc4217c521488025c53eb3bba008597f72aabadc89f74e6e5e"
+        },
+        "mask_digest": "629c981593e20ae8acb6c87ac992d734af0ef67bbf0ead9ad3400ef0de396208",
+        "G": 6856,
+        "cycles": [
+          {
+            "cycle": 1,
+            "groups": 6856,
+            "group_digest": "88d34afd53fb8ec5ee492a26720fd4797a3afc445a08441766c202cdc8f692b2",
+            "support_P": 17634,
+            "contra_P": 6856,
+            "positive_coverage": "EXACTLY_ONCE"
+          },
+          {
+            "cycle": 2,
+            "groups": 6856,
+            "group_digest": "54a47c7c2991723f0fe99309ebe8c5d432119d562cc473cd60a26d91077e0e5e",
+            "support_P": 17634,
+            "contra_P": 6856,
+            "positive_coverage": "EXACTLY_ONCE"
+          },
+          {
+            "cycle": 3,
+            "groups": 6856,
+            "group_digest": "f96e8d7e954b7d3ddfe9827e9e2415d4dbffcd9ebce9016380fba1d23c53a11b",
+            "support_P": 17634,
+            "contra_P": 6856,
+            "positive_coverage": "EXACTLY_ONCE"
+          }
+        ],
+        "conditional_bindings": {
+          "fold_manifest_digest": "83c10b65d2c779b5dc041b1758b23602d155aea1ba6c6877ed70ee272b978196",
+          "repeat_key": "9cac8039dc65132d1e2acad35b36782adbc7ad1248041cb96b31ac6a69c99f23",
+          "fold": 0,
+          "training_seed": 1289779183,
+          "training_u_manifest_digest": "0e9a3971a90ab8b43e83a0f9ecd94820461cb862d3603b0673174761a1a8074b",
+          "exclusion_digest": "629c981593e20ae8acb6c87ac992d734af0ef67bbf0ead9ad3400ef0de396208",
+          "warmup_checkpoint_sha256": "22e8a39a9baf222865edeca83806dec0589cd920d541031c0ad3a296cdb33fcd"
+        },
+        "record_digest": "61aabd36dd9da08b8c73fb174d0e8bfbe0ede1fa1e654c330e06fad62e4115d9",
+        "protocol": "DEV95_R0F0_LOSSES",
+        "source_plan": {
+          "schema": "DEV94_SHARED_CONDITIONAL_V1",
+          "sha256": "45ec97be3f074058b342637cb2703f7f3f96f46c7080e64749a9f12a486a37fb",
+          "records_total": 34280,
+          "records_selected": 13712,
+          "record_range": [
+            0,
+            13712
+          ]
+        }
+      }
+    }
+  },
+  "semantics": "Historical digests are deterministic seed constants and output assertions; no old checkpoint or execution receipt is loaded or recreated.",
+  "source_metadata_sha256": {
+    "sealed_sampling": "ddaa842e2a0c664d2eb32c797edc592d6d928cd8adef75197a7515c1015bbd0c",
+    "cell_census": "c8717593b7f03e4f0e0c188a7b7a2ec71d922c25a0ad78087192b8a072839772",
+    "dev95_plan": "45ec97be3f074058b342637cb2703f7f3f96f46c7080e64749a9f12a486a37fb"
+  }
+}

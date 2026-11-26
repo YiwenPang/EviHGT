@@ -5,3 +5,4 @@ polars>=1.30,<2
 pyarrow>=18
 PyYAML>=6,<7
 tqdm>=4.66,<5
+filelock>=3.13,<5

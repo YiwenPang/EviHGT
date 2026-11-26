@@ -1,5 +1,48 @@
 # Experiment code
 
+## Run from the source databases
+
+Download the four source files and run the commands from the repository root. Preparation constructs the canonical graph, splits, candidate files, features, and training plans. The first online run downloads any missing pinned Open Targets and encoder resources. [Download and placement](../docs/data.md#download-and-place-the-source-databases) · [Main installation](../README.md#installation)
+
+The `requirements-preprocess.txt` installation includes `filelock` for the experiment coordinator. Install `requirements-experiments.txt` for the matched controls and HGTDR. HGTDR also needs platform-matched `torch-sparse` and `torch-scatter`. TxGNN uses a separate CPython 3.11 environment and a pinned checkout. [Native installation and source cache](workflow/native_sources/README.md)
+
+| Command | Default jobs |
+| --- | --- |
+| `python main.py --experiment ablations` | `FULL`, `CONTENT_ZERO`, and `FACT_QUALITY_CONSTANT` on `R0F1` and `R1F0`. [Evidence ablations](ablations/) |
+| `python main.py --experiment losses` | FULL with `softplus` and `sigmoid` on `R0F0`, `R0F1`, and `R1F0`. The loss study uses the `DEV95` recipe for `R0F0`. [Loss comparison](ablations/) |
+| `python main.py --experiment comparisons` | FULL and six baselines on `R0F0` through `R0F4`. [Baseline methods and IDs](comparisons/) |
+| `python main.py --experiment cold` | Drug, disease, double-cold, and first-approval-year cases. The disease case also compares FULL with the HGTDR support and contraindication models on common test candidates. [Cold-start protocol](cold_start/) |
+| `python main.py --experiment all` | The four suites in sequence. An ablation and loss arm with the same settings and fold runs once. |
+
+Use `--cells` to select folds for an ablation, loss, or comparison run. Use `--variants` with `ablations`, `--methods` with `comparisons`, and `--cases` with `cold`. With `all`, each flag filters its corresponding suite. Pass IDs separated by spaces. Add `--skip-cold-hgtdr` to run the EviHGT cold cases without the HGTDR comparison.
+
+```sh
+python main.py --experiment ablations --cells R0F1 --variants FULL CONTENT_ZERO
+python main.py --experiment losses --cells R0F0
+python main.py --experiment cold --cases cold_disease --run-dir outputs/cold-disease
+```
+
+Use `--mode prepare` to build and verify the selected inputs. The default `train` mode continues through training, evaluation, and reporting. Derived corpora go under `data/processed/experiments/` and shared preparation stages under `data/interim/experiments/`. Select settings with `--config` and raw-data paths or feature preparation options with `--raw-config`. Use `--offline` when the pinned resources are cached. TxGNN accepts `--txgnn-python` for its interpreter and `--txgnn-source` for a verified local source checkout. [Raw configuration](../docs/data.md) · [TxGNN setup](workflow/native_sources/README.md)
+
+A run defaults to `outputs/experiments/<timestamp>_<experiment>/`. Pass `--run-dir outputs/NAME` to choose a fixed directory. Repeat the command with the same selections to verify and reuse completed jobs. To continue unfinished jobs from their latest checkpoints, add `--resume` and use that same directory.
+
+```sh
+python main.py --experiment cold --cases cold_disease --run-dir outputs/cold-disease --resume
+```
+
+Open `report.html` after the jobs finish. `summary.json` records the run and aggregate metrics. `metrics.csv` contains the metric summaries and `disease_metrics.csv` contains per-disease results. For fold-based runs, the aggregation first averages each disease over its eligible folds, then computes the macro mean across diseases. Cold cases report their respective evaluation panels.
+
+## CPU smoke runs
+
+Smoke mode uses small synthetic data on CPU, with one default fold or case per suite and the selected methods or variants. The artifacts are marked `SYNTHETIC_TEST_ONLY`.
+
+```sh
+python main.py --experiment comparisons --smoke --methods FULL TRAIN_VISIBLE_POPULARITY
+python main.py --experiment cold --smoke --cases cold_disease --skip-cold-hgtdr
+```
+
+A smoke run that includes matched controls, HGTDR, or TxGNN uses the same corresponding libraries. TxGNN smoke also uses a verified local source checkout or cache. [Native installation](workflow/native_sources/README.md)
+
 ## Run the public checks
 
 From the repository root, run the following after the [one-time CPU installation](../README.md#try-the-public-checks).
@@ -14,9 +57,9 @@ With just Python, `python experiments/audit/verify_r0.py` checks the published f
 
 ## Inputs for the paper experiments
 
-The [database download and placement guide](../docs/data.md#download-and-place-the-source-databases) gives source links, filenames and a directory tree. The study inputs below also include the prepared graph, features and fixed splits used by each experiment.
+The archived run procedures use the inputs listed below. They preserve the original artifact identities, checkpoints, and analysis records.
 
-| Study | What was evaluated | Inputs needed to repeat the run |
+| Study | What was evaluated | Inputs for the archived run procedure |
 | --- | --- | --- |
 | [Baseline comparisons](comparisons/) | Six methods on five R0 folds, including the training-frequency (Popularity) baseline. The [fold ledger](audit/) records each method and output. | Matching research checkout, fold manifests, legal training graphs, features and sampling plans. HGTDR and TxGNN also need their native environments. The reused HGTDR fold needs its selected checkpoint. |
 | [Ablations](ablations/) | Paired comparisons of training losses and evidence interventions, plus the earlier six-variant holdout study. | Matching research checkout, frozen schedules, graphs, features and evaluation panels. The pairing audit reads the original update logs. The holdout analysis reads saved predictions and run records. |
@@ -40,4 +83,4 @@ Historical run receipts bind the exact paths and checksums of the sources used a
 python experiments/replay.py --output ../evihgt-replay-source
 ```
 
-This command restores the public source files. Model training and scoring are separate steps that use the inputs listed above.
+The archive command restores the public source files. To replay an original job with its recorded artifact identities, use its archived procedure and the corresponding inputs.

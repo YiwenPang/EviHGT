@@ -1,6 +1,6 @@
 # EviHGT
 
-[中文指南](README.zh-CN.md) · [Installation](#installation) · [Run the full model](#run-the-full-model) · [View the results](#view-the-results)
+[中文指南](README.zh-CN.md) · [Installation](#installation) · [Run the full model](#run-the-full-model) · [Run the paper experiments](#run-the-paper-experiments) · [View the results](#view-the-results)
 
 EviHGT is an evidence-aware heterogeneous graph Transformer for drug–disease association ranking. Given a drug–disease query, it builds a subgraph from OptimusKG and structured DrugBank records, encodes the evidence and its provenance, and scores treatment support and contraindication-related associations in separate heads.
 
@@ -105,9 +105,31 @@ The default configuration files are:
 
 Use `--raw-config`, `--config` or `--report-config` to select another YAML file. Report limits control saved output and explanation work; they do not change training samples, optimizer updates or the development candidate panels.
 
-The raw recipe reconstructs the original R0F1 memberships and fixed sampling plan. This command runs one FULL model with that recipe. The paper's other studies are linked in the [experiment index](experiments/).
+The raw recipe reconstructs the original R0F1 memberships and fixed sampling plan for this FULL run.
 
 For CPU training, add `--config configs/cpu.yaml`. If raw preparation must also use CPU, copy `configs/raw.yaml`, set `feature_device: cpu`, and pass that copy with `--raw-config`. In PyCharm, select the same interpreter and run `main.py` from the repository root.
+
+## Run the paper experiments
+
+Use the same four source files from the download section. Each command prepares its graphs and evaluation candidates, runs the selected jobs, and writes an experiment report. The `requirements-preprocess.txt` installation includes `filelock` for experiment runs.
+
+```sh
+python main.py --experiment ablations
+python main.py --experiment losses
+python main.py --experiment comparisons
+python main.py --experiment cold
+python main.py --experiment all
+```
+
+`all` runs the four suites in sequence. To check a smaller setup, use this CPU smoke test with synthetic data.
+
+```sh
+python main.py --experiment comparisons --smoke --methods FULL TRAIN_VISIBLE_POPULARITY
+```
+
+For a full comparison, install the matched controls and native adapters in their specified environments. The cold suite includes two HGTDR models on the disease holdout. Add `--skip-cold-hgtdr` to run the EviHGT cold cases on their own. [Native installation](experiments/workflow/native_sources/README.md)
+
+Experiment reports go to `outputs/experiments/<timestamp>_<experiment>/report.html` by default. That directory also contains `summary.json`, `metrics.csv`, and `disease_metrics.csv`. Use `--run-dir outputs/NAME` to name a run and `--resume` with the same directory and selections to continue interrupted work. [Default folds, selection flags and recovery](experiments/#run-from-the-source-databases)
 
 ## View the results
 
