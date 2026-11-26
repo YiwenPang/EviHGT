@@ -185,7 +185,7 @@ def _corp_input(corpus_path, relative, inventory):
     if relative not in inventory or not isinstance(relative, str):
         raise ValueError("Portable corpus path is not content-bound")
     part = Path(relative)
-    root = corpus_path.parent
+    root = corpus_path.parent.resolve(strict=True)
     if part.is_absolute() or ".." in part.parts or "\\" in relative or ":" in relative:
         raise ValueError("Portable corpus input must be a confined relative POSIX path")
     path = (root / part).resolve(strict=True)
@@ -197,15 +197,16 @@ def _corp_input(corpus_path, relative, inventory):
 def _preflight(case, corpus_path):
     import polars as pl
 
+    root = corpus_path.parent.resolve(strict=True)
     manifest = _read_json(corpus_path)
     inventory = manifest["files"]
     claimed_test = {
-        (corpus_path.parent / relative).resolve(strict=True)
+        (root / relative).resolve(strict=True)
         for relative in PANEL_NAMES.values()
     }
-    if any(not path.is_relative_to(corpus_path.parent) for path in claimed_test):
+    if any(not path.is_relative_to(root) for path in claimed_test):
         raise ValueError("Test inputs must stay in their case directory")
-    if any((corpus_path.parent / name).resolve() in claimed_test for name in inventory):
+    if any((root / name).resolve() in claimed_test for name in inventory):
         raise ValueError("Test panel was attached to the frozen training inventory")
 
     def pairs(relative):
@@ -214,7 +215,7 @@ def _preflight(case, corpus_path):
 
     members, hashes = {}, {}
     for head, relative in PANEL_NAMES.items():
-        path = corpus_path.parent / relative
+        path = root / relative
         hashes[head] = _sha(path)
         members[head] = pl.read_parquet(path, columns=list(PANEL_FIELDS)).to_dicts()
         if _sha(path) != hashes[head]:
@@ -241,6 +242,8 @@ def _training_settings(settings_mod, corpus_path, output):
 
 
 def _checkpoint_receipt(path, root, audit):
+    root = root.resolve(strict=True)
+    path = path.resolve()
     if not path.is_dir() or not path.is_relative_to(root):
         raise ValueError("Invalid frozen-run result directory")
     completed = _read_json(path / "completion.json")
@@ -258,6 +261,7 @@ def _score(case, runner, settings, root, audit, training):
     import torch
     from evi_hgt.metrics import evaluate_panel
 
+    root = root.resolve(strict=True)
     started = time.monotonic()
     target = root / "test"
     target.mkdir(exist_ok=True)
@@ -384,6 +388,7 @@ def main():
         parser.error("Continuation options are exclusive and available only for --mode train")
     root = HERE / ("validations" if args.mode == "validate" else "runs") / args.case
     root.mkdir(parents=True, exist_ok=True)
+    root = root.resolve(strict=True)
     corpus_path = (CORPORA / args.case / "manifest.json").resolve()
     try:
         with _case_lock(root):

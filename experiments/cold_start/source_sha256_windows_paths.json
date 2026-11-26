@@ -1,0 +1,18 @@
+{
+  "scope": "Windows short-name and equivalent-path normalization in the cold-start adapter; unchanged original source identities remain in source_sha256.json",
+  "based_on_commit": "99047f3659b07f3947d681d9421e5183e51bb281",
+  "normalization": "CRLF to LF before SHA-256",
+  "model_memberships_budget_and_scoring_formulas_changed": false,
+  "files": {
+    "run_case.py": {
+      "original_executed_sha256": "acd2fee941eb4f263698c512f3760ad72933028ca9171ede0d1ade15213de9cc",
+      "original_published_sha256_lf": "d24b7c079ae761814a424d3caf2800333a27f8b690247218310bafc2d24295c1",
+      "current_published_sha256_lf": "4817749f463500103da6672b6c74dcc2f684330b068721bc3d9c6932aa6d8d9c"
+    },
+    "test_run_case.py": {
+      "original_executed_sha256": "30baf40841544464321851b80d489e17ddeea243378f9a79f13789993c434508",
+      "original_published_sha256_lf": "30baf40841544464321851b80d489e17ddeea243378f9a79f13789993c434508",
+      "current_published_sha256_lf": "ed1638a54fd3219ee8604bf2deb10bc292aa55654d3f028a973958d62537cf68"
+    }
+  }
+}

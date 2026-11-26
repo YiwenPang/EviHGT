@@ -30,6 +30,8 @@ The current public checkout adds the raw-database preparation workflow and its c
 
 `check_frozen()` requires the complete file set and all hashes to match one registered inventory. Extra files, edits and combinations of incompatible versions fail. Its receipt names `historical-release` or `raw-preparation-release`; the latter explicitly reports `historical_runtime_identical=False`. The [source restoration command](../README.md#restore-the-archived-source-layout) still restores its pinned Git revision, and the historical script hashes in `source_sha256.json` remain unchanged.
 
+The current `run_case.py` also resolves case roots before directory-containment comparisons, so Windows short-name paths and equivalent relative paths refer to the same directory. Input hashes and checks rejecting paths outside the case remain active. [source_sha256_windows_paths.json](source_sha256_windows_paths.json) records this adapter and its regression tests separately from the original research and public source hashes. This path-handling change does not alter the model, memberships, training budget or scoring formulas.
+
 ## Running the software checks
 
 Use Python 3.11 or later with the repository dependencies and pytest. Run these checks from the public repository root.
