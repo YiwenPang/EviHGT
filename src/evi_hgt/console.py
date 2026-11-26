@@ -1,4 +1,4 @@
-"""English progress display; structured events and tracebacks stay in log files."""
+"""Chinese progress display; structured events and tracebacks stay in log files."""
 from contextlib import contextmanager
 from datetime import datetime, timezone
 import json
@@ -18,6 +18,8 @@ def number(value):
 class Console:
     def __init__(self, log_dir, *, stream=None, refresh_seconds=5):
         self.stream = sys.stdout if stream is None else stream
+        if stream is None and callable(getattr(self.stream, "reconfigure", None)):
+            self.stream.reconfigure(encoding="utf-8", errors="replace")
         self.tty = bool(getattr(self.stream, "isatty", lambda: False)())
         self.refresh = refresh_seconds
         self.log_dir = Path(log_dir).resolve()
@@ -41,12 +43,12 @@ class Console:
     def banner(self):
         self.say("=" * 72)
         self.say("EviHGT | Evidence-aware Heterogeneous Graph Transformer")
-        self.say("Drug-disease ranking with independent support and contra evidence")
+        self.say("药物–疾病排序 | support 与 contra 独立预测")
         self.say("=" * 72)
 
     @contextmanager
     def phase(self, index, title):
-        self.say(f"\n--- [Phase {index}: {title}] ---")
+        self.say(f"\n--- [阶段 {index}：{title}] ---")
         self.event("phase_started", phase=index, title=title)
         started = time.monotonic()
         try:
@@ -56,7 +58,7 @@ class Console:
             raise
         else:
             seconds = time.monotonic() - started
-            self.say(f"[Done] {title} completed in {seconds:.2f}s.")
+            self.say(f"[完成] {title}，用时 {seconds:.2f}s。")
             self.event("phase_completed", phase=index, title=title, seconds=seconds)
 
     @contextmanager
@@ -67,7 +69,7 @@ class Console:
         bar = tqdm(total=None, desc=title, file=self.stream, disable=not self.tty,
                    ascii=True, bar_format="{desc} | elapsed {elapsed}", leave=True)
         if not self.tty:
-            self.say(f"[Start] {title}")
+            self.say(f"[开始] {title}")
         def tick():
             while not stop.wait(self.refresh):
                 bar.refresh()
@@ -81,16 +83,16 @@ class Console:
             stop.set()
             thread.join()
             bar.close()
-            self.say(f"[{'Done' if succeeded else 'Failed'}] {title}: {time.monotonic() - start:.2f}s.")
+            self.say(f"[{'完成' if succeeded else '失败'}] {title}：{time.monotonic() - start:.2f}s。")
 
     def progress(self, total, title, *, unit="item"):
         return Progress(self, total, title, unit)
 
-    def stage_progress(self, prefix="Loading"):
+    def stage_progress(self, prefix="加载"):
         return StageProgress(self, prefix)
 
     def metrics(self, metrics):
-        self.say("\nDevelopment evaluation (observed positives vs unlabeled candidates)")
+        self.say("\n开发评估：已记录正例与未标注候选")
         self.say(f"{'Head':<12} {'ROC-AUC':>11} {'AP':>11} {'AUPR':>11} {'Diseases':>10}")
         for head in ("support", "contra"):
             m = metrics[head]
@@ -101,15 +103,15 @@ class Console:
                 r = metrics[head].get("ranking", {})
                 values = " ".join(f"{number(r.get(f'{key}@{k}')):>11}" for key in ("P", "R", "Hits", "NDCG"))
                 self.say(f"{head:<12} {k:>3} {values}")
-        self.say("N/A means unavailable. AP uses steps; AUPR uses trapezoids.")
+        self.say("N/A 表示不可用。AP 使用阶梯积分，AUPR 使用梯形积分。")
         self.event("evaluation_completed", metrics=metrics)
 
     def failure(self, exc):
         with self.error_path.open("a", encoding="utf8") as handle:
             traceback.print_exception(exc, file=handle)
         self.event("failure", type=type(exc).__name__, message=str(exc))
-        self.say(f"[Error] {exc}")
-        self.say(f"Full traceback: {self.error_path}")
+        self.say(f"[Error] 运行失败（{type(exc).__name__}）：{exc}")
+        self.say(f"完整错误日志：{self.error_path}")
 
 
 class Progress:
@@ -121,7 +123,7 @@ class Progress:
                         disable=not console.tty, ascii=True, dynamic_ncols=True,
                         mininterval=console.refresh, maxinterval=console.refresh, leave=True)
         if not console.tty:
-            console.say(f"[Start] {title}: {total} {unit}")
+            console.say(f"[开始] {title}：{total} {unit}")
         self.stop = threading.Event()
         def refresh_elapsed():
             while not self.stop.wait(console.refresh):

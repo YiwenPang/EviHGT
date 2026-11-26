@@ -22,6 +22,7 @@ from .io import digest, write_json
 from .losses import group_risk
 from .metrics import metric_pair
 from .model import build_model
+from .reporting import create_report
 from .training.supervision import make_unlabeled_query_supervision
 
 
@@ -67,11 +68,11 @@ def load_inputs(settings, console):
     if not manifest.is_file():
         raise FileNotFoundError(
             f"Prepared corpus not found: {manifest}. Obtain the required datasets and follow "
-            "docs/data.md, then run prepare_data.py. The repository includes no licensed data or trained weights."
+            "docs/data.md, then run main.py --mode prepare, or start main.py to prepare and train."
         )
     with console.stage_progress() as progress:
         corpus = load_corpus(manifest, progress=progress)
-    console.say(f"[Data] {corpus.plan.G} groups per cycle; {corpus.plan.total_steps} planned updates.")
+    console.say(f"[数据] 每周期 {corpus.plan.G} 组，共 {corpus.plan.total_steps} 次计划更新。")
     return corpus
 
 
@@ -112,7 +113,7 @@ def evaluate(built, corpus, settings, console, target, step):
             frame = corpus.panels.get(domain)
             rows = []
             if frame is not None and frame.height:
-                with console.progress(frame.height, f"Scoring {domain}", unit="query") as bar:
+                with console.progress(frame.height, f"评分 {domain}", unit="query") as bar:
                     with torch.no_grad(), precision_context(settings):
                         for row in frame.iter_rows(named=True):
                             query = make_unlabeled_query_supervision(row["drug_id"], row["disease_id"])
@@ -149,7 +150,11 @@ def save_checkpoint(path, built, optimizer, step, binding):
     os.replace(temporary, path)
 
 
-def run(settings, *, variant="FULL", mode="train", checkpoint=None):
+def run(settings, *, variant="FULL", mode="train", checkpoint=None, report_settings=None):
+    if mode not in ("train", "evaluate", "validate"):
+        raise ValueError("Use train, evaluate or validate mode")
+    if mode == "evaluate" and checkpoint is None:
+        raise ValueError("Evaluation requires a trusted local checkpoint")
     os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S_%fZ") + "_" + variant
     root = settings.resolve(settings.output_dir) / run_id
@@ -159,18 +164,18 @@ def run(settings, *, variant="FULL", mode="train", checkpoint=None):
         console.banner()
         started = time.monotonic()
         try:
-            with console.phase(1, "Validate and load prepared inputs"):
+            with console.phase(1, "校验并加载训练语料"):
                 corpus = load_inputs(settings, console)
                 synthetic = getattr(corpus, "manifest", {}).get("purpose") == "SYNTHETIC_TEST_ONLY"
                 if synthetic:
-                    console.say("[SYNTHETIC SOFTWARE TEST] Invented inputs; not a biomedical experiment.")
+                    console.say("[SYNTHETIC_TEST_ONLY] 合成数据软件自检，结果不属于生物医学实验。")
                 write_json(root / "configuration.json", settings.as_dict())
                 write_json(root / "environment.json", environment())
             if mode == "validate":
-                console.say(f"Input validation completed. Report directory: {root}")
+                console.say(f"输入校验完成，记录目录：{root}")
                 write_json(root / "completion.json", dict(status="INPUTS_VALIDATED", corpus_identity=corpus.identity))
                 return root
-            with console.phase(2, "Initialize EviHGT"):
+            with console.phase(2, "初始化 EviHGT"):
                 if settings.device == "cuda" and not torch.cuda.is_available():
                     raise RuntimeError("CUDA is unavailable. Install a compatible PyTorch build or explicitly use configs/cpu.yaml.")
                 if settings.precision == "bf16" and not torch.cuda.is_bf16_supported():
@@ -200,14 +205,14 @@ def run(settings, *, variant="FULL", mode="train", checkpoint=None):
                     if not 0 <= step <= corpus.plan.total_steps:
                         raise ValueError("Checkpoint step is outside the fixed plan")
                     restore_rng(saved["rng"])
-                    console.say(f"[Resume] Loaded logical update {step}/{corpus.plan.total_steps} from {path}")
+                    console.say(f"[恢复] 从 {path} 加载第 {step}/{corpus.plan.total_steps} 次更新。")
                 if mode == "evaluate" and checkpoint is None:
                     raise ValueError("Evaluation requires --checkpoint from a completed or partial local training run")
                 write_json(root / "model.json", built.metadata())
-                console.say(f"[Model] {variant}; {sum(p.numel() for p in built.model.parameters()):,} parameters; {settings.device}/{settings.precision}")
+                console.say(f"[模型] {variant}；{sum(p.numel() for p in built.model.parameters()):,} 个参数；{settings.device}/{settings.precision}")
                 initial_step = step
             if mode == "train":
-                with console.phase(3, "Train the fixed three-cycle plan"):
+                with console.phase(3, "按固定三周期计划训练"):
                     if corpus.plan.total_steps != 3 * corpus.plan.G:
                         raise ValueError("The supplied training plan is not exactly three complete cycles")
                     for cycle in range(step // corpus.plan.G + 1, 4):
@@ -224,17 +229,23 @@ def run(settings, *, variant="FULL", mode="train", checkpoint=None):
                                     save_checkpoint(root / "checkpoints/latest.pt", built, optimizer, step, binding)
                         if settings.evaluate_every_cycle:
                             evaluate(built, corpus, settings, console, root / f"evaluation/step_{step}", step)
-            with console.phase(4, "Save final development results"):
+            with console.phase(4, "保存最终开发评估结果"):
                 if not (root / f"evaluation/step_{step}/metrics.json").is_file():
                     evaluate(built, corpus, settings, console, root / f"evaluation/step_{step}", step)
+            with console.phase(5, "导出药物排序、路径解释和结果报告"):
+                final_checkpoint = root / "checkpoints/latest.pt"
+                if not final_checkpoint.is_file():
+                    final_checkpoint = Path(checkpoint).resolve()
+                create_report(built, corpus, settings, console, root, step, final_checkpoint, report_settings)
                 elapsed = time.monotonic() - started
                 write_json(root / "completion.json", dict(status="COMPLETE", variant=variant, mode=mode,
                     updates=step, total_updates=corpus.plan.total_steps, elapsed_seconds=elapsed,
                     resumed_from_step=initial_step, updates_this_invocation=step-initial_step,
                     scope="SYNTHETIC_TEST_ONLY" if synthetic else "LOCAL_RUN_NOT_AN_AUTOMATIC_REPRODUCTION_OF_PUBLISHED_RESULTS",
-                    corpus_identity=corpus.identity))
-                console.say(f"[Results] {root}")
-            console.say(f"Workflow completed in {elapsed:.2f}s.")
+                    corpus_identity=corpus.identity, report="report.html", summary="summary.json",
+                    explanations="explanations/index.json"))
+                console.say(f"[结果目录] {root}")
+            console.say(f"完整工作流程已完成，用时 {elapsed:.2f}s。")
             return root
         except Exception as exc:
             console.failure(exc)

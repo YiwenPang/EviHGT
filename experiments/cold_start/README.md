@@ -1,71 +1,76 @@
-# Cold-start experiments
+# 冷启动实验
 
-These scripts prepare and evaluate four entity holdouts using a fresh EviHGT FULL model in each case. They implement the November 18, 2026 protocol. The earlier support-only cold-drug and cold-disease figures in the [experiment gallery](../../docs/experiments.md#historical-holdout-evaluation) used a separate evaluation protocol.
+本目录按 2026 年 11 月 18 日的协议构建并评估四种实体留出场景，每个场景单独初始化 EviHGT FULL。[实验图集](../../docs/experiments.md#historical-holdout-evaluation)中较早的 support-only cold-drug 和 cold-disease 图使用另一套评估协议。
 
-## Splits and scoring
+## 划分与评分
 
-| Case | Held-out unit |
+| 场景 | 留出单位 |
 | --- | --- |
-| `cold_drug` | Canonical drug ID |
-| `cold_disease` | Canonical disease ID |
-| `double_cold` | Both IDs. A pair belongs to a partition only when both endpoints belong to it. |
-| `first_approval_year_cohort` | Drug, grouped by first approval year. Whole years stay together. Drugs without a recorded year are excluded. |
+| cold_drug | 规范化药物 ID |
+| cold_disease | 规范化疾病 ID |
+| double_cold | 药物和疾病 ID；一对实体只有在两端均属于同一分区时才进入该分区。 |
+| first_approval_year_cohort | 按首次批准年份划分药物，完整年份保持在一起；未记录年份的药物不参与该场景。 |
 
-The first three cases hash the relevant canonical entity IDs into train, validation and test partitions with nominal shares of 80%, 10% and 10%. The positive pairs come from the audited development and auxiliary pools. Previously protected pairs remain excluded. The approval-year experiment uses static graph and feature snapshots to measure transfer across approval cohorts.
+前三种场景对相应的规范化实体 ID 做哈希划分，训练、验证和测试的名义比例为 80%、10% 和 10%。正例来自已审计的开发池和辅助池，原先受保护的实体对继续排除。批准年份场景使用静态图和特征快照，衡量不同批准年份队列间的迁移。
 
-The graph builder removes facts incident to a held-out endpoint, along with their evidence records and CSR traversals. Both edge directions and known target-equivalent facts are checked. Endpoints retain permitted static features, including pretrained D1 inputs and nonclinical drug–gene or disease–phenotype summaries. Possible exposure in upstream encoder pretraining remains unverified.
+图构建阶段删除与留出端点关联的事实、证据记录和 CSR 遍历边，并检查两个方向及已知的目标等价事实。端点保留允许使用的静态特征，包括冻结的 D1 特征，以及非临床的药物–基因、疾病–表型摘要。上游编码器预训练是否接触目标信息仍为 NOT_VERIFIED。
 
-Each case uses seed 42, the frozen FULL configuration and three training cycles. The trainer has access to role-free block lists. A separate integrity check reads the held-out panels, and their test-role files stay outside the trainer's input inventory. Test scoring uses the fixed last-step checkpoint. Each head ranks its recorded positive pairs against the same set of up to 64 sampled unlabeled drugs per disease. Results include per-disease ranking metrics, counts of constant scores and ties, and graph coverage. A single FULL run per setting measures its holdout performance. The [HGTDR comparison](hgtdr/) uses the same cold-disease split and test panels. Each model was trained once for that comparison.
+每个场景使用 seed 42、冻结的 FULL 配置和三个训练周期。训练器只接触不含角色标签的阻断列表；单独的完整性检查读取留出面板，测试角色文件不进入训练器输入清单。测试评分使用固定的最后一步 checkpoint。每个预测头在每种疾病内，将其记录正例与同一组至多 64 个抽样未标注药物比较。输出包含逐疾病排名指标、恒定得分与并列计数、图覆盖率。每个场景运行一次 FULL；[HGTDR 比较](hgtdr/)使用相同的 cold-disease 划分和测试面板，各模型分别训练一次。
 
-## Source files
+## 源码与运行时身份
 
-- [prepare_case.py](prepare_case.py) builds the split, legal unlabeled candidates and fixed training schedule. [approval_cohort.py](approval_cohort.py) defines the year boundaries.
-- [graph_builder.py](graph_builder.py) materializes the masked facts, evidence and adjacency.
-- [run_case.py](run_case.py) checks memberships, trains, verifies the checkpoint and scores the held-out queries. [run_queue.py](run_queue.py) launches the four cases serially.
-- [source_sha256.json](source_sha256.json) preserves the SHA-256 of the listed research scripts and tests and their original public copies with LF line endings.
+- [prepare_case.py](prepare_case.py)构建划分、合法未标注候选和固定训练计划；[approval_cohort.py](approval_cohort.py)定义年份边界。
+- [graph_builder.py](graph_builder.py)物化屏蔽后的事实、证据和邻接结构。
+- [run_case.py](run_case.py)检查成员关系、训练、校验 checkpoint 并评分留出查询；[run_queue.py](run_queue.py)依次运行四个场景。
+- [source_sha256.json](source_sha256.json)保留研究脚本、测试及其最初公开副本按 LF 换行规范化后的 SHA-256。
 
-The published adapters replace workstation-specific paths with [locations.py](locations.py), separate source scripts from runtime outputs and use the system temporary directory for the synthetic smoke run. The original queue verified its entire frozen 130-file distribution, including documentation and figures. The historical public runtime identity covers 51 Python sources, two YAML configurations and the synthetic data fixture. Its accepted LF-normalized digests remain in [runtime_sha256.json](runtime_sha256.json). The earlier comparison of Python syntax trees without docstrings and parsed YAML contents applies to those historical frozen and public files.
+公开适配器通过 [locations.py](locations.py)替换工作站路径，将源代码与运行产物分开，冷启动合成测试使用系统临时目录。原始队列校验包含文档和图片的 130 个冻结文件。运行时检查另有以下三份完整清单：
 
-The current public checkout adds the raw-database preparation workflow and its configuration. It has a separate 88-file identity in [runtime_sha256_raw_preparation.json](runtime_sha256_raw_preparation.json): 84 Python sources, three YAML configurations and the same synthetic data fixture. Among files present in the historical inventory, the CLI adds preparation dispatch and the corpus loader changes its missing-file explanation; the numerical model and training sources retain their historical accepted hashes. This inventory records the new checkout without changing the meaning of the historical inventory.
+| 返回身份 | 清单 | 对应版本 |
+| --- | --- | --- |
+| historical-release | [runtime_sha256.json](runtime_sha256.json) | 51 个 Python 源文件、两个 YAML 配置和原合成数据 fixture。 |
+| raw-preparation-release | [runtime_sha256_raw_preparation.json](runtime_sha256_raw_preparation.json) | 84 个 Python 源文件、三个 YAML 配置和同一 fixture，共 88 个文件；增加原始数据库准备流程。 |
+| full-workflow-release | [runtime_sha256_full_workflow.json](runtime_sha256_full_workflow.json) | 90 个 Python 源文件、四个 YAML 配置和同一 fixture，共 95 个文件；增加最终排名、路径解释、结果报告和独立 tiny 自检入口。 |
 
-`check_frozen()` requires the complete file set and all hashes to match one registered inventory. Extra files, edits and combinations of incompatible versions fail. Its receipt names `historical-release` or `raw-preparation-release`; the latter explicitly reports `historical_runtime_identical=False`. The [source restoration command](../README.md#restore-the-archived-source-layout) still restores its pinned Git revision, and the historical script hashes in `source_sha256.json` remain unchanged.
+check_frozen() 要求实际文件名集合与某一份清单完全一致，且每个文件的 LF 规范化哈希都匹配该清单。额外模块、缺失文件、内容改动和不同版本的混合均无法通过。回执保留 runtime_variant 和 runtime_manifest；后两种身份的 historical_runtime_identical 为 False。旧两份清单保持原有字节。
 
-The current `run_case.py` also resolves case roots before directory-containment comparisons, so Windows short-name paths and equivalent relative paths refer to the same directory. Input hashes and checks rejecting paths outside the case remain active. [source_sha256_windows_paths.json](source_sha256_windows_paths.json) records this adapter and its regression tests separately from the original research and public source hashes. This path-handling change does not alter the model, memberships, training budget or scoring formulas.
+raw-preparation-release 在历史文件中修改了 CLI 的准备分派和语料缺失提示，其数值模型与训练源文件仍匹配历史接受哈希。full-workflow-release 的 runner 在最终开发评估后导出 rankings/、explanations/index.json、summary.json 和 report.html，并提供 main.py --smoke。模型结构、损失、优化器更新、三个训练周期及评分公式沿用既有实现；路径解释读取模型前向计算中的权重和事实逻辑。
 
-## Running the software checks
+历史比较结果及先前的 Python 语法树比较（去除 docstring）和 YAML 内容比较，仍对应原实验使用的历史文件身份。复现这些比较时，应使用原收据绑定的源码、输入和 checkpoint。[源码恢复命令](../README.md#restore-the-archived-source-layout)继续恢复其固定 Git revision，source_sha256.json 中的历史脚本哈希保持不变。
 
-Use Python 3.11 or later with the repository dependencies and pytest. Run these checks from the public repository root.
+run_case.py 在目录包含判断前解析 case 根路径，使 Windows 短路径别名和等价相对路径指向同一目录。输入哈希及拒绝 case 外部路径的检查继续生效。[source_sha256_windows_paths.json](source_sha256_windows_paths.json)单独记录该适配器及回归测试；这项路径处理变更不改变模型、成员关系、训练预算或评分公式。
 
-```sh
-python -B -m pytest experiments/cold_start -q
-python -B experiments/cold_start/synthetic/test_frozen_test_score.py
-```
+## 软件自检
 
-The first command checks entity assignment, sample exclusions, graph masking, memberships and ties on invented inputs. It also checks both runtime identities and rejects changed files, extra modules and mixtures of incompatible versions. The second performs a three-update CPU training run and held-out evaluation on a tiny synthetic corpus.
+安装仓库依赖和 pytest，使用 Python 3.11 或更高版本，在仓库根目录执行：
 
-## Running with licensed inputs
+    python -B -m pytest experiments/cold_start -q
+    python -B experiments/cold_start/synthetic/test_frozen_test_score.py
+    python main.py --smoke
 
-Use a separate research workspace with the original, hash-bound derived inputs and their manifests. The paths in the source inventories must resolve in that workspace. Preparation reads the following inputs.
+第一条命令在合成输入上检查实体分配、抽样排除、图屏蔽、成员关系、并列得分和三种运行时身份。第二条执行冷启动的三步 CPU 训练及独立留出评估。
 
-- The canonical node index, fact and evidence tables, target map and graph CSR files.
-- The development and U manifests, positive memberships, observed and forbidden pairs, and static features.
-- The certified disease–gene graph, its evidence adapter and its graph acceptance receipt.
-- The frozen D1 feature package and, for the fourth case, the OptimusKG 2.0 drug node parquet with its structured first-approval-year field. [Input contract](../../docs/data.md)
+第三条通过主入口执行普通工作流的 tiny 衔接测试：固定 CPU/FP32、15 个合成节点和三次真实参数更新，随后生成开发评估、checkpoint、排名、路径解释及报告。该入口不读取真实数据库或默认训练配置，也不联网。语料写入 data/processed/smoke/&lt;uuid&gt;/，运行产物写入 outputs/smoke/&lt;uuid&gt;/&lt;run_id&gt;/，输入和完成记录明确标为 SYNTHETIC_TEST_ONLY。这两种 tiny 测试各自验证对应的软件流程，合成结果不属于论文实验结果。
 
-From a checkout of this repository, set the paths for the local research workspace and D1 features. The following example uses PowerShell.
+## 使用授权数据运行
 
-```powershell
-$env:EVIHGT_RESEARCH_ROOT = (Resolve-Path '../EviHGT-research').Path
-$env:EVIHGT_D1_FEATURES = (Resolve-Path '../HGTDR/data/processed/competition_pilot_v1/features').Path
-python -B experiments/cold_start/run_queue.py
-```
+使用单独的研究工作区，放置原始、受哈希绑定的派生输入及 manifest。源清单中的路径必须能在该工作区解析。准备阶段需要：
 
-The published checkout supplies the registered raw-preparation runtime by default. Set `EVIHGT_FROZEN_ROOT` to use a separately archived runtime matching the historical inventory. A single case can also be prepared, validated and trained in a fresh run directory. For the HGTDR comparison, use the `cold_disease` case and pass its prepared corpus and completed run to the [comparison entry point](hgtdr/).
+- 规范化节点索引、事实和证据表、目标映射及图 CSR 文件。
+- 开发集与 U manifest、正例成员、已观测和禁止实体对，以及静态特征。
+- 已核验的疾病–基因图、证据适配器及图验收记录。
+- 冻结的 D1 特征包；批准年份场景还需要 OptimusKG 2.0 药物节点 Parquet 中的结构化首次批准年份字段。详见[输入约定](../../docs/data.md)。
 
-```sh
-python -B experiments/cold_start/prepare_case.py --case cold_drug
-python -B experiments/cold_start/run_case.py --case cold_drug --mode validate
-python -B experiments/cold_start/run_case.py --case cold_drug --mode train
-```
+在仓库内设置本地研究工作区和 D1 特征路径。PowerShell 示例：
 
-The workspace layout in [locations.py](locations.py) gives the paths recorded in the original manifests. Prepared inputs occupy one directory per case under `CACHE`. Training and evaluation receipts use the same case names under `EXPERIMENT/runs`. Licensed graph records, membership files, features, predictions and checkpoints are local run inputs or outputs.
+    $env:EVIHGT_RESEARCH_ROOT = (Resolve-Path '../EviHGT-research').Path
+    $env:EVIHGT_D1_FEATURES = (Resolve-Path '../HGTDR/data/processed/competition_pilot_v1/features').Path
+    python -B experiments/cold_start/run_queue.py
+
+当前公开仓库默认匹配 full-workflow-release。设置 EVIHGT_FROZEN_ROOT 可使用另行归档、与其他注册清单完全匹配的运行时。也可以在新的运行目录中单独准备、校验并训练一个场景。HGTDR 比较使用 cold_disease 场景，并将准备好的语料及已完成的运行交给[比较入口](hgtdr/)。
+
+    python -B experiments/cold_start/prepare_case.py --case cold_drug
+    python -B experiments/cold_start/run_case.py --case cold_drug --mode validate
+    python -B experiments/cold_start/run_case.py --case cold_drug --mode train
+
+[locations.py](locations.py)中的工作区布局对应原 manifest 记录的路径。派生输入按场景分别放在 CACHE 下，训练和评估记录以相同场景名写入 EXPERIMENT/runs。授权图记录、成员文件、特征、预测和 checkpoint 均保留在本地。

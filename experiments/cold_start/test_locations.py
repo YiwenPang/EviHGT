@@ -80,3 +80,62 @@ def test_runtime_variants_require_one_complete_identity(monkeypatch, tmp_path):
     (tmp_path / base[2]).write_bytes(b"changed: true\n")
     with pytest.raises(RuntimeError, match="source differs"):
         locations.check_frozen()
+
+
+def test_full_workflow_is_a_third_complete_runtime_identity(monkeypatch, tmp_path):
+    common = b"# unchanged scientific model\n"
+    raw_runner = b"# raw preparation runner\n"
+    workflow_runner = b"# runner with report and explanations\n"
+    base = ("src/evi_hgt/model.py", "src/evi_hgt/runner.py",
+            "tests/data_fixture.py", "configs/default.yaml")
+    canonical = "src/evi_hgt/preprocessing/canonical.py"
+    smoke = "src/evi_hgt/smoke.py"
+    historical = {name: [hashlib.sha256(common).hexdigest()] for name in base}
+    raw = dict(historical, **{canonical: [hashlib.sha256(common).hexdigest()]})
+    raw[base[1]] = [hashlib.sha256(raw_runner).hexdigest()]
+    workflow = dict(raw, **{smoke: [hashlib.sha256(common).hexdigest()]})
+    workflow[base[1]] = [hashlib.sha256(workflow_runner).hexdigest()]
+    for filename, inventory in (("runtime_sha256.json", historical),
+                                ("runtime_sha256_raw_preparation.json", raw),
+                                ("runtime_sha256_full_workflow.json", workflow)):
+        (tmp_path / filename).write_text(json.dumps(inventory), encoding="utf-8")
+
+    def write(name, contents):
+        path = tmp_path / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(contents.replace(b"\n", b"\r\n"))
+
+    for name in base:
+        write(name, common)
+    monkeypatch.setattr(locations, "SOURCE", tmp_path)
+    monkeypatch.setattr(locations, "FROZEN", tmp_path)
+    old_result = locations.check_frozen()
+    assert old_result["runtime_variant"] == "historical-release"
+    assert old_result["historical_runtime_identical"] is True
+    write(canonical, common)
+    write(base[1], raw_runner)
+    assert locations.check_frozen()["runtime_variant"] == "raw-preparation-release"
+    write(smoke, common)
+    write(base[1], workflow_runner)
+    current = locations.check_frozen()
+    assert current == {"files": 6, "identical": True,
+                       "runtime_variant": "full-workflow-release",
+                       "runtime_manifest": "runtime_sha256_full_workflow.json",
+                       "historical_runtime_identical": False}
+
+    # The new inventory must never borrow a runner digest from an older release.
+    write(base[1], raw_runner)
+    with pytest.raises(RuntimeError, match="source differs"):
+        locations.check_frozen()
+    write(base[1], b"# an unregistered runner edit\n")
+    with pytest.raises(RuntimeError, match="source differs"):
+        locations.check_frozen()
+    write(base[1], workflow_runner)
+    extra = "src/evi_hgt/unregistered.py"
+    write(extra, common)
+    with pytest.raises(RuntimeError, match="inventory differs"):
+        locations.check_frozen()
+    (tmp_path / extra).unlink()
+    (tmp_path / smoke).unlink()
+    with pytest.raises(RuntimeError, match="source differs"):
+        locations.check_frozen()

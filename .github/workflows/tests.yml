@@ -41,6 +41,8 @@ jobs:
         run: python -B -m pytest tests experiments/cold_start/test_locations.py experiments/cold_start/test_run_case.py -q -p no:cacheprovider --basetemp outputs/pytest
       - name: Check cold-start runtime compatibility
         run: python -B experiments/cold_start/synthetic/test_frozen_test_score.py
+      - name: Run the complete primary-entry smoke workflow
+        run: python -B main.py --smoke
       - name: Check public entry points
         run: |
           python main.py --help

@@ -1,0 +1,4 @@
+# Output budgets only; these settings do not change training or evaluation.
+explanation_queries: 10
+paths_per_query: 5
+ranking_top_k: 10

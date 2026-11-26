@@ -1,8 +1,165 @@
 # EviHGT
 
+[中文指南](README.zh-CN.md) · [Installation](#installation) · [Run the full model](#run-the-full-model) · [View the results](#view-the-results)
+
 EviHGT is an evidence-aware heterogeneous graph Transformer for drug–disease association ranking. Given a drug–disease query, it builds a subgraph from OptimusKG and structured DrugBank records, encodes the evidence and its provenance, and scores treatment support and contraindication-related associations in separate heads.
 
-[Try the public checks on CPU](#try-the-public-checks) · [Inputs for the paper experiments](experiments/README.md#inputs-for-the-paper-experiments)
+Use `main.py` to prepare the raw databases, train the FULL model for three cycles, evaluate both development outputs, and save drug rankings and path explanations with an HTML report. Follow the steps below from the repository root.
+
+## Installation
+
+Install Git and Python 3.11 or later, then create a virtual environment:
+
+```sh
+git clone https://github.com/YiwenPang/EviHGT.git
+cd EviHGT
+python -m venv .venv
+```
+
+Activate it in Windows PowerShell 7:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+On Linux, use:
+
+```sh
+. .venv/bin/activate
+```
+
+For an NVIDIA GPU with a driver compatible with CUDA 12.8, install the CUDA build and workflow dependencies:
+
+```sh
+python -m pip install --upgrade pip
+python -m pip install "torch>=2.7,<3" --index-url https://download.pytorch.org/whl/cu128
+python -m pip install -r requirements-preprocess.txt
+python check_environment.py --device cuda
+```
+
+Use the [official PyTorch installer](https://pytorch.org/get-started/locally/) to select another build for your platform and driver. The default run uses CUDA with BF16; the environment check must report `READY`. The observed package versions are recorded in [requirements-observed.txt](requirements-observed.txt).
+
+`requirements-preprocess.txt` includes XML parsing, RDKit and the frozen encoder libraries as well as training dependencies. An existing portable corpus needs `requirements.txt`. For a CPU-only installation, replace the PyTorch install command with:
+
+```sh
+python -m pip install "torch>=2.6,<3" --index-url https://download.pytorch.org/whl/cpu
+```
+
+Check that environment with `python check_environment.py --device cpu`.
+
+## Download and place the four source files
+
+| File | Download and preparation |
+| --- | --- |
+| `nodes.parquet` | Download the aggregate file from [OptimusKG release 2.0](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IYNGEV&version=2.0). |
+| `edges.parquet` | Download the aggregate file from the same release. Select the two aggregate files rather than the per-type files under `nodes/` and `edges/`. |
+| `drugbank_all_full_database.xml` | Obtain **All drugs / full database XML** through your authorized [DrugBank account](https://go.drugbank.com/releases/latest). Extract the archive and rename the full XML to this filename. The parser requires root attribute `version="5.1"`. |
+| `drugbank.xsd` | Save the linked **Schema Definition** from the same DrugBank release as this filename. |
+
+Place the files at these paths:
+
+```text
+data/
+├── drugbank_all_full_database.xml
+├── drugbank.xsd
+└── cache/optimuskg/doi_10_7910_DVN_IYNGEV/2.0/recovery/aggregate/
+    ├── nodes.parquet
+    └── edges.parquet
+```
+
+The study's local DrugBank XML records `version="5.1"` and `exported-on="2026-04-23"`; the header does not identify its patch release. Keep your export's release information and checksums. As checked on 26 November 2026, DrugBank's public page reports a pause in academic downloads. Use an existing authorized full export or obtain access through the provider; the repository does not distribute DrugBank records. [Download details and direct OptimusKG links](docs/data.md#download-and-place-the-source-databases)
+
+Check the filenames, OptimusKG hashes and DrugBank XML/XSD headers:
+
+```sh
+python check_data.py
+```
+
+The check reads the source files without changing them. Keep raw and derived data in the Git-ignored `data/` directory. Missing pinned Open Targets 25.06 and ChemBERTa/BioBERT files are downloaded into `data/cache/` during preparation. Database parsing and encoder inference run locally.
+
+<a id="try-the-public-checks"></a>
+
+## Optional CPU smoke test
+
+```sh
+python main.py --smoke
+```
+
+This runs the FULL model for three optimizer updates on a tiny synthetic corpus, then produces development metrics, rankings, path explanations and an HTML report under `outputs/smoke/`. It uses CPU and needs neither the four databases nor network access. Its output is marked `SYNTHETIC_TEST_ONLY`; it checks the software workflow, not reconstruction of the original databases or biomedical performance. You can run it before downloading data.
+
+## Run the full model
+
+```sh
+python main.py
+```
+
+On the first run, `main.py` prepares `data/processed/corpus/manifest.json` from the four raw files, validates the corpus, and continues through three training cycles. It evaluates support and contra on the development panels after each cycle, then writes final rankings, explanations and the report. Later invocations validate the existing corpus and start a new training run.
+
+The default configuration files are:
+
+| Configuration | Controls |
+| --- | --- |
+| [configs/raw.yaml](configs/raw.yaml) | Source paths, preparation stages, caches, feature device and feature batch size. |
+| [configs/default.yaml](configs/default.yaml) | Corpus path, output directory, CUDA/BF16 training and optimizer settings. |
+| [configs/report.yaml](configs/report.yaml) | Output limits: `explanation_queries: 10`, `paths_per_query: 5`, `ranking_top_k: 10`. |
+
+Use `--raw-config`, `--config` or `--report-config` to select another YAML file. Report limits control saved output and explanation work; they do not change training samples, optimizer updates or the development candidate panels.
+
+The raw recipe reconstructs the original R0F1 memberships and fixed sampling plan. This command runs one FULL model with that recipe. The paper's other studies are linked in the [experiment index](experiments/).
+
+For CPU training, add `--config configs/cpu.yaml`. If raw preparation must also use CPU, copy `configs/raw.yaml`, set `feature_device: cpu`, and pass that copy with `--raw-config`. In PyCharm, select the same interpreter and run `main.py` from the repository root.
+
+## View the results
+
+Open `outputs/<run>/report.html` in a browser after the command finishes. The console prints the actual run path. The workflow is complete when it exits successfully and that run's `completion.json` records `status: COMPLETE` after report generation.
+
+| Output under `outputs/<run>/` | Content |
+| --- | --- |
+| `report.html` | Local HTML overview of metrics, rankings and selected explanations. |
+| `summary.json` | Machine-readable run and report summary. |
+| `rankings/support.csv`, `rankings/contra.csv` | Drug rankings within each disease's development candidate pool. |
+| `rankings/support_top10.csv`, `rankings/contra_top10.csv` | Top-K extracts for each disease; the filename follows `ranking_top_k`. |
+| `explanations/index.json`, `explanations/queries/*.json` | Selected queries, bounded biological paths and their recorded model evidence. |
+| `evaluation/step_N/metrics.json` | Support/contra metrics at logical update `N`. |
+| `evaluation/step_N/*.parquet` | Scored development candidates with both head logits. |
+| `checkpoints/latest.pt` | Latest saved model, optimizer and RNG state for training recovery. |
+| `configuration.json`, `environment.json`, `model.json` | Run settings, software/hardware environment and model metadata. |
+| `logs/events.jsonl`, `logs/errors.log` | Structured events and the full traceback if a stage fails. |
+
+Support ranks the indication P and U candidates; contra ranks the contraindication P candidates with the same development U pool. U means unobserved, not a verified negative. The full CSV files retain every supplied candidate; `ranking_top_k` controls the separate Top-K extracts. Path explanations describe the model's bounded graph reasoning and source evidence; they do not establish a causal mechanism.
+
+Preparation reports are separate, under `outputs/preparation/<attempt-id>/`. Derived corpus and stage files stay under `data/`. See [reproducibility and output details](docs/reproducibility.md).
+
+## Resume, evaluate or prepare offline
+
+Resume from a trusted local checkpoint using the same training configuration and corpus:
+
+```sh
+python main.py --checkpoint outputs/RUN_ID/checkpoints/latest.pt
+```
+
+To regenerate development metrics, rankings, explanations and the report from a checkpoint without optimizer updates:
+
+```sh
+python main.py --mode evaluate --checkpoint outputs/RUN_ID/checkpoints/latest.pt
+```
+
+Each invocation writes a new run directory. Replace `RUN_ID` with the actual previous directory. Add the original `--config` when it differs from the default, and use `--report-config` to change the output limits. An evaluation or already-complete resume records the source checkpoint instead of copying it into the new directory.
+
+To prepare the corpus without training, or validate an existing corpus:
+
+```sh
+python main.py --mode prepare
+python main.py --mode validate
+```
+
+To run with public auxiliary files already cached:
+
+```sh
+python main.py --offline
+```
+
+Offline preparation requires the exact pinned Open Targets and encoder files; it reports missing resources and stops. Rerun interrupted preparation with the same configurations to reuse verified completed stages. Changed raw files, build code, bound packages or feature settings require new stage and corpus destinations. [Preparation and recovery](docs/data.md#supported-preparation-routes) · [Troubleshooting](docs/troubleshooting.md)
 
 ## Architecture
 
@@ -14,101 +171,9 @@ EviHGT is an evidence-aware heterogeneous graph Transformer for drug–disease a
 
 The full model combines provenance-aware evidence pooling, four-valued fact representations (True, False, Both and Unknown), query-conditioned graph layers, and bounded path encoding. It can use frozen chemical and disease-name embeddings as node features. When fact logic is available, the four direct logic transforms are averaged with equal weights. Learned fact masses enter the edge context. [Model equations and ablations](docs/model.md)
 
-## Try the public checks
-
-With Git and Python 3.11 or later, you can check the published five-fold comparison immediately. Run these commands in a terminal.
-
-```sh
-git clone https://github.com/YiwenPang/EviHGT.git
-cd EviHGT
-python experiments/audit/verify_r0.py
-```
-
-This uses only the Python standard library. Expect `Verified 55 method/fold/head entries across 10 common panels.` The check reads the published ledger and verifies that the methods share the recorded candidate counts and panel identity within each fold and output.
-
-To try the model and the experiment code, create a virtual environment with `python -m venv .venv`. Activate it with `.\.venv\Scripts\Activate.ps1` in Windows PowerShell or `. .venv/bin/activate` in a POSIX shell. For a CPU installation on Windows or Linux, run the following from the repository root.
-
-```sh
-python -m pip install "torch>=2.6,<3" --index-url https://download.pytorch.org/whl/cpu
-python -m pip install -r requirements-dev.txt
-python experiments/run_checks.py
-```
-
-Once the dependencies are installed, the last command runs the public checks offline on CPU. It exercises the comparison metrics, Popularity baseline, ablations, HGTDR-contra scoring and checkpoints, and cold-start splits. It also trains EviHGT for three updates on a tiny synthetic graph and scores held-out candidates with both prediction heads. A successful run ends with `All public experiment checks passed.`
-
-The paper's reported scores come from the original research inputs. Reproducing them requires the matching data, splits and study-specific artifacts. The [experiment guide](experiments/README.md#inputs-for-the-paper-experiments) lists what each study needs.
-
-## Installation
-
-Use Python 3.11 or later in a virtual environment. Install a [PyTorch build](https://pytorch.org/get-started/locally/) for your platform and device, then install the remaining dependencies.
-
-```sh
-python -m pip install -r requirements-preprocess.txt
-python check_environment.py --device cuda
-```
-
-`requirements-preprocess.txt` installs the full workflow dependencies, including XML parsing, RDKit and the libraries for frozen encoder inference. If you already have a complete portable corpus, `requirements.txt` supplies the training dependencies. `requirements-dev.txt` includes preprocessing and test dependencies.
-
-The default training configuration uses CUDA with BF16. Feature preparation has its own `feature_device: cuda` setting in `configs/raw.yaml`. For a CPU workflow, use `configs/cpu.yaml` for training and a copy of `configs/raw.yaml` with `feature_device: cpu` for preparation. The observed dependency versions are listed in [requirements-observed.txt](requirements-observed.txt).
-
-## Data and training
-
-Download the two aggregate Parquet files from [OptimusKG release 2.0](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IYNGEV&version=2.0), and obtain the full XML database and schema from [DrugBank](https://go.drugbank.com/releases/latest) with your own authorized account. Keep these filenames and paths relative to the repository root:
-
-```text
-data/
-├── drugbank_all_full_database.xml
-├── drugbank.xsd
-└── cache/optimuskg/doi_10_7910_DVN_IYNGEV/2.0/recovery/aggregate/
-    ├── nodes.parquet
-    └── edges.parquet
-```
-
-Extract the DrugBank archive, then save its full database XML as `drugbank_all_full_database.xml`. The [download guide](docs/data.md#download-and-place-the-source-databases) includes download links, source identities and a read-only placement check: `python check_data.py`. Obtain DrugBank through your authorized account and keep its records local.
-
-With these inputs and the preprocessing dependencies installed, `main.py` prepares the corpus when `data/processed/corpus/manifest.json` is absent, validates it, and starts training. Preparation constructs canonical facts and evidence, rebuilds the original R0F1 memberships and sampling plan, removes leakage sources, and computes entity features locally. It downloads missing, pinned Open Targets 25.06 files and ChemBERTa/BioBERT model files into `data/cache/`. An old research workspace is not required. All source records and derived data stay in the Git-ignored `data/` directory.
-
-The published raw recipe supports R0F1 and checks its original membership and sampling identities. It does not launch all folds, baselines or cold-start studies reported in the paper. See [preparation and recovery](docs/data.md#supported-preparation-routes) for custom paths, offline operation and stage reuse.
-
-### Train the full model
-
-```sh
-python main.py
-```
-
-On the first invocation, preparation uses `configs/raw.yaml`; training uses `configs/default.yaml`. Later invocations load and validate the existing corpus before starting a new three-cycle training run. Training writes logs, development metrics and checkpoints to `outputs/`. See the [reproducibility guide](docs/reproducibility.md) for output files, checkpoints and evaluation scope.
-
-To prepare and validate the corpus without training:
-
-```sh
-python main.py --mode prepare
-```
-
-Use `--raw-config /path/to/raw.yaml` for other source/cache paths. Add `--offline` when the pinned auxiliary files are already cached; missing files then stop preparation instead of triggering downloads.
-
-For an existing corpus, explicit preparation requires the raw files and matching source/build identities before reuse. Use `--mode validate` to check a corpus without its raw sources.
-
-### Check the inputs before training (optional)
-
-```sh
-python main.py --mode validate
-```
-
-Use this command after preparing or changing the corpus. It checks the configuration and loads the prepared inputs, writes a validation report to `outputs/`, and exits before initializing the model.
-
-For training on CPU, add `--config configs/cpu.yaml`. This does not change the feature-preparation device; set `feature_device: cpu` in the raw configuration when preparation must also use CPU. In PyCharm, select the same interpreter and set the desired arguments on the `main.py` run configuration.
-
-Run specific ablations by name, for example:
-
-```sh
-python ablation.py --variants NO_D1 NO_PATH
-```
-
 ## Development results
 
-Browse the [baseline comparisons](experiments/comparisons/), [ablations](experiments/ablations/) and [cold-start experiments](experiments/cold_start/). The [experiment index](experiments/) also links to the HGTDR contraindication study and the fold-by-fold audit.
-
-The table summarizes five inner development folds of repeat R0. Metrics are averaged over eligible folds within each disease, then over 1,697 support diseases or 314 contraindication diseases. HGTDR-adapted and HGTDR-adapted-contra are separate single-output models selected on their respective development panels. EviHGT reports both outputs from one model at the fixed three-cycle endpoint.
+The table summarizes five inner development folds of repeat R0 from the original research runs. Metrics are averaged over eligible folds within each disease, then over 1,697 support diseases or 314 contraindication diseases. HGTDR-adapted and HGTDR-adapted-contra are separate single-output models selected on their respective development panels. EviHGT reports both outputs from one model at the fixed three-cycle endpoint.
 
 As in the manuscript, **bold** marks the best value in each metric column; <ins><em>italic underlining</em></ins> identifies EviHGT values.
 
@@ -126,10 +191,15 @@ In the input- and budget-matched comparison, EviHGT raises support AP by 3.81 pe
 
 ## Cold-disease results
 
-On a strict disease holdout, EviHGT increased treatment-support AP from 0.5233 to 0.5703 and NDCG@10 from 0.6025 to 0.6489 relative to HGTDR-adapted. The comparison uses the same test candidates for each model and covers 196 evaluable support diseases and 45 contraindication diseases. [Both-task metrics and paired intervals](docs/experiments.md#cold-disease-comparison) · [Code and input requirements](experiments/cold_start/hgtdr/)
+On a strict disease holdout, EviHGT increased treatment-support AP from 0.5233 to 0.5703 and NDCG@10 from 0.6025 to 0.6489 relative to HGTDR-adapted. The comparison uses the same test candidates for each model and covers 196 evaluable support diseases and 45 contraindication diseases. [Both-task metrics and paired intervals](docs/experiments.md#cold-disease-comparison)
 
 ## Tests
 
-To run just the portable model and data tests after installing the test dependencies, use `python -m pytest tests -q --basetemp outputs/pytest`. The [public checks](#try-the-public-checks) also exercise the study-specific code.
+The smoke command above checks the main workflow. For the complete software test suite, install the test dependencies and run:
 
-[CI workflow](.github/workflows/tests.yml) · [Python API](docs/python_api.md) · [Troubleshooting](docs/troubleshooting.md) · [Model card](docs/model_card.md) · [Contributing](CONTRIBUTING.md) · [Citation](CITATION.md)
+```sh
+python -m pip install -r requirements-dev.txt
+python -m pytest tests -q --basetemp outputs/pytest
+```
+
+[CI workflow](.github/workflows/tests.yml) · [Python API](docs/python_api.md) · [Model card](docs/model_card.md) · [Contributing](CONTRIBUTING.md) · [Citation](CITATION.md)

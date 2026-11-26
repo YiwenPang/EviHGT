@@ -65,7 +65,7 @@ def main(argv=None) -> int:
     for passed, message in results:
         print(("PASS " if passed else "FAIL ") + message)
     print("This check verifies raw input placement, OptimusKG hashes, and DrugBank XML headers.")
-    print("Training requires data/processed/corpus/manifest.json; see docs/data.md.")
+    print("Run python main.py to prepare the corpus, train, evaluate and generate the report; see docs/data.md.")
     return 0 if all(passed for passed, _ in results) else 1
 
 

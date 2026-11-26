@@ -29,6 +29,9 @@ def check_frozen():
     raw_manifest = SOURCE / "runtime_sha256_raw_preparation.json"
     if raw_manifest.is_file():
         variants.append(("raw-preparation-release", raw_manifest))
+    workflow_manifest = SOURCE / "runtime_sha256_full_workflow.json"
+    if workflow_manifest.is_file():
+        variants.append(("full-workflow-release", workflow_manifest))
     files = [*(FROZEN / "src").rglob("*.py"), *(FROZEN / "configs").rglob("*.yaml"),
              FROZEN / "tests/data_fixture.py"]
     actual = {file.relative_to(FROZEN).as_posix(): file for file in files}

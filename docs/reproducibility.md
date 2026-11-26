@@ -1,6 +1,6 @@
 # Reproducibility guide
 
-`main.py` prepares an absent corpus from the configured raw databases, validates it and trains the FULL model on its fixed three-cycle schedule. The default corpus is `data/processed/corpus/manifest.json`. The [preparation guide](data.md#supported-preparation-routes) covers raw preparation, existing portable corpora and explicit research exports.
+`main.py` prepares an absent corpus from the configured raw databases, validates it and trains the FULL model on its fixed three-cycle schedule. It then completes development evaluation, drug rankings, path explanations and the HTML report. The default corpus is `data/processed/corpus/manifest.json`. The [preparation guide](data.md#supported-preparation-routes) covers raw preparation, existing portable corpora and explicit research exports.
 
 To reproduce a recorded result, use the original code, data, splits, features, seed, update budget, and evaluation panels for that run. The [software verification](#software-verification) section describes checks that run with synthetic fixtures and the published result ledger, without the research datasets.
 
@@ -9,10 +9,10 @@ To reproduce a recorded result, use the original code, data, splits, features, s
 1. Record the source version and its commit or release identifier when available. Retain a copy or checksum of the configuration used for the run.
 2. Select a Python environment and run `python check_environment.py --device cuda` or `--device cpu`. Keep the resulting report with the run records.
 3. If obtaining the raw databases, follow the [download and placement guide](data.md#download-and-place-the-source-databases), preserve the original files, and run `python check_data.py`. This read-only, standard-library check verifies the OptimusKG file identities and the DrugBank XML/XSD headers. It does not build a corpus or validate all source records.
-4. For raw preparation, install `requirements-preprocess.txt` and run `python main.py --mode prepare`, adding `--raw-config /path/to/raw.yaml` for another source configuration. This builds the original R0F1 corpus without training. Missing pinned Open Targets and encoder files are downloaded automatically; use `--offline` with complete caches. Alternatively, supply a complete portable corpus, import verified normalized artifacts with `prepare_data.py`, or export a completed research cell with `export_data.py`.
+4. For raw preparation, install `requirements-preprocess.txt`. `python main.py` prepares missing inputs and continues through training and reporting. Use `--mode prepare` when you want to stop after corpus preparation, and `--raw-config /path/to/raw.yaml` for another source configuration. Missing pinned Open Targets and encoder files are downloaded automatically; use `--offline` with complete caches. Alternatively, supply a complete portable corpus, import verified normalized artifacts with `prepare_data.py`, or export a completed research cell with `export_data.py`.
 5. Preserve the corpus manifest and every bound SHA-256. The fixed schedule determines sample order, shared global U, conditional local U and fallback behavior. Point the YAML `manifest` setting to this corpus if it is outside the default location.
-6. Run `python main.py --mode validate`, adding `--config /path/to/run.yaml` when using another configuration. Validation loads the prepared inputs and writes its report to a new run directory under the configured `output_dir`, before model creation or training. Check evidence and relation semantics against the source audits.
-7. Save both YAML configurations when using raw preparation. `feature_device` and `feature_batch_size` belong to the raw configuration; training `device` and `precision` belong to the run configuration. Record both devices and the dependency versions.
+6. For a separate input check, run `python main.py --mode validate`, adding `--config /path/to/run.yaml` when using another configuration. Validation loads the prepared inputs and writes its report to a new run directory under the configured `output_dir`, before model creation or training. Normal training performs the same input validation. Check evidence and relation semantics against the source audits.
+7. Save the raw, training and report YAML configurations. `feature_device` and `feature_batch_size` belong to the raw configuration; training `device` and `precision` belong to the run configuration. `configs/report.yaml` controls the explanation and ranking output limits. Record both devices and the dependency versions.
 
 The [experiment index](../experiments/) links the published results to their study-specific code, local inputs and verification commands. For a run whose receipts record its original source layout, see [how to restore the archived sources](../experiments/README.md#restore-the-archived-source-layout).
 
@@ -26,7 +26,7 @@ Completed stages under `stage_root` have file-hash receipts. Rerunning the same 
 
 ## Training and ablations
 
-`main.py` runs one three-cycle FULL plan. A fresh training invocation prepares missing inputs before entering that plan; validation, checkpoint evaluation and checkpoint resume require the existing corpus. `ablation.py` runs explicitly selected variants serially. All variants consume the same corpus and plan and use the same initialization seed. The common nominal parameter schema is retained even when a branch is bypassed; report effective computation as well as nominal parameter count.
+`main.py` runs one three-cycle FULL plan and completes the report after its final development evaluation. A fresh training invocation prepares missing inputs before entering that plan; validation, checkpoint evaluation and checkpoint resume require the existing corpus. `ablation.py` runs explicitly selected variants serially. All variants consume the same corpus and plan and use the same initialization seed. The common nominal parameter schema is retained even when a branch is bypassed; report effective computation as well as nominal parameter count.
 
 Running `main.py` does not launch all paper folds, baseline comparisons, cold-start studies or final-test evaluations. Those studies retain their own protocols and required inputs in the experiment directories. The published result tables come from the original research runs.
 
@@ -42,6 +42,60 @@ Record the candidate membership hash, positive and U counts, evaluable/skipped d
 
 Match saved predictions to the checkpoint, variant, candidates and split that produced them. Keep unavailable metrics marked `N/A`. See [score interpretation](model_card.md#evaluation-interpretation).
 
+## Run completion and outputs
+
+After a successful `python main.py` invocation, open the printed run directory's `report.html`. `completion.json` receives `status: COMPLETE` only after final evaluation, rankings, explanations and report generation all succeed. Its `report`, `summary` and `explanations` fields point to `report.html`, `summary.json` and `explanations/index.json` respectively.
+
+The run directory contains:
+
+```text
+outputs/<run>/
+├── report.html
+├── summary.json
+├── completion.json
+├── configuration.json
+├── environment.json
+├── model.json
+├── rankings/
+│   ├── support.csv
+│   ├── contra.csv
+│   ├── support_top10.csv
+│   └── contra_top10.csv
+├── explanations/
+│   ├── index.json
+│   └── queries/*.json
+├── evaluation/step_N/
+│   ├── metrics.json
+│   ├── validation.parquet
+│   └── auxiliary_validation.parquet
+├── checkpoints/latest.pt
+└── logs/
+    ├── events.jsonl
+    └── errors.log                 # present if a failure was logged
+```
+
+`summary.json` uses schema `EVIHGT_RUN_SUMMARY_V1` and records the metrics and artifact index. The final evaluation's logical update is `N`; earlier cycle evaluations remain in their own `step_N` directories. Training saves `checkpoints/latest.pt`. A checkpoint evaluation or a resume with no remaining updates records the supplied checkpoint path and does not copy its weights into the new output directory.
+
+Rankings are computed within each disease's supplied development candidate pool. Support uses the indication P and U candidates. Contra uses the contraindication P candidates and the same validation U pool. `support.csv` and `contra.csv` retain every supplied candidate; `ranking_top_k` controls the separate `support_topK.csv` and `contra_topK.csv` extracts. Metric computation uses the full supplied panels. Retain candidate identities and pool sizes with any ranking you report.
+
+`explanations/index.json` lists the selected query files. Selection visits within-disease rank first, then disease ID, head (support before contra) and drug ID, retaining each pair once up to `explanation_queries`. Each query's paths come from the model's bounded query graph and legal path extraction. Empty path sets are a valid model outcome and use its graph-only fallback. The explanation records model reasoning and source evidence, not experimental proof of a causal mechanism.
+
+The report defaults are `explanation_queries: 10`, `paths_per_query: 5` and `ranking_top_k: 10`. Copy `configs/report.yaml` and pass it through `--report-config` to change these output budgets. Report settings do not change optimizer updates, sampling, graph/path extraction budgets or development candidate membership.
+
+To resume training with matching inputs and settings:
+
+```sh
+python main.py --checkpoint outputs/RUN_ID/checkpoints/latest.pt
+```
+
+To regenerate development metrics, rankings, explanations and the report without optimizer updates:
+
+```sh
+python main.py --mode evaluate --checkpoint outputs/RUN_ID/checkpoints/latest.pt --report-config configs/report.yaml
+```
+
+Each invocation creates a new output directory. Pass the original `--config` if it was nondefault. Corpus preparation has its own events and completion receipt under `output_dir/preparation/<attempt-id>/`; preparation completion alone does not mean training and reporting have finished.
+
 ## What to retain locally
 
 Retain the following with each run:
@@ -51,6 +105,7 @@ Retain the following with each run:
 - Raw configuration, `stage_root/identity.json`, stage receipts, and `output_dir/preparation/<attempt-id>/` reports when preparing from raw files.
 - Hardware, dependency versions, precision, seed, variant and update budget.
 - Parent checkpoint when resuming, output directory, final checkpoint and development metrics.
+- `report.html`, `summary.json`, ranking CSV files, explanation index/query files and the report configuration.
 - Measured elapsed time and a precise statement of which stages it includes.
 - Deviations, failures, exclusions and unresolved source questions.
 
@@ -58,7 +113,9 @@ Keep raw data, derived restricted inputs, checkpoints and predictions local unde
 
 ## Software verification
 
-From the repository root, `python experiments/audit/verify_r0.py` checks the published five-fold ledger using only the Python standard library. After installing the [CPU test dependencies](../README.md#try-the-public-checks), run `python experiments/run_checks.py` for the public model and experiment checks. These commands do not need the raw databases or a prepared research corpus. Passing them verifies the exercised software and published ledger; reproducing the paper's scores requires the matching research inputs listed in the [experiment guide](../experiments/README.md#inputs-for-the-paper-experiments).
+Run `python main.py --smoke` for a CPU check of the main workflow. It builds a tiny synthetic corpus, performs three optimizer updates and produces development metrics, rankings, path explanations and an HTML report. The run is marked `SYNTHETIC_TEST_ONLY` and needs no databases or network. It tests software integration; it does not rebuild the original four raw files or measure biomedical performance.
+
+From the repository root, `python experiments/audit/verify_r0.py` checks the published five-fold ledger using only the Python standard library. After installing the [test dependencies](../README.md#tests), run `python experiments/run_checks.py` for the public model and experiment checks. These commands do not need the raw databases or a prepared research corpus. Passing them verifies the exercised software and published ledger; reproducing the paper's scores requires the matching research inputs listed in the [experiment guide](../experiments/README.md#inputs-for-the-paper-experiments).
 
 The 46 tests in the initial release passed in the source directory and after relocation under an isolated Python invocation. Tests use synthetic fixtures and cover corpus schemas and hashes, label exclusions, direct/reverse target removal, fixed conditional records, feature masks, model gradients and ablations, metrics, console output and error handling.
 

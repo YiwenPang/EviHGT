@@ -18,7 +18,7 @@ python main.py --mode validate
 
 Corpus validation uses CPU memory for the input index and exits before model creation, training or CUDA/BF16 checks. Add `--config /path/to/run.yaml` if your corpus uses a nondefault configuration.
 
-A successful placement check does not create `data/processed/corpus/manifest.json`. Install `requirements-preprocess.txt` and run `python main.py --mode prepare` to build and validate it, or run `python main.py` to prepare it and then train. Use `--raw-config /path/to/raw.yaml` for custom source/cache paths. The raw recipe supports R0F1. To check the software without databases, follow the [public CPU checks](../README.md#try-the-public-checks).
+A successful placement check does not create `data/processed/corpus/manifest.json`. Install `requirements-preprocess.txt` and run `python main.py` to prepare it and continue through training, development evaluation, rankings, explanations and the report. Use `--mode prepare` to stop after preparation, and `--raw-config /path/to/raw.yaml` for custom source/cache paths. The raw recipe supports R0F1. To check the complete software workflow on CPU without databases or network access, run `python main.py --smoke`. Its three updates use synthetic data.
 
 Failures print an explanation and the absolute traceback-log path. Inspect that file first. Training runs write `outputs/RUN_ID/logs/errors.log` and `events.jsonl`; early configuration/import failures use `outputs/logs/startup_errors.log`. Raw preparation reports Chinese phase messages and writes `output_dir/preparation/<attempt-id>/events.jsonl`, `errors.log` on failure and `completion.json` on success. Import and export utilities have their own logs. Preserve the original inputs and failed attempts while investigating.
 
@@ -29,6 +29,8 @@ Failures print an explanation and the absolute traceback-log path. Inspect that 
 | `Missing file` from `check_data.py` | Check the extracted filename and its location relative to the repository root. For files in another checkout, use `python check_data.py --root /path/to/checkout`. Follow the [raw-file layout](data.md#download-and-place-the-source-databases). |
 | `Does not match OptimusKG release 2.0` | The file size or SHA-256 differs from the recorded aggregate input. Confirm the release and aggregate filename, and check for an incomplete download. Preserve the existing source file while investigating. |
 | `Cannot read the expected XML header` | Confirm that the archive was extracted and that the inputs are the full DrugBank XML and XSD, rather than a CSV, SDF, archive or downloaded web page. |
+| `UNVERIFIED DrugBank XML schema version` | The parser requires root attribute `version="5.1"`. Use the supported full XML and the schema from its release. The header check in `check_data.py` is narrower than the preparation schema checks. |
+| DrugBank's XML download is unavailable | On 26 November 2026, the [official release page](https://go.drugbank.com/releases/latest) reported a pause in academic downloads. Use an existing authorized full export or obtain access through DrugBank. |
 | `Prepared corpus not found` or `Prepared corpus is missing` | Run `python main.py --mode prepare` with preprocessing dependencies and the configured source files. `--mode validate`, evaluation and checkpoint resume require an existing corpus. The default manifest is `data/processed/corpus/manifest.json`. |
 | `Unsupported corpus schema` | The trainer expects `EVIHGT_PORTABLE_CORPUS_V1`. Build a new corpus with `main.py --mode prepare`, import normalized inputs with `prepare_data.py`, or export a completed research corpus with `export_data.py`. Renaming a raw-data manifest does not convert its schema. |
 | `Unbound corpus input path` or `Missing corpus input` | A referenced file is absent or missing from the hashed inventory. Restore the matching corpus as a unit, including its manifest. |
@@ -93,7 +95,7 @@ Resume with a trusted local checkpoint produced by this release:
 python main.py --checkpoint outputs/RUN_ID/checkpoints/latest.pt
 ```
 
-To score development panels without additional optimizer updates:
+To regenerate development metrics, rankings, path explanations and the HTML report without additional optimizer updates:
 
 ```text
 python main.py --mode evaluate --checkpoint outputs/RUN_ID/checkpoints/latest.pt
@@ -107,9 +109,19 @@ python ablation.py --variants NO_PATH --checkpoint outputs/RUN_ID/checkpoints/la
 
 `Checkpoint model, inputs or training settings differ` is a binding failure. Compare the original run's `configuration.json`, `model.json` and corpus identity with the current invocation. In particular, variant, model/catalog configuration, seed, optimizer settings, device and precision must agree. You can change output location, display refresh, checkpoint interval and evaluation cadence when resuming.
 
-The saved checkpoint includes model parameters, AdamW state, the logical update cursor and Python/NumPy/PyTorch RNG states. Resume starts at the next update after that saved cursor. Work after the most recent saved checkpoint may be repeated. Each invocation writes a new run directory, so look there for subsequent checkpoints and results. For a checkpoint at the end of the plan, use `--mode evaluate` to score the saved model.
+The saved checkpoint includes model parameters, AdamW state, the logical update cursor and Python/NumPy/PyTorch RNG states. Resume starts at the next update after that saved cursor. Work after the most recent saved checkpoint may be repeated. Each invocation writes a new run directory, so look there for subsequent checkpoints and results. For a checkpoint at the end of the plan, use `--mode evaluate` to score the saved model and regenerate its report. An evaluation or already-complete resume records the source checkpoint path instead of copying weights to the new directory.
 
 Resume from a committed `latest.pt`. Leave any `latest.pt.partial` from an interrupted write out of recovery. If scoring was interrupted after saving a checkpoint, rerun evaluation with that checkpoint. Load only trusted checkpoints because deserialization can execute code.
+
+## Reports, rankings and explanations
+
+Open the `report.html` in the run directory printed by the console. The main workflow is complete when the command exits successfully and `completion.json` records `status: COMPLETE`. This record is written after report generation. If training finished but reporting failed, inspect the printed error log and rerun `--mode evaluate` with that run's latest checkpoint.
+
+`summary.json` contains metrics and the artifact index. Rankings are in `rankings/support.csv` and `rankings/contra.csv`; the explanation index is `explanations/index.json`. `--report-config` selects a YAML with `explanation_queries`, `paths_per_query` and `ranking_top_k` (defaults 10, 5 and 10). Adjust these limits when changing report size; they do not change the trained model or development candidate membership.
+
+Rankings cover each disease's development candidate pool. The full `support.csv` and `contra.csv` retain every candidate; `support_topK.csv` and `contra_topK.csv` contain up to K per disease, so a smaller pool produces fewer than K rows. Empty paths are valid and recorded explicitly; the model uses its graph-only fallback. A path explanation describes model evidence and does not establish a causal mechanism. See [output details](reproducibility.md#run-completion-and-outputs).
+
+If a report is marked `SYNTHETIC_TEST_ONLY`, it came from the smoke workflow. Download the four source files and run `python main.py` to start the real-data workflow.
 
 ## Memory and slow initialization
 

@@ -1,6 +1,6 @@
 # Data preparation and portable input contract
 
-`main.py` prepares the original R0F1 corpus from local OptimusKG and DrugBank files when the configured corpus manifest is absent, then starts training. The corpus contains canonical entity, fact and evidence tables, a masked CSR graph, fixed entity features, verified clinical memberships and a three-cycle sampling plan. Its default manifest is `data/processed/corpus/manifest.json`.
+`main.py` prepares the original R0F1 corpus from local OptimusKG and DrugBank files when the configured corpus manifest is absent, then trains the FULL model, evaluates the development panels and writes rankings, path explanations and an HTML report. The corpus contains canonical entity, fact and evidence tables, a masked CSR graph, fixed entity features, verified clinical memberships and a three-cycle sampling plan. Its default manifest is `data/processed/corpus/manifest.json`. The [English](../README.md) and [Chinese](../README.zh-CN.md) guides cover the complete run.
 
 ## Download and place the source databases
 
@@ -34,7 +34,9 @@ The [official release metadata](https://dataverse.harvard.edu/api/datasets/:pers
 
 ### DrugBank
 
-Use your own authorized account on the [DrugBank downloads page](https://go.drugbank.com/releases/latest). Select the **full database XML for All drugs**, extract the archive, and save the full XML as `data/drugbank_all_full_database.xml`. Save the linked **Schema Definition** as `data/drugbank.xsd`. The CSV and SDF exports are different inputs and cannot replace the full XML.
+Use your own authorized account on the [DrugBank downloads page](https://go.drugbank.com/releases/latest). Select the **full database XML for All drugs**, extract the archive, and save the full XML as `data/drugbank_all_full_database.xml`. Save the linked **Schema Definition** from that release as `data/drugbank.xsd`. The parser requires the XML root attribute `version="5.1"` and the DrugBank namespace; other schema versions stop preparation. The CSV and SDF exports are different inputs and cannot replace the full XML.
+
+On 26 November 2026, the official page reported that academic downloads were temporarily paused. Use an existing authorized full export or obtain access through DrugBank when the XML download is unavailable.
 
 For command-line access, use the **Command / Example** supplied by DrugBank for the release and account you are authorized to use, then extract and name the two files as above. The provider controls account access and download availability; this repository does not supply or redistribute DrugBank files.
 
@@ -61,7 +63,7 @@ python -m pip install -r requirements-preprocess.txt
 python main.py
 ```
 
-If the configured corpus is absent, this command runs canonicalization, R0F1 split reconstruction, disease-gene leakage cleaning, SideInfo and frozen D1 feature construction, sampling-plan reconstruction, and portable-corpus validation before training. All database parsing and encoder inference run locally. No previous research directory, trained checkpoint or historical execution receipt is needed.
+If the configured corpus is absent, this command runs canonicalization, R0F1 split reconstruction, disease-gene leakage cleaning, SideInfo and frozen D1 feature construction, sampling-plan reconstruction, and portable-corpus validation before training. It then completes the three-cycle FULL plan, development evaluation, rankings and path explanations, and writes `outputs/<run>/report.html`. All database parsing and encoder inference run locally. No previous research directory, trained checkpoint or historical execution receipt is needed.
 
 The [canonical preparation specification](raw_preparation.md) describes entity matching, fact and evidence handling, verified source exclusions, and reconstruction of the original CSR traversal order.
 
@@ -94,6 +96,8 @@ python main.py --mode prepare --raw-config /path/to/raw.yaml
 ```
 
 The training configuration passed with `--config` determines `manifest`, `output_dir`, training `device` and `precision`. Its `manifest` must end with `manifest.json`. The default is `configs/default.yaml`; `configs/cpu.yaml` selects CPU/FP32 training. To prepare features on CPU as well, set `feature_device: cpu` in the raw configuration. Relative paths inside either YAML resolve from the repository root.
+
+The separate `--report-config` option defaults to `configs/report.yaml`. Its `explanation_queries: 10`, `paths_per_query: 5` and `ranking_top_k: 10` settings limit report output after evaluation. They do not affect the prepared corpus, training plan or development candidate membership. See [report outputs](reproducibility.md#run-completion-and-outputs).
 
 Missing public auxiliary resources are downloaded automatically and checked by size and SHA-256 before use:
 
@@ -253,4 +257,4 @@ The example assumes `G=1`. Each support-positive disease has one legal local U. 
 
 ## Software-only validation
 
-Tests generate a small corpus marked `SYNTHETIC_TEST_ONLY` in temporary output directories. The fixture exercises loading, target masking, evidence tensorization, query and path extraction, feature validation, and the 3G schedule.
+Run `python main.py --smoke` for a CPU check of the complete main workflow without databases or network access. It creates a tiny corpus marked `SYNTHETIC_TEST_ONLY`, performs three optimizer updates and writes evaluation results, rankings, explanations and a report. The fixture exercises loading, target masking, evidence tensorization, query and path extraction, feature validation, and the 3G schedule. It does not test reconstruction of the four original database files. The real raw-preparation verification is recorded separately in the [reproducibility guide](reproducibility.md#software-verification).

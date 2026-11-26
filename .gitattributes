@@ -13,3 +13,4 @@
 configs/feature_model_files.json -text -eol whitespace=cr-at-eol
 # Preserve terminal blank lines in migrated scientific source files.
 src/evi_hgt/preprocessing/raw_source/*.py whitespace=-blank-at-eof
+src/evi_hgt/explanations/*.py whitespace=-blank-at-eof

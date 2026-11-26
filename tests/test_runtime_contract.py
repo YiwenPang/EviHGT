@@ -51,8 +51,7 @@ def test_console_redirected_has_no_control_codes_and_preserves_small_loss(tmp_pa
     output = stream.getvalue()
     assert "Epoch 1/3" in output and "2e-10" in output
     assert "\x1b" not in output and "\r" not in output
-    assert "completed" in output
-    assert output.isascii()
+    assert "完成" in output and "阶段" in output
 
 
 def test_invalid_loss_stream_fails():
