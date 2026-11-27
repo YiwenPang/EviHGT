@@ -1,23 +1,10 @@
 # EviHGT
 
-[中文指南](README.zh-CN.md) · [Cold-disease results](#cold-disease-results) · [Installation](#installation) · [Run the full model](#run-the-full-model) · [Run the paper experiments](#run-the-paper-experiments) · [View the results](#view-the-results)
+[中文指南](README.zh-CN.md) · [Installation](#installation) · [Run the full model](#run-the-full-model) · [Run the paper experiments](#run-the-paper-experiments) · [View the results](#view-the-results) · [Development results](#development-results) · [Cold-disease results](#cold-disease-results)
 
 EviHGT is an evidence-aware heterogeneous graph Transformer for drug–disease association ranking. Given a drug–disease query, it builds a subgraph from OptimusKG and structured DrugBank records, encodes the evidence and its provenance, and scores treatment support and contraindication-related associations in separate heads.
 
 Use `main.py` to prepare the raw databases, train the FULL model for three cycles, evaluate both development outputs, and save drug rankings and path explanations with an HTML report. Follow the steps below from the repository root.
-
-## Cold-disease results
-
-On the strict disease-holdout test, EviHGT outperforms HGTDR-adapted on all three reported treatment-support ranking metrics, with **AP increasing by 4.70 percentage points and NDCG@10 by 4.64 points**. The evaluation graph excludes all facts incident to held-out diseases, and both methods rank the same test candidates. Scores are macro-averaged over 196 evaluable diseases.
-
-| Method | ROC-AUC ↑ | AP ↑ | NDCG@10 ↑ |
-| --- | ---: | ---: | ---: |
-| EviHGT | <ins><em><strong>0.8705</strong></em></ins> | <ins><em><strong>0.5703</strong></em></ins> | <ins><em><strong>0.6489</strong></em></ins> |
-| HGTDR-adapted | 0.8503 | 0.5233 | 0.6025 |
-| EviHGT gain (percentage points) | **+2.02** | **+4.70** | **+4.64** |
-| 95% paired interval for gain (points) | [0.03, 4.00] | [1.27, 8.24] | [1.15, 8.25] |
-
-The 95% intervals use 10,000 paired disease bootstrap draws and describe variation across diseases conditional on this split and these fitted models. [Full support/contra results and comparison settings](docs/experiments.md#cold-disease-comparison) · [Final result data](experiments/cold_start/hgtdr/results.json)
 
 ## Installation
 
@@ -100,6 +87,17 @@ python main.py --smoke
 
 This runs the FULL model for three optimizer updates on a tiny synthetic corpus, then produces development metrics, rankings, path explanations and an HTML report under `outputs/smoke/`. It uses CPU and needs neither the four databases nor network access. Its output is marked `SYNTHETIC_TEST_ONLY`; it checks the software workflow, not reconstruction of the original databases or biomedical performance. You can run it before downloading data.
 
+## Tests
+
+The smoke command above checks the main workflow. For the complete software test suite, install the test dependencies and run:
+
+```sh
+python -m pip install -r requirements-dev.txt
+python -m pytest tests -q --basetemp outputs/pytest
+```
+
+[CI workflow](.github/workflows/tests.yml) · [Python API](docs/python_api.md) · [Model card](docs/model_card.md) · [Contributing](CONTRIBUTING.md) · [Citation](CITATION.md)
+
 ## Run the full model
 
 ```sh
@@ -121,6 +119,38 @@ Use `--raw-config`, `--config` or `--report-config` to select another YAML file.
 The raw recipe reconstructs the original R0F1 memberships and fixed sampling plan for this FULL run.
 
 For CPU training, add `--config configs/cpu.yaml`. If raw preparation must also use CPU, copy `configs/raw.yaml`, set `feature_device: cpu`, and pass that copy with `--raw-config`. In PyCharm, select the same interpreter and run `main.py` from the repository root.
+
+### Environment and measured resources
+
+The reference workstation and its recorded software environment are:
+
+| Component | Configuration |
+| --- | --- |
+| OS | Windows 11 Pro for Workstations, 64-bit |
+| CPU | Intel Core Ultra 9 285K, 24 cores / 24 threads |
+| Installed RAM | 64GiB |
+| GPU | NVIDIA GeForce RTX 5080, 16GB |
+| Python / PyTorch | Python 3.14.6 / PyTorch 2.13.0+cu132 |
+| CUDA build / training precision | CUDA 13.2 / BF16 |
+
+These software versions come from workstation snapshots; the original training run did not save its own package snapshot. The installation example above uses a CUDA 12.8 build; choose a build supported by your driver. [Recorded packages](requirements-observed.txt)
+
+| Measurement | Recorded value and scope |
+| --- | --- |
+| Original R0F1 FULL run | **10h 35m 12s** wall time: three training cycles, 20,541 optimizer updates, two development evaluations and fixed diagnostics. Starts with an existing corpus. |
+| Training updates within that run | 8h 24m 33s, including query assembly, forward passes, backpropagation and optimizer steps. |
+| Raw-data preparation | 11m 52s in a separate completed preparation run, with auxiliary downloads already cached. |
+| Process RAM | **7.21GiB**, maximum RSS recorded after a training update. |
+| GPU memory | **3.02GiB**, maximum PyTorch CUDA reserved memory recorded after a training update. |
+| Retained data and caches | **6.437GiB**: four raw files, auxiliary caches, retained intermediate files and the prepared corpus with frozen features. |
+| Python environment | 3.369GiB for the measured `.venv`, bringing data plus this environment to **9.806GiB**. |
+| Historical training outputs | 1.379GiB, including 23 checkpoints; the final checkpoint is 58.92MiB. |
+
+The current `main.py` evaluates after each of the three cycles and also exports rankings, explanations and an HTML report. Its complete wall time has not yet been measured. RAM and GPU figures are maxima among logged samples; full-workflow and instantaneous peaks were not recorded. Disk figures are retained logical file sizes, with system Python, drivers and download staging excluded. Allow additional space for temporary files and new outputs. The current workflow maintains one rolling `checkpoints/latest.pt`; its final output size has not yet been measured.
+
+![Measured time composition of the original R0F1 run and retained disk usage](docs/assets/resource_profile_en.svg)
+
+[Resource measurements, scope and source checksums](docs/resource_reference.json)
 
 ## Run the paper experiments
 
@@ -206,7 +236,9 @@ The 27 November 2026 figure set includes the manuscript SVGs, PNG previews, sing
 
 The full model combines provenance-aware evidence pooling, four-valued fact representations (True, False, Both and Unknown), query-conditioned graph layers, and bounded path encoding. It can use frozen chemical and disease-name embeddings as node features. When fact logic is available, the four direct logic transforms are averaged with equal weights. Learned fact masses enter the edge context. [Model equations and ablations](docs/model.md)
 
-## Development results
+<a id="development-results"></a>
+
+## Recorded development results
 
 The table summarizes five inner development folds of repeat R0 from the original research runs. Metrics are averaged over eligible folds within each disease, then over 1,697 support diseases or 314 contraindication diseases. HGTDR-adapted and HGTDR-adapted-contra are separate single-output models selected on their respective development panels. EviHGT reports both outputs from one model at the fixed three-cycle endpoint.
 
@@ -224,13 +256,15 @@ As in the manuscript, **bold** marks the best value in each metric column; <ins>
 
 In the input- and budget-matched comparison, EviHGT raises support AP by 3.81 percentage points over HGT-D1 and 5.02 over PairMLP-D1, while producing support and contraindication rankings from one model. These differences measure the full EviHGT model under matched conditions. [Experiment figures and evaluation protocol](docs/experiments.md)
 
-## Tests
+## Cold-disease results
 
-The smoke command above checks the main workflow. For the complete software test suite, install the test dependencies and run:
+On the strict disease-holdout test, EviHGT outperforms HGTDR-adapted on all three reported treatment-support ranking metrics, with **AP increasing by 4.70 percentage points and NDCG@10 by 4.64 points**. The evaluation graph excludes all facts incident to held-out diseases, and both methods rank the same test candidates. Scores are macro-averaged over 196 evaluable diseases.
 
-```sh
-python -m pip install -r requirements-dev.txt
-python -m pytest tests -q --basetemp outputs/pytest
-```
+| Method | ROC-AUC ↑ | AP ↑ | NDCG@10 ↑ |
+| --- | ---: | ---: | ---: |
+| EviHGT | <ins><em><strong>0.8705</strong></em></ins> | <ins><em><strong>0.5703</strong></em></ins> | <ins><em><strong>0.6489</strong></em></ins> |
+| HGTDR-adapted | 0.8503 | 0.5233 | 0.6025 |
+| EviHGT gain (percentage points) | **+2.02** | **+4.70** | **+4.64** |
+| 95% paired interval for gain (points) | [0.03, 4.00] | [1.27, 8.24] | [1.15, 8.25] |
 
-[CI workflow](.github/workflows/tests.yml) · [Python API](docs/python_api.md) · [Model card](docs/model_card.md) · [Contributing](CONTRIBUTING.md) · [Citation](CITATION.md)
+The 95% intervals use 10,000 paired disease bootstrap draws and describe variation across diseases conditional on this split and these fitted models. [Full support/contra results and comparison settings](docs/experiments.md#cold-disease-comparison) · [Final result data](experiments/cold_start/hgtdr/results.json)

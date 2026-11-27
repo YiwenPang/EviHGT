@@ -1,0 +1,398 @@
+{
+  "schema": "EVIHGT_RESOURCE_REFERENCE_V1",
+  "scope": "Historical FULL R0F1 training with a prepared corpus and a separate real-data preparation acceptance run. The current end-to-end workflow was not timed.",
+  "environment": {
+    "scope": "Observed research workstation and software snapshots. The original training receipt has no per-run package inventory.",
+    "os": "Windows 11 Pro for Workstations",
+    "os_build": "10.0.26300",
+    "cpu": {
+      "model": "Intel Core Ultra 9 285K",
+      "physical_cores": 24,
+      "logical_processors": 24
+    },
+    "installed_ram_gib": 64,
+    "gpu": {
+      "model": "NVIDIA GeForce RTX 5080",
+      "advertised_vram_gb": 16,
+      "driver_reported_vram_mib": 16303
+    },
+    "observed_software": {
+      "python": "3.14.6",
+      "pytorch": "2.13.0+cu132",
+      "cuda_runtime": "13.2"
+    },
+    "training_device": "CUDA",
+    "training_precision": "BF16",
+    "source_ids": [
+      "host_environment_snapshot",
+      "acceptance_environment_snapshot",
+      "historical_runner",
+      "public_training_configuration"
+    ]
+  },
+  "historical_full": {
+    "cell": "R0F1",
+    "method": "FULL",
+    "run_arm": "E1_D1_SOFTPLUS_RANKING",
+    "training_cycles": 3,
+    "optimizer_updates": 20541,
+    "replayed_updates": 0,
+    "scope": "From the start of the training worker with a prepared corpus and frozen endpoint features to construction of its completion receipt. Database preparation, downloads and the current workflow's export stages are outside this timing.",
+    "wall_seconds": 38112.39391260006,
+    "stages": [
+      {
+        "id": "startup",
+        "seconds": 343.3390203000163,
+        "definition": "Load the prepared corpus, construct the input index and initialize training."
+      },
+      {
+        "id": "query_assembly",
+        "seconds": 24104.468631799275,
+        "definition": "Assemble queries within the timed optimizer updates."
+      },
+      {
+        "id": "forward",
+        "seconds": 3038.7867615016876,
+        "definition": "Forward work within the timed optimizer updates."
+      },
+      {
+        "id": "backward_optimizer",
+        "seconds": 3130.2388602997526,
+        "definition": "Backward pass and optimizer step within the timed optimizer updates."
+      },
+      {
+        "id": "development_evaluation",
+        "seconds": 6957.294903700007,
+        "definition": "Total current-invocation duration of the two completed development evaluations."
+      },
+      {
+        "id": "diagnostics",
+        "seconds": 255.08204200014006,
+        "definition": "Three fixed diagnostic runs, including startup diagnostics."
+      },
+      {
+        "id": "other",
+        "seconds": 283.18369299918413,
+        "definition": "Residual wall time, including checkpoints, logging and other uninstrumented overhead."
+      }
+    ],
+    "training_update_seconds": 30273.494253600715,
+    "development_evaluations": [
+      {
+        "update": 10270,
+        "seconds": 3666.105585000012
+      },
+      {
+        "update": 20541,
+        "seconds": 3291.189318699995
+      }
+    ],
+    "training_memory": {
+      "measurement": "Maximum of samples taken after each optimizer update. Overall training-and-evaluation peaks and within-update peaks were not recorded.",
+      "samples": 20541,
+      "max_logged_process_rss": {
+        "bytes": 7739613184,
+        "gib": 7.208076477050781
+      },
+      "max_logged_pytorch_cuda_reserved": {
+        "bytes": 3238002688,
+        "gib": 3.015625
+      },
+      "complete_run_peak_process_rss_bytes": null,
+      "complete_run_peak_gpu_memory_bytes": null
+    },
+    "source_ids": [
+      "historical_reuse_binding",
+      "historical_training_receipt",
+      "historical_training_updates",
+      "historical_evaluation_10270",
+      "historical_evaluation_20541",
+      "historical_diagnostic_0",
+      "historical_diagnostic_10270",
+      "historical_diagnostic_20541",
+      "historical_runner"
+    ]
+  },
+  "raw_preparation": {
+    "date": "2026-11-26",
+    "cell": "R0F1",
+    "source_database_file_count": 4,
+    "bound_corpus_files": 82,
+    "validation": "PASSED",
+    "scope": "Separate acceptance run of preparation from four raw files. Open Targets and encoder caches were already available. Preparation timing excludes network downloads and training.",
+    "wall_seconds": 711.9639565944672,
+    "measurement": "Elapsed time from the first raw-input validation event to the successful completion of portable-corpus validation.",
+    "stages": [
+      {
+        "id": "canonicalization",
+        "seconds": 105.17972660064697,
+        "event_index_span_one_based": [
+          1,
+          6
+        ]
+      },
+      {
+        "id": "splits_graph_features_and_sampling",
+        "seconds": 365.50552678108215,
+        "event_index_span_one_based": [
+          6,
+          71
+        ]
+      },
+      {
+        "id": "corpus_packaging_and_validation",
+        "seconds": 241.27870321273804,
+        "event_index_span_one_based": [
+          71,
+          129
+        ]
+      }
+    ],
+    "source_ids": [
+      "preparation_progress",
+      "preparation_completion",
+      "acceptance_environment_snapshot",
+      "public_raw_configuration"
+    ]
+  },
+  "disk": {
+    "measurement": "Logical lengths from file metadata, expressed in bytes and binary GiB. Physical allocation and temporary disk high-water marks were not measured.",
+    "measured_at": "2026-11-27T20:23:30+08:00",
+    "shared_data": {
+      "bytes": 6911561597,
+      "gib": 6.436893341131508,
+      "categories": [
+        {
+          "id": "raw_databases",
+          "bytes": 2909989972,
+          "gib": 2.7101393528282642,
+          "file_count": 4
+        },
+        {
+          "id": "open_targets_cache",
+          "bytes": 99508052,
+          "gib": 0.09267409518361092,
+          "file_count": 20
+        },
+        {
+          "id": "encoder_cache",
+          "bytes": 612327920,
+          "gib": 0.5702748149633408,
+          "file_count": 12
+        },
+        {
+          "id": "retained_intermediates",
+          "bytes": 2286825196,
+          "gib": 2.1297719292342663,
+          "includes_retained_conversion_bytes": 37044738
+        },
+        {
+          "id": "prepared_corpus",
+          "bytes": 1002910457,
+          "gib": 0.9340331489220262,
+          "file_count": 83
+        }
+      ],
+      "preparation_run_logs_bytes_excluded": 28774
+    },
+    "software_environment": {
+      "bytes": 3617210414,
+      "gib": 3.368789715692401,
+      "scope": "Observed local virtual environment with the CUDA 13.2 PyTorch build. System Python, system CUDA, drivers and the package download cache are outside this inventory.",
+      "categories": [
+        {
+          "id": "other_environment_files",
+          "bytes": 746868901,
+          "gib": 0.6955758677795529
+        },
+        {
+          "id": "torch_package",
+          "bytes": 2870341513,
+          "gib": 2.673213847912848
+        }
+      ]
+    },
+    "shared_data_and_environment": {
+      "bytes": 10528772011,
+      "gib": 9.80568305682391
+    },
+    "historical_training_output": {
+      "bytes": 1481217158,
+      "gib": 1.379490977153182,
+      "retained_checkpoint_count": 23,
+      "retained_checkpoint_payload_bytes": 1410727281,
+      "final_checkpoint_bytes": 61781363,
+      "categories": [
+        {
+          "id": "checkpoint_payloads",
+          "bytes": 1410727281,
+          "gib": 1.3138421634212136
+        },
+        {
+          "id": "checkpoint_receipts",
+          "bytes": 68829,
+          "gib": 6.410200148820877e-05
+        },
+        {
+          "id": "development_predictions_json",
+          "bytes": 4832806,
+          "gib": 0.004500901326537132
+        },
+        {
+          "id": "diagnostics",
+          "bytes": 2057356,
+          "gib": 0.0019160620868206024
+        },
+        {
+          "id": "evaluation_metrics_and_receipts",
+          "bytes": 1925742,
+          "gib": 0.0017934869974851608
+        },
+        {
+          "id": "evaluation_scoring_logs",
+          "bytes": 3063262,
+          "gib": 0.00285288505256176
+        },
+        {
+          "id": "top_level_receipts_and_configuration",
+          "bytes": 2278177,
+          "gib": 0.002121717669069767
+        },
+        {
+          "id": "training_logs",
+          "bytes": 56263705,
+          "gib": 0.05239965859800577
+        }
+      ]
+    },
+    "source_ids": [
+      "disk_inventory",
+      "acceptance_environment_snapshot"
+    ]
+  },
+  "current_default_workflow": {
+    "cell": "R0F1",
+    "training_cycles": 3,
+    "development_evaluation_schedule": "After each cycle",
+    "development_evaluation_count": 3,
+    "exports": [
+      "rankings",
+      "path explanations",
+      "HTML report"
+    ],
+    "wall_seconds": null,
+    "wall_time_status": "UNMEASURED",
+    "training_output_bytes": null,
+    "checkpoint_policy": {
+      "output_path": "checkpoints/latest.pt",
+      "retained_checkpoint_count": 1,
+      "checkpoint_every_updates": 250,
+      "also_write_at_cycle_end": true
+    },
+    "source_ids": [
+      "public_raw_configuration",
+      "public_training_configuration",
+      "public_report_configuration",
+      "public_training_runner"
+    ]
+  },
+  "provenance": {
+    "source_roots": {
+      "research_archive": "Original local research workspace, relative paths.",
+      "release_validation_archive": "Local release-validation workspace, relative paths.",
+      "repository": "Public repository root."
+    },
+    "sources": {
+      "historical_reuse_binding": {
+        "root": "research_archive",
+        "path": "outputs/phase9/phase98/part2/reuse/FULL_R0F1.json",
+        "sha256": "21fbf976b52e686baba225153b47457cf71e2b93dba304151fa56aa968e20d1e"
+      },
+      "historical_training_receipt": {
+        "root": "research_archive",
+        "path": "outputs/phase9/phase96/R0F1/E1_D1_SOFTPLUS_RANKING/receipt.json",
+        "sha256": "2e0083d3d0e575ee6f6e7d939edc1ecc48eb3085e67ab50b6983886e5b4b4f2f"
+      },
+      "historical_training_updates": {
+        "root": "research_archive",
+        "path": "outputs/phase9/phase96/R0F1/E1_D1_SOFTPLUS_RANKING/updates.jsonl",
+        "sha256": "1867d35e7e7071e3ef0c58c0f63c5c91b4ae25441892d6016d115a647536cde8"
+      },
+      "historical_evaluation_10270": {
+        "root": "research_archive",
+        "path": "outputs/phase9/phase96/R0F1/E1_D1_SOFTPLUS_RANKING/evaluation/step_00010270/evaluation.json",
+        "sha256": "499b61aa76f8af9eb20c547aaf379cca9e995edce53204ff1034ef89247ceee5"
+      },
+      "historical_evaluation_20541": {
+        "root": "research_archive",
+        "path": "outputs/phase9/phase96/R0F1/E1_D1_SOFTPLUS_RANKING/evaluation/step_00020541/evaluation.json",
+        "sha256": "b199e246a7e9c6e5915923b11507304384b2b095c6b583244ff1ca27e09330db"
+      },
+      "historical_diagnostic_0": {
+        "root": "research_archive",
+        "path": "outputs/phase9/phase96/R0F1/E1_D1_SOFTPLUS_RANKING/diagnostics/step_00000000.json",
+        "sha256": "4c8ccfeb055d1ddd7e7323a271d1927ac9152ebd0446a7750234bc32e2726b93"
+      },
+      "historical_diagnostic_10270": {
+        "root": "research_archive",
+        "path": "outputs/phase9/phase96/R0F1/E1_D1_SOFTPLUS_RANKING/diagnostics/step_00010270.json",
+        "sha256": "ce299e184e9ca1ad77a8f030ce5fe910e8dc5d8a280c11db65aef1ff05dd0fab"
+      },
+      "historical_diagnostic_20541": {
+        "root": "research_archive",
+        "path": "outputs/phase9/phase96/R0F1/E1_D1_SOFTPLUS_RANKING/diagnostics/step_00020541.json",
+        "sha256": "03b8911a6badd1ba9a9c036756d6ecbd5981a20b44711ede7de7f40bfc4af0c0"
+      },
+      "historical_runner": {
+        "root": "research_archive",
+        "path": "src/evi_hgt_dev96/runner.py",
+        "sha256": "a9bb04bed3dcccc0ecb6a7c4fdba12080e3067064f6c8c1e0f64517bf0f4e836"
+      },
+      "host_environment_snapshot": {
+        "root": "research_archive",
+        "path": "outputs/baseline_setup_20261009/host_environment.json",
+        "sha256": "58458365198025cebb86e0d25fc90a9912f16e615b7693dcb84bcb77f9fd6187"
+      },
+      "disk_inventory": {
+        "root": "research_archive",
+        "path": "outputs/readme_resources_20261127/disk_inventory.json",
+        "sha256": "3ceebb294dddacc9083c7f7aee0883f448a193711320cec4ae3308a1860034ca"
+      },
+      "acceptance_environment_snapshot": {
+        "root": "release_validation_archive",
+        "path": "outputs/raw_pipeline_20261126/public_environment_snapshot.json",
+        "sha256": "f29afc64a920cf4eb8caf080d150736a9d54dc4897423238c88d3d39234d6031"
+      },
+      "preparation_progress": {
+        "root": "release_validation_archive",
+        "path": "outputs/raw_pipeline_20261126/full_cli/preparation/2689cbf390c3482fb5b209c53d9fb406/events.jsonl",
+        "sha256": "8a6559a4963b00b9a9b9eca46d17343afb603f953d24ffcd44441714aa392389"
+      },
+      "preparation_completion": {
+        "root": "release_validation_archive",
+        "path": "outputs/raw_pipeline_20261126/full_cli/preparation/2689cbf390c3482fb5b209c53d9fb406/completion.json",
+        "sha256": "fee3a6e6e9b328726998a7a2b8e94a7fac9ce86f8514a734693aaf86b6d70a85"
+      },
+      "public_raw_configuration": {
+        "root": "repository",
+        "path": "configs/raw.yaml",
+        "sha256": "57e40ce24b8bc31c49c763c30bf8bf5a8e1c4ae5d22acbb1e140bd17c13ca6f3"
+      },
+      "public_training_configuration": {
+        "root": "repository",
+        "path": "configs/default.yaml",
+        "sha256": "3d07acd9c9f843719010589b08b40e503f87dcfe791dce3028ed5ec5b86684f2"
+      },
+      "public_report_configuration": {
+        "root": "repository",
+        "path": "configs/report.yaml",
+        "sha256": "ed643bb28ac7228698842befa69594242b8ad696ab3f337322eb55bc4a468011"
+      },
+      "public_training_runner": {
+        "root": "repository",
+        "path": "src/evi_hgt/runner.py",
+        "sha256": "4f96e54701eff076e973e005850ab1d566e82da15d770a6cc9c1aa029fb01d2f"
+      }
+    }
+  }
+}

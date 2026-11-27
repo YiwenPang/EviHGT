@@ -1,25 +1,10 @@
 # EviHGT
 
-[English](README.md) · [冷启动结果](#cold-disease-results) · [安装环境](#安装环境) · [运行完整主模型](#运行完整主模型) · [运行论文实验](#运行论文实验) · [查看结果](#查看结果)
+[English](README.md) · [安装环境](#安装环境) · [运行完整主模型](#运行完整主模型) · [运行论文实验](#运行论文实验) · [查看结果](#查看结果) · [开发集结果](#development-results) · [冷启动结果](#cold-disease-results)
 
 EviHGT 是用于药物–疾病关联排序的证据感知异构图 Transformer。针对一个药物–疾病查询，模型从 OptimusKG 和 DrugBank 结构化记录中提取子图，编码证据及其来源，并通过两个独立预测头分别给出治疗支持和禁忌相关关联分数。
 
 使用 `main.py` 即可完成原始数据准备、FULL 主模型三个周期的训练、双任务开发集评估，以及药物排名、路径解释和 HTML 报告输出。以下命令均在仓库根目录执行。
-
-<a id="cold-disease-results"></a>
-
-## 冷启动疾病结果
-
-在严格疾病留出测试中，EviHGT 的三项治疗支持排序指标均高于 HGTDR-adapted，其中 **AP 提高 4.70 个百分点，NDCG@10 提高 4.64 个百分点**。评估图移除了与留出疾病相连的全部事实，两种方法使用相同测试候选；以下指标为 196 个可评估疾病的宏平均。
-
-| 方法 | ROC-AUC ↑ | AP ↑ | NDCG@10 ↑ |
-| --- | ---: | ---: | ---: |
-| EviHGT | <ins><em><strong>0.8705</strong></em></ins> | <ins><em><strong>0.5703</strong></em></ins> | <ins><em><strong>0.6489</strong></em></ins> |
-| HGTDR-adapted | 0.8503 | 0.5233 | 0.6025 |
-| EviHGT 提升（百分点） | **+2.02** | **+4.70** | **+4.64** |
-| 提升的 95% 配对区间（百分点） | [0.03, 4.00] | [1.27, 8.24] | [1.15, 8.25] |
-
-95% 区间来自 10,000 次逐疾病配对 bootstrap，描述本次划分与已训练模型下的疾病间差异。 [完整双通道结果与比较设置](docs/experiments.md#cold-disease-comparison) · [最终结果数据](experiments/cold_start/hgtdr/results.json)
 
 <a id="installation"></a>
 
@@ -107,6 +92,19 @@ python main.py --smoke
 
 该命令使用微型合成语料，在 CPU 上完成 FULL 模型三次优化器更新，随后在 `outputs/smoke/` 下生成开发集指标、排名、路径解释和 HTML 报告。它无需四个真实数据库文件，也无需网络，可以在下载数据前运行。输出标记为 `SYNTHETIC_TEST_ONLY`，用于检查软件流程；它不代表原始数据库重建或生物医学实验结果。
 
+<a id="tests"></a>
+
+## 测试
+
+前面的 smoke 命令用于检查主工作流。运行完整软件测试集时，安装测试依赖并执行：
+
+```sh
+python -m pip install -r requirements-dev.txt
+python -m pytest tests -q --basetemp outputs/pytest
+```
+
+[CI 工作流](.github/workflows/tests.yml) · [Python API](docs/python_api.md) · [模型卡](docs/model_card.md) · [参与开发](CONTRIBUTING.md) · [引用](CITATION.md)
+
 <a id="run-the-full-model"></a>
 
 ## 运行完整主模型
@@ -130,6 +128,40 @@ python main.py
 该命令按原始数据流程重建 R0F1 成员划分和固定采样计划，供 FULL 主模型训练使用。
 
 需要 CPU 训练时，添加 `--config configs/cpu.yaml`。如果特征准备也使用 CPU，请复制 `configs/raw.yaml`，将 `feature_device` 设为 `cpu`，并用 `--raw-config` 指定该文件。在 PyCharm 中选择同一解释器，将工作目录设为仓库根目录后运行 `main.py`。
+
+<a id="environment-and-measured-resources"></a>
+
+### 环境与实测资源占用
+
+参考工作站及其已记录的软件环境如下：
+
+| 项目 | 配置 |
+| --- | --- |
+| 操作系统 | Windows 11 专业工作站版，64 位 |
+| CPU | Intel Core Ultra 9 285K，24 核 / 24 线程 |
+| 已安装内存 | 64GiB |
+| GPU | NVIDIA GeForce RTX 5080，16GB |
+| Python / PyTorch | Python 3.14.6 / PyTorch 2.13.0+cu132 |
+| CUDA 构建 / 训练精度 | CUDA 13.2 / BF16 |
+
+软件版本来自工作站环境快照；原训练运行未单独保存包版本快照。上方安装示例使用 CUDA 12.8 构建，安装时应选择驱动支持的版本。[已记录的依赖版本](requirements-observed.txt)
+
+| 测量项目 | 实测值与范围 |
+| --- | --- |
+| 原 R0F1 FULL 完整运行 | 墙钟时间 **10 小时 35 分 12 秒**：三个训练周期、20,541 次优化器更新、两次开发评估和固定诊断；从已有语料开始。 |
+| 其中的训练更新 | 8 小时 24 分 33 秒，含查询组装、前向、反向传播及优化器更新。 |
+| 原始数据准备 | 另一次完整准备运行用时 11 分 52 秒，当时辅助下载资源已缓存。 |
+| 进程内存 | **7.21GiB**，训练更新结束后记录的 RSS 最大值。 |
+| 显存 | **3.02GiB**，训练更新结束后记录的 PyTorch CUDA 保留显存最大值。 |
+| 数据及缓存存量 | **6.437GiB**，含四个原始文件、辅助缓存、保留的中间文件和带冻结特征的最终语料。 |
+| Python 环境 | 实测 `.venv` 占 3.369GiB，与上述数据合计 **9.806GiB**。 |
+| 历史训练输出 | 1.379GiB，含 23 份检查点；最终检查点为 58.92MiB。 |
+
+当前 `main.py` 在三个周期结束后分别评估，并额外导出排名、路径解释和 HTML 报告，其完整墙钟时间尚未实测。内存与显存数值是日志采样中的最大值，原记录未覆盖全流程或瞬时峰值。磁盘数值为保留文件的逻辑大小，不含系统 Python、驱动和下载暂存；运行时还需为临时文件及新增输出预留空间。当前工作流维护一个滚动更新的 `checkpoints/latest.pt`，本次完整流程的输出总量尚未实测。
+
+![原 R0F1 运行的实测时间构成与磁盘文件存量](docs/assets/resource_profile_zh.svg)
+
+[资源测量明细、范围与来源校验值](docs/resource_reference.json)
 
 <a id="run-the-paper-experiments"></a>
 
@@ -243,15 +275,17 @@ python main.py --offline
 
 在输入与预算匹配的比较中，EviHGT 的 support AP 相比 HGT-D1 提高 3.81 个百分点，相比 PairMLP-D1 提高 5.02 个百分点，同时由一个模型输出 support 和 contra 排名。这些差异对应相同条件下完整 EviHGT 模型的表现。[实验图与评估协议](docs/experiments.md)
 
-<a id="tests"></a>
+<a id="cold-disease-results"></a>
 
-## 测试
+## 冷启动疾病结果
 
-前面的 smoke 命令用于检查主工作流。运行完整软件测试集时，安装测试依赖并执行：
+在严格疾病留出测试中，EviHGT 的三项治疗支持排序指标均高于 HGTDR-adapted，其中 **AP 提高 4.70 个百分点，NDCG@10 提高 4.64 个百分点**。评估图移除了与留出疾病相连的全部事实，两种方法使用相同测试候选；以下指标为 196 个可评估疾病的宏平均。
 
-```sh
-python -m pip install -r requirements-dev.txt
-python -m pytest tests -q --basetemp outputs/pytest
-```
+| 方法 | ROC-AUC ↑ | AP ↑ | NDCG@10 ↑ |
+| --- | ---: | ---: | ---: |
+| EviHGT | <ins><em><strong>0.8705</strong></em></ins> | <ins><em><strong>0.5703</strong></em></ins> | <ins><em><strong>0.6489</strong></em></ins> |
+| HGTDR-adapted | 0.8503 | 0.5233 | 0.6025 |
+| EviHGT 提升（百分点） | **+2.02** | **+4.70** | **+4.64** |
+| 提升的 95% 配对区间（百分点） | [0.03, 4.00] | [1.27, 8.24] | [1.15, 8.25] |
 
-[CI 工作流](.github/workflows/tests.yml) · [Python API](docs/python_api.md) · [模型卡](docs/model_card.md) · [参与开发](CONTRIBUTING.md) · [引用](CITATION.md)
+95% 区间来自 10,000 次逐疾病配对 bootstrap，描述本次划分与已训练模型下的疾病间差异。 [完整双通道结果与比较设置](docs/experiments.md#cold-disease-comparison) · [最终结果数据](experiments/cold_start/hgtdr/results.json)
