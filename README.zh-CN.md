@@ -1,10 +1,25 @@
 # EviHGT
 
-[English](README.md) · [安装环境](#安装环境) · [运行完整主模型](#运行完整主模型) · [运行论文实验](#运行论文实验) · [查看结果](#查看结果)
+[English](README.md) · [冷启动结果](#cold-disease-results) · [安装环境](#安装环境) · [运行完整主模型](#运行完整主模型) · [运行论文实验](#运行论文实验) · [查看结果](#查看结果)
 
 EviHGT 是用于药物–疾病关联排序的证据感知异构图 Transformer。针对一个药物–疾病查询，模型从 OptimusKG 和 DrugBank 结构化记录中提取子图，编码证据及其来源，并通过两个独立预测头分别给出治疗支持和禁忌相关关联分数。
 
 使用 `main.py` 即可完成原始数据准备、FULL 主模型三个周期的训练、双任务开发集评估，以及药物排名、路径解释和 HTML 报告输出。以下命令均在仓库根目录执行。
+
+<a id="cold-disease-results"></a>
+
+## 冷启动疾病结果
+
+在严格疾病留出测试中，EviHGT 的三项治疗支持排序指标均高于 HGTDR-adapted，其中 **AP 提高 4.70 个百分点，NDCG@10 提高 4.64 个百分点**。评估图移除了与留出疾病相连的全部事实，两种方法使用相同测试候选；以下指标为 196 个可评估疾病的宏平均。
+
+| 方法 | ROC-AUC ↑ | AP ↑ | NDCG@10 ↑ |
+| --- | ---: | ---: | ---: |
+| EviHGT | <ins><em><strong>0.8705</strong></em></ins> | <ins><em><strong>0.5703</strong></em></ins> | <ins><em><strong>0.6489</strong></em></ins> |
+| HGTDR-adapted | 0.8503 | 0.5233 | 0.6025 |
+| EviHGT 提升（百分点） | **+2.02** | **+4.70** | **+4.64** |
+| 提升的 95% 配对区间（百分点） | [0.03, 4.00] | [1.27, 8.24] | [1.15, 8.25] |
+
+95% 区间来自 10,000 次逐疾病配对 bootstrap，描述本次划分与已训练模型下的疾病间差异。 [完整双通道结果与比较设置](docs/experiments.md#cold-disease-comparison) · [最终结果数据](experiments/cold_start/hgtdr/results.json)
 
 <a id="installation"></a>
 
@@ -227,12 +242,6 @@ python main.py --offline
 | Popularity | 0.828239 | 0.789221 | 0.864763 | 0.932036 | 0.893040 | 0.934880 |
 
 在输入与预算匹配的比较中，EviHGT 的 support AP 相比 HGT-D1 提高 3.81 个百分点，相比 PairMLP-D1 提高 5.02 个百分点，同时由一个模型输出 support 和 contra 排名。这些差异对应相同条件下完整 EviHGT 模型的表现。[实验图与评估协议](docs/experiments.md)
-
-<a id="cold-disease-results"></a>
-
-## 冷启动疾病结果
-
-在严格的疾病留出设置下，相比 HGTDR-adapted，EviHGT 将治疗支持 AP 从 0.5233 提高到 0.5703，NDCG@10 从 0.6025 提高到 0.6489。各模型使用相同测试候选，覆盖 196 个可评估 support 疾病和 45 个 contra 疾病。[双任务指标与配对区间](docs/experiments.md#cold-disease-comparison)
 
 <a id="tests"></a>
 

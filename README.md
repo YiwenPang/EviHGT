@@ -1,10 +1,23 @@
 # EviHGT
 
-[中文指南](README.zh-CN.md) · [Installation](#installation) · [Run the full model](#run-the-full-model) · [Run the paper experiments](#run-the-paper-experiments) · [View the results](#view-the-results)
+[中文指南](README.zh-CN.md) · [Cold-disease results](#cold-disease-results) · [Installation](#installation) · [Run the full model](#run-the-full-model) · [Run the paper experiments](#run-the-paper-experiments) · [View the results](#view-the-results)
 
 EviHGT is an evidence-aware heterogeneous graph Transformer for drug–disease association ranking. Given a drug–disease query, it builds a subgraph from OptimusKG and structured DrugBank records, encodes the evidence and its provenance, and scores treatment support and contraindication-related associations in separate heads.
 
 Use `main.py` to prepare the raw databases, train the FULL model for three cycles, evaluate both development outputs, and save drug rankings and path explanations with an HTML report. Follow the steps below from the repository root.
+
+## Cold-disease results
+
+On the strict disease-holdout test, EviHGT outperforms HGTDR-adapted on all three reported treatment-support ranking metrics, with **AP increasing by 4.70 percentage points and NDCG@10 by 4.64 points**. The evaluation graph excludes all facts incident to held-out diseases, and both methods rank the same test candidates. Scores are macro-averaged over 196 evaluable diseases.
+
+| Method | ROC-AUC ↑ | AP ↑ | NDCG@10 ↑ |
+| --- | ---: | ---: | ---: |
+| EviHGT | <ins><em><strong>0.8705</strong></em></ins> | <ins><em><strong>0.5703</strong></em></ins> | <ins><em><strong>0.6489</strong></em></ins> |
+| HGTDR-adapted | 0.8503 | 0.5233 | 0.6025 |
+| EviHGT gain (percentage points) | **+2.02** | **+4.70** | **+4.64** |
+| 95% paired interval for gain (points) | [0.03, 4.00] | [1.27, 8.24] | [1.15, 8.25] |
+
+The 95% intervals use 10,000 paired disease bootstrap draws and describe variation across diseases conditional on this split and these fitted models. [Full support/contra results and comparison settings](docs/experiments.md#cold-disease-comparison) · [Final result data](experiments/cold_start/hgtdr/results.json)
 
 ## Installation
 
@@ -210,10 +223,6 @@ As in the manuscript, **bold** marks the best value in each metric column; <ins>
 | Popularity | 0.828239 | 0.789221 | 0.864763 | 0.932036 | 0.893040 | 0.934880 |
 
 In the input- and budget-matched comparison, EviHGT raises support AP by 3.81 percentage points over HGT-D1 and 5.02 over PairMLP-D1, while producing support and contraindication rankings from one model. These differences measure the full EviHGT model under matched conditions. [Experiment figures and evaluation protocol](docs/experiments.md)
-
-## Cold-disease results
-
-On a strict disease holdout, EviHGT increased treatment-support AP from 0.5233 to 0.5703 and NDCG@10 from 0.6025 to 0.6489 relative to HGTDR-adapted. The comparison uses the same test candidates for each model and covers 196 evaluable support diseases and 45 contraindication diseases. [Both-task metrics and paired intervals](docs/experiments.md#cold-disease-comparison)
 
 ## Tests
 
