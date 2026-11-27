@@ -1,5 +1,7 @@
 # Native baseline adaptations
 
+[中文指南](README.zh-CN.md)
+
 The five-fold and pilot comparisons use local implementations of two published systems. Source is grouped by the EviHGT protocol and the HGTDR and TxGNN integrations. The [five-fold comparison](../comparisons/) controls fold membership, the legal graph and scoring in the five-fold study.
 
 | System | Upstream source | Local adaptation |

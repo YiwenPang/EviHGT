@@ -6,6 +6,8 @@ EviHGT 是用于药物–疾病关联排序的证据感知异构图 Transformer�
 
 使用 `main.py` 即可完成原始数据准备、FULL 主模型三个周期的训练、双任务开发集评估，以及药物排名、路径解释和 HTML 报告输出。以下命令均在仓库根目录执行。
 
+<a id="installation"></a>
+
 ## 安装环境
 
 安装 Git 和 Python 3.11 或更高版本，克隆仓库并创建虚拟环境：
@@ -47,6 +49,8 @@ python -m pip install "torch>=2.6,<3" --index-url https://download.pytorch.org/w
 
 该环境使用 `python check_environment.py --device cpu` 检查。
 
+<a id="download-and-place-the-four-source-files"></a>
+
 ## 下载并放置四个原始文件
 
 | 文件 | 下载与处理方法 |
@@ -77,6 +81,9 @@ python check_data.py
 
 该命令只读原始文件。原始数据和派生数据保存在已被 Git 忽略的 `data/` 下。准备阶段会将缺失的固定版本 Open Targets 25.06、ChemBERTa 和 BioBERT 文件下载至 `data/cache/`；数据库解析和编码器推理均在本机执行。
 
+<a id="try-the-public-checks"></a>
+<a id="optional-cpu-smoke-test"></a>
+
 ## 可选的 CPU 快速自检
 
 ```sh
@@ -84,6 +91,8 @@ python main.py --smoke
 ```
 
 该命令使用微型合成语料，在 CPU 上完成 FULL 模型三次优化器更新，随后在 `outputs/smoke/` 下生成开发集指标、排名、路径解释和 HTML 报告。它无需四个真实数据库文件，也无需网络，可以在下载数据前运行。输出标记为 `SYNTHETIC_TEST_ONLY`，用于检查软件流程；它不代表原始数据库重建或生物医学实验结果。
+
+<a id="run-the-full-model"></a>
 
 ## 运行完整主模型
 
@@ -107,6 +116,8 @@ python main.py
 
 需要 CPU 训练时，添加 `--config configs/cpu.yaml`。如果特征准备也使用 CPU，请复制 `configs/raw.yaml`，将 `feature_device` 设为 `cpu`，并用 `--raw-config` 指定该文件。在 PyCharm 中选择同一解释器，将工作目录设为仓库根目录后运行 `main.py`。
 
+<a id="run-the-paper-experiments"></a>
+
 ## 运行论文实验
 
 沿用上文列出的四个原始文件。每条命令按所选实验准备图和候选集、运行各项任务并生成报告。安装 `requirements-preprocess.txt` 时会一并安装实验调度所需的 `filelock`。
@@ -125,9 +136,11 @@ python main.py --experiment all
 python main.py --experiment comparisons --smoke --methods FULL TRAIN_VISIBLE_POPULARITY
 ```
 
-完整对比需要安装匹配对照和原生基线的依赖。冷启动还包含疾病留出场景下的两个 HGTDR 模型。只运行 EviHGT 的冷启动场景时，添加 `--skip-cold-hgtdr`。[原生模型安装说明](experiments/workflow/native_sources/README.md)
+完整对比需要安装匹配对照和原生基线的依赖。冷启动还包含疾病留出场景下的两个 HGTDR 模型。只运行 EviHGT 的冷启动场景时，添加 `--skip-cold-hgtdr`。[原生模型安装说明](experiments/workflow/native_sources/README.zh-CN.md)
 
-实验报告默认保存到 `outputs/experiments/<timestamp>_<experiment>/report.html`，同目录下还有 `summary.json`、`metrics.csv` 和 `disease_metrics.csv`。可用 `--run-dir outputs/NAME` 指定目录。中断后使用同一目录、原有选项和 `--resume` 继续运行。[默认折、筛选参数与恢复说明](experiments/#run-from-the-source-databases)
+实验报告默认保存到 `outputs/experiments/<timestamp>_<experiment>/report.html`，同目录下还有 `summary.json`、`metrics.csv` 和 `disease_metrics.csv`。可用 `--run-dir outputs/NAME` 指定目录。中断后使用同一目录、原有选项和 `--resume` 继续运行。[默认折、筛选参数与恢复说明](experiments/README.zh-CN.md#run-from-the-source-databases)
+
+<a id="view-the-results"></a>
 
 ## 查看结果
 
@@ -149,6 +162,8 @@ python main.py --experiment comparisons --smoke --methods FULL TRAIN_VISIBLE_POP
 Support 排序使用适应证 P 和 U 候选；contra 使用禁忌证 P 和同一开发集 U 池。U 表示未观测候选，不是已验证的负例。完整 CSV 保留每个疾病已提供的全部候选，`ranking_top_k` 控制单独保存的 Top-K 摘录。路径解释呈现模型在有界子图中的推理路径及来源证据，不能据此认定因果机制。
 
 数据准备报告单独保存在 `outputs/preparation/<attempt-id>/`；派生语料和准备阶段文件保存在 `data/`。更多输出说明见[复现指南](docs/reproducibility.md)。
+
+<a id="resume-evaluate-or-prepare-offline"></a>
 
 ## 恢复训练、重新评估和离线准备
 
@@ -181,15 +196,19 @@ python main.py --offline
 
 离线准备要求缓存中具备指定版本的 Open Targets 和编码器文件；缺失时会报错并停止。准备中断后，使用相同配置重试即可复用已校验的完成阶段。原始文件、构建代码、绑定的软件包或特征设置变化时，应使用新的阶段目录和语料目录。[数据准备与恢复](docs/data.md#supported-preparation-routes) · [故障排查](docs/troubleshooting.md)
 
+<a id="architecture"></a>
+
 ## 模型架构
 
-![EviHGT 架构：共享融合表示输入两个独立预测头](docs/figures/architecture.svg)
+![EviHGT 架构中，共享融合表示输入两个独立预测头](docs/figures/manuscript/figure01-zh.svg)
 
-[总览 SVG](docs/figures/architecture.svg) · [总览 PDF](docs/figures/architecture.pdf) · [图层与路径细节 SVG](docs/figures/architecture_details.svg) · [图层与路径细节 PDF](docs/figures/architecture_details.pdf) · [可编辑 Visio](docs/figures/architecture.vsdx)
+[图 1 SVG](docs/figures/manuscript/figure01-zh.svg) · [图 1 PDF](docs/figures/manuscript/figure01-zh.pdf) · [图 2 SVG](docs/figures/manuscript/figure02-zh.svg) · [图 2 PDF](docs/figures/manuscript/figure02-zh.pdf) · [图 1 和图 2 的可编辑 Visio 源图](docs/figures/manuscript/architecture-zh.vsdx)
 
-[论文图 1–11 的中英文版本](docs/manuscript_figures.md)提供当前稿件使用的 SVG 矢量图、PNG 预览和可编辑图源。
+2026 年 11 月 27 日版图件提供稿件所用 SVG、PNG 预览、单页图件 PDF 及可编辑的 Visio 图源。 [论文图 1–11](docs/manuscript_figures.zh-CN.md)
 
 完整模型结合来源感知的证据聚合、True/False/Both/Unknown 四值事实表示、查询条件化图层和有界路径编码，并使用冻结的化学结构与疾病名称向量作为节点特征。事实逻辑可用时，四种直接逻辑变换采用等权平均；学习得到的事实质量进入边上下文。[模型公式与消融定义](docs/model.md)
+
+<a id="development-results"></a>
 
 ## 已记录的开发集结果
 
@@ -209,9 +228,13 @@ python main.py --offline
 
 在输入与预算匹配的比较中，EviHGT 的 support AP 相比 HGT-D1 提高 3.81 个百分点，相比 PairMLP-D1 提高 5.02 个百分点，同时由一个模型输出 support 和 contra 排名。这些差异对应相同条件下完整 EviHGT 模型的表现。[实验图与评估协议](docs/experiments.md)
 
+<a id="cold-disease-results"></a>
+
 ## 冷启动疾病结果
 
 在严格的疾病留出设置下，相比 HGTDR-adapted，EviHGT 将治疗支持 AP 从 0.5233 提高到 0.5703，NDCG@10 从 0.6025 提高到 0.6489。各模型使用相同测试候选，覆盖 196 个可评估 support 疾病和 45 个 contra 疾病。[双任务指标与配对区间](docs/experiments.md#cold-disease-comparison)
+
+<a id="tests"></a>
 
 ## 测试
 

@@ -1,7 +1,7 @@
 {
-  "revision_date": "2026-11-25",
-  "description": "Exact outlined SVG assets from the current bilingual manuscripts, with white-background PNG previews.",
-  "language_note": "Language identifies the source manuscript. Figures 4-11 use shared English plot labels in both manuscripts.",
+  "revision_date": "2026-11-27",
+  "description": "Outlined SVG artwork embedded in the corresponding complete manuscripts, with PNG previews and single-page vector PDFs. Source members identify internal Word media paths.",
+  "language_note": "Chinese figures use Chinese for general labels. The language versions share data, evaluation definitions, method identifiers, metric names, and mathematical notation.",
   "figures": [
     {
       "figure": 1,
@@ -9,8 +9,10 @@
       "title": "EviHGT architecture",
       "svg": "figure01-en.svg",
       "png": "figure01-en.png",
+      "pdf": "figure01-en.pdf",
       "svg_sha256": "c3741dd0cba88c690e84f7ec87bfcc2097b3ef8c0b21a83525efe6fc6e0bd040",
       "png_sha256": "0080e93a11567ad79a15dab235568e03a94785c97702d151f798673708cdb771",
+      "pdf_sha256": "d363d4e5cc122bb3a65c3df37f841dd6bc2d14c7f17e16f63ce7776292ca92fa",
       "source_member": "word/media/image1.svg"
     },
     {
@@ -19,8 +21,10 @@
       "title": "Evidence-aware attention and path reasoning",
       "svg": "figure02-en.svg",
       "png": "figure02-en.png",
+      "pdf": "figure02-en.pdf",
       "svg_sha256": "897c12b75bbd4e85aa26ff2c195a2224cfc529ec04d7fd17cd2b22f0bd4dc15f",
       "png_sha256": "e2d155357c2345ddfd5a478f1a5951505429ff4f75c3bdce633b38d71b055a36",
+      "pdf_sha256": "8a4394a9dfe8ee74f31a111b676aa69c5b5126295d96322e19fbf53019bc3d1b",
       "source_member": "word/media/image2.svg"
     },
     {
@@ -29,8 +33,10 @@
       "title": "R0 five-fold development evaluation protocol",
       "svg": "figure03-en.svg",
       "png": "figure03-en.png",
+      "pdf": "figure03-en.pdf",
       "svg_sha256": "9a956433162f4791fc58c8809422c2d0996ffd84b9bc1a376bf9d2545fcdad25",
       "png_sha256": "3bd2ec34fc4a98d47fdb54fe96141d869932120657bee6a3332aeb8bee1968fa",
+      "pdf_sha256": "81c47d65e4471103e69046132a2591ec91efb11fe2d3534b7002110ec7016b9f",
       "source_member": "word/media/image3.svg"
     },
     {
@@ -39,8 +45,10 @@
       "title": "Disease-macro ROC and precision-recall curves",
       "svg": "figure04-en.svg",
       "png": "figure04-en.png",
+      "pdf": "figure04-en.pdf",
       "svg_sha256": "d25f09108c46617837711c16f56a09169c11324da836b83fecb00c3f65001a7b",
       "png_sha256": "64eb2f5472aaa9ea41184785227af23a21465031fb5cfabc4de04e2f8a7fbb07",
+      "pdf_sha256": "6dc643fe21b2d0ba8c77f1772270c55532143a9de9fa9d42b403d68860448aa2",
       "source_member": "word/media/image4.svg"
     },
     {
@@ -49,8 +57,10 @@
       "title": "Within-fold disease-macro ranking performance",
       "svg": "figure05-en.svg",
       "png": "figure05-en.png",
+      "pdf": "figure05-en.pdf",
       "svg_sha256": "a7201cc5876d149a047af121859d9339a912b1b31fe83f1fe8a737c802c1caff",
       "png_sha256": "f9db8bde3063f820b73717130071f41633767343ef394fc48a08ff7dd64a4e0f",
+      "pdf_sha256": "d8fd8475f81e7879d67b13791f91ca950b1715dabd1321576f8ec1ae94dca4f2",
       "source_member": "word/media/image5.svg"
     },
     {
@@ -59,8 +69,10 @@
       "title": "Evidence and path coverage in fixed training diagnostics",
       "svg": "figure06-en.svg",
       "png": "figure06-en.png",
+      "pdf": "figure06-en.pdf",
       "svg_sha256": "10d9785e88502833f534684792a6ef8b0a24d43f676e3e57d95850ac3a72c991",
       "png_sha256": "94b5ea60acb17c7a83801fc20d6bbba375264f1faf7bcb99f614dea6b461eebf",
+      "pdf_sha256": "628f9716177959dbee52abde75f1002b2c59c1c64537d02e49f2d86ffde3ac8d",
       "source_member": "word/media/image6.svg"
     },
     {
@@ -69,8 +81,10 @@
       "title": "Training loss by sampling stage",
       "svg": "figure07-en.svg",
       "png": "figure07-en.png",
+      "pdf": "figure07-en.pdf",
       "svg_sha256": "5e748a0330173b7f9e63996e173c49bc460d6ec52940f2a6969f5a69db9cab9b",
       "png_sha256": "8691422c076c32ffc7cab10ed64dd57facacb2682c43013ebdb6d1795b8ab066",
+      "pdf_sha256": "03f5973775b1819c0a6d9adf5011c018d0caf8680cca68b00463236d4692e9c2",
       "source_member": "word/media/image7.svg"
     },
     {
@@ -79,8 +93,10 @@
       "title": "Per-disease AP differences",
       "svg": "figure08-en.svg",
       "png": "figure08-en.png",
+      "pdf": "figure08-en.pdf",
       "svg_sha256": "d19b9f92937c0cf8a6f92d2fc2ff043bd43f24564acd1afa1c71bbeacf9bb6e1",
       "png_sha256": "76b6cd358f454c9d15640e8be291c4373465f52d6bee7566c271798e6b43653a",
+      "pdf_sha256": "4950e723ac426030f75efccf40c2fae10125a8e25a0f4a55d24a9c5c69e6d0c5",
       "source_member": "word/media/image8.svg"
     },
     {
@@ -89,8 +105,10 @@
       "title": "Ranking performance by candidate-set size",
       "svg": "figure09-en.svg",
       "png": "figure09-en.png",
+      "pdf": "figure09-en.pdf",
       "svg_sha256": "861ab3a747ef48bee037c0ebcc2add41202a0a35a9e679d9e832b4fe509f718a",
       "png_sha256": "af04b10a646a3e11fdbca76ae5e67d93e3b90f6f9c6c2e4ffd299e6f7e7c4d11",
+      "pdf_sha256": "03c500af5a500c489fbf8a1ebbf7e10519fb5fe51f9dcdc46956beb2cc194fde",
       "source_member": "word/media/image9.svg"
     },
     {
@@ -99,8 +117,10 @@
       "title": "Contra AP fold coverage and aggregation sensitivity",
       "svg": "figure10-en.svg",
       "png": "figure10-en.png",
+      "pdf": "figure10-en.pdf",
       "svg_sha256": "0c329cf248bd0f846308bb7a67f9082cd73878c7ab9f27369d864c2887baa012",
       "png_sha256": "8cc80110522891053bb3e6f53484880e3197ded023f8a8f182ef7497ba9ab07f",
+      "pdf_sha256": "5df1f23af8b347bf9c445f4c941854a9ceb1909fb51f78efd7749c7a0a281dc7",
       "source_member": "word/media/image10.svg"
     },
     {
@@ -109,8 +129,10 @@
       "title": "Full candidate rankings for three representative diseases",
       "svg": "figure11-en.svg",
       "png": "figure11-en.png",
+      "pdf": "figure11-en.pdf",
       "svg_sha256": "d622d7159406b6f4c92e93893b892d0fa9b014324b1b640266601d5b0d16604f",
       "png_sha256": "f2960825e68038dd0ae4ced9d7fb82007f22ae8d157606dd752b5ac40980ab8b",
+      "pdf_sha256": "17f4b72ebca109f1d67b984f12ba8c98574f463848d1e086f1e3f9c48a9838ca",
       "source_member": "word/media/image11.svg"
     },
     {
@@ -119,9 +141,11 @@
       "title": "EviHGT architecture",
       "svg": "figure01-zh.svg",
       "png": "figure01-zh.png",
-      "svg_sha256": "c79a4f2137572a5cad62df121afe4c5b824744530a9d9dc075e5bca75f94a60b",
-      "png_sha256": "f71be3cfa48f7341ba3524fac53627c129679818765f417a33059c4381b7c685",
-      "source_member": "word/media/image1.svg"
+      "pdf": "figure01-zh.pdf",
+      "svg_sha256": "3cf6d541fc948a2941a30e67bd35a980995a74a00a85dc764e5acab1f8fb0574",
+      "png_sha256": "9aa4f7bb643377cac2b60985fb2a69a96b0859ff11a2b0d3713a0dc7857ef85d",
+      "pdf_sha256": "dd7f9502132f70eb527c4778d5ad41543778986b84fd8383544b525f99a3329d",
+      "source_member": "word/media/image2.svg"
     },
     {
       "figure": 2,
@@ -129,9 +153,11 @@
       "title": "Evidence-aware attention and path reasoning",
       "svg": "figure02-zh.svg",
       "png": "figure02-zh.png",
-      "svg_sha256": "21cf5aa06476a8c01c0e0292580a434fa68ce766ef82b15794c505bbbe0f0b2c",
-      "png_sha256": "a943f0c23c2333a7a754d3413d21b37181604f9e3e47685f9a12b312690b8609",
-      "source_member": "word/media/image2.svg"
+      "pdf": "figure02-zh.pdf",
+      "svg_sha256": "44b0205cce8c37569d8a826cef0a92cf6af662e15b22240d0a75be15af9de070",
+      "png_sha256": "317030a3680df287bc8909ffe1c0d4b8ecb0946d161f24e6125f4a03d30dbe16",
+      "pdf_sha256": "335b7c9caf298694f238ded4db7746f48980bc94c204c158f2cb6a2c7a7ef77d",
+      "source_member": "word/media/image4.svg"
     },
     {
       "figure": 3,
@@ -139,9 +165,11 @@
       "title": "R0 five-fold development evaluation protocol",
       "svg": "figure03-zh.svg",
       "png": "figure03-zh.png",
-      "svg_sha256": "7950781a7226364db25fc78d661c006ac0eb7a237f12819ea9571026ee92c53c",
-      "png_sha256": "6cbecd9b677fa9f3ce9ebe4c11a49a917b81d1e9fb48a9bf5537a484b5ffefb8",
-      "source_member": "word/media/image3.svg"
+      "pdf": "figure03-zh.pdf",
+      "svg_sha256": "a44178a4aa9f44c860999d22e2c7db4523daedc880fcea1ab02b8fa85fb815b1",
+      "png_sha256": "cbd4fe610014e6d268d3c5e181cf34aff255c60a201de81c84d590d0e4dae282",
+      "pdf_sha256": "e584c80c04d0b0233b8aa56e20210ffdf395bbfca7b9087615b48388d9ba71c0",
+      "source_member": "word/media/image6.svg"
     },
     {
       "figure": 4,
@@ -149,9 +177,11 @@
       "title": "Disease-macro ROC and precision-recall curves",
       "svg": "figure04-zh.svg",
       "png": "figure04-zh.png",
-      "svg_sha256": "ee88fe018d4b5a8b59953dac6919224ac13dd6758c0b51e35254036cdfeba8bd",
-      "png_sha256": "1cf84a97d8c67a75078b380193aba9b171a16a0723f541270488041350b56012",
-      "source_member": "word/media/image4.svg"
+      "pdf": "figure04-zh.pdf",
+      "svg_sha256": "1c0ead2e1ed901803ca333380ff85991024dc47450e68d4d8607045cf1d39b4f",
+      "png_sha256": "4a184d492f590e8800759c5db2a7e4b5f6e15cdd2dda9c366749c0f4641950cf",
+      "pdf_sha256": "2c535b9f8ea03919df985b3ce978454b447d542fa14077271fcb0733c931a4d4",
+      "source_member": "word/media/image8.svg"
     },
     {
       "figure": 5,
@@ -159,9 +189,11 @@
       "title": "Within-fold disease-macro ranking performance",
       "svg": "figure05-zh.svg",
       "png": "figure05-zh.png",
-      "svg_sha256": "df463815e10c8a57d35e13ceae64ffea411eeb49fe4c6b14e2296066fb8ba0a1",
-      "png_sha256": "9ccc46f36f606317f425d701f17a253241aac61d150fa85c23f4d24144e918b3",
-      "source_member": "word/media/image5.svg"
+      "pdf": "figure05-zh.pdf",
+      "svg_sha256": "54db52c5533e948e5e10392449f19ca11337d3364a6938327f47ddf9b6cb4c21",
+      "png_sha256": "43c8b1ef1200aed13c1000f9289cca5bf67513b4466c85126353fc02cce53623",
+      "pdf_sha256": "fff7e55b4075960924157f0a9862b078b640affae6382d20abee3d6272c511f5",
+      "source_member": "word/media/image10.svg"
     },
     {
       "figure": 6,
@@ -169,9 +201,11 @@
       "title": "Evidence and path coverage in fixed training diagnostics",
       "svg": "figure06-zh.svg",
       "png": "figure06-zh.png",
-      "svg_sha256": "6dd62d18bb5c1cbbd8a9c21b7d53e72dec6e9586037752ca9ed4dcfdbb5f44b3",
-      "png_sha256": "c4d71594536bc428101184f92d16d04de4d4d9c335f2c6d2a551460fc503041a",
-      "source_member": "word/media/image6.svg"
+      "pdf": "figure06-zh.pdf",
+      "svg_sha256": "533b44a80025cb2a63224a989fdcf0da8114ab95e22a6da38207faf6ada436b5",
+      "png_sha256": "78ad5442687439d291bc2b4e645e45eccb78e05b5d7fbeb8730db3c99143e323",
+      "pdf_sha256": "ecfffcda9bd79a0cd2c2bc15cfb79c8a5bff8ac4e352339dbc4789f826f559ef",
+      "source_member": "word/media/image12.svg"
     },
     {
       "figure": 7,
@@ -179,9 +213,11 @@
       "title": "Training loss by sampling stage",
       "svg": "figure07-zh.svg",
       "png": "figure07-zh.png",
-      "svg_sha256": "2ad9988820ba8d64363e4f1e6b92bb46c98ac1ae9be6844b8774a4ffce823fcf",
-      "png_sha256": "ec011457adfb0a1d3f125506c8a766102f1478b71ae6c83cc2a663dbeaf84728",
-      "source_member": "word/media/image7.svg"
+      "pdf": "figure07-zh.pdf",
+      "svg_sha256": "678bac7ca6c8bf0749d33e229d17adf934354c301ef7c53837b38879e4636787",
+      "png_sha256": "bfc008e40d2fa62f9215e0ac5080718c94d8f8afdfd43bbb694821818a131b04",
+      "pdf_sha256": "0f6a99a9940a30cb8ae8b9f755bc60275b7a26bd58a7c4bf2b49a3d24a4f9152",
+      "source_member": "word/media/image14.svg"
     },
     {
       "figure": 8,
@@ -189,9 +225,11 @@
       "title": "Per-disease AP differences",
       "svg": "figure08-zh.svg",
       "png": "figure08-zh.png",
-      "svg_sha256": "6c7835582f7852bfa72d96d0b1ba199f5f7a05484cf1e8f440de77a95135ed79",
-      "png_sha256": "87bf428edb38e750c771e7beb254ebbe6542d4967e5e9fffd5235633e4dfac6d",
-      "source_member": "word/media/image8.svg"
+      "pdf": "figure08-zh.pdf",
+      "svg_sha256": "9475013efb326e228941c5a9c8f810283210a2c72810b8f165d470ed2a0e7b5b",
+      "png_sha256": "e6ec774f95782a1d97721f62cdf0da17150a495ffd0e12e1fc6cf63359e219d8",
+      "pdf_sha256": "b868743abec29f487f709c43ddcea8fd7e6a13b7d33d5841184785b610d4c94b",
+      "source_member": "word/media/image16.svg"
     },
     {
       "figure": 9,
@@ -199,9 +237,11 @@
       "title": "Ranking performance by candidate-set size",
       "svg": "figure09-zh.svg",
       "png": "figure09-zh.png",
-      "svg_sha256": "57cb629851d6b21bbc6e545a355f70ace083c219d97448bb84ff2dbb17dbd857",
-      "png_sha256": "37cea6dc9f8e449ec84479a795ac64017bdca459a0906bb2e42151b7af496b2f",
-      "source_member": "word/media/image9.svg"
+      "pdf": "figure09-zh.pdf",
+      "svg_sha256": "648c53a432323041fb8db6ed5c4ff4a4780983891ca5b0a9432b858363f6aa36",
+      "png_sha256": "d36043c60368254ef8f98fc6f017e27e4f1247ed9abc183cf3d3250da3a3e804",
+      "pdf_sha256": "54c273a1f943f53414fa4207b71f7ba7876b440b27d42a4646764d61ff9b9661",
+      "source_member": "word/media/image18.svg"
     },
     {
       "figure": 10,
@@ -209,9 +249,11 @@
       "title": "Contra AP fold coverage and aggregation sensitivity",
       "svg": "figure10-zh.svg",
       "png": "figure10-zh.png",
-      "svg_sha256": "32e12980c7ad3895bb4c9f2cfff1e993c0e7bfa04ff576d3dbc8ea744b1d2855",
-      "png_sha256": "ee778ad7c459b0c2f88f94e90376e4824bfbf1db88d67e417a5533f8a323dd15",
-      "source_member": "word/media/image10.svg"
+      "pdf": "figure10-zh.pdf",
+      "svg_sha256": "0971813b3d5bc18f1456c8d3923b1ca3ec20b93b35700028d5e13e8780054dd2",
+      "png_sha256": "1c7d1b86ca18ebf1581ef93377284fb3dff6458d77a6dca5862414978d479fee",
+      "pdf_sha256": "8b7c62bd55c0aeb9420bcf84bbb65cd084b316605a318c54480312445dbf7b4b",
+      "source_member": "word/media/image20.svg"
     },
     {
       "figure": 11,
@@ -219,9 +261,11 @@
       "title": "Full candidate rankings for three representative diseases",
       "svg": "figure11-zh.svg",
       "png": "figure11-zh.png",
-      "svg_sha256": "98403289022b2f52014a0da5e653c0b95b23652e428716572d2069fa1cd241d8",
-      "png_sha256": "21bb539b086a0ca7cf2282d3e427e459e60a1bb9193b52a6e93ee7810a1854c5",
-      "source_member": "word/media/image11.svg"
+      "pdf": "figure11-zh.pdf",
+      "svg_sha256": "1ed4b9146d8f5d3a15ea93ce183cf1623282d1dbe2413c2c4f263ba16c2031da",
+      "png_sha256": "ade4e9db0ca107036cd666fd20235d299bb1ee5e0c648b183c396dd59082bc64",
+      "pdf_sha256": "0f6267c039b81991a42b4c0355fa0a646457a9b4eba0eb33802e79cf0d26c48a",
+      "source_member": "word/media/image22.svg"
     }
   ],
   "editable_sources": [
@@ -241,7 +285,23 @@
       ],
       "language": "zh",
       "file": "architecture-zh.vsdx",
-      "sha256": "f2b5ccce6b5021366bc8db9d090d5e20dff4abf04f9a446e6064be9ff1710d24"
+      "sha256": "aecd39ec666978c53d624c17adca3e0846e372ba7d2a05ced4d9e1d47912fb86"
+    },
+    {
+      "figures": [
+        3
+      ],
+      "language": "en",
+      "file": "protocol-en.vsdx",
+      "sha256": "bed6e85752bc92be405e30f70b03dec05868ea270cfab771577d1d73f598ec6a"
+    },
+    {
+      "figures": [
+        3
+      ],
+      "language": "zh",
+      "file": "protocol-zh.vsdx",
+      "sha256": "716123827a652d58546396cae37d84fb3c063ed255c16743b6b470e4812f62d1"
     }
   ]
 }

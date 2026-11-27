@@ -1,5 +1,7 @@
 # October common development pilot
 
+[中文指南](README.zh-CN.md)
+
 The pilot evaluated HGTDR, TxGNN and an existing EviHGT-side checkpoint on a shared masked graph and the same support candidates. One fold and one seed were used. The two native systems each tried three learning rates. HGTDR used CUDA and scored the development panel after each of 300 epochs. TxGNN used CPU, one pretraining epoch and 500 fine-tuning epochs, with development selection every 25 epochs. The cached EviHGT-side result came from an earlier development selection. Their native losses, inputs and model selection budgets differed. Observed support ROC-AUC ranked HGTDR first, followed by EviHGT and TxGNN.
 
 The [pilot settings](settings.json) preserve the recorded scientific parameters with workstation paths removed. The package tree under [EviHGT](EviHGT/) groups the pilot by data export, scoring and execution. [Data export](EviHGT/src/evi_hgt/competition/data.py) constructs the common graph, candidates and sampling policy. [Protocol](EviHGT/src/evi_hgt/competition/protocol.py) checks membership and selects candidates. The [driver](EviHGT/src/evi_hgt/competition/runner.py) checks each baseline's receipts, checkpoint identity, saved scores and metrics. The corresponding [native adapters](../native_adapters/) contain the baseline-side code.

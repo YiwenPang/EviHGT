@@ -1,5 +1,7 @@
 # Historical learning-rate selection
 
+[中文指南](README.zh-CN.md)
+
 The five-rate study trained FULL twice through the training positives for each candidate rate at seed 42. It selected the smallest validation objective over the two cycles, with an absolute tie tolerance of 1e-8 and a preference for the smaller learning rate. The completed candidates were 2e-5, 5e-5, 1e-4, 3e-4 and 1e-3. The search expanded at the low end after the initial results. A storage failure invalidated the 2e-4 attempt before completion, and the planned 5e-4 run was not executed. The subsequent ablation study used FULL's selected rate of 5e-5 for all variants. That design compares changes to the reference configuration. It gives FULL more hyperparameter selection opportunities.
 
 The [five paired validation readings](validation_objectives.csv) reproduce the recorded selection. The [report program](tools/lr_tuning_report.py) verifies the runs and generates the historical sweep figures from locally held artifacts. Its public copy defaults to a report directory under the research workspace's outputs. The [source inventory](source_sha256.json) records both file digests. The common [model-selection code](../ablations/historical/src/evi_hgt/training/model_selection.py) and [validation driver](../ablations/historical/src/evi_hgt/training/formal_driver.py) are in the historical ablation archive.

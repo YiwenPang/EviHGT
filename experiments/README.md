@@ -1,5 +1,7 @@
 # Experiment code
 
+[中文指南](README.zh-CN.md)
+
 ## Run from the source databases
 
 Download the four source files and run the commands from the repository root. Preparation constructs the canonical graph, splits, candidate files, features, and training plans. The first online run downloads any missing pinned Open Targets and encoder resources. [Download and placement](../docs/data.md#download-and-place-the-source-databases) · [Main installation](../README.md#installation)

@@ -1,5 +1,7 @@
 # R0 comparison audit
 
+[中文指南](README.zh-CN.md)
+
 The [fold ledger](r0_fold_audit.csv) records all 55 method/fold/output results behind the original six-method comparison. It includes aggregate counts, the SHA-256 of sorted (drug, disease, P/U role) triples, the number of evaluable diseases, and three fold-level metrics. Each row identifies the original metric and completion files by checksum. HGTDR R0F0 used an earlier cache whose metric header omitted the panel checksum. Its digest in the ledger was recomputed from the saved candidates at selected epoch 222.
 
 Run the public consistency check from the repository root.

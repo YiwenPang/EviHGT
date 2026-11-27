@@ -185,11 +185,11 @@ Offline preparation requires the exact pinned Open Targets and encoder files; it
 
 ## Architecture
 
-![EviHGT architecture showing the shared fused representation feeding both prediction heads](docs/figures/architecture.svg)
+![EviHGT architecture showing the shared fused representation feeding both prediction heads](docs/figures/manuscript/figure01-en.svg)
 
-[Overview (SVG)](docs/figures/architecture.svg) · [Overview (PDF)](docs/figures/architecture.pdf) · [Layer and path details (SVG)](docs/figures/architecture_details.svg) · [Layer and path details (PDF)](docs/figures/architecture_details.pdf) · [Editable Visio source](docs/figures/architecture.vsdx)
+[Figure 1 (SVG)](docs/figures/manuscript/figure01-en.svg) · [Figure 1 (PDF)](docs/figures/manuscript/figure01-en.pdf) · [Figure 2 (SVG)](docs/figures/manuscript/figure02-en.svg) · [Figure 2 (PDF)](docs/figures/manuscript/figure02-en.pdf) · [Editable Visio for Figures 1 and 2](docs/figures/manuscript/architecture-en.vsdx)
 
-[Manuscript Figures 1–11 in English and Chinese](docs/manuscript_figures.md) provides the artwork used in the current draft, with SVG vectors, PNG previews and editable diagram sources.
+The 27 November 2026 figure set includes the manuscript SVGs, PNG previews, single-page figure PDFs and editable Visio diagrams. [Manuscript Figures 1–11](docs/manuscript_figures.md)
 
 The full model combines provenance-aware evidence pooling, four-valued fact representations (True, False, Both and Unknown), query-conditioned graph layers, and bounded path encoding. It can use frozen chemical and disease-name embeddings as node features. When fact logic is available, the four direct logic transforms are averaged with equal weights. Learned fact masses enter the edge context. [Model equations and ablations](docs/model.md)
 

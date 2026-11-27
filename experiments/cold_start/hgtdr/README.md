@@ -1,5 +1,7 @@
 # HGTDR cold-disease comparison
 
+[中文指南](README.zh-CN.md)
+
 The comparison uses the strict disease split prepared by the [cold-start scripts](../). Two single-output HGTDR models learn from recorded indications and contraindications, respectively. Each uses the native 300-epoch recipe with AdamW at a starting rate of 0.003, cosine decay and equal numbers of recorded positives and sampled unlabeled pairs in each batch. Checkpoint selection uses development disease-macro ROC-AUC, then AP, then the earlier epoch. The recorded support and contra checkpoints were selected at epochs 149 and 53, respectively.
 
 The selected models rank the same held-out candidates as EviHGT. The disease is absent from training and its incident graph facts are removed. Both methods use the same frozen drug and disease embeddings. EviHGT also uses its static side information and reports its fixed three-cycle checkpoint. [Results and paired intervals](../../../docs/experiments.md#cold-disease-comparison)

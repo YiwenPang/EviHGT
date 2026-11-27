@@ -1,5 +1,7 @@
 # HGTDR-adapted-contra
 
+[中文指南](README.zh-CN.md)
+
 This adapter trains the HGTDR single-output model on recorded contraindications. Each R0 fold uses its original masked graph, training contraindication positives, and sampled unlabeled pairs. Evaluation uses the common inner development candidates. The loss encodes P and sampled U as 1 and 0. U retains its unlabeled status.
 
 The training recipe uses AdamW with an initial learning rate of 0.003 and cosine annealing over 300 epochs. Each batch contains equal numbers of P and U. We select the checkpoint by disease-macro ROC-AUC, then AP, then the earlier epoch. The R0 summary averages each disease over its eligible folds and then weights diseases equally.

@@ -1,5 +1,7 @@
 # Training objective and ablation experiments
 
+[中文指南](README.zh-CN.md)
+
 The main entry point runs the paired loss and evidence experiments. This directory also records the earlier six-variant holdout study, which used its own models, data splits, and checkpoint rule.
 
 ## Run from the four source files

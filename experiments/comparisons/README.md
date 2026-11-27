@@ -1,5 +1,7 @@
 # Comparisons on the R0 development folds
 
+[中文指南](README.zh-CN.md)
+
 ## Run the R0 comparison from the four source files
 
 ```sh
