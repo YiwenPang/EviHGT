@@ -1,6 +1,6 @@
 {
   "schema": "EVIHGT_RESOURCE_REFERENCE_V1",
-  "scope": "Historical FULL R0F1 training with a prepared corpus and a separate real-data preparation acceptance run. The current end-to-end workflow was not timed.",
+  "scope": "Historical FULL R0F1 single-fold training with a prepared corpus, historical FULL multi-fold runs, and a separate real-data preparation acceptance run. The current end-to-end workflow was not timed.",
   "environment": {
     "scope": "Observed research workstation and software snapshots. The original training receipt has no per-run package inventory.",
     "os": "Windows 11 Pro for Workstations",
@@ -111,6 +111,48 @@
       "historical_diagnostic_10270",
       "historical_diagnostic_20541",
       "historical_runner"
+    ]
+  },
+  "historical_multifold": {
+    "method": "FULL",
+    "timezone": "Asia/Shanghai",
+    "scope": "This historical FULL queue trained 12 new fold models in sequence. Three fold results were reused from earlier runs, including the R0F1 single-fold run reported separately above. The R2 group comprises five folds from the same historical queue.",
+    "measurement": "A fold window starts at creation of its training event log and ends at the completion receipt after development evaluation and finalization. The queue elapsed time also includes worker startup before the first training log and gaps between folds.",
+    "r2_five_folds": {
+      "cells": [
+        "R2F0",
+        "R2F1",
+        "R2F2",
+        "R2F3",
+        "R2F4"
+      ],
+      "first_training_log_at": "2026-11-04T10:56:22.548161+08:00",
+      "last_complete_at": "2026-11-08T06:29:54.333653+08:00",
+      "wall_hours": 91.55882930333333,
+      "sum_cell_window_hours": 91.23568731380834
+    },
+    "full_queue_new_folds": {
+      "fold_count": 12,
+      "reused_earlier_fold_results": [
+        "R0F0",
+        "R0F1",
+        "R1F0"
+      ],
+      "worker_start_at": "2026-10-30T17:11:03.359835+08:00",
+      "last_complete_at": "2026-11-08T06:29:54.333653+08:00",
+      "wall_hours": 205.31415939397283,
+      "sum_cell_window_hours": 204.30742314802276,
+      "sum_training_log_window_hours": 180.91426393979125,
+      "sum_post_training_window_hours": 23.393159208231502,
+      "single_fold_window_hours_range": [
+        9.962840693129433,
+        19.186369318763415
+      ],
+      "logged_replayed_updates": 0
+    },
+    "current_comparison_and_all_experiment_wall_times": "Unmeasured. These timings cover only the historical FULL models.",
+    "source_ids": [
+      "historical_multifold_summary"
     ]
   },
   "raw_preparation": {
@@ -392,6 +434,11 @@
         "root": "repository",
         "path": "src/evi_hgt/runner.py",
         "sha256": "4f96e54701eff076e973e005850ab1d566e82da15d770a6cc9c1aa029fb01d2f"
+      },
+      "historical_multifold_summary": {
+        "root": "research_archive",
+        "path": "outputs/phase9/phase98/full_summary_20261108/summary.json",
+        "sha256": "8f56235726518d701c2f92a132319a706ab192fe764c2bbce5da30e20a8e61d3"
       }
     }
   }

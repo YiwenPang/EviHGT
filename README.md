@@ -4,7 +4,7 @@
 
 EviHGT is an evidence-aware heterogeneous graph Transformer for drug–disease association ranking. Given a drug–disease query, it builds a subgraph from OptimusKG and structured DrugBank records, encodes the evidence and its provenance, and scores treatment support and contraindication-related associations in separate heads.
 
-Use `main.py` to prepare the raw databases, train the FULL model for three cycles, evaluate both development outputs, and save drug rankings and path explanations with an HTML report. Follow the steps below from the repository root.
+Use `main.py` to prepare the raw databases, train the FULL model for three cycles on the default R0F1 fold, evaluate both development outputs, and save drug rankings and path explanations with an HTML report. Follow the steps below from the repository root.
 
 ## Installation
 
@@ -116,7 +116,7 @@ The default configuration files are:
 
 Use `--raw-config`, `--config` or `--report-config` to select another YAML file. Report limits control saved output and explanation work; they do not change training samples, optimizer updates or the development candidate panels.
 
-The raw recipe reconstructs the original R0F1 memberships and fixed sampling plan for this FULL run.
+The default command runs FULL on one fold, R0F1 (`R0` is repeat 0; `F1` is fold 1). All three training cycles belong to that same fold. The raw recipe reconstructs its original memberships and fixed sampling plan.
 
 For CPU training, add `--config configs/cpu.yaml`. If raw preparation must also use CPU, copy `configs/raw.yaml`, set `feature_device: cpu`, and pass that copy with `--raw-config`. In PyCharm, select the same interpreter and run `main.py` from the repository root.
 
@@ -137,20 +137,32 @@ These software versions come from workstation snapshots; the original training r
 
 | Measurement | Recorded value and scope |
 | --- | --- |
-| Original R0F1 FULL run | **10h 35m 12s** wall time: three training cycles, 20,541 optimizer updates, two development evaluations and fixed diagnostics. Starts with an existing corpus. |
+| Historical single-fold FULL run: R0F1 | **10h 35m 12s** wall time: three training cycles, 20,541 optimizer updates, two development evaluations and fixed diagnostics. Starts with an existing corpus. |
 | Training updates within that run | 8h 24m 33s, including query assembly, forward passes, backpropagation and optimizer steps. |
 | Raw-data preparation | 11m 52s in a separate completed preparation run, with auxiliary downloads already cached. |
 | Process RAM | **7.21GiB**, maximum RSS recorded after a training update. |
 | GPU memory | **3.02GiB**, maximum PyTorch CUDA reserved memory recorded after a training update. |
 | Retained data and caches | **6.437GiB**: four raw files, auxiliary caches, retained intermediate files and the prepared corpus with frozen features. |
 | Python environment | 3.369GiB for the measured `.venv`, bringing data plus this environment to **9.806GiB**. |
-| Historical training outputs | 1.379GiB, including 23 checkpoints; the final checkpoint is 58.92MiB. |
+| Historical R0F1 training outputs | 1.379GiB, including 23 checkpoints; the final checkpoint is 58.92MiB. |
 
 The current `main.py` evaluates after each of the three cycles and also exports rankings, explanations and an HTML report. Its complete wall time has not yet been measured. RAM and GPU figures are maxima among logged samples; full-workflow and instantaneous peaks were not recorded. Disk figures are retained logical file sizes, with system Python, drivers and download staging excluded. Allow additional space for temporary files and new outputs. The current workflow maintains one rolling `checkpoints/latest.pt`; its final output size has not yet been measured.
 
-![Measured time composition of the original R0F1 run and retained disk usage](docs/assets/resource_profile_en.svg)
+![Measured time composition of the historical single-fold R0F1 run and retained disk usage](docs/assets/resource_profile_en.svg)
 
 [Resource measurements, scope and source checksums](docs/resource_reference.json)
+
+### Single-fold and multi-fold runtime
+
+The **10h 35m 12s** reference covers one historical R0F1 FULL run. A multi-fold experiment trains a separate model for each fold, so its elapsed time accumulates across runs.
+
+| Historical FULL scope | Recorded duration | Period (UTC+8) |
+| --- | --- | --- |
+| One fold: R0F1, three training cycles | **10h 35m 12s** | Original single-fold worker timing. |
+| One repeat: all five R2 folds | **91.56h**, about **3d 19h 34m** | 4–8 November 2026. |
+| Queue of 12 additional folds | **205.31h**, about **8d 13h 19m** | 30 October–8 November 2026. |
+
+The R2 interval runs from the first fold's training-log creation to the final fold's completion receipt. The 12-fold interval runs from worker startup to the last completion receipt, including initialization and gaps between folds. Both include development evaluation and finalization. These 12 folds were newly trained; three other folds, including R0F1, reused earlier results and are outside this interval. These are historical FULL timings; the complete wall time of the current `--experiment comparisons` and `--experiment all` workflows has not yet been measured. [Timing definitions and source checksums](docs/resource_reference.json)
 
 ## Run the paper experiments
 
@@ -164,7 +176,7 @@ python main.py --experiment cold
 python main.py --experiment all
 ```
 
-`all` runs the four suites in sequence. To check a smaller setup, use this CPU smoke test with synthetic data.
+`comparisons` runs FULL and six baselines across the five R0 folds. `all` runs the four suites in sequence. To check a smaller setup, use this CPU smoke test with synthetic data.
 
 ```sh
 python main.py --experiment comparisons --smoke --methods FULL TRAIN_VISIBLE_POPULARITY
