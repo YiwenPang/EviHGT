@@ -244,7 +244,9 @@ Offline preparation requires the exact pinned Open Targets and encoder files; it
 
 [Figure 1 (SVG)](docs/figures/manuscript/figure01-en.svg) · [Figure 1 (PDF)](docs/figures/manuscript/figure01-en.pdf) · [Figure 2 (SVG)](docs/figures/manuscript/figure02-en.svg) · [Figure 2 (PDF)](docs/figures/manuscript/figure02-en.pdf) · [Editable Visio for Figures 1 and 2](docs/figures/manuscript/architecture-en.vsdx)
 
-The 27 November 2026 figure set includes the manuscript SVGs, PNG previews, single-page figure PDFs and editable Visio diagrams. [Manuscript Figures 1–11](docs/manuscript_figures.md)
+![Figure 2. Evidence attention, graph Transformer and path Transformer](docs/figures/manuscript/figure02-en.svg)
+
+Figure 2 shows the attention and path layers. In both language editions, `Drop.` abbreviates `Dropout`. The 28 November 2026 figure set includes the manuscript SVGs, PNG previews, single-page PDFs and editable Visio diagrams. [Manuscript Figures 1–11](docs/manuscript_figures.md)
 
 The full model combines provenance-aware evidence pooling, four-valued fact representations (True, False, Both and Unknown), query-conditioned graph layers, and bounded path encoding. It can use frozen chemical and disease-name embeddings as node features. When fact logic is available, the four direct logic transforms are averaged with equal weights. Learned fact masses enter the edge context. [Model equations and ablations](docs/model.md)
 

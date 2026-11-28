@@ -265,7 +265,9 @@ python main.py --offline
 
 [图 1 SVG](docs/figures/manuscript/figure01-zh.svg) · [图 1 PDF](docs/figures/manuscript/figure01-zh.pdf) · [图 2 SVG](docs/figures/manuscript/figure02-zh.svg) · [图 2 PDF](docs/figures/manuscript/figure02-zh.pdf) · [图 1 和图 2 的可编辑 Visio 源图](docs/figures/manuscript/architecture-zh.vsdx)
 
-2026 年 11 月 27 日版图件提供稿件所用 SVG、PNG 预览、单页图件 PDF 及可编辑的 Visio 图源。 [论文图 1–11](docs/manuscript_figures.zh-CN.md)
+![图 2　证据注意力、图 Transformer 和路径 Transformer](docs/figures/manuscript/figure02-zh.svg)
+
+图 2 展示证据注意力、图 Transformer 和路径 Transformer。中英文图中的 `Drop.` 均为 `Dropout` 的缩写。2026 年 11 月 28 日版图集提供稿件所用的 SVG、PNG 预览、单页 PDF 和可编辑的 Visio 图源。 [论文图 1–11](docs/manuscript_figures.zh-CN.md)
 
 完整模型结合来源感知的证据聚合、True/False/Both/Unknown 四值事实表示、查询条件化图层和有界路径编码，并使用冻结的化学结构与疾病名称向量作为节点特征。事实逻辑可用时，四种直接逻辑变换采用等权平均；学习得到的事实质量进入边上下文。[模型公式与消融定义](docs/model.md)
 

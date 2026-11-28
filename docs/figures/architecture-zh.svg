@@ -3742,7 +3742,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="41.4" cy="905.4" width="82.8" height="25.2"/>
 			<rect x="0" y="892.8" width="82.8" height="25.2" class="st50"/>
-			<text x="41.4" y="910.9320803782506" class="st56" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:20.009px" text-anchor="middle"><v:paragraph v:spLine="-1.13" v:horizAlign="1"/><v:tabList/>拼接</text>		</g>
+			<text x="41.4" y="910.9320803782506" class="st56" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:20.009px" text-anchor="middle"><v:paragraph v:spLine="-1.13" v:horizAlign="1"/><v:tabList/>Concat</text>		</g>
 		<g id="shape887-1948" v:mID="887" v:groupContext="shape" transform="translate(122.4,180.72) rotate(-90)">
 			<title>图1_EviHGT总体框架_0291</title>
 			<desc>Proj</desc>

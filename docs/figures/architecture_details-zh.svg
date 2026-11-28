@@ -1738,21 +1738,21 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="23.4" cy="884.88" width="46.8" height="30.24"/>
 			<rect x="0" y="869.76" width="46.8" height="30.24" class="st43"/>
-			<text x="23.4" y="891.2300520869976" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:23.962px" text-anchor="middle"><v:paragraph v:spLine="-1.13" v:horizAlign="1"/><v:tabList/>目标</text>		</g>
+			<text x="23.4" y="891.2300520869976" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:23.962px" text-anchor="middle"><v:paragraph v:spLine="-1.13" v:horizAlign="1"/><v:tabList/>dst</text>		</g>
 		<g id="shape499-970" v:mID="499" v:groupContext="shape" transform="translate(428.4,-668.88)">
 			<title>图2_证据注意力与路径推理_0128</title>
 			<desc>src</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="23.4" cy="884.88" width="46.8" height="30.24"/>
 			<rect x="0" y="869.76" width="46.8" height="30.24" class="st43"/>
-			<text x="23.4" y="891.2300520869976" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:23.962px" text-anchor="middle"><v:paragraph v:spLine="-1.13" v:horizAlign="1"/><v:tabList/>源点</text>		</g>
+			<text x="23.4" y="891.2300520869976" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:23.962px" text-anchor="middle"><v:paragraph v:spLine="-1.13" v:horizAlign="1"/><v:tabList/>src</text>		</g>
 		<g id="shape502-973" v:mID="502" v:groupContext="shape" transform="translate(428.4,-488.88)">
 			<title>图2_证据注意力与路径推理_0185</title>
 			<desc>src</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="23.4" cy="884.88" width="46.8" height="30.24"/>
 			<rect x="0" y="869.76" width="46.8" height="30.24" class="st43"/>
-			<text x="23.4" y="891.2300520869976" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:23.962px" text-anchor="middle"><v:paragraph v:spLine="-1.13" v:horizAlign="1"/><v:tabList/>源点</text>		</g>
+			<text x="23.4" y="891.2300520869976" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:23.962px" text-anchor="middle"><v:paragraph v:spLine="-1.13" v:horizAlign="1"/><v:tabList/>src</text>		</g>
 		<g id="shape504-976" v:mID="504" v:groupContext="shape" transform="translate(194.4,-817.92)">
 			<title>图2_证据注意力与路径推理_0209</title>
 			<desc>4 heads × 32</desc>
@@ -1822,7 +1822,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="37.8" cy="879.12" width="75.61" height="41.76"/>
 			<rect x="0" y="858.24" width="75.6" height="41.76" class="st43"/>
-			<text x="37.8" y="885.4149673202614" class="st48" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:23.477px" text-anchor="middle"><v:paragraph v:spLine="-1.13" v:horizAlign="1"/><v:tabList/>拼接</text>		</g>
+			<text x="37.8" y="885.4149673202614" class="st48" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:23.477px" text-anchor="middle"><v:paragraph v:spLine="-1.13" v:horizAlign="1"/><v:tabList/>Concat</text>		</g>
 		<g id="shape539-993" v:mID="539" v:groupContext="shape" transform="translate(568.8,-309.6)">
 			<title>图2_证据注意力与路径推理_0396</title>
 			<desc>×2</desc>
@@ -1849,7 +1849,7 @@
 			</v:userDefs>
 			<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
 			<v:textRect cx="41.04" cy="877.68" width="82.08" height="44.64"/>
-			<text x="41.04" y="882.6319613862595" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:20.153px" text-anchor="middle"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>注意力</text>		</g>
+			<text x="41.04" y="882.6319613862595" class="st47" v:langID="1033" style="font-family:'Times New Roman',SimSun;font-size:20.153px" text-anchor="middle"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Attention</text>		</g>
 		<g id="shape543-999" v:mID="543" v:groupContext="shape" transform="translate(-596.88,679.68) rotate(-90)">
 			<title>图2_证据注意力与路径推理_0414</title>
 			<desc>Dropout</desc>
@@ -1858,7 +1858,7 @@
 			</v:userDefs>
 			<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
 			<v:textRect cx="31.68" cy="886.68" width="63.36" height="26.64"/>
-			<text x="2.88" y="891.6319613862595" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:20.153px">失活</text>		</g>
+			<text x="2.88" y="891.6319613862595" class="st47" v:langID="1033" style="font-family:'Times New Roman',SimSun;font-size:20.153px">Drop.</text>		</g>
 		<g id="shape544-1001" v:mID="544" v:groupContext="shape" transform="translate(326.16,-239.76)">
 			<title>图2_证据注意力与路径推理_0417</title>
 			<desc>+</desc>
@@ -1894,7 +1894,7 @@
 			</v:userDefs>
 			<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
 			<v:textRect cx="31.68" cy="886.68" width="63.36" height="26.64"/>
-			<text x="2.88" y="891.6319613862595" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:20.153px">失活</text>		</g>
+			<text x="2.88" y="891.6319613862595" class="st47" v:langID="1033" style="font-family:'Times New Roman',SimSun;font-size:20.153px">Drop.</text>		</g>
 		<g id="shape548-1009" v:mID="548" v:groupContext="shape" transform="translate(570.96,-239.76)">
 			<title>图2_证据注意力与路径推理_0430</title>
 			<desc>+</desc>
@@ -1919,7 +1919,7 @@
 			</v:userDefs>
 			<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
 			<v:textRect cx="30.96" cy="880.2" width="61.92" height="39.6"/>
-			<text x="30.96" y="885.1519613862595" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:20.153px" text-anchor="middle"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>线性</text>		</g>
+			<text x="30.96" y="885.1519613862595" class="st47" v:langID="1033" style="font-family:'Times New Roman',SimSun;font-size:20.153px" text-anchor="middle"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Linear</text>		</g>
 		<g id="shape552-1016" v:mID="552" v:groupContext="shape" transform="translate(-594.72,838.8) rotate(-90)">
 			<title>图2_证据注意力与路径推理_0446</title>
 			<desc>GELU</desc>
@@ -1937,7 +1937,7 @@
 			</v:userDefs>
 			<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
 			<v:textRect cx="30.96" cy="880.2" width="61.92" height="39.6"/>
-			<text x="2.16" y="885.1519613862595" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:20.153px">失活</text>		</g>
+			<text x="2.16" y="885.1519613862595" class="st47" v:langID="1033" style="font-family:'Times New Roman',SimSun;font-size:20.153px">Drop.</text>		</g>
 		<g id="shape554-1020" v:mID="554" v:groupContext="shape" transform="translate(-393.12,838.8) rotate(-90)">
 			<title>图2_证据注意力与路径推理_0450</title>
 			<desc>Linear</desc>
@@ -1946,7 +1946,7 @@
 			</v:userDefs>
 			<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
 			<v:textRect cx="30.96" cy="880.2" width="61.92" height="39.6"/>
-			<text x="30.96" y="885.1519613862595" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:20.153px" text-anchor="middle"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>线性</text>		</g>
+			<text x="30.96" y="885.1519613862595" class="st47" v:langID="1033" style="font-family:'Times New Roman',SimSun;font-size:20.153px" text-anchor="middle"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Linear</text>		</g>
 		<g id="shape559-1022" v:mID="559" v:groupContext="shape" transform="translate(-65.52,670.32) rotate(-90)">
 			<title>图2_证据注意力与路径推理_0463</title>
 			<desc>Linear</desc>
@@ -1955,7 +1955,7 @@
 			</v:userDefs>
 			<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
 			<v:textRect cx="36.72" cy="887.4" width="73.44" height="25.2"/>
-			<text x="36.72" y="892.1326855266055" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:19.156px" text-anchor="middle"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>线性</text>		</g>
+			<text x="36.72" y="892.1326855266055" class="st47" v:langID="1033" style="font-family:'Times New Roman',SimSun;font-size:19.156px" text-anchor="middle"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Linear</text>		</g>
 		<g id="shape560-1024" v:mID="560" v:groupContext="shape" transform="translate(-18.72,670.32) rotate(-90)">
 			<title>图2_证据注意力与路径推理_0466</title>
 			<desc>GELU</desc>
@@ -2009,7 +2009,7 @@
 			</v:userDefs>
 			<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
 			<v:textRect cx="30.96" cy="887.76" width="61.92" height="24.48"/>
-			<text x="2.16" y="892.4926855266056" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:19.156px">失活</text>		</g>
+			<text x="2.16" y="892.4926855266056" class="st47" v:langID="1033" style="font-family:'Times New Roman',SimSun;font-size:19.156px">Drop.</text>		</g>
 		<g id="shape568-1036" v:mID="568" v:groupContext="shape" transform="translate(1258.56,-245.52)">
 			<title>图2_证据注意力与路径推理_0491</title>
 			<desc>LN</desc>
@@ -2036,7 +2036,7 @@
 			</v:userDefs>
 			<v:textBlock v:margins="rect(0,0,0,0)" v:tabSpace="42.5197"/>
 			<v:textRect cx="30.96" cy="887.76" width="61.92" height="24.48"/>
-			<text x="2.16" y="892.4926855266056" class="st47" v:langID="2052" style="font-family:'Times New Roman',SimSun;font-size:19.156px">失活</text>		</g>
+			<text x="2.16" y="892.4926855266056" class="st47" v:langID="1033" style="font-family:'Times New Roman',SimSun;font-size:19.156px">Drop.</text>		</g>
 		<g id="shape572-1042" v:mID="572" v:groupContext="shape" transform="translate(1217.52,-254.16)">
 			<title>图2_证据注意力与路径推理_0505</title>
 			<desc>+</desc>

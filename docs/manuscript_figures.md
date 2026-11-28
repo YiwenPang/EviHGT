@@ -2,9 +2,9 @@
 
 <sub>[简体中文](manuscript_figures.zh-CN.md)</sub>
 
-This set follows Figures 1–11 in the 27 November 2026 manuscript revision. Each SVG is the vector artwork embedded in the corresponding language edition, with text converted to outlines to preserve typography. PNG files provide previews, and each PDF contains one figure on one page. [File checksums](figures/manuscript/manifest.json)
+This set follows Figures 1–11 in the 28 November 2026 manuscript revision. Each SVG is the vector artwork embedded in the corresponding language edition, with text converted to outlines to preserve typography. PNG files provide previews, and each PDF contains one figure on one page. [File checksums](figures/manuscript/manifest.json)
 
-The Chinese figures use Chinese labels for general text. Method identifiers, metric names and mathematical notation are shared across the language versions. Corresponding figures use the same data and evaluation definitions.
+Figures 1 and 2 retain the original operator labels. In Figure 2, `src` and `dst` mark the source and destination nodes, and `Drop.` stands for `Dropout`. Method identifiers, metric names and mathematical notation are shared across the language versions. Corresponding figures use the same data and evaluation definitions.
 
 The analysis gallery includes additional views and historical studies under its own `fig01_...` to `fig16_...` filenames. [Analysis gallery](experiments.md)
 

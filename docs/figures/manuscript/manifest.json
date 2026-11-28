@@ -1,7 +1,7 @@
 {
-  "revision_date": "2026-11-27",
+  "revision_date": "2026-11-28",
   "description": "Outlined SVG artwork embedded in the corresponding complete manuscripts, with PNG previews and single-page vector PDFs. Source members identify internal Word media paths.",
-  "language_note": "Chinese figures use Chinese for general labels. The language versions share data, evaluation definitions, method identifiers, metric names, and mathematical notation.",
+  "language_note": "Figures 1 and 2 retain the original technical labels, including Drop. for Dropout. The language editions share data, evaluation definitions, method identifiers, metric names and mathematical notation.",
   "figures": [
     {
       "figure": 1,
@@ -142,9 +142,9 @@
       "svg": "figure01-zh.svg",
       "png": "figure01-zh.png",
       "pdf": "figure01-zh.pdf",
-      "svg_sha256": "3cf6d541fc948a2941a30e67bd35a980995a74a00a85dc764e5acab1f8fb0574",
-      "png_sha256": "9aa4f7bb643377cac2b60985fb2a69a96b0859ff11a2b0d3713a0dc7857ef85d",
-      "pdf_sha256": "dd7f9502132f70eb527c4778d5ad41543778986b84fd8383544b525f99a3329d",
+      "svg_sha256": "82686d4b145fc024508fa9cbce59c8faf19e3eb181ac9aa1dfa90106da327b6c",
+      "png_sha256": "2e356826fa00f070739d41f5cb9cb5dea00854b55ca03c4124b5ecc6965840b9",
+      "pdf_sha256": "fd4772c7dd9a50148d798229c903efa5e57f2f956c946b03d2066b5e99e2e65d",
       "source_member": "word/media/image2.svg"
     },
     {
@@ -154,9 +154,9 @@
       "svg": "figure02-zh.svg",
       "png": "figure02-zh.png",
       "pdf": "figure02-zh.pdf",
-      "svg_sha256": "44b0205cce8c37569d8a826cef0a92cf6af662e15b22240d0a75be15af9de070",
-      "png_sha256": "317030a3680df287bc8909ffe1c0d4b8ecb0946d161f24e6125f4a03d30dbe16",
-      "pdf_sha256": "335b7c9caf298694f238ded4db7746f48980bc94c204c158f2cb6a2c7a7ef77d",
+      "svg_sha256": "ba18fba26b63f51bc41c9d3ac4643d59dbdf29c7e72a27ad85a2d5127848bc74",
+      "png_sha256": "b0d99b191b9e9ecc3188a268e14aa23d8b9321f682f80b9b00df5541e8d2f674",
+      "pdf_sha256": "3fd0efdec099b07f0ab48bcde196f70e2a937c14edef320bcec4d6174f1edddc",
       "source_member": "word/media/image4.svg"
     },
     {
@@ -285,7 +285,7 @@
       ],
       "language": "zh",
       "file": "architecture-zh.vsdx",
-      "sha256": "aecd39ec666978c53d624c17adca3e0846e372ba7d2a05ced4d9e1d47912fb86"
+      "sha256": "e86cbba36ad179a104caaaed91caf765360936bb065fddbf6927ee65eb69efd8"
     },
     {
       "figures": [
